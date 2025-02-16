@@ -183,11 +183,11 @@ export const QuestionSection = ({
   };
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12 relative">
+    <div className="container mx-auto max-w-4xl px-4 py-6 md:py-12 relative">
       <motion.img
         src="/lovable-uploads/6037e9f3-0144-4e48-a6df-84d8a4df9090.png"
         alt="Logo"
-        className="absolute -top-8 right-4 w-16 h-16"
+        className="absolute -top-8 right-4 w-12 h-12 md:w-16 md:h-16"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -201,11 +201,11 @@ export const QuestionSection = ({
         initial="initial"
         animate="animate"
         exit="exit"
-        className="space-y-8"
+        className="space-y-6 md:space-y-8"
       >
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-primary tracking-tight"
+            className="text-2xl md:text-4xl font-bold text-primary tracking-tight"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
@@ -213,7 +213,7 @@ export const QuestionSection = ({
             {section.title}
           </motion.h2>
           <motion.p 
-            className="text-lg text-gray-600 leading-relaxed"
+            className="text-base md:text-lg text-gray-600 leading-relaxed"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
@@ -239,7 +239,7 @@ export const QuestionSection = ({
         )}
 
         <motion.div 
-          className="flex justify-between items-center pt-8"
+          className="flex justify-between items-center pt-6 md:pt-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -247,19 +247,19 @@ export const QuestionSection = ({
           {showPrevious && (
             <button
               onClick={onPrevious}
-              className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors font-medium"
+              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors text-sm md:text-base font-medium"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
               Précédent
             </button>
           )}
           {showNext && (
             <button
               onClick={handleNext}
-              className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto font-medium"
+              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
             >
               Suivant
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
             </button>
           )}
         </motion.div>

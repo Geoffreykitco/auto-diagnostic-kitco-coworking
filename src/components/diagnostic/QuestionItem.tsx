@@ -94,7 +94,7 @@ export const QuestionItem = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: questionIndex * 0.1 + 0.4 }}
-      className={`glass-morphism rounded-lg p-6 space-y-4 ${
+      className={`glass-morphism rounded-lg p-4 md:p-6 space-y-3 md:space-y-4 ${
         ((question.type === 'text' && !textValues[questionIndex]) ||
          (question.type !== 'text' && (!selectedOptions[questionIndex] || selectedOptions[questionIndex].length === 0)))
           ? 'border-2 border-red-200'
@@ -102,21 +102,23 @@ export const QuestionItem = ({
       }`}
     >
       <div className="flex items-start gap-2">
-        <h3 className="text-xl font-semibold text-primary flex-grow leading-tight">{question.question}</h3>
+        <h3 className="text-base md:text-xl font-semibold text-primary flex-grow leading-tight">
+          {question.question}
+        </h3>
         <HoverCard openDelay={200}>
           <HoverCardTrigger asChild>
             <button className="text-gray-400 hover:text-primary transition-colors duration-200">
-              <Info className="h-5 w-5" />
+              <Info className="h-4 w-4 md:h-5 md:w-5" />
             </button>
           </HoverCardTrigger>
-          <HoverCardContent className="w-80 p-4 text-sm leading-relaxed text-gray-600 bg-white">
+          <HoverCardContent className="w-72 md:w-80 p-3 md:p-4 text-sm leading-relaxed text-gray-600 bg-white">
             <p>{question.tooltip}</p>
           </HoverCardContent>
         </HoverCard>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2 md:space-y-3">
         {question.type === 'text' ? (
-          <div className="w-full text-left p-4 rounded border transition-all duration-200 border-gray-200 hover:border-primary focus-within:border-primary focus-within:bg-primary/5">
+          <div className="w-full text-left p-3 md:p-4 rounded border transition-all duration-200 border-gray-200 hover:border-primary focus-within:border-primary focus-within:bg-primary/5">
             <Input
               inputMode={getInputType(question.question) === "number" ? "numeric" : "text"}
               pattern={getInputType(question.question) === "number" ? "[0-9]*" : undefined}
@@ -126,7 +128,7 @@ export const QuestionItem = ({
                 onTextChange(questionIndex, formattedValue, question.question);
               }}
               placeholder={getPlaceholder(question.question)}
-              className="w-full border-0 p-0 h-auto text-base focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent placeholder:text-gray-400"
+              className="w-full border-0 p-0 h-auto text-sm md:text-base focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent placeholder:text-gray-400"
             />
           </div>
         ) : (
@@ -141,30 +143,30 @@ export const QuestionItem = ({
                   onOptionSelect(questionIndex, optionIndex, option.points, question.type);
                 }
               }}
-              className={`w-full text-left p-4 rounded border transition-all duration-200 flex items-center gap-3 ${
+              className={`w-full text-left p-3 md:p-4 rounded border transition-all duration-200 flex items-center gap-3 ${
                 isOptionSelected(questionIndex, optionIndex)
                   ? 'border-primary bg-primary/5'
                   : 'border-gray-200 hover:border-primary hover:bg-primary/5'
               }`}
             >
-              <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
+              <div className={`h-4 w-4 md:h-5 md:w-5 rounded border-2 flex items-center justify-center ${
                 isOptionSelected(questionIndex, optionIndex)
                   ? 'border-primary'
                   : 'border-gray-300'
               }`}>
                 {isOptionSelected(questionIndex, optionIndex) && (
-                  <div className="h-3 w-3 rounded bg-primary" />
+                  <div className="h-2 w-2 md:h-3 md:w-3 rounded bg-primary" />
                 )}
               </div>
               <div className="flex-grow">
-                <span className="text-gray-700 font-medium">{option.label}</span>
+                <span className="text-sm md:text-base text-gray-700 font-medium">{option.label}</span>
                 {option.label === "Autres (préciser)" && isOptionSelected(questionIndex, optionIndex) && (
                   <Input
                     type="text"
                     value={textValues[questionIndex] || ''}
                     onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
                     placeholder="Précisez..."
-                    className="mt-2 w-full border border-gray-200 p-2 rounded bg-white text-base focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-primary placeholder:text-gray-400"
+                    className="mt-2 w-full border border-gray-200 p-2 rounded bg-white text-sm md:text-base focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-primary placeholder:text-gray-400"
                     onClick={(e) => e.stopPropagation()}
                   />
                 )}

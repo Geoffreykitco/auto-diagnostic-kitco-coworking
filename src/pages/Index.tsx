@@ -64,7 +64,6 @@ const Index = () => {
       return newAnswers;
     });
     
-    // Sur mobile, on n'affiche qu'un indicateur visuel discret
     if (isMobile) {
       toast({
         title: "✓",
