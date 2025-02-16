@@ -1,6 +1,5 @@
 
 import { motion } from 'framer-motion';
-import logoKitco from '/logo-kitco.png';
 
 interface HeroSectionProps {
   onStart: () => void;
@@ -12,7 +11,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
       <div className="flex justify-end mb-8 px-4">
         <div className="w-32 h-12">
           <img 
-            src={logoKitco}
+            src="/lovable-uploads/d9f79468-4451-4773-9a03-cdc428bad759.png"
             alt="Kitco Logo" 
             className="w-full h-full object-contain"
           />
