@@ -112,19 +112,21 @@ export const ResultsAnalysis = ({
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-primary mb-4">Vous avez un message 🎥</h3>
           <div className="bg-gray-50 p-6 rounded-lg">
-            <audio 
-              className="w-full cursor-pointer focus:outline-none active:outline-none"
-              controls
-              preload="auto"
-              controlsList="nodownload"
-              style={{ minHeight: "40px" }}
-            >
-              <source 
-                src="https://docs.google.com/uc?export=download&id=1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS" 
-                type="audio/mp4" 
-              />
-              Votre navigateur ne supporte pas la lecture audio.
-            </audio>
+            <div className="audio-container relative">
+              <audio 
+                className="w-full cursor-pointer focus:outline-none active:outline-none"
+                controls
+                preload="auto"
+                controlsList="nodownload"
+                style={{ minHeight: "40px", opacity: 1 }}
+              >
+                <source 
+                  src="https://docs.google.com/uc?export=download&id=1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS" 
+                  type="audio/mpeg"
+                />
+                Votre navigateur ne supporte pas la lecture audio.
+              </audio>
+            </div>
           </div>
         </div>
       </motion.div>
