@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -111,17 +110,16 @@ export const ResultsAnalysis = ({
       >
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-primary mb-4">Vous avez un message 🎥</h3>
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="relative overflow-hidden rounded-lg bg-white shadow-sm">
+          <div className="bg-gradient-to-r from-[#F2FCE2] to-[#D3E4FD] p-6 rounded-xl">
+            <div className="relative overflow-hidden rounded-xl bg-white/90 backdrop-blur-sm shadow-lg border border-white/40">
               <iframe 
                 src="https://drive.google.com/file/d/1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS/preview" 
                 width="100%" 
                 height="100" 
                 allow="autoplay"
-                className="w-full border-0 bg-white"
+                className="w-full border-0 bg-white/80"
                 style={{
-                  borderRadius: "8px",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+                  borderRadius: "12px"
                 }}
               ></iframe>
             </div>
