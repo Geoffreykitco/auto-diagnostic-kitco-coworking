@@ -108,7 +108,7 @@ export const ResultsAnalysis = ({
         }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}>
             Échanger avec Geoffrey
           </motion.button>
-          <p className="text-gray-700 text-sm mt-4">30min pour un plan d'action concrêt
+          <p className="text-gray-700 mt-4 text-xs my-[5px]">30min pour un plan d'action concrêt
         </p>
         </div>
       </motion.div>
