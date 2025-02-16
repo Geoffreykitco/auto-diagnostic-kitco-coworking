@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import {
   Tooltip,
@@ -19,7 +20,7 @@ interface Option {
 interface Question {
   question: string;
   tooltip: string;
-  type: 'single' | 'multiple';
+  type: 'single' | 'multiple' | 'text';
   options: Option[];
 }
 
@@ -47,6 +48,7 @@ export const QuestionSection = ({
   showNext = true 
 }: QuestionSectionProps) => {
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
+  const [textValues, setTextValues] = useState<{ [key: number]: string }>({});
   const { toast } = useToast();
 
   const handleOptionSelect = (questionIndex: number, optionIndex: number, points: number, type: 'single' | 'multiple') => {
@@ -71,12 +73,20 @@ export const QuestionSection = ({
     });
   };
 
+  const handleTextChange = (questionIndex: number, value: string) => {
+    setTextValues(prev => ({ ...prev, [questionIndex]: value }));
+    onOptionSelect(questionIndex, 0); // Text questions don't have points
+  };
+
   const isOptionSelected = (questionIndex: number, optionIndex: number) => {
     return selectedOptions[questionIndex]?.includes(optionIndex) || false;
   };
 
   const handleNext = () => {
-    const unansweredQuestions = section.questions.reduce((count, _, index) => {
+    const unansweredQuestions = section.questions.reduce((count, question, index) => {
+      if (question.type === 'text') {
+        return !textValues[index] ? count + 1 : count;
+      }
       return !selectedOptions[index] || selectedOptions[index].length === 0 ? count + 1 : count;
     }, 0);
 
@@ -115,7 +125,8 @@ export const QuestionSection = ({
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: questionIndex * 0.2 }}
             className={`glass-morphism rounded-lg p-6 space-y-4 ${
-              !selectedOptions[questionIndex] || selectedOptions[questionIndex].length === 0
+              ((q.type === 'text' && !textValues[questionIndex]) ||
+               (q.type !== 'text' && (!selectedOptions[questionIndex] || selectedOptions[questionIndex].length === 0)))
                 ? 'border-2 border-red-200'
                 : ''
             }`}
@@ -136,35 +147,45 @@ export const QuestionSection = ({
               </TooltipProvider>
             </div>
             <div className="space-y-3">
-              {q.options.map((option, optionIndex) => (
-                <button
-                  key={optionIndex}
-                  onClick={() => handleOptionSelect(questionIndex, optionIndex, option.points, q.type)}
-                  className={`w-full text-left p-4 rounded-lg border transition-all duration-200 flex items-center gap-3 ${
-                    isOptionSelected(questionIndex, optionIndex)
-                      ? 'border-primary bg-primary/5'
-                      : 'border-gray-200 hover:border-primary hover:bg-primary/5'
-                  }`}
-                >
-                  {q.type === 'multiple' ? (
-                    <Checkbox 
-                      checked={isOptionSelected(questionIndex, optionIndex)}
-                      className="h-5 w-5"
-                    />
-                  ) : (
-                    <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+              {q.type === 'text' ? (
+                <Input
+                  type="text"
+                  value={textValues[questionIndex] || ''}
+                  onChange={(e) => handleTextChange(questionIndex, e.target.value)}
+                  placeholder="Votre réponse..."
+                  className="w-full"
+                />
+              ) : (
+                q.options.map((option, optionIndex) => (
+                  <button
+                    key={optionIndex}
+                    onClick={() => handleOptionSelect(questionIndex, optionIndex, option.points, q.type)}
+                    className={`w-full text-left p-4 rounded-lg border transition-all duration-200 flex items-center gap-3 ${
                       isOptionSelected(questionIndex, optionIndex)
-                        ? 'border-primary'
-                        : 'border-gray-300'
-                    }`}>
-                      {isOptionSelected(questionIndex, optionIndex) && (
-                        <div className="h-3 w-3 rounded-full bg-primary" />
-                      )}
-                    </div>
-                  )}
-                  {option.label}
-                </button>
-              ))}
+                        ? 'border-primary bg-primary/5'
+                        : 'border-gray-200 hover:border-primary hover:bg-primary/5'
+                    }`}
+                  >
+                    {q.type === 'multiple' ? (
+                      <Checkbox 
+                        checked={isOptionSelected(questionIndex, optionIndex)}
+                        className="h-5 w-5"
+                      />
+                    ) : (
+                      <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+                        isOptionSelected(questionIndex, optionIndex)
+                          ? 'border-primary'
+                          : 'border-gray-300'
+                      }`}>
+                        {isOptionSelected(questionIndex, optionIndex) && (
+                          <div className="h-3 w-3 rounded-full bg-primary" />
+                        )}
+                      </div>
+                    )}
+                    {option.label}
+                  </button>
+                ))
+              )}
             </div>
           </motion.div>
         ))}
