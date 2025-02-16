@@ -22,7 +22,7 @@ export const HowItWorks = () => <main className="container mx-auto max-w-4xl px-
             description: "Pour comprendre en détail votre contexte business"
           }, {
             title: "Obtenez votre score",
-            description: "Recevez un diagnostique de performance de votre coworking"
+            description: "Recevez un diagnostique de performance de votre coworking."
           }, {
             title: "Plan d'action",
             description: "Des recommandations personnalisées pour progresser"
