@@ -14,7 +14,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         transition={{ duration: 0.5 }}
         className="flex justify-center mb-8 px-4"
       >
-        <div className="w-[374px] h-[125px] hover:scale-105 transition-transform duration-300">
+        <div className="w-[265px] md:w-[374px] h-[89px] md:h-[125px] transition-transform duration-300">
           <img 
             src="/lovable-uploads/d9f79468-4451-4773-9a03-cdc428bad759.png"
             alt="Kitco Logo" 
