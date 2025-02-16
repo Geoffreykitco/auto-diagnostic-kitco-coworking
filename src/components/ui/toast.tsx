@@ -10,21 +10,16 @@ const ToastProvider = ToastPrimitives.Provider
 const ToastViewport = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Viewport>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
->(({ className, ...props }, ref) => {
-  const isMobile = useIsMobile();
-  
-  return (
-    <ToastPrimitives.Viewport
-      ref={ref}
-      className={cn(
-        "fixed z-[100] flex max-h-screen w-full flex-col-reverse p-4",
-        isMobile ? "bottom-0 left-0 items-center" : "bottom-0 right-0 sm:flex-col md:max-w-[420px]",
-        className
-      )}
-      {...props}
-    />
-  )
-})
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Viewport
+    ref={ref}
+    className={cn(
+      "fixed bottom-0 right-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:flex-col md:max-w-[420px]",
+      className
+    )}
+    {...props}
+  />
+))
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
@@ -47,22 +42,13 @@ const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
     VariantProps<typeof toastVariants>
->(({ className, variant, ...props }, ref) => {
-  const isMobile = useIsMobile();
-  
-  return (
-    <ToastPrimitives.Root
-      ref={ref}
-      className={cn(
-        toastVariants({ variant }), 
-        isMobile && "max-w-[140px] mx-auto text-sm p-2 shadow-sm text-center justify-center rounded-full",
-        !isMobile && "text-left",
-        className
-      )}
-      {...props}
-    />
-  )
-})
+>(({ className, variant, ...props }, ref) => (
+  <ToastPrimitives.Root
+    ref={ref}
+    className={cn(toastVariants({ variant }), className)}
+    {...props}
+  />
+))
 Toast.displayName = ToastPrimitives.Root.displayName
 
 const ToastAction = React.forwardRef<
@@ -91,33 +77,25 @@ ToastClose.displayName = ToastPrimitives.Close.displayName
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
->(({ className, ...props }, ref) => {
-  const isMobile = useIsMobile();
-  
-  return (
-    <ToastPrimitives.Title
-      ref={ref}
-      className={cn("text-sm font-semibold leading-none w-full", isMobile && "text-xs text-center", !isMobile && "text-left", className)}
-      {...props}
-    />
-  )
-})
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Title
+    ref={ref}
+    className={cn("text-sm font-semibold leading-none tracking-tight", className)}
+    {...props}
+  />
+))
 ToastTitle.displayName = ToastPrimitives.Title.displayName
 
 const ToastDescription = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Description>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
->(({ className, ...props }, ref) => {
-  const isMobile = useIsMobile();
-  
-  return (
-    <ToastPrimitives.Description
-      ref={ref}
-      className={cn("text-sm opacity-90 w-full", isMobile && "text-xs text-center", !isMobile && "text-left", className)}
-      {...props}
-    />
-  )
-})
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Description
+    ref={ref}
+    className={cn("text-sm opacity-90", className)}
+    {...props}
+  />
+))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
