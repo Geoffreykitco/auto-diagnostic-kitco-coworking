@@ -82,9 +82,11 @@ const Index = () => {
   };
 
   const handleNext = () => {
-    const unansweredQuestions = sections[currentSection].questions.reduce((count, _, index) => {
-      return !answers[currentSection]?.[index] ? count + 1 : count;
-    }, 0);
+    // Vérifier si toutes les questions de la section actuelle ont des réponses
+    const currentSectionAnswers = answers[currentSection] || {};
+    const currentSectionQuestions = sections[currentSection].questions;
+    
+    const unansweredQuestions = currentSectionQuestions.length - Object.keys(currentSectionAnswers).length;
 
     if (unansweredQuestions > 0) {
       toast({
