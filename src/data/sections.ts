@@ -1,4 +1,3 @@
-
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -74,18 +73,8 @@ export const sections = {
       {
         question: "Dans quelle ville est situé votre espace de coworking ?",
         tooltip: "La localisation de votre espace",
-        type: "single",
-        options: [
-          { label: "Paris", points: 0 },
-          { label: "Lyon", points: 0 },
-          { label: "Marseille", points: 0 },
-          { label: "Bordeaux", points: 0 },
-          { label: "Lille", points: 0 },
-          { label: "Toulouse", points: 0 },
-          { label: "Nantes", points: 0 },
-          { label: "Strasbourg", points: 0 },
-          { label: "Autre", points: 0 }
-        ]
+        type: "text",
+        options: []
       },
       {
         question: "Quel est le pourcentage moyen de remplissage de votre espace de coworking ?",
