@@ -35,7 +35,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
       <Breadcrumb>
         <BreadcrumbList className="flex-wrap">
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Diagnostic</BreadcrumbLink>
+            <BreadcrumbLink href="/">Démarrage</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           {allSteps.map((step, index) => (
