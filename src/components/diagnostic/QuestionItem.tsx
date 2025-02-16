@@ -55,14 +55,14 @@ export const QuestionItem = ({
       }`}
     >
       <div className="flex items-start gap-2">
-        <h3 className="text-xl font-semibold text-primary flex-grow">{question.question}</h3>
+        <h3 className="text-xl font-semibold text-primary flex-grow leading-tight">{question.question}</h3>
         <HoverCard openDelay={200}>
           <HoverCardTrigger asChild>
             <button className="text-gray-400 hover:text-primary transition-colors duration-200">
               <Info className="h-5 w-5" />
             </button>
           </HoverCardTrigger>
-          <HoverCardContent className="w-80 p-4 text-sm text-gray-700 bg-white">
+          <HoverCardContent className="w-80 p-4 text-sm leading-relaxed text-gray-600 bg-white">
             <p>{question.tooltip}</p>
           </HoverCardContent>
         </HoverCard>
@@ -75,7 +75,7 @@ export const QuestionItem = ({
               value={textValues[questionIndex] || ''}
               onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
               placeholder={question.question.toLowerCase().includes("point mort mensuel") ? "Montant en €..." : "Votre réponse..."}
-              className="w-full border-0 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent"
+              className="w-full border-0 p-0 h-auto text-base focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent placeholder:text-gray-400"
             />
           </div>
         ) : (
@@ -106,14 +106,14 @@ export const QuestionItem = ({
                 )}
               </div>
               <div className="flex-grow">
-                {option.label}
+                <span className="text-gray-700 font-medium">{option.label}</span>
                 {option.label === "Autres (préciser)" && isOptionSelected(questionIndex, optionIndex) && (
                   <Input
                     type="text"
                     value={textValues[questionIndex] || ''}
                     onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
                     placeholder="Précisez..."
-                    className="mt-2 w-full border border-gray-200 p-2 rounded bg-white focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-primary"
+                    className="mt-2 w-full border border-gray-200 p-2 rounded bg-white text-base focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-primary placeholder:text-gray-400"
                     onClick={(e) => e.stopPropagation()}
                   />
                 )}

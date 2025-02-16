@@ -207,7 +207,7 @@ export const QuestionSection = ({
       >
         <div className="space-y-4">
           <motion.h2 
-            className="text-3xl font-bold text-primary"
+            className="text-3xl md:text-4xl font-bold text-primary tracking-tight"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
@@ -215,7 +215,7 @@ export const QuestionSection = ({
             {section.title}
           </motion.h2>
           <motion.p 
-            className="text-gray-600 text-lg"
+            className="text-lg text-gray-600 leading-relaxed"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
@@ -249,7 +249,7 @@ export const QuestionSection = ({
           {showPrevious && (
             <button
               onClick={onPrevious}
-              className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors font-medium"
             >
               <ChevronLeft className="h-5 w-5" />
               Précédent
@@ -258,7 +258,7 @@ export const QuestionSection = ({
           {showNext && (
             <button
               onClick={handleNext}
-              className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto"
+              className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto font-medium"
             >
               Suivant
               <ChevronRight className="h-5 w-5" />

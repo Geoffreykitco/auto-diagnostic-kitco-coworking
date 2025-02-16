@@ -38,10 +38,38 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-primary;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl mb-6;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl mb-4;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl mb-3;
+  }
+  
+  p {
+    @apply leading-7 text-gray-600;
+  }
+  
+  input, textarea {
+    @apply text-base;
+  }
+  
+  button {
+    @apply font-medium;
+  }
 }
 
 .glass-morphism {
-  @apply backdrop-blur-lg bg-white/80 border border-white/20 shadow-lg;
+  @apply backdrop-blur-lg bg-white/90 border border-white/20 shadow-lg;
 }
 
 .hero-pattern {
