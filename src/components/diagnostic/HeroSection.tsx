@@ -22,10 +22,11 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         </p>
         <motion.button
           onClick={onStart}
-          className="relative px-8 py-3 bg-[#8B5CF6] text-white rounded-md font-medium overflow-hidden"
+          className="relative px-8 py-3 border-2 border-primary text-primary rounded-md font-medium overflow-hidden hover:text-white"
           whileHover={{ 
             scale: 1.05,
-            backgroundColor: "#7c4deb",
+            backgroundColor: "#22C55E",
+            borderColor: "#22C55E"
           }}
           transition={{
             duration: 0.2,
