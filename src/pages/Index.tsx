@@ -35,7 +35,7 @@ const Index = () => {
     if (isMobile) {
       toast({
         title: "C'est parti !",
-        className: "bg-primary/90 text-white border-0 text-xs",
+        className: "bg-primary/90 text-white border-0 text-xs rounded-full max-w-[60px] p-2 items-center justify-center",
         duration: 1000,
       });
     } else {
