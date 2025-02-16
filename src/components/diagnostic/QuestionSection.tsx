@@ -192,15 +192,6 @@ export const QuestionSection = ({
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-6 md:py-12 relative">
-      <motion.img
-        src="/lovable-uploads/6037e9f3-0144-4e48-a6df-84d8a4df9090.png"
-        alt="Logo"
-        className="absolute -top-8 right-4 w-12 h-12 md:w-16 md:h-16"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      />
-
       <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       
       <motion.div
