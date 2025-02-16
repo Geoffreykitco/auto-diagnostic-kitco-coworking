@@ -68,14 +68,7 @@ export const QuestionItem = ({
       </div>
       <div className="space-y-3">
         {question.type === 'text' ? (
-          <div className="w-full text-left p-4 rounded border transition-all duration-200 flex items-center gap-3 border-gray-200 hover:border-primary focus-within:border-primary focus-within:bg-primary/5">
-            <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
-              textValues[questionIndex] ? 'border-primary' : 'border-gray-300'
-            }`}>
-              {textValues[questionIndex] && (
-                <div className="h-3 w-3 rounded bg-primary" />
-              )}
-            </div>
+          <div className="w-full text-left p-4 rounded border transition-all duration-200 border-gray-200 hover:border-primary focus-within:border-primary focus-within:bg-primary/5">
             <Input
               type={question.question.toLowerCase().includes("point mort mensuel") ? "text" : "text"}
               value={textValues[questionIndex] || ''}
