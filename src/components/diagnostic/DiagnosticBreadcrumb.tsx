@@ -22,6 +22,12 @@ interface DiagnosticBreadcrumbProps {
 export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrumbProps) => {
   if (!currentStep) return null;
 
+  // Créer un tableau complet des étapes incluant les informations
+  const allSteps = [
+    { id: 'informations', label: 'Informations' },
+    ...steps
+  ];
+
   return (
     <motion.div 
       className="mb-8"
@@ -35,7 +41,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
             <BreadcrumbLink href="/">Diagnostic</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          {steps.map((step, index) => (
+          {allSteps.map((step, index) => (
             <BreadcrumbItem key={step.id}>
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-bold text-lg text-primary">
@@ -51,7 +57,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
                   </BreadcrumbLink>
                 </>
               )}
-              {index < steps.length - 1 && <BreadcrumbSeparator />}
+              {index < allSteps.length - 1 && <BreadcrumbSeparator />}
             </BreadcrumbItem>
           ))}
         </BreadcrumbList>

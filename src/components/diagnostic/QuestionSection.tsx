@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -44,13 +43,11 @@ export const QuestionSection = ({
   showNext = true,
   answers = {}
 }: QuestionSectionProps) => {
-  // Initialiser les états avec des objets vides
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
   const [textValues, setTextValues] = useState<{ [key: number]: string }>({});
   const { toast } = useToast();
   const textTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // Réinitialiser les états quand la section change
   useEffect(() => {
     setSelectedOptions({});
     setTextValues({});
@@ -59,6 +56,7 @@ export const QuestionSection = ({
 
   const getSteps = () => {
     const steps = [
+      { id: 'informations', label: 'Informations' },
       { id: 'acquisition', label: 'Acquisition' },
       { id: 'activation', label: 'Activation' },
       { id: 'retention', label: 'Rétention' },
