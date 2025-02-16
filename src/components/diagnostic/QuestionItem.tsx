@@ -42,6 +42,54 @@ export const QuestionItem = ({
     return selectedOptions[questionIndex]?.includes(optionIndex) || false;
   };
 
+  const getInputType = (question: string) => {
+    const lowerQuestion = question.toLowerCase();
+    if (lowerQuestion.includes("coworkers peut accueillir") || 
+        lowerQuestion.includes("pourcentage moyen") ||
+        lowerQuestion.includes("point mort mensuel")) {
+      return "number";
+    }
+    return "text";
+  };
+
+  const formatValue = (value: string, question: string) => {
+    const lowerQuestion = question.toLowerCase();
+    
+    // Pour le nombre de coworkers
+    if (lowerQuestion.includes("coworkers peut accueillir")) {
+      return value.replace(/[^0-9]/g, '');
+    }
+    
+    // Pour le pourcentage
+    if (lowerQuestion.includes("pourcentage moyen")) {
+      let num = value.replace(/[^0-9]/g, '');
+      num = num === '' ? '' : Math.min(parseInt(num), 100).toString();
+      return num === '' ? '' : `${num}%`;
+    }
+    
+    // Pour le point mort mensuel
+    if (lowerQuestion.includes("point mort mensuel")) {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      return numericValue === '' ? '' : `${parseInt(numericValue).toLocaleString('fr-FR')} €`;
+    }
+    
+    return value;
+  };
+
+  const getPlaceholder = (question: string) => {
+    const lowerQuestion = question.toLowerCase();
+    if (lowerQuestion.includes("coworkers peut accueillir")) {
+      return "Nombre de coworkers...";
+    }
+    if (lowerQuestion.includes("pourcentage moyen")) {
+      return "Pourcentage (0-100)...";
+    }
+    if (lowerQuestion.includes("point mort mensuel")) {
+      return "Montant en €...";
+    }
+    return "Votre réponse...";
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -71,10 +119,14 @@ export const QuestionItem = ({
         {question.type === 'text' ? (
           <div className="w-full text-left p-4 rounded border transition-all duration-200 border-gray-200 hover:border-primary focus-within:border-primary focus-within:bg-primary/5">
             <Input
-              type={question.question.toLowerCase().includes("point mort mensuel") ? "text" : "text"}
+              inputMode={getInputType(question.question) === "number" ? "numeric" : "text"}
+              pattern={getInputType(question.question) === "number" ? "[0-9]*" : undefined}
               value={textValues[questionIndex] || ''}
-              onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
-              placeholder={question.question.toLowerCase().includes("point mort mensuel") ? "Montant en €..." : "Votre réponse..."}
+              onChange={(e) => {
+                const formattedValue = formatValue(e.target.value, question.question);
+                onTextChange(questionIndex, formattedValue, question.question);
+              }}
+              placeholder={getPlaceholder(question.question)}
               className="w-full border-0 p-0 h-auto text-base focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent placeholder:text-gray-400"
             />
           </div>
@@ -125,3 +177,4 @@ export const QuestionItem = ({
     </motion.div>
   );
 };
+
