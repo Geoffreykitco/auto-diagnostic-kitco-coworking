@@ -18,7 +18,7 @@ const ToastViewport = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-[100] flex max-h-screen w-full flex-col-reverse p-4",
-        isMobile ? "bottom-0 left-0 items-center" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+        isMobile ? "bottom-0 left-0 items-center" : "bottom-0 left-0 sm:flex-col md:max-w-[420px]",
         className
       )}
       {...props}
@@ -96,7 +96,7 @@ const ToastTitle = React.forwardRef<
   return (
     <ToastPrimitives.Title
       ref={ref}
-      className={cn("text-sm font-semibold leading-none text-center w-full", isMobile && "text-xs", className)}
+      className={cn("text-sm font-semibold leading-none w-full", isMobile && "text-xs text-center", !isMobile && "text-left", className)}
       {...props}
     />
   )
@@ -112,7 +112,7 @@ const ToastDescription = React.forwardRef<
   return (
     <ToastPrimitives.Description
       ref={ref}
-      className={cn("text-sm opacity-90 text-center w-full", isMobile && "text-xs", className)}
+      className={cn("text-sm opacity-90 w-full", isMobile && "text-xs text-center", !isMobile && "text-left", className)}
       {...props}
     />
   )
