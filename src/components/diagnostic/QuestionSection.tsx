@@ -62,7 +62,6 @@ export const QuestionSection = ({
       { id: 'results', label: "Résultats" }
     ];
 
-    // Extrait le texte après "Partie X : " si présent
     const cleanTitle = section.title.replace(/^Partie \d+ : /, '').toLowerCase();
     
     const currentStep = steps.find(step => 
@@ -94,7 +93,7 @@ export const QuestionSection = ({
     });
     
     toast({
-      title: "Réponse enregistrée",
+      title: "Réponse enregistrée 🎉",
       description: "Passons à la question suivante.",
       className: "animate-slide-in-right duration-200"
     });
@@ -119,20 +118,18 @@ export const QuestionSection = ({
 
     setTextValues(prev => ({ ...prev, [questionIndex]: processedValue }));
     
-    // Annuler le timeout précédent s'il existe
     if (textTimeoutRef.current) {
       clearTimeout(textTimeoutRef.current);
     }
 
-    // Créer un nouveau timeout
     textTimeoutRef.current = setTimeout(() => {
       onOptionSelect(questionIndex, 0);
       toast({
-        title: "Réponse enregistrée",
+        title: "Réponse enregistrée 🎉",
         description: "Passons à la question suivante.",
         className: "animate-slide-in-right duration-200"
       });
-    }, 1000); // Attendre 1 seconde après la dernière frappe
+    }, 1000);
   };
 
   const handleNext = () => {
