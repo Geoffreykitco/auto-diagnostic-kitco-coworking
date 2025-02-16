@@ -34,7 +34,7 @@ const Index = () => {
   const handleStart = () => {
     if (!isMobile) {
       toast({
-        title: "Bienvenue dans l'auto-diagnostic 🎉",
+        title: "Bienvenue dans l'auto-diagnostic 👋",
         description: "Commençons l'évaluation de votre espace de coworking.",
         duration: 1500,
       });
