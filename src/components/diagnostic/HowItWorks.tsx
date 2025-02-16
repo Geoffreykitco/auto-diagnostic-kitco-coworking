@@ -19,7 +19,7 @@ export const HowItWorks = () => <main className="container mx-auto max-w-4xl px-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[{
             title: "Répondez aux questions",
-            description: "Pour comprendre en détail votre contexte business"
+            description: "Pour comprendre en détail le contexte business de votre coworking."
           }, {
             title: "Obtenez votre score",
             description: "Recevez un diagnostique de performance de votre coworking."
