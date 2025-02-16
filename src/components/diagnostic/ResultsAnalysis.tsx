@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -72,13 +73,15 @@ export const ResultsAnalysis = ({
 
       <div className="grid gap-6 md:grid-cols-2">
         {sectionsToAnalyze.map((sectionName, index) => {
-        const score = Math.round(calculateSectionScore(sectionName));
-        return <motion.div key={sectionName} 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 + index * 0.1 }}
-          className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
-        >
+          const score = Math.round(calculateSectionScore(sectionName));
+          return (
+            <motion.div 
+              key={sectionName}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1 }}
+              className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
+            >
               <h3 className="text-xl font-semibold capitalize mb-4">{sections[sectionName].title}</h3>
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
@@ -86,16 +89,18 @@ export const ResultsAnalysis = ({
                   <span className="font-bold text-primary">{score}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                  <div className="bg-primary rounded-full h-2 transition-all duration-1000 ease-out" style={{
-                width: `${score}%`
-              }} />
+                  <div 
+                    className="bg-primary rounded-full h-2 transition-all duration-1000 ease-out"
+                    style={{ width: `${score}%` }}
+                  />
                 </div>
                 <p className="text-sm text-gray-600 mt-2">
                   {getSectionAnalysis(score)}
                 </p>
               </div>
-            </motion.div>;
-      })}
+            </motion.div>
+          );
+        })}
       </div>
 
       <motion.div 
@@ -106,14 +111,16 @@ export const ResultsAnalysis = ({
       >
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-primary mb-4">Un message pour vous 🎥</h3>
-          <video 
-            className="w-full rounded-lg shadow-lg aspect-video"
-            controls
-            preload="metadata"
-          >
-            <source src="/path-to-your-video.mp4" type="video/mp4" />
-            Votre navigateur ne supporte pas la lecture de vidéos.
-          </video>
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <audio 
+              className="w-full"
+              controls
+              preload="metadata"
+            >
+              <source src="/path-to-your-audio.m4a" type="audio/mp4" />
+              Votre navigateur ne supporte pas la lecture audio.
+            </audio>
+          </div>
         </div>
       </motion.div>
 
