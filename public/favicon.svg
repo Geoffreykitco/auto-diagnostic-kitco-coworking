@@ -1,5 +1,5 @@
 
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <rect width="32" height="32" fill="#0D2F1E"/>
-  <text x="8" y="24" fill="white" font-family="Arial" font-size="24">K</text>
+  <path d="M16 8 L16 24 M10 8 L22 24 M22 8 L10 24" stroke="white" stroke-width="2" fill="none"/>
 </svg>
