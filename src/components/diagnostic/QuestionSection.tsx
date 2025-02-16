@@ -88,7 +88,7 @@ export const QuestionSection = ({
         title: "Réponse enregistrée",
         description: "Passons à la question suivante.",
         className: "animate-slide-in-right",
-        duration: 2000,
+        duration: 1500,
       });
     }
   };
@@ -123,7 +123,7 @@ export const QuestionSection = ({
           title: "Réponse enregistrée",
           description: "Passons à la question suivante.",
           className: "animate-slide-in-right",
-          duration: 2000,
+          duration: 1500,
         });
       }
     }, 200);
