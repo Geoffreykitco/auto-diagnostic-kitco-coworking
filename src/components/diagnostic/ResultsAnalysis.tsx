@@ -106,33 +106,6 @@ export const ResultsAnalysis = ({
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
-      >
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-primary mb-4">Vous avez un message 🎥</h3>
-          <div className="bg-gradient-to-r from-[#F2FCE2] to-[#D3E4FD] p-6 rounded-xl">
-            <div className="relative overflow-hidden rounded-xl bg-white/90 backdrop-blur-sm shadow-lg border border-white/40">
-              <a 
-                href="https://calendar.app.google/o7Hs96ieaHG2AudD9" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:opacity-95 transition-opacity"
-              >
-                <img 
-                  src="/lovable-uploads/93416d08-f285-44db-8cdf-20595f524c14.png"
-                  alt="KITCO - Des coworkings bien pensés"
-                  className="w-full h-auto object-cover rounded-xl"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
         className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
       >
