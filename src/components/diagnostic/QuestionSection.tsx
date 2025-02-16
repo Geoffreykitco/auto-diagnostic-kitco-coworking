@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,6 +8,14 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { useState, useEffect } from 'react';
 
 interface Option {
@@ -146,6 +153,21 @@ export const QuestionSection = ({
     }
   };
 
+  // Helper function to get breadcrumb text based on section title
+  const getBreadcrumbText = () => {
+    if (!section.title.toLowerCase().includes('partie')) return null;
+    
+    if (section.title.toLowerCase().includes('acquisition')) return 'Acquisition';
+    if (section.title.toLowerCase().includes('activation')) return 'Activation';
+    if (section.title.toLowerCase().includes('rétention')) return 'Rétention';
+    if (section.title.toLowerCase().includes('revenus')) return 'Revenue';
+    if (section.title.toLowerCase().includes('recommandation')) return 'Referal';
+    if (section.title.toLowerCase().includes('résultats')) return "C'est terminé";
+    return null;
+  };
+
+  const breadcrumbText = getBreadcrumbText();
+
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12 relative">
       {/* Logo en haut à droite */}
@@ -157,6 +179,28 @@ export const QuestionSection = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       />
+
+      {/* Breadcrumb */}
+      {breadcrumbText && (
+        <motion.div 
+          className="mb-8"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Diagnostic</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{breadcrumbText}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </motion.div>
+      )}
       
       <motion.div
         key={section.title}
