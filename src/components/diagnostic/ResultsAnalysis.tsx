@@ -8,46 +8,93 @@ interface ResultsAnalysisProps {
 
 export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
   const calculateSectionScore = (sectionName: string) => {
-    if (!answers[sectionName]) return 0;
+    if (!answers[sectionName] || !sections[sectionName]) return 0;
+    
     const sectionAnswers = answers[sectionName];
-    const totalPoints = Object.values(sectionAnswers).reduce((sum: number, points: number) => sum + points, 0);
-    const maxPoints = sections[sectionName].questions.reduce((sum, q) => {
-      if (q.type === 'multiple') {
-        return sum + q.options.reduce((optSum, opt) => optSum + opt.points, 0);
+    const sectionQuestions = sections[sectionName].questions;
+    
+    // Les questions d'informations ne comptent pas dans le score
+    if (sectionName === 'informations') return 0;
+    
+    // Calcul du score maximal possible pour la section
+    let maxPoints = 0;
+    sectionQuestions.forEach(question => {
+      if (question.type === 'multiple') {
+        maxPoints += question.options.reduce((sum, opt) => sum + opt.points, 0);
+      } else if (question.type === 'single') {
+        maxPoints += Math.max(...question.options.map(opt => opt.points));
       }
-      return sum + Math.max(...q.options.map(opt => opt.points), 0);
-    }, 0);
+    });
+    
+    // Calcul du score obtenu
+    const totalPoints = Object.values(sectionAnswers).reduce((sum: number, points: number) => sum + points, 0);
+    
     return maxPoints > 0 ? (totalPoints / maxPoints) * 100 : 0;
   };
 
+  const getSectionLevel = (score: number) => {
+    if (score >= 80) return "Avancé";
+    if (score >= 50) return "Intermédiaire";
+    return "Débutant";
+  };
+
   const getSectionAnalysis = (score: number) => {
-    if (score >= 80) return "Excellent - Vos pratiques sont très bien établies";
-    if (score >= 60) return "Bon - Vous avez de bonnes bases mais il y a place à l'amélioration";
-    if (score >= 40) return "Moyen - Des améliorations significatives sont possibles";
-    return "À améliorer - Cette section nécessite votre attention";
+    if (score >= 80) {
+      return "Excellent niveau. Continuez d'optimiser vos processus pour maintenir cette performance.";
+    }
+    if (score >= 50) {
+      return "Bon niveau avec un potentiel d'amélioration. Concentrez-vous sur l'optimisation de vos points faibles.";
+    }
+    return "Des améliorations significatives sont possibles. Établissez un plan d'action prioritaire.";
   };
 
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
+  const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
 
   return (
     <div className="space-y-8">
-      <h2 className="text-2xl font-bold text-primary">Analyse des résultats</h2>
-      {sectionsToAnalyze.map(sectionName => {
-        const score = Math.round(calculateSectionScore(sectionName));
-        return (
-          <div key={sectionName} className="p-6 rounded-lg border border-gray-200 space-y-4">
-            <h3 className="text-xl font-semibold capitalize">{sectionName}</h3>
-            <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-full border-4 border-primary flex items-center justify-center">
-                <span className="text-2xl font-bold">{score}%</span>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
+      >
+        <h2 className="text-2xl font-bold text-primary mb-4">Score Global : {Math.round(globalScore)}%</h2>
+        <div className="text-lg text-gray-700 mb-2">Niveau : <span className="font-semibold">{getSectionLevel(globalScore)}</span></div>
+        <p className="text-gray-600">{getSectionAnalysis(globalScore)}</p>
+      </motion.div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        {sectionsToAnalyze.map((sectionName, index) => {
+          const score = Math.round(calculateSectionScore(sectionName));
+          return (
+            <motion.div 
+              key={sectionName}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1 }}
+              className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
+            >
+              <h3 className="text-xl font-semibold capitalize mb-4">{sectionName}</h3>
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Score</span>
+                  <span className="font-bold text-primary">{score}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div 
+                    className="bg-primary rounded-full h-2 transition-all duration-1000 ease-out"
+                    style={{ width: `${score}%` }}
+                  />
+                </div>
+                <p className="text-sm text-gray-600 mt-2">
+                  {getSectionAnalysis(score)}
+                </p>
               </div>
-              <div className="flex-1">
-                <p className="text-gray-600">{getSectionAnalysis(score)}</p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 };

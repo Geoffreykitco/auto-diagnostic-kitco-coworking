@@ -1,3 +1,4 @@
+
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -5,7 +6,7 @@ export const sections = {
     questions: [
       {
         question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
-        tooltip: "Cette information nous permet d'évaluer votre maturité sur le marché et d'adapter nos recommandations en fonction de votre expérience. Un espace plus ancien aura des besoins différents d'un espace récemment ouvert.",
+        tooltip: "Cette information nous permet d'évaluer votre maturité sur le marché et d'adapter nos recommandations en fonction de votre expérience.",
         type: "single",
         options: [
           { label: "Moins de 6 mois", points: 0 },
@@ -16,31 +17,18 @@ export const sections = {
       },
       {
         question: "Quels types de bureaux proposez-vous ?",
-        tooltip: "La diversité de votre offre impacte directement votre capacité à attirer différents types de clients et à maximiser l'utilisation de votre espace. Chaque type d'espace répond à des besoins spécifiques de votre clientèle.",
+        tooltip: "La diversité de votre offre impacte directement votre capacité à attirer différents types de clients.",
         type: "multiple",
         options: [
           { label: "Bureaux partagés", points: 0 },
           { label: "Bureaux privés", points: 0 },
           { label: "Salles de réunion", points: 0 },
-          { label: "Espaces dédiés à des événements", points: 0 },
-          { label: "Autres", points: 0 }
-        ]
-      },
-      {
-        question: "Quels types d'abonnement proposez-vous ?",
-        tooltip: "Vos formules d'abonnement définissent votre modèle économique et votre capacité à fidéliser vos clients. Une offre diversifiée permet de répondre aux différents besoins et budgets de vos clients potentiels.",
-        type: "multiple",
-        options: [
-          { label: "Abonnement mensuel", points: 0 },
-          { label: "Abonnement annuel", points: 0 },
-          { label: "Pass à la journée", points: 0 },
-          { label: "Pack de journées (5/10/20/...)", points: 0 },
-          { label: "Autres", points: 0 }
+          { label: "Espaces dédiés à des événements", points: 0 }
         ]
       },
       {
         question: "Quel est le statut de votre espace de coworking ?",
-        tooltip: "Le statut de votre espace influence vos coûts fixes et votre capacité à faire évoluer votre offre. Il impacte également votre rentabilité et vos possibilités d'aménagement.",
+        tooltip: "Le statut de votre espace influence vos coûts fixes et votre capacité à faire évoluer votre offre.",
         type: "single",
         options: [
           { label: "Propriétaire", points: 0 },
@@ -49,138 +37,99 @@ export const sections = {
         ]
       },
       {
-        question: "Quelle est la superficie totale de votre espace de coworking ?",
-        tooltip: "La surface disponible détermine votre capacité d'accueil et influence directement votre potentiel de revenus. Elle impacte également vos coûts fixes et votre organisation spatiale.",
-        type: "single",
-        options: [
-          { label: "Moins de 100m²", points: 0 },
-          { label: "100 à 300m²", points: 0 },
-          { label: "300 à 600m²", points: 0 },
-          { label: "Plus de 600m²", points: 0 }
-        ]
-      },
-      {
-        question: "Avez-vous d'autres espaces de coworking concurrents à proximité ?",
-        tooltip: "L'analyse de la concurrence locale est cruciale pour positionner votre offre. Elle permet d'identifier les opportunités de différenciation et d'ajuster votre stratégie commerciale.",
-        type: "single",
-        options: [
-          { label: "Oui, plusieurs dans un rayon de 1 km", points: 0 },
-          { label: "Oui, quelques-uns dans ma ville", points: 0 },
-          { label: "Non, je suis le seul espace de coworking dans la zone", points: 0 },
-          { label: "Je ne sais pas", points: 0 }
-        ]
-      },
-      {
         question: "Dans quelle ville est situé votre espace de coworking ?",
-        tooltip: "La localisation géographique influence votre marché potentiel, vos tarifs et votre positionnement. Elle détermine également l'accessibilité et l'attractivité de votre espace.",
-        type: "text",
-        options: []
-      },
-      {
-        question: "Quel est le pourcentage moyen de remplissage de votre espace de coworking ?",
-        tooltip: "Le taux d'occupation est un indicateur clé de la performance de votre espace. Il reflète l'adéquation entre votre offre et la demande, et impacte directement votre rentabilité.",
-        type: "single",
-        options: [
-          { label: "Moins de 25%", points: 0 },
-          { label: "25% à 50%", points: 0 },
-          { label: "50% à 75%", points: 0 },
-          { label: "Plus de 75%", points: 0 }
-        ]
-      },
-      {
-        question: "Quel est votre point mort mensuel ?",
-        tooltip: "Le point mort représente le niveau de revenus nécessaire pour couvrir l'ensemble de vos charges fixes et variables. C'est un indicateur crucial pour évaluer la viabilité économique de votre espace et définir vos objectifs commerciaux.",
+        tooltip: "La localisation géographique influence votre marché potentiel, vos tarifs et votre positionnement.",
         type: "text",
         options: []
       }
     ]
   },
   acquisition: {
-    title: "Partie 1 : Acquisition",
-    description: "L'acquisition concerne votre capacité à attirer de nouveaux membres dans votre espace de coworking. Cette section évalue vos stratégies marketing et votre visibilité.",
+    title: "Partie 2 : Acquisition",
+    description: "L'acquisition concerne votre capacité à attirer de nouveaux membres dans votre espace de coworking.",
     questions: [
       {
-        question: "Est-ce que vous faites du marketing actif pour votre espace de coworking ?",
-        tooltip: "À quelle fréquence faites-vous la promotion de votre espace auprès des membres potentiels ?",
+        question: "Menez-vous des actions marketing pour promouvoir votre espace ?",
+        tooltip: "La régularité de vos actions marketing impacte directement votre visibilité et votre capacité à attirer de nouveaux membres.",
         type: "single",
         options: [
           { label: "Oui, régulièrement", points: 10 },
-          { label: "Oui, occasionnellement", points: 5 },
-          { label: "Non, aucun effort marketing", points: 0 }
+          { label: "Oui, mais de façon occasionnelle", points: 5 },
+          { label: "Non, aucune action spécifique", points: 0 }
         ]
       },
       {
-        question: "Quelle présence en ligne avez-vous ?",
-        tooltip: "Quelles plateformes digitales utilisez-vous pour présenter votre espace ?",
+        question: "Quelle est votre présence en ligne ?",
+        tooltip: "Une présence en ligne diversifiée augmente votre visibilité et facilite l'acquisition de nouveaux membres.",
         type: "multiple",
         options: [
-          { label: "Site web", points: 5 },
-          { label: "Réseaux sociaux", points: 5 },
+          { label: "Site internet", points: 5 },
+          { label: "Réseaux sociaux (LinkedIn, Instagram, Facebook, etc.)", points: 5 },
           { label: "Google Maps et annuaires locaux", points: 5 },
-          { label: "Aucune", points: 0 }
+          { label: "Aucune présence", points: 0 }
         ]
       },
       {
-        question: "Proposez-vous une offre spéciale pour les nouveaux membres ?",
-        tooltip: "Avez-vous des promotions pour encourager les essais ?",
+        question: "Offrez-vous une offre spéciale pour les nouveaux membres ?",
+        tooltip: "Les offres spéciales peuvent encourager les prospects à franchir le pas et devenir membres.",
         type: "single",
         options: [
           { label: "Oui, essai gratuit ou réduction", points: 10 },
-          { label: "Oui, mais peu promu", points: 5 },
-          { label: "Non, pas d'offres spéciales", points: 0 }
+          { label: "Oui, mais peu mise en avant", points: 5 },
+          { label: "Non, aucune offre spéciale", points: 0 }
         ]
       },
       {
-        question: "Comment communiquez-vous avec les clients potentiels ?",
-        tooltip: "Quels canaux utilisez-vous pour interagir avec les prospects ?",
+        question: "Comment communiquez-vous avec vos prospects ?",
+        tooltip: "Une communication diversifiée et régulière augmente vos chances de conversion.",
         type: "multiple",
         options: [
-          { label: "Newsletter ou campagnes email", points: 5 },
+          { label: "Newsletter ou campagnes e-mail", points: 5 },
           { label: "Engagement sur les réseaux sociaux", points: 5 },
-          { label: "Bouche à oreille et événements networking", points: 5 },
-          { label: "Pas de communication régulière", points: 0 }
+          { label: "Bouche-à-oreille et événements de networking", points: 5 },
+          { label: "Aucune communication régulière", points: 0 }
         ]
       }
     ]
   },
   activation: {
-    title: "Partie 2 : Activation",
-    description: "L'activation mesure votre capacité à transformer les visiteurs en membres actifs. Cette section évalue vos processus d'intégration et d'engagement initial.",
+    title: "Partie 3 : Activation",
+    description: "L'activation mesure votre capacité à transformer les visiteurs en membres actifs.",
     questions: [
       {
-        question: "Que peut faire un visiteur quand il découvre votre espace ?",
-        tooltip: "Quelles options proposez-vous aux visiteurs potentiels ?",
-        type: "multiple",
+        question: "Que peut faire un visiteur lorsqu'il découvre votre espace ?",
+        tooltip: "La facilité d'accès et d'essai de votre espace influence directement le taux de conversion.",
+        type: "single",
         options: [
-          { label: "Visiter librement sans engagement", points: 5 },
+          { label: "Payer et réserver immédiatement", points: 10 },
+          { label: "Essayer gratuitement pendant une période limitée", points: 7 },
           { label: "Demander une visite guidée", points: 5 },
-          { label: "Essayer gratuitement pendant une période limitée", points: 5 },
-          { label: "Réserver et payer immédiatement", points: 5 }
+          { label: "Visiter librement sans engagement", points: 0 }
         ]
       },
       {
-        question: "Avez-vous un processus d'intégration structuré pour les nouveaux membres ?",
-        tooltip: "Comment accueillez-vous les nouveaux membres ?",
+        question: "Avez-vous un processus d'onboarding structuré pour les nouveaux membres ?",
+        tooltip: "Un bon processus d'accueil améliore l'expérience des nouveaux membres et favorise leur engagement.",
         type: "single",
         options: [
-          { label: "Oui, avec un processus d'accueil clair", points: 10 },
-          { label: "Oui, mais informel", points: 5 },
-          { label: "Non, les membres se débrouillent seuls", points: 0 }
+          { label: "Oui, avec un accueil clair et défini", points: 10 },
+          { label: "Oui, mais de manière informelle", points: 5 },
+          { label: "Non, les membres doivent se débrouiller seuls", points: 0 }
         ]
       },
       {
-        question: "Vos offres et tarifs sont-ils facilement compréhensibles ?",
-        tooltip: "La clarté de votre proposition commerciale",
+        question: "Vos offres et tarifs sont-ils clairs pour les nouveaux membres ?",
+        tooltip: "La transparence et la clarté de vos offres facilitent la décision d'achat.",
         type: "single",
         options: [
-          { label: "Oui, tout est clair", points: 10 },
-          { label: "Oui, mais certains aspects nécessitent des explications", points: 5 },
-          { label: "Non, c'est souvent confus", points: 0 }
+          { label: "Oui, tout est bien expliqué", points: 10 },
+          { label: "Oui, mais certains aspects demandent des explications", points: 5 },
+          { label: "Non, c'est souvent source de confusion", points: 0 }
         ]
       },
       {
-        question: "Faites-vous un suivi après la première visite ou l'essai ?",
-        tooltip: "Comment gérez-vous le suivi des prospects ?",
+        question: "Relancez-vous les prospects après une visite ou un essai ?",
+        tooltip: "Le suivi des prospects améliore significativement vos chances de conversion.",
         type: "single",
         options: [
           { label: "Oui, systématiquement", points: 10 },
@@ -191,95 +140,75 @@ export const sections = {
     ]
   },
   retention: {
-    title: "Partie 3 : Rétention",
-    description: "La rétention évalue votre capacité à fidéliser vos membres sur le long terme. Cette section analyse vos stratégies pour maintenir leur satisfaction et leur engagement.",
+    title: "Partie 4 : Rétention",
+    description: "La rétention évalue votre capacité à fidéliser vos membres sur le long terme.",
     questions: [
       {
-        question: "Les membres reviennent-ils régulièrement ?",
-        tooltip: "Fréquence d'utilisation de l'espace par les membres",
+        question: "Vos membres reviennent-ils régulièrement ?",
+        tooltip: "La régularité de fréquentation est un indicateur clé de la satisfaction des membres.",
         type: "single",
         options: [
-          { label: "Oui, la plupart", points: 10 },
-          { label: "Oui, mais seulement certains", points: 5 },
-          { label: "Non, fort turnover", points: 0 }
-        ]
-      },
-      {
-        question: "Proposez-vous des programmes de fidélité ou des abonnements ?",
-        tooltip: "Stratégies de fidélisation des membres",
-        type: "single",
-        options: [
-          { label: "Oui, structurés et bien promus", points: 10 },
-          { label: "Oui, mais sous-utilisés", points: 5 },
-          { label: "Pas de programme de fidélité", points: 0 }
+          { label: "Oui, la plupart d'entre eux", points: 10 },
+          { label: "Oui, mais seulement une partie", points: 5 },
+          { label: "Non, le turnover est élevé", points: 0 }
         ]
       },
       {
         question: "Organisez-vous des événements pour votre communauté ?",
-        tooltip: "Fréquence des événements communautaires",
+        tooltip: "Les événements renforcent le sentiment d'appartenance et la fidélisation des membres.",
         type: "single",
         options: [
           { label: "Oui, régulièrement", points: 10 },
-          { label: "Oui, occasionnellement", points: 5 },
+          { label: "Oui, mais occasionnellement", points: 5 },
           { label: "Non, jamais", points: 0 }
         ]
       },
       {
-        question: "Collectez-vous activement les retours de vos membres ?",
-        tooltip: "Méthodes de collecte des feedbacks",
+        question: "Recueillez-vous des retours de vos membres ?",
+        tooltip: "La collecte régulière de feedback permet d'améliorer continuellement votre service.",
         type: "single",
         options: [
-          { label: "Oui, via des sondages ou discussions régulières", points: 10 },
-          { label: "Oui, mais informellement", points: 5 },
-          { label: "Non, pas de collecte de feedback", points: 0 }
+          { label: "Oui, via des enquêtes ou échanges directs", points: 10 },
+          { label: "Oui, mais de manière informelle", points: 5 },
+          { label: "Non, aucun retour structuré", points: 0 }
         ]
       }
     ]
   },
   revenus: {
-    title: "Partie 4 : Revenus",
-    description: "La section revenus analyse votre capacité à monétiser votre espace et à générer des revenus durables à travers différentes sources.",
+    title: "Partie 5 : Revenus",
+    description: "Cette section analyse votre capacité à monétiser votre espace et à générer des revenus durables.",
     questions: [
       {
         question: "Quelle est votre principale source de revenus ?",
-        tooltip: "Sources de revenus principales de votre espace",
+        tooltip: "La diversification des sources de revenus renforce la stabilité financière de votre espace.",
         type: "multiple",
         options: [
-          { label: "Abonnements mensuels", points: 5 },
-          { label: "Pass journaliers/horaires", points: 5 },
-          { label: "Location de bureaux privés", points: 5 },
-          { label: "Services annexes (café, impression, services aux entreprises)", points: 5 }
+          { label: "Abonnements mensuels", points: 7 },
+          { label: "Pass journaliers / horaires", points: 5 },
+          { label: "Locations de bureaux privés", points: 5 },
+          { label: "Services annexes (café, impression, services pro, etc.)", points: 5 }
         ]
       },
       {
-        question: "Vos revenus sont-ils stables et prévisibles ?",
-        tooltip: "Stabilité des revenus mensuels",
-        type: "single",
-        options: [
-          { label: "Oui, grâce aux abonnements", points: 10 },
-          { label: "Oui, mais avec quelques incertitudes", points: 5 },
-          { label: "Non, les revenus fluctuent significativement", points: 0 }
-        ]
-      },
-      {
-        question: "Proposez-vous des services additionnels pour augmenter les revenus ?",
-        tooltip: "Services générant des revenus supplémentaires",
+        question: "Proposez-vous des services complémentaires ?",
+        tooltip: "Les services additionnels peuvent générer des revenus supplémentaires importants.",
         type: "single",
         options: [
           { label: "Oui, bien optimisés", points: 10 },
-          { label: "Oui, mais peu utilisés", points: 5 },
-          { label: "Pas de services additionnels", points: 0 }
+          { label: "Oui, mais sous-exploités", points: 5 },
+          { label: "Non, aucun service complémentaire", points: 0 }
         ]
       }
     ]
   },
   recommandation: {
-    title: "Partie 5 : Recommandation",
-    description: "La recommandation évalue votre capacité à transformer vos membres en ambassadeurs de votre espace, générant ainsi une croissance organique.",
+    title: "Partie 6 : Recommandation",
+    description: "La recommandation évalue votre capacité à transformer vos membres en ambassadeurs.",
     questions: [
       {
-        question: "Les membres recommandent-ils spontanément votre espace de coworking ?",
-        tooltip: "Recommandations spontanées par les membres",
+        question: "Vos membres recommandent-ils spontanément votre espace ?",
+        tooltip: "Le bouche-à-oreille est un indicateur fort de la satisfaction de vos membres.",
         type: "single",
         options: [
           { label: "Oui, souvent", points: 10 },
@@ -289,32 +218,12 @@ export const sections = {
       },
       {
         question: "Avez-vous un programme de parrainage ou de fidélité ?",
-        tooltip: "Programme de recommandation structuré",
+        tooltip: "Un programme de parrainage structure et encourage la recommandation.",
         type: "single",
         options: [
           { label: "Oui, avec des avantages clairs", points: 10 },
           { label: "Oui, mais peu utilisé", points: 5 },
-          { label: "Pas de programme de parrainage", points: 0 }
-        ]
-      },
-      {
-        question: "Avez-vous des avis en ligne visibles ?",
-        tooltip: "Présence d'avis clients en ligne",
-        type: "single",
-        options: [
-          { label: "Oui, avec beaucoup d'avis positifs", points: 10 },
-          { label: "Oui, mais peu nombreux", points: 5 },
-          { label: "Pas d'avis", points: 0 }
-        ]
-      },
-      {
-        question: "Encouragez-vous les membres à laisser des avis ou à parrainer ?",
-        tooltip: "Stratégie de collecte d'avis et de parrainage",
-        type: "single",
-        options: [
-          { label: "Oui, systématiquement", points: 10 },
-          { label: "Oui, mais occasionnellement", points: 5 },
-          { label: "Non, jamais", points: 0 }
+          { label: "Non, aucun programme", points: 0 }
         ]
       }
     ]
