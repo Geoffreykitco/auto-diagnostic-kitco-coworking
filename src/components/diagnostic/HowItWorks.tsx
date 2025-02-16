@@ -25,7 +25,7 @@ export const HowItWorks = () => <main className="container mx-auto max-w-4xl px-
             description: "Recevez un diagnostique de performance de votre coworking."
           }, {
             title: "Plan d'action",
-            description: "Des recommandations personnalisées pour progresser"
+            description: "Des recommandations personnalisées pour progresser."
           }].map((step, index) => <motion.div key={index} initial={{
             opacity: 0,
             y: 20
