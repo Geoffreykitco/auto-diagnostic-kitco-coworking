@@ -45,17 +45,6 @@ export const sections = {
           { label: "Bouche à oreille et événements networking", points: 5 },
           { label: "Pas de communication régulière", points: 0 }
         ]
-      },
-      {
-        question: "À quelle fréquence publiez-vous sur les réseaux sociaux ?",
-        tooltip: "À quelle fréquence partagez-vous du contenu sur votre espace de coworking ?",
-        type: "single",
-        options: [
-          { label: "Tous les jours", points: 10 },
-          { label: "Plusieurs fois par semaine", points: 7 },
-          { label: "Une fois par semaine", points: 5 },
-          { label: "Rarement ou jamais", points: 0 }
-        ]
       }
     ]
   },
@@ -64,21 +53,44 @@ export const sections = {
     description: "L'activation mesure votre capacité à transformer les visiteurs en membres actifs. Cette section évalue vos processus d'intégration et d'engagement initial.",
     questions: [
       {
-        question: "Quel est votre processus d'accueil des nouveaux membres ?",
-        tooltip: "Comment intégrez-vous les nouveaux arrivants ?",
+        question: "Que peut faire un visiteur quand il découvre votre espace ?",
+        tooltip: "Quelles options proposez-vous aux visiteurs potentiels ?",
+        type: "multiple",
         options: [
-          { label: "Programme d'intégration complet", points: 10 },
-          { label: "Briefing simple", points: 5 },
-          { label: "Pas de processus formel", points: 0 }
+          { label: "Visiter librement sans engagement", points: 5 },
+          { label: "Demander une visite guidée", points: 5 },
+          { label: "Essayer gratuitement pendant une période limitée", points: 5 },
+          { label: "Réserver et payer immédiatement", points: 5 }
         ]
       },
       {
-        question: "Proposez-vous des événements communautaires ?",
-        tooltip: "À quelle fréquence organisez-vous des événements pour vos membres ?",
+        question: "Avez-vous un processus d'intégration structuré pour les nouveaux membres ?",
+        tooltip: "Comment accueillez-vous les nouveaux membres ?",
+        type: "single",
         options: [
-          { label: "Régulièrement (hebdomadaire/mensuel)", points: 10 },
-          { label: "Occasionnellement", points: 5 },
-          { label: "Rarement ou jamais", points: 0 }
+          { label: "Oui, avec un processus d'accueil clair", points: 10 },
+          { label: "Oui, mais informel", points: 5 },
+          { label: "Non, les membres se débrouillent seuls", points: 0 }
+        ]
+      },
+      {
+        question: "Vos offres et tarifs sont-ils facilement compréhensibles ?",
+        tooltip: "La clarté de votre proposition commerciale",
+        type: "single",
+        options: [
+          { label: "Oui, tout est clair", points: 10 },
+          { label: "Oui, mais certains aspects nécessitent des explications", points: 5 },
+          { label: "Non, c'est souvent confus", points: 0 }
+        ]
+      },
+      {
+        question: "Faites-vous un suivi après la première visite ou l'essai ?",
+        tooltip: "Comment gérez-vous le suivi des prospects ?",
+        type: "single",
+        options: [
+          { label: "Oui, systématiquement", points: 10 },
+          { label: "Oui, mais pas toujours", points: 5 },
+          { label: "Non, jamais", points: 0 }
         ]
       }
     ]
@@ -88,21 +100,43 @@ export const sections = {
     description: "La rétention évalue votre capacité à fidéliser vos membres sur le long terme. Cette section analyse vos stratégies pour maintenir leur satisfaction et leur engagement.",
     questions: [
       {
-        question: "Quel est votre taux de rétention mensuel ?",
-        tooltip: "Pourcentage de membres qui renouvellent leur abonnement",
+        question: "Les membres reviennent-ils régulièrement ?",
+        tooltip: "Fréquence d'utilisation de l'espace par les membres",
+        type: "single",
         options: [
-          { label: "Plus de 90%", points: 10 },
-          { label: "Entre 70% et 90%", points: 5 },
-          { label: "Moins de 70%", points: 0 }
+          { label: "Oui, la plupart", points: 10 },
+          { label: "Oui, mais seulement certains", points: 5 },
+          { label: "Non, fort turnover", points: 0 }
         ]
       },
       {
-        question: "Avez-vous un programme de fidélité ?",
-        tooltip: "Offrez-vous des avantages aux membres de longue durée ?",
+        question: "Proposez-vous des programmes de fidélité ou des abonnements ?",
+        tooltip: "Stratégies de fidélisation des membres",
+        type: "single",
         options: [
-          { label: "Oui, avec plusieurs avantages", points: 10 },
-          { label: "Oui, basique", points: 5 },
-          { label: "Non", points: 0 }
+          { label: "Oui, structurés et bien promus", points: 10 },
+          { label: "Oui, mais sous-utilisés", points: 5 },
+          { label: "Pas de programme de fidélité", points: 0 }
+        ]
+      },
+      {
+        question: "Organisez-vous des événements pour votre communauté ?",
+        tooltip: "Fréquence des événements communautaires",
+        type: "single",
+        options: [
+          { label: "Oui, régulièrement", points: 10 },
+          { label: "Oui, occasionnellement", points: 5 },
+          { label: "Non, jamais", points: 0 }
+        ]
+      },
+      {
+        question: "Collectez-vous activement les retours de vos membres ?",
+        tooltip: "Méthodes de collecte des feedbacks",
+        type: "single",
+        options: [
+          { label: "Oui, via des sondages ou discussions régulières", points: 10 },
+          { label: "Oui, mais informellement", points: 5 },
+          { label: "Non, pas de collecte de feedback", points: 0 }
         ]
       }
     ]
@@ -112,21 +146,34 @@ export const sections = {
     description: "La section revenus analyse votre capacité à monétiser votre espace et à générer des revenus durables à travers différentes sources.",
     questions: [
       {
-        question: "Proposez-vous différentes formules d'abonnement ?",
-        tooltip: "Variété des offres disponibles",
+        question: "Quelle est votre principale source de revenus ?",
+        tooltip: "Sources de revenus principales de votre espace",
+        type: "multiple",
         options: [
-          { label: "Plusieurs formules flexibles", points: 10 },
-          { label: "2-3 formules standard", points: 5 },
-          { label: "Une seule formule", points: 0 }
+          { label: "Abonnements mensuels", points: 5 },
+          { label: "Pass journaliers/horaires", points: 5 },
+          { label: "Location de bureaux privés", points: 5 },
+          { label: "Services annexes (café, impression, services aux entreprises)", points: 5 }
         ]
       },
       {
-        question: "Avez-vous des services additionnels payants ?",
-        tooltip: "Services générant des revenus supplémentaires",
+        question: "Vos revenus sont-ils stables et prévisibles ?",
+        tooltip: "Stabilité des revenus mensuels",
+        type: "single",
         options: [
-          { label: "Plusieurs services additionnels", points: 10 },
-          { label: "Quelques services basiques", points: 5 },
-          { label: "Aucun service additionnel", points: 0 }
+          { label: "Oui, grâce aux abonnements", points: 10 },
+          { label: "Oui, mais avec quelques incertitudes", points: 5 },
+          { label: "Non, les revenus fluctuent significativement", points: 0 }
+        ]
+      },
+      {
+        question: "Proposez-vous des services additionnels pour augmenter les revenus ?",
+        tooltip: "Services générant des revenus supplémentaires",
+        type: "single",
+        options: [
+          { label: "Oui, bien optimisés", points: 10 },
+          { label: "Oui, mais peu utilisés", points: 5 },
+          { label: "Pas de services additionnels", points: 0 }
         ]
       }
     ]
@@ -136,21 +183,43 @@ export const sections = {
     description: "La recommandation évalue votre capacité à transformer vos membres en ambassadeurs de votre espace, générant ainsi une croissance organique.",
     questions: [
       {
-        question: "Avez-vous un programme de parrainage ?",
-        tooltip: "Encouragez-vous les membres à recommander votre espace ?",
+        question: "Les membres recommandent-ils spontanément votre espace de coworking ?",
+        tooltip: "Recommandations spontanées par les membres",
+        type: "single",
         options: [
-          { label: "Oui, avec récompenses", points: 10 },
-          { label: "Oui, sans récompense", points: 5 },
-          { label: "Non", points: 0 }
+          { label: "Oui, souvent", points: 10 },
+          { label: "Oui, parfois", points: 5 },
+          { label: "Non, rarement", points: 0 }
         ]
       },
       {
-        question: "Mesurez-vous la satisfaction de vos membres ?",
-        tooltip: "Collectez-vous les avis et retours d'expérience ?",
+        question: "Avez-vous un programme de parrainage ou de fidélité ?",
+        tooltip: "Programme de recommandation structuré",
+        type: "single",
         options: [
-          { label: "Oui, régulièrement", points: 10 },
-          { label: "Oui, occasionnellement", points: 5 },
-          { label: "Non", points: 0 }
+          { label: "Oui, avec des avantages clairs", points: 10 },
+          { label: "Oui, mais peu utilisé", points: 5 },
+          { label: "Pas de programme de parrainage", points: 0 }
+        ]
+      },
+      {
+        question: "Avez-vous des avis en ligne visibles ?",
+        tooltip: "Présence d'avis clients en ligne",
+        type: "single",
+        options: [
+          { label: "Oui, avec beaucoup d'avis positifs", points: 10 },
+          { label: "Oui, mais peu nombreux", points: 5 },
+          { label: "Pas d'avis", points: 0 }
+        ]
+      },
+      {
+        question: "Encouragez-vous les membres à laisser des avis ou à parrainer ?",
+        tooltip: "Stratégie de collecte d'avis et de parrainage",
+        type: "single",
+        options: [
+          { label: "Oui, systématiquement", points: 10 },
+          { label: "Oui, mais occasionnellement", points: 5 },
+          { label: "Non, jamais", points: 0 }
         ]
       }
     ]
