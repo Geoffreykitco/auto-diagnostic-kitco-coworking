@@ -110,8 +110,8 @@ export const QuestionItem = ({
                 {option.label === "Autres (préciser)" && isOptionSelected(questionIndex, optionIndex) && (
                   <Input
                     type="text"
-                    value={textValues[`${questionIndex}-${optionIndex}`] || ''}
-                    onChange={(e) => onTextChange(`${questionIndex}-${optionIndex}`, e.target.value, question.question)}
+                    value={textValues[questionIndex] || ''}
+                    onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
                     placeholder="Précisez..."
                     className="mt-2 w-full border border-gray-200 p-2 rounded focus:border-primary focus:ring-0 bg-white"
                     onClick={(e) => e.stopPropagation()}
