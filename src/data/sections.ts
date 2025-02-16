@@ -1,5 +1,117 @@
 
 export const sections = {
+  informations: {
+    title: "Partie 1 : Informations Générales",
+    description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis.",
+    questions: [
+      {
+        question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
+        tooltip: "L'ancienneté de votre espace",
+        type: "single",
+        options: [
+          { label: "Moins de 6 mois", points: 0 },
+          { label: "6 mois à 1 an", points: 0 },
+          { label: "1 à 3 ans", points: 0 },
+          { label: "Plus de 3 ans", points: 0 }
+        ]
+      },
+      {
+        question: "Quels types de bureaux proposez-vous ?",
+        tooltip: "Les différents espaces de travail disponibles",
+        type: "multiple",
+        options: [
+          { label: "Bureaux partagés", points: 0 },
+          { label: "Bureaux privés", points: 0 },
+          { label: "Salles de réunion", points: 0 },
+          { label: "Espaces dédiés à des événements", points: 0 },
+          { label: "Autres", points: 0 }
+        ]
+      },
+      {
+        question: "Quels types d'abonnement proposez-vous ?",
+        tooltip: "Les différentes formules d'accès à l'espace",
+        type: "multiple",
+        options: [
+          { label: "Abonnement mensuel", points: 0 },
+          { label: "Abonnement annuel", points: 0 },
+          { label: "Pass à la journée", points: 0 },
+          { label: "Pack de journées (5/10/20/...)", points: 0 },
+          { label: "Autres", points: 0 }
+        ]
+      },
+      {
+        question: "Quel est le statut de votre espace de coworking ?",
+        tooltip: "Votre relation légale avec les locaux",
+        type: "single",
+        options: [
+          { label: "Propriétaire", points: 0 },
+          { label: "Locataire", points: 0 },
+          { label: "Partenariat avec un tiers", points: 0 }
+        ]
+      },
+      {
+        question: "Quelle est la superficie totale de votre espace de coworking ?",
+        tooltip: "La surface totale disponible",
+        type: "single",
+        options: [
+          { label: "Moins de 100m²", points: 0 },
+          { label: "100 à 300m²", points: 0 },
+          { label: "300 à 600m²", points: 0 },
+          { label: "Plus de 600m²", points: 0 }
+        ]
+      },
+      {
+        question: "Avez-vous d'autres espaces de coworking concurrents à proximité ?",
+        tooltip: "La concurrence dans votre zone géographique",
+        type: "single",
+        options: [
+          { label: "Oui, plusieurs dans un rayon de 1 km", points: 0 },
+          { label: "Oui, quelques-uns dans ma ville", points: 0 },
+          { label: "Non, je suis le seul espace de coworking dans la zone", points: 0 },
+          { label: "Je ne sais pas", points: 0 }
+        ]
+      },
+      {
+        question: "Dans quelle ville est situé votre espace de coworking ?",
+        tooltip: "La localisation de votre espace",
+        type: "single",
+        options: [
+          { label: "Paris", points: 0 },
+          { label: "Lyon", points: 0 },
+          { label: "Marseille", points: 0 },
+          { label: "Bordeaux", points: 0 },
+          { label: "Lille", points: 0 },
+          { label: "Toulouse", points: 0 },
+          { label: "Nantes", points: 0 },
+          { label: "Strasbourg", points: 0 },
+          { label: "Autre", points: 0 }
+        ]
+      },
+      {
+        question: "Quel est le pourcentage moyen de remplissage de votre espace de coworking ?",
+        tooltip: "Votre taux d'occupation moyen",
+        type: "single",
+        options: [
+          { label: "Moins de 25%", points: 0 },
+          { label: "25% à 50%", points: 0 },
+          { label: "50% à 75%", points: 0 },
+          { label: "Plus de 75%", points: 0 }
+        ]
+      },
+      {
+        question: "Quel est votre point mort mensuel ?",
+        tooltip: "Le montant minimum de revenus nécessaire pour couvrir vos charges",
+        type: "single",
+        options: [
+          { label: "Moins de 5000€", points: 0 },
+          { label: "5000€ à 10000€", points: 0 },
+          { label: "10000€ à 20000€", points: 0 },
+          { label: "Plus de 20000€", points: 0 },
+          { label: "Je ne sais pas", points: 0 }
+        ]
+      }
+    ]
+  },
   acquisition: {
     title: "Partie 1 : Acquisition",
     description: "L'acquisition concerne votre capacité à attirer de nouveaux membres dans votre espace de coworking. Cette section évalue vos stratégies marketing et votre visibilité.",
