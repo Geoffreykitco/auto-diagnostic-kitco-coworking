@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -104,7 +105,19 @@ export const QuestionItem = ({
                   <div className="h-3 w-3 rounded bg-primary" />
                 )}
               </div>
-              {option.label}
+              <div className="flex-grow">
+                {option.label}
+                {option.label === "Autres (préciser)" && isOptionSelected(questionIndex, optionIndex) && (
+                  <Input
+                    type="text"
+                    value={textValues[`${questionIndex}-${optionIndex}`] || ''}
+                    onChange={(e) => onTextChange(`${questionIndex}-${optionIndex}`, e.target.value, question.question)}
+                    placeholder="Précisez..."
+                    className="mt-2 w-full border border-gray-200 p-2 rounded focus:border-primary focus:ring-0 bg-white"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                )}
+              </div>
             </motion.button>
           ))
         )}
