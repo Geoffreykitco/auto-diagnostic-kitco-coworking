@@ -1,7 +1,8 @@
 
 export const sections = {
   acquisition: {
-    title: "Acquisition",
+    title: "Partie 1 : Acquisition",
+    description: "L'acquisition concerne votre capacité à attirer de nouveaux membres dans votre espace de coworking. Cette section évalue vos stratégies marketing et votre visibilité.",
     questions: [
       {
         question: "Est-ce que vous faites du marketing actif pour votre espace de coworking ?",
@@ -59,7 +60,8 @@ export const sections = {
     ]
   },
   activation: {
-    title: "Activation",
+    title: "Partie 2 : Activation",
+    description: "L'activation mesure votre capacité à transformer les visiteurs en membres actifs. Cette section évalue vos processus d'intégration et d'engagement initial.",
     questions: [
       {
         question: "Quel est votre processus d'accueil des nouveaux membres ?",
@@ -82,7 +84,8 @@ export const sections = {
     ]
   },
   retention: {
-    title: "Rétention",
+    title: "Partie 3 : Rétention",
+    description: "La rétention évalue votre capacité à fidéliser vos membres sur le long terme. Cette section analyse vos stratégies pour maintenir leur satisfaction et leur engagement.",
     questions: [
       {
         question: "Quel est votre taux de rétention mensuel ?",
@@ -105,7 +108,8 @@ export const sections = {
     ]
   },
   revenus: {
-    title: "Revenus",
+    title: "Partie 4 : Revenus",
+    description: "La section revenus analyse votre capacité à monétiser votre espace et à générer des revenus durables à travers différentes sources.",
     questions: [
       {
         question: "Proposez-vous différentes formules d'abonnement ?",
@@ -128,7 +132,8 @@ export const sections = {
     ]
   },
   recommandation: {
-    title: "Recommandation",
+    title: "Partie 5 : Recommandation",
+    description: "La recommandation évalue votre capacité à transformer vos membres en ambassadeurs de votre espace, générant ainsi une croissance organique.",
     questions: [
       {
         question: "Avez-vous un programme de parrainage ?",
