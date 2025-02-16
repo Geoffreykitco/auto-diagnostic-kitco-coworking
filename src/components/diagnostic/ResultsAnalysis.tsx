@@ -30,9 +30,9 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
   };
 
   const getSectionLevel = (score: number) => {
-    if (score >= 80) return "Avancé";
-    if (score >= 50) return "Intermédiaire";
-    return "Débutant";
+    if (score >= 80) return "Avancé ⚡️";
+    if (score >= 50) return "Intermédiaire 😬";
+    return "Débutant ❌";
   };
 
   const getSectionAnalysis = (score: number) => {
@@ -92,6 +92,23 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
           );
         })}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="flex flex-col items-center space-y-4 mt-8"
+      >
+        <p className="text-lg text-gray-700">Envie de trouver des solutions pour avancer ?</p>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200"
+          onClick={() => window.location.href = "mailto:geoffrey@example.com"}
+        >
+          Échanger avec Geoffrey
+        </motion.button>
+      </motion.div>
     </div>
   );
 };
