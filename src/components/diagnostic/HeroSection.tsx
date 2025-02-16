@@ -22,7 +22,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         </p>
         <motion.button
           onClick={onStart}
-          className="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium"
+          className="relative px-8 py-3 bg-[#8B5CF6] text-white rounded-md font-medium overflow-hidden group"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{
@@ -31,7 +31,15 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
             damping: 8
           }}
         >
-          Commencer l'évaluation
+          <motion.span
+            className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#9b87f5] to-[#8B5CF6] group-hover:opacity-0 transition-opacity duration-300"
+          />
+          <motion.span
+            className="absolute inset-0 w-0 bg-gradient-to-r from-[#8B5CF6] to-[#7c4deb] group-hover:w-full transition-all duration-300"
+          />
+          <span className="relative">
+            Commencer l'évaluation
+          </span>
         </motion.button>
       </motion.div>
     </div>
