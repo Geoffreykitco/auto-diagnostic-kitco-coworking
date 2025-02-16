@@ -1,3 +1,4 @@
+
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -5,7 +6,7 @@ export const sections = {
     questions: [
       {
         question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
-        tooltip: "L'ancienneté de votre espace",
+        tooltip: "Cette information nous permet d'évaluer votre maturité sur le marché et d'adapter nos recommandations en fonction de votre expérience. Un espace plus ancien aura des besoins différents d'un espace récemment ouvert.",
         type: "single",
         options: [
           { label: "Moins de 6 mois", points: 0 },
@@ -16,7 +17,7 @@ export const sections = {
       },
       {
         question: "Quels types de bureaux proposez-vous ?",
-        tooltip: "Les différents espaces de travail disponibles",
+        tooltip: "La diversité de votre offre impacte directement votre capacité à attirer différents types de clients et à maximiser l'utilisation de votre espace. Chaque type d'espace répond à des besoins spécifiques de votre clientèle.",
         type: "multiple",
         options: [
           { label: "Bureaux partagés", points: 0 },
@@ -28,7 +29,7 @@ export const sections = {
       },
       {
         question: "Quels types d'abonnement proposez-vous ?",
-        tooltip: "Les différentes formules d'accès à l'espace",
+        tooltip: "Vos formules d'abonnement définissent votre modèle économique et votre capacité à fidéliser vos clients. Une offre diversifiée permet de répondre aux différents besoins et budgets de vos clients potentiels.",
         type: "multiple",
         options: [
           { label: "Abonnement mensuel", points: 0 },
@@ -40,7 +41,7 @@ export const sections = {
       },
       {
         question: "Quel est le statut de votre espace de coworking ?",
-        tooltip: "Votre relation légale avec les locaux",
+        tooltip: "Le statut de votre espace influence vos coûts fixes et votre capacité à faire évoluer votre offre. Il impacte également votre rentabilité et vos possibilités d'aménagement.",
         type: "single",
         options: [
           { label: "Propriétaire", points: 0 },
@@ -50,7 +51,7 @@ export const sections = {
       },
       {
         question: "Quelle est la superficie totale de votre espace de coworking ?",
-        tooltip: "La surface totale disponible",
+        tooltip: "La surface disponible détermine votre capacité d'accueil et influence directement votre potentiel de revenus. Elle impacte également vos coûts fixes et votre organisation spatiale.",
         type: "single",
         options: [
           { label: "Moins de 100m²", points: 0 },
@@ -61,7 +62,7 @@ export const sections = {
       },
       {
         question: "Avez-vous d'autres espaces de coworking concurrents à proximité ?",
-        tooltip: "La concurrence dans votre zone géographique",
+        tooltip: "L'analyse de la concurrence locale est cruciale pour positionner votre offre. Elle permet d'identifier les opportunités de différenciation et d'ajuster votre stratégie commerciale.",
         type: "single",
         options: [
           { label: "Oui, plusieurs dans un rayon de 1 km", points: 0 },
@@ -72,13 +73,13 @@ export const sections = {
       },
       {
         question: "Dans quelle ville est situé votre espace de coworking ?",
-        tooltip: "La localisation de votre espace",
+        tooltip: "La localisation géographique influence votre marché potentiel, vos tarifs et votre positionnement. Elle détermine également l'accessibilité et l'attractivité de votre espace.",
         type: "text",
         options: []
       },
       {
         question: "Quel est le pourcentage moyen de remplissage de votre espace de coworking ?",
-        tooltip: "Votre taux d'occupation moyen",
+        tooltip: "Le taux d'occupation est un indicateur clé de la performance de votre espace. Il reflète l'adéquation entre votre offre et la demande, et impacte directement votre rentabilité.",
         type: "single",
         options: [
           { label: "Moins de 25%", points: 0 },
@@ -89,7 +90,7 @@ export const sections = {
       },
       {
         question: "Quel est votre point mort mensuel ?",
-        tooltip: "Le montant minimum de revenus nécessaire pour couvrir vos charges",
+        tooltip: "Le point mort représente le niveau de revenus nécessaire pour couvrir l'ensemble de vos charges fixes et variables. C'est un indicateur crucial pour évaluer la viabilité économique de votre espace et définir vos objectifs commerciaux.",
         type: "text",
         options: []
       }
