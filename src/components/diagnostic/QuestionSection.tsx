@@ -1,11 +1,17 @@
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect, useRef } from 'react';
 import { DiagnosticBreadcrumb } from './DiagnosticBreadcrumb';
 import { ResultsAnalysis } from './ResultsAnalysis';
 import { QuestionItem } from './QuestionItem';
-import { useIsMobile } from '@/hooks/use-is-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import { Input } from "@/components/ui/input"
 
 interface Option {
   label: string;
