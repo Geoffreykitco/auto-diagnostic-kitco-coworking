@@ -1,4 +1,3 @@
-
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -41,6 +40,17 @@ export const sections = {
         tooltip: "La localisation géographique influence votre marché potentiel, vos tarifs et votre positionnement.",
         type: "text",
         options: []
+      },
+      {
+        question: "Combien d'espaces de coworking concurrents sont présents dans votre zone ?",
+        tooltip: "Le niveau de concurrence dans votre zone impacte votre stratégie de différenciation et de tarification.",
+        type: "single",
+        options: [
+          { label: "Aucun concurrent direct", points: 0 },
+          { label: "1 à 2 concurrents", points: 0 },
+          { label: "3 à 5 concurrents", points: 0 },
+          { label: "Plus de 5 concurrents", points: 0 }
+        ]
       }
     ]
   },
