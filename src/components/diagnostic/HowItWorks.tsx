@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useIsMobile } from "@/hooks/use-mobile";
 export const HowItWorks = () => {
   const isMobile = useIsMobile();
-  return <main className="container mx-auto max-w-4xl px-4 md:py-12 py-[30px]">
+  return <main className="container mx-auto max-w-4xl px-4 md:py-12 py-[20px]">
       <div className="glass-morphism rounded-lg p-6 md:p-8">
         <motion.div initial={{
         opacity: 0
