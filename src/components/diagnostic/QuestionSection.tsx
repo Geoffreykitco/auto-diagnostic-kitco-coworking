@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -270,7 +271,7 @@ export const QuestionSection = ({
           {showNext && (
             <button
               onClick={handleNext}
-              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
+              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-white bg-[#132720] hover:bg-[#132720]/90 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
             >
               Suivant
               <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
