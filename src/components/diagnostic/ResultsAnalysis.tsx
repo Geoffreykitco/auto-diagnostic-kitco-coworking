@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -112,16 +113,18 @@ export const ResultsAnalysis = ({
           <h3 className="text-xl font-semibold text-primary mb-4">Vous avez un message 🎥</h3>
           <div className="bg-gradient-to-r from-[#F2FCE2] to-[#D3E4FD] p-6 rounded-xl">
             <div className="relative overflow-hidden rounded-xl bg-white/90 backdrop-blur-sm shadow-lg border border-white/40">
-              <iframe 
-                src="https://drive.google.com/file/d/1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS/preview" 
-                width="100%" 
-                height="100" 
-                allow="autoplay"
-                className="w-full border-0 bg-white/80"
-                style={{
-                  borderRadius: "12px"
-                }}
-              ></iframe>
+              <a 
+                href="https://calendar.app.google/o7Hs96ieaHG2AudD9" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block hover:opacity-95 transition-opacity"
+              >
+                <img 
+                  src="/lovable-uploads/93416d08-f285-44db-8cdf-20595f524c14.png"
+                  alt="KITCO - Des coworkings bien pensés"
+                  className="w-full h-auto object-cover rounded-xl"
+                />
+              </a>
             </div>
           </div>
         </div>
