@@ -158,8 +158,8 @@ export const QuestionSection = ({
       { id: 'acquisition', label: 'Acquisition' },
       { id: 'activation', label: 'Activation' },
       { id: 'retention', label: 'Rétention' },
-      { id: 'revenue', label: 'Revenue' },
-      { id: 'referal', label: 'Referal' },
+      { id: 'revenus', label: 'Revenue' },
+      { id: 'recommandation', label: 'Referal' },
       { id: 'results', label: "C'est terminé" }
     ];
 
