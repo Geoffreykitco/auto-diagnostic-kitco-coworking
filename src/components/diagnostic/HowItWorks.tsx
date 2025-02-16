@@ -30,7 +30,7 @@ export const HowItWorks = () => {
                 description: "Pour BIEN comprendre le contexte business de votre coworking."
               }, {
                 title: "Obtenez votre score",
-                description: "Recevez un diagnostique de performance de votre coworking."
+                description: "Recevez un diagnostic de performance de votre coworking."
               }, {
                 title: "Plan d'action",
                 description: "Des recommandations personnalisées pour progresser."
