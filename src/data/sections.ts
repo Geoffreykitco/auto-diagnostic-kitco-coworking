@@ -5,7 +5,7 @@ export const sections = {
     questions: [
       {
         question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
-        tooltip: "Cette information nous permet d'évaluer votre maturité sur le marché et d'adapter nos recommandations en fonction de votre expérience.",
+        tooltip: "Connaître l'ancienneté de votre coworking permet d'évaluer sa maturité et son positionnement sur le marché.",
         type: "single",
         options: [
           { label: "Moins de 6 mois", points: 0 },
@@ -16,18 +16,31 @@ export const sections = {
       },
       {
         question: "Quels types de bureaux proposez-vous ?",
-        tooltip: "La diversité de votre offre impacte directement votre capacité à attirer différents types de clients.",
+        tooltip: "L'offre de bureaux impacte directement votre clientèle cible et votre stratégie de commercialisation.",
         type: "multiple",
         options: [
           { label: "Bureaux partagés", points: 0 },
           { label: "Bureaux privés", points: 0 },
           { label: "Salles de réunion", points: 0 },
-          { label: "Espaces dédiés à des événements", points: 0 }
+          { label: "Espaces dédiés à des événements", points: 0 },
+          { label: "Autres (préciser)", points: 0 }
+        ]
+      },
+      {
+        question: "Quels types d'abonnement proposez-vous ?",
+        tooltip: "Un choix flexible d'abonnements permet d'attirer différents profils de clients et d'optimiser le taux d'occupation.",
+        type: "multiple",
+        options: [
+          { label: "Abonnement mensuel", points: 0 },
+          { label: "Abonnement annuel", points: 0 },
+          { label: "Pass à la journée", points: 0 },
+          { label: "Pack de journées (5/10/20/...)", points: 0 },
+          { label: "Autres (préciser)", points: 0 }
         ]
       },
       {
         question: "Quel est le statut de votre espace de coworking ?",
-        tooltip: "Le statut de votre espace influence vos coûts fixes et votre capacité à faire évoluer votre offre.",
+        tooltip: "Être propriétaire ou locataire influence la rentabilité et la capacité d'investissement à long terme.",
         type: "single",
         options: [
           { label: "Propriétaire", points: 0 },
@@ -36,21 +49,44 @@ export const sections = {
         ]
       },
       {
+        question: "Quelle est la superficie totale de votre espace de coworking ?",
+        tooltip: "La taille de votre espace impacte vos coûts d'exploitation et votre capacité à accueillir des membres.",
+        type: "single",
+        options: [
+          { label: "Moins de 100m²", points: 0 },
+          { label: "100 à 300m²", points: 0 },
+          { label: "300 à 600m²", points: 0 },
+          { label: "Plus de 600m²", points: 0 }
+        ]
+      },
+      {
+        question: "Avez-vous d'autres espaces de coworking concurrents à proximité ?",
+        tooltip: "Analyser la concurrence locale aide à ajuster votre positionnement et votre stratégie de différenciation.",
+        type: "single",
+        options: [
+          { label: "Oui, plusieurs dans un rayon de 1 km", points: 0 },
+          { label: "Oui, quelques-uns dans ma ville", points: 0 },
+          { label: "Non, je suis le seul espace de coworking dans la zone", points: 0 },
+          { label: "Je ne sais pas", points: 0 }
+        ]
+      },
+      {
         question: "Dans quelle ville est situé votre espace de coworking ?",
-        tooltip: "La localisation géographique influence votre marché potentiel, vos tarifs et votre positionnement.",
+        tooltip: "La localisation influence fortement l'attractivité et le type de clientèle que vous attirez.",
         type: "text",
         options: []
       },
       {
-        question: "Combien d'espaces de coworking concurrents sont présents dans votre zone ?",
-        tooltip: "Le niveau de concurrence dans votre zone impacte votre stratégie de différenciation et de tarification.",
-        type: "single",
-        options: [
-          { label: "Aucun concurrent direct", points: 0 },
-          { label: "1 à 2 concurrents", points: 0 },
-          { label: "3 à 5 concurrents", points: 0 },
-          { label: "Plus de 5 concurrents", points: 0 }
-        ]
+        question: "Quel est le pourcentage moyen de remplissage de votre espace de coworking ?",
+        tooltip: "Un bon taux d'occupation garantit la rentabilité et aide à anticiper les besoins d'expansion ou d'ajustement des offres.",
+        type: "text",
+        options: []
+      },
+      {
+        question: "Quel est votre point mort mensuel ?",
+        tooltip: "Connaître votre point mort vous permet de mieux gérer vos finances et de fixer des objectifs de revenus réalistes.",
+        type: "text",
+        options: []
       }
     ]
   },
