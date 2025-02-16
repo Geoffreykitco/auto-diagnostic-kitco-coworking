@@ -1,34 +1,70 @@
 
 import { useState } from 'react';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { motion } from 'framer-motion';
 
 const Index = () => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
+  const [currentSection, setCurrentSection] = useState('acquisition');
   const { toast } = useToast();
 
-  const acquisitionQuestions = [
-    {
-      question: "Est-ce que vous faites du marketing actif pour votre espace de coworking ?",
-      tooltip: "À quelle fréquence faites-vous la promotion de votre espace auprès des membres potentiels ?",
-      options: [
-        { label: "Oui, régulièrement", points: 10 },
-        { label: "Oui, occasionnellement", points: 5 },
-        { label: "Non, aucun effort marketing", points: 0 }
+  const sections = {
+    acquisition: {
+      title: "Acquisition",
+      questions: [
+        {
+          question: "Est-ce que vous faites du marketing actif pour votre espace de coworking ?",
+          tooltip: "À quelle fréquence faites-vous la promotion de votre espace auprès des membres potentiels ?",
+          options: [
+            { label: "Oui, régulièrement", points: 10 },
+            { label: "Oui, occasionnellement", points: 5 },
+            { label: "Non, aucun effort marketing", points: 0 }
+          ]
+        },
+        {
+          question: "Quelle présence en ligne avez-vous ?",
+          tooltip: "Quelles plateformes digitales utilisez-vous pour présenter votre espace ?",
+          options: [
+            { label: "Site web", points: 5 },
+            { label: "Réseaux sociaux", points: 5 },
+            { label: "Google Maps et annuaires locaux", points: 5 },
+            { label: "Aucune", points: 0 }
+          ]
+        },
+        {
+          question: "Proposez-vous une offre spéciale pour les nouveaux membres ?",
+          tooltip: "Avez-vous des promotions pour encourager les essais ?",
+          options: [
+            { label: "Oui, essai gratuit ou réduction", points: 10 },
+            { label: "Oui, mais peu promu", points: 5 },
+            { label: "Non, pas d'offres spéciales", points: 0 }
+          ]
+        },
+        {
+          question: "Comment communiquez-vous avec les clients potentiels ?",
+          tooltip: "Quels canaux utilisez-vous pour interagir avec les prospects ?",
+          options: [
+            { label: "Newsletter ou campagnes email", points: 5 },
+            { label: "Engagement sur les réseaux sociaux", points: 5 },
+            { label: "Bouche à oreille et événements networking", points: 5 },
+            { label: "Pas de communication régulière", points: 0 }
+          ]
+        },
+        {
+          question: "À quelle fréquence publiez-vous sur les réseaux sociaux ?",
+          tooltip: "À quelle fréquence partagez-vous du contenu sur votre espace de coworking ?",
+          options: [
+            { label: "Tous les jours", points: 10 },
+            { label: "Plusieurs fois par semaine", points: 7 },
+            { label: "Une fois par semaine", points: 5 },
+            { label: "Rarement ou jamais", points: 0 }
+          ]
+        }
       ]
     },
-    {
-      question: "Quelle présence en ligne avez-vous ?",
-      tooltip: "Quelles plateformes digitales utilisez-vous pour présenter votre espace ?",
-      options: [
-        { label: "Site web", points: 5 },
-        { label: "Réseaux sociaux", points: 5 },
-        { label: "Google Maps et annuaires locaux", points: 5 },
-        { label: "Aucune", points: 0 }
-      ]
-    }
-  ];
+    // ... autres sections à implémenter (activation, rétention, revenus, recommandation)
+  };
 
   const handleStart = () => {
     toast({
@@ -40,8 +76,14 @@ const Index = () => {
   };
 
   const handleOptionSelect = (questionIndex: number, points: number) => {
-    // Logique de scoring à implémenter
+    // Mise à jour du score
     setProgress(prev => Math.min(prev + 20, 100));
+    
+    // Toast de confirmation
+    toast({
+      title: "Réponse enregistrée",
+      description: "Passons à la question suivante.",
+    });
   };
 
   return (
@@ -126,9 +168,9 @@ const Index = () => {
             className="space-y-8"
           >
             <h2 className="text-3xl font-bold text-primary mb-8">
-              Acquisition
+              {sections[currentSection].title}
             </h2>
-            {acquisitionQuestions.map((q, questionIndex) => (
+            {sections[currentSection].questions.map((q, questionIndex) => (
               <motion.div
                 key={questionIndex}
                 initial={{ opacity: 0, x: -20 }}
