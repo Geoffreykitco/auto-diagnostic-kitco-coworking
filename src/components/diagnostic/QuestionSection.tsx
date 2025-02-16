@@ -96,6 +96,7 @@ export const QuestionSection = ({
     toast({
       title: "Réponse enregistrée",
       description: "Passons à la question suivante.",
+      className: "animate-slide-in-right duration-200"
     });
   };
 
@@ -129,6 +130,7 @@ export const QuestionSection = ({
       toast({
         title: "Réponse enregistrée",
         description: "Passons à la question suivante.",
+        className: "animate-slide-in-right duration-200"
       });
     }, 1000); // Attendre 1 seconde après la dernière frappe
   };
