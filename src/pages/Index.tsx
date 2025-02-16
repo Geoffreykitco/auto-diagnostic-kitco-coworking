@@ -22,7 +22,7 @@ const Index = () => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
   const [currentSection, setCurrentSection] = useState('informations');
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
   const { toast } = useToast();
 
   const currentSectionIndex = sectionOrder.indexOf(currentSection);
@@ -34,22 +34,33 @@ const Index = () => {
       title: "Bienvenue dans l'auto-diagnostic!",
       description: "Commençons l'évaluation de votre espace de coworking.",
     });
-    setProgress(14.28); // Ajusté pour 7 sections au total
+    setProgress(0);
     setStarted(true);
   };
 
+  const calculateProgress = (newAnswers: Record<string, Record<number, number>>) => {
+    const totalQuestions = Object.values(sections).reduce((sum, section) => sum + section.questions.length, 0);
+    const answeredQuestions = Object.values(newAnswers).reduce((sum, sectionAnswers) => {
+      return sum + Object.keys(sectionAnswers).length;
+    }, 0);
+    return (answeredQuestions / totalQuestions) * 100;
+  };
+
   const handleOptionSelect = (questionIndex: number, points: number) => {
-    setAnswers(prev => ({
-      ...prev,
-      [currentSection]: {
-        ...prev[currentSection],
-        [questionIndex]: points
-      }
-    }));
-    
-    if (currentSection !== 'resultats') {
-      setProgress(prev => Math.min(prev + 14.28, 100)); // Ajusté pour 7 sections
-    }
+    setAnswers(prev => {
+      const newAnswers = {
+        ...prev,
+        [currentSection]: {
+          ...prev[currentSection],
+          [questionIndex]: points
+        }
+      };
+      
+      const newProgress = calculateProgress(newAnswers);
+      setProgress(newProgress);
+      
+      return newAnswers;
+    });
     
     toast({
       title: "Réponse enregistrée",
@@ -60,16 +71,12 @@ const Index = () => {
   const handlePrevious = () => {
     if (!isFirstSection) {
       setCurrentSection(sectionOrder[currentSectionIndex - 1]);
-      setProgress(prev => Math.max(prev - 14.28, 0));
     }
   };
 
   const handleNext = () => {
     if (!isLastSection) {
       setCurrentSection(sectionOrder[currentSectionIndex + 1]);
-      if (currentSection !== 'resultats') {
-        setProgress(prev => Math.min(prev + 14.28, 100));
-      }
     }
   };
 
