@@ -1,8 +1,7 @@
-
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DiagnosticBreadcrumb } from './DiagnosticBreadcrumb';
 import { ResultsAnalysis } from './ResultsAnalysis';
 import { QuestionItem } from './QuestionItem';
@@ -47,6 +46,7 @@ export const QuestionSection = ({
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
   const [textValues, setTextValues] = useState<{ [key: number]: string }>({});
   const { toast } = useToast();
+  const textTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -92,6 +92,11 @@ export const QuestionSection = ({
       }
       return newSelected;
     });
+    
+    toast({
+      title: "Réponse enregistrée",
+      description: "Passons à la question suivante.",
+    });
   };
 
   const handleTextChange = (questionIndex: number, value: string, question: string) => {
@@ -112,7 +117,20 @@ export const QuestionSection = ({
     }
 
     setTextValues(prev => ({ ...prev, [questionIndex]: processedValue }));
-    onOptionSelect(questionIndex, 0);
+    
+    // Annuler le timeout précédent s'il existe
+    if (textTimeoutRef.current) {
+      clearTimeout(textTimeoutRef.current);
+    }
+
+    // Créer un nouveau timeout
+    textTimeoutRef.current = setTimeout(() => {
+      onOptionSelect(questionIndex, 0);
+      toast({
+        title: "Réponse enregistrée",
+        description: "Passons à la question suivante.",
+      });
+    }, 1000); // Attendre 1 seconde après la dernière frappe
   };
 
   const handleNext = () => {
