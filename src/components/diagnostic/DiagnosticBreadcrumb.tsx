@@ -22,11 +22,8 @@ interface DiagnosticBreadcrumbProps {
 export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrumbProps) => {
   if (!currentStep) return null;
 
-  // Créer un tableau complet des étapes incluant les informations
-  const allSteps = [
-    { id: 'informations', label: 'Informations' },
-    ...steps
-  ];
+  // Ne pas inclure "Informations" dans le tableau si c'est déjà présent dans steps
+  const allSteps = steps;
 
   return (
     <motion.div 
