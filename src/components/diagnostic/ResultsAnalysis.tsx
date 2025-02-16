@@ -116,46 +116,45 @@ export const ResultsAnalysis = ({
       y: 0
     }} transition={{
       delay: 0.4
-    }} className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-800">Notre Accompagnement</h3>
-          <p className="text-gray-600">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
+    }} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+        <div className="space-y-4 text-gray-600">
+          <p className="font-semibold">Vous connaissez maintenant vos axes d'amélioration.</p>
+          <p className="text-base">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
         </div>
 
-        <div className="flex flex-col items-center mt-8">
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200"
-            onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}
-          >
+        <div className="flex flex-col items-center mt-6">
+          <motion.button whileHover={{
+          scale: 1.05
+        }} whileTap={{
+          scale: 0.95
+        }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}>
             Échanger avec Geoffrey
           </motion.button>
-          <p className="text-gray-600 mt-3 text-sm">
-            30 minutes pour définir votre plan d'action
+          <p className="text-gray-700 mt-4 text-xs my-[5px]">
+            30min pour un plan d'action concrêt
           </p>
         </div>
 
-        <div className="mt-16">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+        <div className="mt-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.2 }}
-                className="relative flex flex-col items-center text-center group"
+                className="relative flex flex-col items-center text-center"
               >
                 {index < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 -right-6 w-12 h-[2px] bg-gradient-to-r from-primary/30 to-primary/10 transform translate-x-full" />
+                  <div className="hidden md:block absolute top-8 -right-4 w-8 h-0.5 bg-primary/20 transform translate-x-full" />
                 )}
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-2xl mb-4 shadow-sm transition-all duration-300 group-hover:scale-110">
+                <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-2xl mb-4">
                   {step.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-primary mb-1">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 text-sm max-w-[180px] leading-relaxed">
+                <p className="text-sm text-gray-600 max-w-[200px]">
                   {step.description}
                 </p>
               </motion.div>
