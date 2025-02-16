@@ -15,7 +15,7 @@ export const ProgressBar = ({ progress }: ProgressBarProps) => {
   }, [progress]);
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 px-4 py-3 bg-white/80 backdrop-blur-sm border-b">
+    <div className="fixed top-0 left-0 w-full z-50 px-4 py-3 bg-white border-b">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-gray-600">Progression du diagnostic</span>
