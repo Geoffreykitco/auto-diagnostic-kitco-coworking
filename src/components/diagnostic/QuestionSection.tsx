@@ -62,26 +62,6 @@ export const QuestionSection = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [section.title]);
 
-  const getSteps = () => {
-    const steps = [
-      { id: 'informations', label: 'Informations' },
-      { id: 'acquisition', label: 'Acquisition' },
-      { id: 'activation', label: 'Activation' },
-      { id: 'retention', label: 'Rétention' },
-      { id: 'revenus', label: 'Revenue' },
-      { id: 'recommandation', label: 'Referal' },
-      { id: 'results', label: "Résultats" }
-    ];
-
-    const cleanTitle = section.title.replace(/^Partie \d+ : /, '').toLowerCase();
-    
-    const currentStep = steps.find(step => 
-      cleanTitle.includes(step.id.toLowerCase())
-    );
-
-    return { steps, currentStep };
-  };
-
   const handleOptionSelect = (questionIndex: number, optionIndex: number, points: number, type: 'single' | 'multiple') => {
     setSelectedOptions(prev => {
       const newSelected = { ...prev };
@@ -103,13 +83,7 @@ export const QuestionSection = ({
       return newSelected;
     });
     
-    if (isMobile) {
-      toast({
-        title: "✓",
-        className: "bg-primary/90 text-white border-0 text-xs p-2",
-        duration: 800,
-      });
-    } else {
+    if (!isMobile) {
       toast({
         title: "Réponse enregistrée",
         description: "Passons à la question suivante.",
@@ -144,13 +118,7 @@ export const QuestionSection = ({
 
     textTimeoutRef.current = setTimeout(() => {
       onOptionSelect(questionIndex, 0);
-      if (isMobile) {
-        toast({
-          title: "✓",
-          className: "bg-primary/90 text-white border-0 text-xs p-2",
-          duration: 800,
-        });
-      } else {
+      if (!isMobile) {
         toast({
           title: "Réponse enregistrée",
           description: "Passons à la question suivante.",
@@ -159,6 +127,26 @@ export const QuestionSection = ({
         });
       }
     }, 200);
+  };
+
+  const getSteps = () => {
+    const steps = [
+      { id: 'informations', label: 'Informations' },
+      { id: 'acquisition', label: 'Acquisition' },
+      { id: 'activation', label: 'Activation' },
+      { id: 'retention', label: 'Rétention' },
+      { id: 'revenus', label: 'Revenue' },
+      { id: 'recommandation', label: 'Referal' },
+      { id: 'results', label: "Résultats" }
+    ];
+
+    const cleanTitle = section.title.replace(/^Partie \d+ : /, '').toLowerCase();
+    
+    const currentStep = steps.find(step => 
+      cleanTitle.includes(step.id.toLowerCase())
+    );
+
+    return { steps, currentStep };
   };
 
   const handleNext = () => {
