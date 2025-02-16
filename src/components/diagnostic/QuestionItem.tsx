@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -69,13 +68,22 @@ export const QuestionItem = ({
       </div>
       <div className="space-y-3">
         {question.type === 'text' ? (
-          <Input
-            type={question.question.toLowerCase().includes("point mort mensuel") ? "text" : "text"}
-            value={textValues[questionIndex] || ''}
-            onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
-            placeholder={question.question.toLowerCase().includes("point mort mensuel") ? "Montant en €..." : "Votre réponse..."}
-            className="w-full text-left rounded border border-gray-200 transition-all duration-200 hover:border-primary focus:border-primary focus:ring-0 focus:outline-none bg-white p-4 h-auto"
-          />
+          <div className="w-full text-left p-4 rounded border transition-all duration-200 flex items-center gap-3 border-gray-200 hover:border-primary focus-within:border-primary focus-within:bg-primary/5">
+            <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
+              textValues[questionIndex] ? 'border-primary' : 'border-gray-300'
+            }`}>
+              {textValues[questionIndex] && (
+                <div className="h-3 w-3 rounded bg-primary" />
+              )}
+            </div>
+            <Input
+              type={question.question.toLowerCase().includes("point mort mensuel") ? "text" : "text"}
+              value={textValues[questionIndex] || ''}
+              onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
+              placeholder={question.question.toLowerCase().includes("point mort mensuel") ? "Montant en €..." : "Votre réponse..."}
+              className="w-full border-0 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent"
+            />
+          </div>
         ) : (
           question.options.map((option, optionIndex) => (
             <motion.button
@@ -94,27 +102,15 @@ export const QuestionItem = ({
                   : 'border-gray-200 hover:border-primary hover:bg-primary/5'
               }`}
             >
-              {question.type === 'multiple' ? (
-                <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
-                  isOptionSelected(questionIndex, optionIndex)
-                    ? 'border-primary'
-                    : 'border-gray-300'
-                }`}>
-                  {isOptionSelected(questionIndex, optionIndex) && (
-                    <div className="h-3 w-3 rounded bg-primary" />
-                  )}
-                </div>
-              ) : (
-                <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
-                  isOptionSelected(questionIndex, optionIndex)
-                    ? 'border-primary'
-                    : 'border-gray-300'
-                }`}>
-                  {isOptionSelected(questionIndex, optionIndex) && (
-                    <div className="h-3 w-3 rounded bg-primary" />
-                  )}
-                </div>
-              )}
+              <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
+                isOptionSelected(questionIndex, optionIndex)
+                  ? 'border-primary'
+                  : 'border-gray-300'
+              }`}>
+                {isOptionSelected(questionIndex, optionIndex) && (
+                  <div className="h-3 w-3 rounded bg-primary" />
+                )}
+              </div>
               {option.label}
             </motion.button>
           ))
