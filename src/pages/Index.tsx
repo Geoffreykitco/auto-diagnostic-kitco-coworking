@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
@@ -32,13 +31,12 @@ const Index = () => {
   const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
   const handleStart = () => {
-    if (!isMobile) {
-      toast({
-        title: "Bienvenue dans l'auto-diagnostic 👋",
-        description: "Commençons l'évaluation de votre espace de coworking.",
-        duration: 1500,
-      });
-    }
+    toast({
+      title: "Bienvenue dans l'auto-diagnostic 👋",
+      description: "Commençons l'évaluation de votre espace de coworking.",
+      duration: 2000,
+      variant: "default",
+    });
     setProgress(0);
     setStarted(true);
   };
