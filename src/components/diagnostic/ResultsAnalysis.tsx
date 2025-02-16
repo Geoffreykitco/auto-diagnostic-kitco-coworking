@@ -45,7 +45,7 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
     return "Des améliorations significatives sont possibles. Établissez un plan d'action prioritaire.";
   };
 
-  const getAnswerText = (sectionName: string, questionIndex: number, points: number) => {
+  const getAnswerText = (sectionName: string, questionIndex: number, answer: number) => {
     const section = sections[sectionName];
     if (!section) return "";
     
@@ -53,15 +53,25 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
     if (!question) return "";
 
     if (question.type === 'text') {
-      return points.toString();
+      return answer.toString();
     }
 
-    const selectedOptions = question.options.filter(opt => opt.points === points);
-    return selectedOptions.map(opt => opt.label).join(", ");
+    if (question.type === 'multiple') {
+      const selectedLabels = question.options
+        .map((opt, idx) => ({ ...opt, index: idx }))
+        .filter(opt => ((answer >> opt.index) & 1) === 1)
+        .map(opt => opt.label);
+      return selectedLabels.join(", ");
+    }
+
+    const selectedOption = question.options.find(opt => opt.points === answer);
+    return selectedOption ? selectedOption.label : "";
   };
 
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
   const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
+
+  console.log("Answers:", answers); // Pour déboguer
 
   return (
     <div className="space-y-8">
@@ -73,14 +83,15 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
       >
         <h2 className="text-2xl font-bold text-primary mb-6">Récapitulatif des réponses</h2>
         {Object.entries(sections).map(([sectionName, section]) => {
-          if (!answers[sectionName]) return null;
+          const sectionAnswers = answers[sectionName];
+          if (!sectionAnswers) return null;
           
           return (
             <div key={sectionName} className="mb-8">
-              <h3 className="text-xl font-semibold capitalize mb-4">{section.title}</h3>
+              <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
               <div className="space-y-4">
                 {section.questions.map((question, index) => {
-                  const answer = answers[sectionName]?.[index];
+                  const answer = sectionAnswers[index];
                   if (answer === undefined) return null;
 
                   return (
@@ -121,7 +132,7 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
               transition={{ delay: 0.3 + index * 0.1 }}
               className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
             >
-              <h3 className="text-xl font-semibold capitalize mb-4">{sectionName}</h3>
+              <h3 className="text-xl font-semibold capitalize mb-4">{sections[sectionName].title}</h3>
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Score</span>
