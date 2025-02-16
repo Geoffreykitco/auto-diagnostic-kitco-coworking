@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -86,10 +85,9 @@ export const QuestionSection = ({
     
     if (!isMobile) {
       toast({
-        title: "Réponse enregistrée",
-        description: "Passons à la question suivante.",
-        className: "animate-slide-in-right",
-        duration: 1500,
+        title: "Réponse enregistrée 🎉",
+        variant: "default",
+        duration: 1200,
       });
     }
   };
@@ -121,10 +119,9 @@ export const QuestionSection = ({
       onOptionSelect(questionIndex, 0);
       if (!isMobile) {
         toast({
-          title: "Réponse enregistrée",
-          description: "Passons à la question suivante.",
-          className: "animate-slide-in-right",
-          duration: 1500,
+          title: "Réponse enregistrée 🎉",
+          variant: "default",
+          duration: 1200,
         });
       }
     }, 200);
