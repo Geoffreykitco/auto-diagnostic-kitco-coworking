@@ -22,7 +22,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         </p>
         <button
           onClick={onStart}
-          className="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium hover-scale pulse"
+          className="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium animate-pulse hover:scale-105"
         >
           Commencer l'évaluation
         </button>
