@@ -74,7 +74,7 @@ export const QuestionItem = ({
             value={textValues[questionIndex] || ''}
             onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
             placeholder={question.question.toLowerCase().includes("point mort mensuel") ? "Montant en €..." : "Votre réponse..."}
-            className="w-full"
+            className="w-full text-left rounded border border-gray-200 transition-all duration-200 hover:border-primary focus:border-primary focus:ring-0 focus:outline-none bg-white p-4 h-auto"
           />
         ) : (
           question.options.map((option, optionIndex) => (
