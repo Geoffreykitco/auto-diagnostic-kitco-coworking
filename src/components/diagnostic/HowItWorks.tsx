@@ -39,24 +39,27 @@ export const HowItWorks = () => {
                   key={index} 
                   initial={{ opacity: 0, y: 20 }} 
                   animate={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: index * 0.2 }}
+                  transition={{ delay: index * 0.2 + 0.5 }}
                   className="relative md:pt-12"
                 >
                   {/* Point de la timeline */}
                   <div className={`absolute ${isMobile ? 'left-[21px] -translate-x-1/2' : 'left-1/2 -translate-x-1/2 top-0'}`}>
                     <div className="w-2.5 h-2.5 rounded-full bg-primary">
-                      <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25"></div>
+                      <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25 animate-pulse"></div>
                     </div>
                   </div>
                   
                   {/* Contenu de l'étape */}
-                  <div className={`bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-100 ${isMobile ? 'ml-12' : ''}`}>
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className={`glass-morphism p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-12' : ''}`}
+                  >
                     <span className="text-xs md:text-sm font-medium text-primary/60 mb-1 block">
                       Étape {index + 1}
                     </span>
                     <h3 className="font-semibold mb-1 md:mb-2 text-sm md:text-base">{step.title}</h3>
                     <p className="text-gray-600 text-xs md:text-sm">{step.description}</p>
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
