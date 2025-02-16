@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
+
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
 }
+
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
@@ -22,11 +24,13 @@ export const ResultsAnalysis = ({
     const totalPoints = Object.values(sectionAnswers).reduce((sum: number, points: number) => sum + points, 0);
     return maxPoints > 0 ? totalPoints / maxPoints * 100 : 0;
   };
+
   const getSectionLevel = (score: number) => {
     if (score >= 80) return "Avancé ⚡️";
     if (score >= 50) return "Intermédiaire 😬";
     return "Débutant ❌";
   };
+
   const getSectionAnalysis = (score: number) => {
     if (score >= 80) {
       return "Excellent niveau. Continuez d'optimiser vos processus pour maintenir cette performance.";
@@ -36,8 +40,11 @@ export const ResultsAnalysis = ({
     }
     return "Des améliorations significatives sont possibles. Établissez un plan d'action prioritaire.";
   };
+
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
+
   const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
+
   return <div className="space-y-8">
       <motion.div initial={{
       opacity: 0,
@@ -55,16 +62,16 @@ export const ResultsAnalysis = ({
 
       <div className="grid gap-6 md:grid-cols-2">
         {sectionsToAnalyze.map((sectionName, index) => {
-        const score = Math.round(calculateSectionScore(sectionName));
-        return <motion.div key={sectionName} initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          delay: 0.3 + index * 0.1
-        }} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+          const score = Math.round(calculateSectionScore(sectionName));
+          return <motion.div key={sectionName} initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            delay: 0.3 + index * 0.1
+          }} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
               <h3 className="text-xl font-semibold capitalize mb-4">{sections[sectionName].title}</h3>
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
@@ -73,15 +80,15 @@ export const ResultsAnalysis = ({
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
                   <div className="bg-primary rounded-full h-2 transition-all duration-1000 ease-out" style={{
-                width: `${score}%`
-              }} />
+                    width: `${score}%`
+                  }} />
                 </div>
                 <p className="text-sm text-gray-600 mt-2">
                   {getSectionAnalysis(score)}
                 </p>
               </div>
             </motion.div>;
-      })}
+        })}
       </div>
 
       <motion.div initial={{
@@ -99,25 +106,16 @@ export const ResultsAnalysis = ({
           <p className="font-medium">Ne laissez pas ces opportunités inexploitées !</p>
           <p></p>
         </div>
-      </motion.div>
-
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} animate={{
-      opacity: 1,
-      y: 0
-    }} transition={{
-      delay: 0.4
-    }} className="flex flex-col items-center space-y-4">
-        <p className="text-gray-700 text-sm">Envie de trouver des solutions pour avancer ?</p>
-        <motion.button whileHover={{
-        scale: 1.05
-      }} whileTap={{
-        scale: 0.95
-      }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "mailto:geoffrey@example.com"}>
-          Échanger avec Geoffrey
-        </motion.button>
+        <div className="flex flex-col items-center mt-6">
+          <motion.button whileHover={{
+            scale: 1.05
+          }} whileTap={{
+            scale: 0.95
+          }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "mailto:geoffrey@example.com"}>
+            Échanger avec Geoffrey
+          </motion.button>
+          <p className="text-gray-700 text-sm mt-4">Envie de trouver des solutions pour avancer ?</p>
+        </div>
       </motion.div>
     </div>;
 };
