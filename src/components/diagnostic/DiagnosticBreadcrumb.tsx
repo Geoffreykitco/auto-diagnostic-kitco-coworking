@@ -1,5 +1,6 @@
 
 import { motion } from 'framer-motion';
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -20,10 +21,36 @@ interface DiagnosticBreadcrumbProps {
 }
 
 export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrumbProps) => {
+  const isMobile = useIsMobile();
+  
   if (!currentStep) return null;
 
-  // Ne pas inclure "Informations" dans le tableau si c'est déjà présent dans steps
-  const allSteps = steps;
+  if (isMobile) {
+    return (
+      <motion.div 
+        className="mb-6"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Breadcrumb>
+          <BreadcrumbList className="flex-wrap">
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/" className="text-sm">
+                {currentStep.id === 'informations' ? 'Démarrage' : 'Retour'}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="font-bold text-primary text-sm">
+                {currentStep.label === "Referal" ? "Recommandation" : currentStep.label}
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div 
@@ -38,7 +65,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
             <BreadcrumbLink href="/">Démarrage</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          {allSteps.map((step, index) => (
+          {steps.map((step, index) => (
             <BreadcrumbItem key={step.id}>
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-bold text-lg text-primary">
@@ -54,7 +81,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
                   </BreadcrumbLink>
                 </>
               )}
-              {index < allSteps.length - 1 && <BreadcrumbSeparator />}
+              {index < steps.length - 1 && <BreadcrumbSeparator />}
             </BreadcrumbItem>
           ))}
         </BreadcrumbList>

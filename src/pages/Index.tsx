@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { ProgressBar } from "@/components/diagnostic/ProgressBar";
 import { HeroSection } from "@/components/diagnostic/HeroSection";
@@ -24,6 +25,7 @@ const Index = () => {
   const [currentSection, setCurrentSection] = useState('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const currentSectionIndex = sectionOrder.indexOf(currentSection);
   const isFirstSection = currentSectionIndex === 0;
@@ -62,10 +64,18 @@ const Index = () => {
       return newAnswers;
     });
     
-    toast({
-      title: "Réponse enregistrée",
-      description: "Passons à la question suivante.",
-    });
+    // Sur mobile, on n'affiche qu'un indicateur visuel discret
+    if (isMobile) {
+      toast({
+        title: "✓",
+        className: "absolute bottom-4 right-4 bg-primary/10 border-0 p-2"
+      });
+    } else {
+      toast({
+        title: "Réponse enregistrée",
+        description: "Passons à la question suivante.",
+      });
+    }
   };
 
   const handlePrevious = () => {
