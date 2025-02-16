@@ -113,7 +113,7 @@ export const QuestionItem = ({
                     value={textValues[questionIndex] || ''}
                     onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
                     placeholder="Précisez..."
-                    className="mt-2 w-full border border-gray-200 p-2 rounded focus:border-primary focus:ring-0 bg-white"
+                    className="mt-2 w-full border border-gray-200 p-2 rounded bg-white focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-primary"
                     onClick={(e) => e.stopPropagation()}
                   />
                 )}
