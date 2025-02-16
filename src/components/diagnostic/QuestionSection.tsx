@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -84,13 +83,11 @@ export const QuestionSection = ({
       return newSelected;
     });
     
-    if (!isMobile) {
-      toast({
-        title: "Réponse enregistrée 🎉",
-        variant: "default",
-        duration: 1200,
-      });
-    }
+    toast({
+      title: "Réponse enregistrée 🎉",
+      variant: "default",
+      duration: 1200,
+    });
   };
 
   const handleTextChange = (questionIndex: number, value: string, question: string) => {
@@ -118,13 +115,11 @@ export const QuestionSection = ({
 
     textTimeoutRef.current = setTimeout(() => {
       onOptionSelect(questionIndex, 0);
-      if (!isMobile) {
-        toast({
-          title: "Réponse enregistrée 🎉",
-          variant: "default",
-          duration: 1200,
-        });
-      }
+      toast({
+        title: "Réponse enregistrée 🎉",
+        variant: "default",
+        duration: 1200,
+      });
     }, 200);
   };
 
