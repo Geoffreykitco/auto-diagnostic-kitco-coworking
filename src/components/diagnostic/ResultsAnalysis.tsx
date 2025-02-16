@@ -13,10 +13,8 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
     const sectionAnswers = answers[sectionName];
     const sectionQuestions = sections[sectionName].questions;
     
-    // Les questions d'informations ne comptent pas dans le score
     if (sectionName === 'informations') return 0;
     
-    // Calcul du score maximal possible pour la section
     let maxPoints = 0;
     sectionQuestions.forEach(question => {
       if (question.type === 'multiple') {
@@ -26,7 +24,6 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
       }
     });
     
-    // Calcul du score obtenu
     const totalPoints = Object.values(sectionAnswers).reduce((sum: number, points: number) => sum + points, 0);
     
     return maxPoints > 0 ? (totalPoints / maxPoints) * 100 : 0;
@@ -48,11 +45,60 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
     return "Des améliorations significatives sont possibles. Établissez un plan d'action prioritaire.";
   };
 
+  const getAnswerText = (sectionName: string, questionIndex: number, points: number) => {
+    const section = sections[sectionName];
+    if (!section) return "";
+    
+    const question = section.questions[questionIndex];
+    if (!question) return "";
+
+    if (question.type === 'text') {
+      return points.toString();
+    }
+
+    const selectedOptions = question.options.filter(opt => opt.points === points);
+    return selectedOptions.map(opt => opt.label).join(", ");
+  };
+
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
   const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
 
   return (
     <div className="space-y-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
+      >
+        <h2 className="text-2xl font-bold text-primary mb-6">Récapitulatif des réponses</h2>
+        {Object.entries(sections).map(([sectionName, section]) => {
+          if (!answers[sectionName]) return null;
+          
+          return (
+            <div key={sectionName} className="mb-8">
+              <h3 className="text-xl font-semibold capitalize mb-4">{section.title}</h3>
+              <div className="space-y-4">
+                {section.questions.map((question, index) => {
+                  const answer = answers[sectionName]?.[index];
+                  if (answer === undefined) return null;
+
+                  return (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                      <p className="font-medium text-gray-700 mb-2">{question.question}</p>
+                      <p className="text-gray-600">
+                        <span className="font-medium">Réponse : </span>
+                        {getAnswerText(sectionName, index, answer)}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </motion.div>
+
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
