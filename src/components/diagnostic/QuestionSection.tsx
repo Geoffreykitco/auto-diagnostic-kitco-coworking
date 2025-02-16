@@ -63,7 +63,7 @@ export const QuestionSection = ({
     ];
 
     const currentStep = steps.find(step => 
-      section.title.toLowerCase().includes(step.id)
+      section.title.toLowerCase().includes(step.id.toLowerCase())
     );
 
     return { steps, currentStep };
