@@ -97,21 +97,7 @@ export const ResultsAnalysis = ({
           <p className="font-semibold">Vous connaissez maintenant vos axes d'amélioration.</p>
           <p className="text-base">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
           <p className="font-medium">
-
-
-Je vais vous aider à améliorer ce texte en le rendant plus percutant et engageant. Voici une proposition :
-
-"Votre diagnostic est prêt : passons à l'action !
-
-Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle des opportunités concrètes pour :
-
-Attirer plus de membres
-Renforcer la fidélisation
-Optimiser votre rentabilité
-
-Transformez ces insights en résultats.
-
-→ Échanger avec Geoffrey</p>
+        </p>
           <p></p>
         </div>
         <div className="flex flex-col items-center mt-6">
