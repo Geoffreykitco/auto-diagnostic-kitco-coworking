@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -107,11 +108,16 @@ export const ResultsAnalysis = ({
           <p></p>
         </div>
         <div className="flex flex-col items-center mt-6">
-          <motion.button whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "mailto:geoffrey@example.com"}>
+          <motion.button 
+            whileHover={{
+              scale: 1.05
+            }} 
+            whileTap={{
+              scale: 0.95
+            }} 
+            className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" 
+            onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}
+          >
             Échanger avec Geoffrey
           </motion.button>
           <p className="text-gray-700 text-sm mt-4">Envie de trouver des solutions pour avancer ?</p>
