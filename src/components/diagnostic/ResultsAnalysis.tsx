@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -110,7 +109,7 @@ export const ResultsAnalysis = ({
         className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
       >
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-primary mb-4">Un message pour vous 🎥</h3>
+          <h3 className="text-xl font-semibold text-primary mb-4">Vous avez un message 🎥</h3>
           <div className="bg-gray-50 p-6 rounded-lg">
             <audio 
               className="w-full"
@@ -154,4 +153,3 @@ export const ResultsAnalysis = ({
       </motion.div>
     </div>;
 };
-
