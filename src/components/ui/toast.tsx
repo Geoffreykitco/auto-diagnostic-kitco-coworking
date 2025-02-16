@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -18,7 +19,7 @@ const ToastViewport = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-[100] flex max-h-screen w-full flex-col-reverse p-4",
-        isMobile ? "bottom-0 right-0 left-0 top-auto flex-col" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[300px]",
+        isMobile ? "bottom-4 right-0 left-0 top-auto flex-col items-center" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[420px]",
         className
       )}
       {...props}
@@ -55,7 +56,7 @@ const Toast = React.forwardRef<
       ref={ref}
       className={cn(
         toastVariants({ variant }), 
-        isMobile && "text-xs p-2 pr-4",
+        isMobile && "max-w-[90%] mx-auto text-sm p-3 pr-5 shadow-xl",
         className
       )}
       {...props}
@@ -82,43 +83,56 @@ ToastAction.displayName = ToastPrimitives.Action.displayName
 const ToastClose = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Close>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Close
-    ref={ref}
-    className={cn(
-      "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
-      className
-    )}
-    toast-close=""
-    {...props}
-  >
-    <X className="h-3 w-3" />
-  </ToastPrimitives.Close>
-))
+>(({ className, ...props }, ref) => {
+  const isMobile = useIsMobile();
+  
+  return (
+    <ToastPrimitives.Close
+      ref={ref}
+      className={cn(
+        "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
+        isMobile && "opacity-100 right-2 top-2",
+        className
+      )}
+      toast-close=""
+      {...props}
+    >
+      <X className={cn("h-4 w-4", isMobile && "h-3 w-3")} />
+    </ToastPrimitives.Close>
+  )
+})
 ToastClose.displayName = ToastPrimitives.Close.displayName
 
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Title
-    ref={ref}
-    className={cn("text-sm font-semibold leading-none", className)}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const isMobile = useIsMobile();
+  
+  return (
+    <ToastPrimitives.Title
+      ref={ref}
+      className={cn("text-sm font-semibold leading-none", isMobile && "text-xs", className)}
+      {...props}
+    />
+  )
+})
 ToastTitle.displayName = ToastPrimitives.Title.displayName
 
 const ToastDescription = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Description>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Description
-    ref={ref}
-    className={cn("text-xs opacity-90", className)}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const isMobile = useIsMobile();
+  
+  return (
+    <ToastPrimitives.Description
+      ref={ref}
+      className={cn("text-sm opacity-90", isMobile && "text-xs", className)}
+      {...props}
+    />
+  )
+})
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
