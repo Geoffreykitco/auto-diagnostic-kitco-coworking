@@ -8,12 +8,14 @@ interface HeroSectionProps {
 export const HeroSection = ({ onStart }: HeroSectionProps) => (
   <section className="hero-pattern py-20 px-4">
     <div className="container mx-auto max-w-4xl">
-      <div className="flex justify-end mb-8">
-        <img 
-          src="/logo-kitco.png" 
-          alt="Kitco Logo" 
-          className="w-32 h-auto object-contain"
-        />
+      <div className="flex justify-end mb-8 px-4">
+        <div className="w-32 h-12">
+          <img 
+            src="logo-kitco.png" 
+            alt="Kitco Logo" 
+            className="w-full h-full object-contain"
+          />
+        </div>
       </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
