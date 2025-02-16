@@ -1,5 +1,12 @@
 
 import { motion } from 'framer-motion';
+import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Option {
   label: string;
@@ -20,9 +27,20 @@ interface Section {
 interface QuestionSectionProps {
   section: Section;
   onOptionSelect: (questionIndex: number, points: number) => void;
+  onPrevious?: () => void;
+  onNext?: () => void;
+  showPrevious?: boolean;
+  showNext?: boolean;
 }
 
-export const QuestionSection = ({ section, onOptionSelect }: QuestionSectionProps) => (
+export const QuestionSection = ({ 
+  section, 
+  onOptionSelect,
+  onPrevious,
+  onNext,
+  showPrevious = true,
+  showNext = true 
+}: QuestionSectionProps) => (
   <div className="container mx-auto max-w-4xl px-4 py-12">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -32,6 +50,7 @@ export const QuestionSection = ({ section, onOptionSelect }: QuestionSectionProp
       <h2 className="text-3xl font-bold text-primary mb-8">
         {section.title}
       </h2>
+      
       {section.questions.map((q, questionIndex) => (
         <motion.div
           key={questionIndex}
@@ -42,12 +61,18 @@ export const QuestionSection = ({ section, onOptionSelect }: QuestionSectionProp
         >
           <div className="flex items-start gap-2">
             <h3 className="text-xl font-semibold text-primary">{q.question}</h3>
-            <button 
-              className="text-gray-400 hover:text-primary"
-              title={q.tooltip}
-            >
-              (i)
-            </button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button className="text-gray-400 hover:text-primary">
+                    <Info className="h-5 w-5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{q.tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <div className="space-y-3">
             {q.options.map((option, optionIndex) => (
@@ -62,6 +87,27 @@ export const QuestionSection = ({ section, onOptionSelect }: QuestionSectionProp
           </div>
         </motion.div>
       ))}
+
+      <div className="flex justify-between items-center pt-8">
+        {showPrevious && (
+          <button
+            onClick={onPrevious}
+            className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"
+          >
+            <ChevronLeft className="h-5 w-5" />
+            Précédent
+          </button>
+        )}
+        {showNext && (
+          <button
+            onClick={onNext}
+            className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto"
+          >
+            Suivant
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        )}
+      </div>
     </motion.div>
   </div>
 );

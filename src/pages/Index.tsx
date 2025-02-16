@@ -8,11 +8,17 @@ import { QuestionSection } from "@/components/diagnostic/QuestionSection";
 import { Footer } from "@/components/diagnostic/Footer";
 import { sections } from "@/data/sections";
 
+const sectionOrder = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
+
 const Index = () => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
   const [currentSection, setCurrentSection] = useState('acquisition');
   const { toast } = useToast();
+
+  const currentSectionIndex = sectionOrder.indexOf(currentSection);
+  const isFirstSection = currentSectionIndex === 0;
+  const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
   const handleStart = () => {
     toast({
@@ -31,6 +37,20 @@ const Index = () => {
     });
   };
 
+  const handlePrevious = () => {
+    if (!isFirstSection) {
+      setCurrentSection(sectionOrder[currentSectionIndex - 1]);
+      setProgress(prev => Math.max(prev - 20, 0));
+    }
+  };
+
+  const handleNext = () => {
+    if (!isLastSection) {
+      setCurrentSection(sectionOrder[currentSectionIndex + 1]);
+      setProgress(prev => Math.min(prev + 20, 100));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <ProgressBar progress={progress} />
@@ -43,8 +63,12 @@ const Index = () => {
           </>
         ) : (
           <QuestionSection 
-            section={sections[currentSection]} 
+            section={sections[currentSection]}
             onOptionSelect={handleOptionSelect}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+            showPrevious={!isFirstSection}
+            showNext={!isLastSection}
           />
         )}
       </div>
