@@ -19,7 +19,7 @@ const ToastViewport = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-[100] flex max-h-screen w-full flex-col-reverse p-4",
-        isMobile ? "bottom-4 right-0 left-0 top-auto flex-col items-center" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+        isMobile ? "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[420px]",
         className
       )}
       {...props}
@@ -56,7 +56,7 @@ const Toast = React.forwardRef<
       ref={ref}
       className={cn(
         toastVariants({ variant }), 
-        isMobile && "max-w-[90%] mx-auto text-sm p-3 pr-5 shadow-xl",
+        isMobile && "max-w-[90%] mx-auto text-sm p-3 pr-3 shadow-xl text-center justify-center",
         className
       )}
       {...props}
@@ -86,20 +86,7 @@ const ToastClose = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const isMobile = useIsMobile();
   
-  return (
-    <ToastPrimitives.Close
-      ref={ref}
-      className={cn(
-        "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
-        isMobile && "opacity-100 right-2 top-2",
-        className
-      )}
-      toast-close=""
-      {...props}
-    >
-      <X className={cn("h-4 w-4", isMobile && "h-3 w-3")} />
-    </ToastPrimitives.Close>
-  )
+  return null; // On ne rend plus le bouton de fermeture
 })
 ToastClose.displayName = ToastPrimitives.Close.displayName
 
@@ -112,7 +99,7 @@ const ToastTitle = React.forwardRef<
   return (
     <ToastPrimitives.Title
       ref={ref}
-      className={cn("text-sm font-semibold leading-none", isMobile && "text-xs", className)}
+      className={cn("text-sm font-semibold leading-none text-center w-full", isMobile && "text-xs", className)}
       {...props}
     />
   )
@@ -128,7 +115,7 @@ const ToastDescription = React.forwardRef<
   return (
     <ToastPrimitives.Description
       ref={ref}
-      className={cn("text-sm opacity-90", isMobile && "text-xs", className)}
+      className={cn("text-sm opacity-90 text-center w-full", isMobile && "text-xs", className)}
       {...props}
     />
   )

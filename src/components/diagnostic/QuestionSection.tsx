@@ -103,22 +103,20 @@ export const QuestionSection = ({
       return newSelected;
     });
     
-    const toastId = isMobile ? 
+    if (isMobile) {
       toast({
         title: "✓",
         className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
-        duration: 200,
-      }) :
+        duration: 1000,
+      });
+    } else {
       toast({
         title: "Réponse enregistrée",
         description: "Passons à la question suivante.",
-        className: "animate-slide-in-right duration-200",
-        duration: 200,
+        className: "animate-slide-in-right duration-1000",
+        duration: 1000,
       });
-      
-    setTimeout(() => {
-      toast.dismiss(toastId.id);
-    }, 200);
+    }
   };
 
   const handleTextChange = (questionIndex: number, value: string, question: string) => {
@@ -146,22 +144,20 @@ export const QuestionSection = ({
 
     textTimeoutRef.current = setTimeout(() => {
       onOptionSelect(questionIndex, 0);
-      const toastId = isMobile ? 
+      if (isMobile) {
         toast({
           title: "✓",
           className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
-          duration: 200,
-        }) :
+          duration: 1000,
+        });
+      } else {
         toast({
           title: "Réponse enregistrée",
           description: "Passons à la question suivante.",
-          className: "animate-slide-in-right duration-200",
-          duration: 200,
+          className: "animate-slide-in-right duration-1000",
+          duration: 1000,
         });
-        
-      setTimeout(() => {
-        toast.dismiss(toastId.id);
-      }, 200);
+      }
     }, 200);
   };
 
