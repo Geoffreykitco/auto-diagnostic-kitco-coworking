@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -146,7 +147,17 @@ export const QuestionSection = ({
   };
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
+    <div className="container mx-auto max-w-4xl px-4 py-12 relative">
+      {/* Logo en haut à droite */}
+      <motion.img
+        src="/lovable-uploads/6037e9f3-0144-4e48-a6df-84d8a4df9090.png"
+        alt="Logo"
+        className="absolute -top-8 right-4 w-16 h-16"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      />
+      
       <motion.div
         key={section.title}
         variants={sectionVariants}
