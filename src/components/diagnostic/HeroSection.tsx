@@ -23,12 +23,12 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         <motion.button
           onClick={onStart}
           className="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           transition={{
             type: "spring",
-            stiffness: 400,
-            damping: 10
+            stiffness: 500,
+            damping: 8
           }}
         >
           Commencer l'évaluation
