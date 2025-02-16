@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
 import {
   Tooltip,
   TooltipContent,
@@ -46,6 +47,7 @@ export const QuestionSection = ({
   showNext = true 
 }: QuestionSectionProps) => {
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
+  const { toast } = useToast();
 
   const handleOptionSelect = (questionIndex: number, optionIndex: number, points: number, type: 'single' | 'multiple') => {
     setSelectedOptions(prev => {
@@ -73,6 +75,23 @@ export const QuestionSection = ({
     return selectedOptions[questionIndex]?.includes(optionIndex) || false;
   };
 
+  const handleNext = () => {
+    const unansweredQuestions = section.questions.reduce((count, _, index) => {
+      return !selectedOptions[index] || selectedOptions[index].length === 0 ? count + 1 : count;
+    }, 0);
+
+    if (unansweredQuestions > 0) {
+      toast({
+        title: "Questions sans réponse",
+        description: `Veuillez répondre à toutes les questions avant de continuer.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    onNext?.();
+  };
+
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
       <motion.div
@@ -95,7 +114,11 @@ export const QuestionSection = ({
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: questionIndex * 0.2 }}
-            className="glass-morphism rounded-lg p-6 space-y-4"
+            className={`glass-morphism rounded-lg p-6 space-y-4 ${
+              !selectedOptions[questionIndex] || selectedOptions[questionIndex].length === 0
+                ? 'border-2 border-red-200'
+                : ''
+            }`}
           >
             <div className="flex items-start gap-2">
               <h3 className="text-xl font-semibold text-primary">{q.question}</h3>
@@ -158,7 +181,7 @@ export const QuestionSection = ({
           )}
           {showNext && (
             <button
-              onClick={onNext}
+              onClick={handleNext}
               className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto"
             >
               Suivant
