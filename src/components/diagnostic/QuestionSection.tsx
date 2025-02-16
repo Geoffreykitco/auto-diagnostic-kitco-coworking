@@ -153,24 +153,27 @@ export const QuestionSection = ({
     }
   };
 
-  // Helper function to get breadcrumb text based on section title
-  const getBreadcrumbText = () => {
-    if (!section.title.toLowerCase().includes('partie')) return null;
-    
-    if (section.title.toLowerCase().includes('acquisition')) return 'Acquisition';
-    if (section.title.toLowerCase().includes('activation')) return 'Activation';
-    if (section.title.toLowerCase().includes('rétention')) return 'Rétention';
-    if (section.title.toLowerCase().includes('revenus')) return 'Revenue';
-    if (section.title.toLowerCase().includes('recommandation')) return 'Referal';
-    if (section.title.toLowerCase().includes('résultats')) return "C'est terminé";
-    return null;
+  const getSteps = () => {
+    const steps = [
+      { id: 'acquisition', label: 'Acquisition' },
+      { id: 'activation', label: 'Activation' },
+      { id: 'retention', label: 'Rétention' },
+      { id: 'revenue', label: 'Revenue' },
+      { id: 'referal', label: 'Referal' },
+      { id: 'results', label: "C'est terminé" }
+    ];
+
+    const currentStep = steps.find(step => 
+      section.title.toLowerCase().includes(step.id)
+    );
+
+    return { steps, currentStep };
   };
 
-  const breadcrumbText = getBreadcrumbText();
+  const { steps, currentStep } = getSteps();
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12 relative">
-      {/* Logo en haut à droite */}
       <motion.img
         src="/lovable-uploads/6037e9f3-0144-4e48-a6df-84d8a4df9090.png"
         alt="Logo"
@@ -180,8 +183,7 @@ export const QuestionSection = ({
         transition={{ duration: 0.5 }}
       />
 
-      {/* Breadcrumb */}
-      {breadcrumbText && (
+      {currentStep && (
         <motion.div 
           className="mb-8"
           initial={{ opacity: 0, y: -10 }}
@@ -189,14 +191,30 @@ export const QuestionSection = ({
           transition={{ duration: 0.3 }}
         >
           <Breadcrumb>
-            <BreadcrumbList>
+            <BreadcrumbList className="flex-wrap">
               <BreadcrumbItem>
                 <BreadcrumbLink href="/">Diagnostic</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{breadcrumbText}</BreadcrumbPage>
-              </BreadcrumbItem>
+              {steps.map((step, index) => (
+                <BreadcrumbItem key={step.id}>
+                  {step.id === currentStep.id ? (
+                    <BreadcrumbPage className="font-bold text-lg text-primary">
+                      {step.label}
+                    </BreadcrumbPage>
+                  ) : (
+                    <>
+                      <BreadcrumbLink 
+                        className="text-gray-500"
+                        href="#"
+                      >
+                        {step.label}
+                      </BreadcrumbLink>
+                    </>
+                  )}
+                  {index < steps.length - 1 && <BreadcrumbSeparator />}
+                </BreadcrumbItem>
+              ))}
             </BreadcrumbList>
           </Breadcrumb>
         </motion.div>
