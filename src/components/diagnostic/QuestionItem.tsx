@@ -88,7 +88,7 @@ export const QuestionItem = ({
                   onOptionSelect(questionIndex, optionIndex, option.points, question.type);
                 }
               }}
-              className={`w-full text-left p-4 rounded-lg border transition-all duration-200 flex items-center gap-3 ${
+              className={`w-full text-left p-4 rounded border transition-all duration-200 flex items-center gap-3 ${
                 isOptionSelected(questionIndex, optionIndex)
                   ? 'border-primary bg-primary/5'
                   : 'border-gray-200 hover:border-primary hover:bg-primary/5'
@@ -100,13 +100,13 @@ export const QuestionItem = ({
                   className="h-5 w-5"
                 />
               ) : (
-                <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+                <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
                   isOptionSelected(questionIndex, optionIndex)
                     ? 'border-primary'
                     : 'border-gray-300'
                 }`}>
                   {isOptionSelected(questionIndex, optionIndex) && (
-                    <div className="h-3 w-3 rounded-full bg-primary" />
+                    <div className="h-3 w-3 rounded bg-primary" />
                   )}
                 </div>
               )}
