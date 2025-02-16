@@ -8,20 +8,6 @@ interface HeroSectionProps {
 export const HeroSection = ({ onStart }: HeroSectionProps) => (
   <section className="hero-pattern py-20 px-4">
     <div className="container mx-auto max-w-4xl">
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex justify-center mb-8 px-4"
-      >
-        <div className="w-[288px] h-[96px] hover:scale-105 transition-transform duration-300">
-          <img 
-            src="/lovable-uploads/d9f79468-4451-4773-9a03-cdc428bad759.png"
-            alt="Kitco Logo" 
-            className="w-full h-full object-contain"
-          />
-        </div>
-      </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
