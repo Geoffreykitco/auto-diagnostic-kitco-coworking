@@ -14,10 +14,10 @@ export const HowItWorks = () => (
           Comment ça marche?
         </h2>
         <div className="relative">
-          {/* Ligne verticale de la timeline */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/20"></div>
+          {/* Ligne horizontale de la timeline */}
+          <div className="absolute left-0 right-0 top-8 h-0.5 bg-primary/20"></div>
           
-          <div className="space-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 title: "Répondez aux questions",
@@ -34,13 +34,13 @@ export const HowItWorks = () => (
             ].map((step, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="relative pl-16"
+                className="relative pt-12"
               >
                 {/* Point de la timeline */}
-                <div className="absolute left-7 w-2.5 h-2.5 rounded-full bg-primary transform -translate-x-1/2 mt-2">
+                <div className="absolute left-1/2 top-0 w-2.5 h-2.5 rounded-full bg-primary transform -translate-x-1/2">
                   <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25"></div>
                 </div>
                 
