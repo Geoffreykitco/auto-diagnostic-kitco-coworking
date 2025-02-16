@@ -106,15 +106,15 @@ export const QuestionSection = ({
     if (isMobile) {
       toast({
         title: "✓",
-        className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
-        duration: 1000,
+        className: "bg-primary/90 text-white border-0 text-xs p-2",
+        duration: 800,
       });
     } else {
       toast({
         title: "Réponse enregistrée",
         description: "Passons à la question suivante.",
-        className: "animate-slide-in-right duration-1000",
-        duration: 1000,
+        className: "animate-slide-in-right",
+        duration: 2000,
       });
     }
   };
@@ -147,15 +147,15 @@ export const QuestionSection = ({
       if (isMobile) {
         toast({
           title: "✓",
-          className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
-          duration: 1000,
+          className: "bg-primary/90 text-white border-0 text-xs p-2",
+          duration: 800,
         });
       } else {
         toast({
           title: "Réponse enregistrée",
           description: "Passons à la question suivante.",
-          className: "animate-slide-in-right duration-1000",
-          duration: 1000,
+          className: "animate-slide-in-right",
+          duration: 2000,
         });
       }
     }, 200);

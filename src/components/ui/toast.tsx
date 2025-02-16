@@ -2,7 +2,6 @@
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 
@@ -19,7 +18,7 @@ const ToastViewport = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-[100] flex max-h-screen w-full flex-col-reverse p-4",
-        isMobile ? "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+        isMobile ? "bottom-0 left-0 items-center" : "top-0 right-0 sm:bottom-0 sm:top-auto sm:flex-col md:max-w-[420px]",
         className
       )}
       {...props}
@@ -56,7 +55,7 @@ const Toast = React.forwardRef<
       ref={ref}
       className={cn(
         toastVariants({ variant }), 
-        isMobile && "max-w-[90%] mx-auto text-sm p-3 pr-3 shadow-xl text-center justify-center",
+        isMobile && "max-w-[140px] mx-auto text-sm p-2 shadow-sm text-center justify-center rounded-full",
         className
       )}
       {...props}
@@ -84,9 +83,7 @@ const ToastClose = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Close>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
 >(({ className, ...props }, ref) => {
-  const isMobile = useIsMobile();
-  
-  return null; // On ne rend plus le bouton de fermeture
+  return null;
 })
 ToastClose.displayName = ToastPrimitives.Close.displayName
 

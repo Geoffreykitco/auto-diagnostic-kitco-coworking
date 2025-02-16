@@ -35,12 +35,14 @@ const Index = () => {
     if (isMobile) {
       toast({
         title: "C'est parti !",
-        className: "bg-primary/90 text-white border-0",
+        className: "bg-primary/90 text-white border-0 text-xs",
+        duration: 1000,
       });
     } else {
       toast({
         title: "Bienvenue dans l'auto-diagnostic!",
         description: "Commençons l'évaluation de votre espace de coworking.",
+        duration: 2000,
       });
     }
     setProgress(0);
