@@ -8,12 +8,12 @@ import { QuestionSection } from "@/components/diagnostic/QuestionSection";
 import { Footer } from "@/components/diagnostic/Footer";
 import { sections } from "@/data/sections";
 
-const sectionOrder = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
+const sectionOrder = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
 
 const Index = () => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
-  const [currentSection, setCurrentSection] = useState('informations');
+  const [currentSection, setCurrentSection] = useState('acquisition');
   const { toast } = useToast();
 
   const currentSectionIndex = sectionOrder.indexOf(currentSection);
@@ -25,12 +25,12 @@ const Index = () => {
       title: "Bienvenue dans l'auto-diagnostic!",
       description: "Commençons l'évaluation de votre espace de coworking.",
     });
-    setProgress(16.67); // Ajusté pour 6 sections au total
+    setProgress(20);
     setStarted(true);
   };
 
   const handleOptionSelect = (questionIndex: number, points: number) => {
-    setProgress(prev => Math.min(prev + 16.67, 100)); // Ajusté pour 6 sections
+    setProgress(prev => Math.min(prev + 20, 100));
     toast({
       title: "Réponse enregistrée",
       description: "Passons à la question suivante.",
@@ -40,14 +40,14 @@ const Index = () => {
   const handlePrevious = () => {
     if (!isFirstSection) {
       setCurrentSection(sectionOrder[currentSectionIndex - 1]);
-      setProgress(prev => Math.max(prev - 16.67, 0)); // Ajusté pour 6 sections
+      setProgress(prev => Math.max(prev - 20, 0));
     }
   };
 
   const handleNext = () => {
     if (!isLastSection) {
       setCurrentSection(sectionOrder[currentSectionIndex + 1]);
-      setProgress(prev => Math.min(prev + 16.67, 100)); // Ajusté pour 6 sections
+      setProgress(prev => Math.min(prev + 20, 100));
     }
   };
 
