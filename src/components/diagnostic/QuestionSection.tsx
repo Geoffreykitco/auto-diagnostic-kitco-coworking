@@ -8,7 +8,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Option {
   label: string;
@@ -48,6 +48,10 @@ export const QuestionSection = ({
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
   const [textValues, setTextValues] = useState<{ [key: number]: string }>({});
   const { toast } = useToast();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [section.title]);
 
   const handleOptionSelect = (questionIndex: number, optionIndex: number, points: number, type: 'single' | 'multiple') => {
     setSelectedOptions(prev => {
@@ -116,28 +120,66 @@ export const QuestionSection = ({
     onNext?.();
   };
 
+  const sectionVariants = {
+    initial: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.95
+    },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    exit: { 
+      opacity: 0,
+      y: -50,
+      scale: 0.95,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        key={section.title}
+        variants={sectionVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
         className="space-y-8"
       >
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-primary">
+          <motion.h2 
+            className="text-3xl font-bold text-primary"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
             {section.title}
-          </h2>
-          <p className="text-gray-600 text-lg">
+          </motion.h2>
+          <motion.p 
+            className="text-gray-600 text-lg"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
             {section.description}
-          </p>
+          </motion.p>
         </div>
         
         {section.questions.map((q, questionIndex) => (
           <motion.div
             key={questionIndex}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: questionIndex * 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: questionIndex * 0.1 + 0.4 }}
             className={`glass-morphism rounded-lg p-6 space-y-4 ${
               ((q.type === 'text' && !textValues[questionIndex]) ||
                (q.type !== 'text' && (!selectedOptions[questionIndex] || selectedOptions[questionIndex].length === 0)))
@@ -169,8 +211,11 @@ export const QuestionSection = ({
                 />
               ) : (
                 q.options.map((option, optionIndex) => (
-                  <button
+                  <motion.button
                     key={optionIndex}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: optionIndex * 0.05 + questionIndex * 0.1 + 0.5 }}
                     onClick={() => {
                       if (q.type === 'single' || q.type === 'multiple') {
                         handleOptionSelect(questionIndex, optionIndex, option.points, q.type);
@@ -199,14 +244,19 @@ export const QuestionSection = ({
                       </div>
                     )}
                     {option.label}
-                  </button>
+                  </motion.button>
                 ))
               )}
             </div>
           </motion.div>
         ))}
 
-        <div className="flex justify-between items-center pt-8">
+        <motion.div 
+          className="flex justify-between items-center pt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
           {showPrevious && (
             <button
               onClick={onPrevious}
@@ -225,7 +275,7 @@ export const QuestionSection = ({
               <ChevronRight className="h-5 w-5" />
             </button>
           )}
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
