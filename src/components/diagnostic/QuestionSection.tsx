@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
