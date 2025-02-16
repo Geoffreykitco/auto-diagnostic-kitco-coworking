@@ -1,3 +1,4 @@
+
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -69,6 +70,12 @@ export const sections = {
           { label: "Non, je suis le seul espace de coworking dans la zone", points: 0 },
           { label: "Je ne sais pas", points: 0 }
         ]
+      },
+      {
+        question: "Combien de coworkers peut accueillir votre coworking ?",
+        tooltip: "La capacité d'accueil de votre espace est un indicateur important pour évaluer votre potentiel de croissance.",
+        type: "text",
+        options: []
       },
       {
         question: "Dans quelle ville est situé votre espace de coworking ?",
