@@ -75,7 +75,7 @@ export const QuestionSection = ({
 
   const handleTextChange = (questionIndex: number, value: string) => {
     setTextValues(prev => ({ ...prev, [questionIndex]: value }));
-    onOptionSelect(questionIndex, 0); // Text questions don't have points
+    onOptionSelect(questionIndex, 0);
   };
 
   const isOptionSelected = (questionIndex: number, optionIndex: number) => {
@@ -159,7 +159,11 @@ export const QuestionSection = ({
                 q.options.map((option, optionIndex) => (
                   <button
                     key={optionIndex}
-                    onClick={() => handleOptionSelect(questionIndex, optionIndex, option.points, q.type)}
+                    onClick={() => {
+                      if (q.type === 'single' || q.type === 'multiple') {
+                        handleOptionSelect(questionIndex, optionIndex, option.points, q.type);
+                      }
+                    }}
                     className={`w-full text-left p-4 rounded-lg border transition-all duration-200 flex items-center gap-3 ${
                       isOptionSelected(questionIndex, optionIndex)
                         ? 'border-primary bg-primary/5'
