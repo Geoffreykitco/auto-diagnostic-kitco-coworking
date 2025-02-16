@@ -268,13 +268,21 @@ export const QuestionSection = ({
             </button>
           )}
           {showNext && (
-            <button
+            <motion.button
               onClick={handleNext}
-              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
+              className="flex items-center gap-1 md:gap-2 px-8 py-3 bg-[#22C55E] text-white rounded-md font-medium ml-auto text-sm md:text-base"
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: "#16A34A"
+              }}
+              transition={{
+                duration: 0.2,
+                ease: "easeInOut"
+              }}
             >
               Suivant
               <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
+            </motion.button>
           )}
         </motion.div>
       </motion.div>
