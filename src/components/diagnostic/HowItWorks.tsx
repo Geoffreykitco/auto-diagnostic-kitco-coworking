@@ -21,7 +21,7 @@ export const HowItWorks = () => (
             {[
               {
                 title: "Répondez aux questions",
-                description: "Une série de questions pour évaluer votre espace"
+                description: "Pour comprendre votre contexte business"
               },
               {
                 title: "Obtenez votre score",
