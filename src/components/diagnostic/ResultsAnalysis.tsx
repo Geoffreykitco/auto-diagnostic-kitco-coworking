@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
+
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
 }
+
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
@@ -22,11 +24,13 @@ export const ResultsAnalysis = ({
     const totalPoints = Object.values(sectionAnswers).reduce((sum: number, points: number) => sum + points, 0);
     return maxPoints > 0 ? totalPoints / maxPoints * 100 : 0;
   };
+
   const getSectionLevel = (score: number) => {
     if (score >= 80) return "Avancé ⚡️";
     if (score >= 50) return "Intermédiaire 😬";
     return "Débutant ❌";
   };
+
   const getSectionAnalysis = (score: number) => {
     if (score >= 80) {
       return "Excellent niveau. Continuez d'optimiser vos processus pour maintenir cette performance.";
@@ -36,8 +40,28 @@ export const ResultsAnalysis = ({
     }
     return "Des améliorations significatives sont possibles. Établissez un plan d'action prioritaire.";
   };
+
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
   const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
+
+  const processSteps = [
+    {
+      icon: "🎯",
+      title: "Diagnostic",
+      description: "Identifier vos axes d'amélioration"
+    },
+    {
+      icon: "📋",
+      title: "Plan d'action",
+      description: "Définir les étapes clés"
+    },
+    {
+      icon: "⚡️",
+      title: "Action",
+      description: "Mettre en œuvre et progresser"
+    }
+  ];
+
   return <div className="space-y-8">
       <motion.div initial={{
       opacity: 0,
@@ -96,10 +120,8 @@ export const ResultsAnalysis = ({
         <div className="space-y-4 text-gray-600">
           <p className="font-semibold">Vous connaissez maintenant vos axes d'amélioration.</p>
           <p className="text-base">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
-          <p className="font-medium">
-        </p>
-          <p></p>
         </div>
+
         <div className="flex flex-col items-center mt-6">
           <motion.button whileHover={{
           scale: 1.05
@@ -108,8 +130,36 @@ export const ResultsAnalysis = ({
         }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}>
             Échanger avec Geoffrey
           </motion.button>
-          <p className="text-gray-700 mt-4 text-xs my-[5px]">30min pour un plan d'action concrêt
-        </p>
+          <p className="text-gray-700 mt-4 text-xs my-[5px]">
+            30min pour un plan d'action concrêt
+          </p>
+        </div>
+
+        <div className="mt-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            {processSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + index * 0.2 }}
+                className="relative flex flex-col items-center text-center"
+              >
+                {index < processSteps.length - 1 && (
+                  <div className="hidden md:block absolute top-8 -right-4 w-8 h-0.5 bg-primary/20 transform translate-x-full" />
+                )}
+                <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-2xl mb-4">
+                  {step.icon}
+                </div>
+                <h3 className="text-lg font-semibold text-primary mb-1">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-gray-600 max-w-[200px]">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </motion.div>
     </div>;
