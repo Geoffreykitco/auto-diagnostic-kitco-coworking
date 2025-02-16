@@ -1,11 +1,5 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <path 
-    d="M28 16c0 6.627-5.373 12-12 12S4 22.627 4 16 9.373 4 16 4s12 5.373 12 12z" 
-    fill="#0D2F1E"
-  />
-  <path 
-    d="M20.5 10.5c-1.5 2-3 3.5-4.5 5.5-1.5-2-3-3.5-4.5-5.5v11h9v-11z" 
-    fill="white"
-  />
+  <rect width="32" height="32" fill="#0D2F1E"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="20" fill="white">K</text>
 </svg>
