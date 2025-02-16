@@ -23,11 +23,12 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         <motion.button
           onClick={onStart}
           className="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium"
-          animate={{ scale: [1, 1.03, 1] }}
+          initial={{ scale: 1 }}
+          animate={{ scale: 1.05 }}
           transition={{
-            duration: 1.5,
+            duration: 1,
             repeat: Infinity,
-            repeatType: "reverse",
+            repeatType: "mirror",
             ease: "easeInOut"
           }}
         >
