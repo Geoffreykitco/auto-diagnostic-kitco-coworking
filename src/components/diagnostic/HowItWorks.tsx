@@ -10,29 +10,50 @@ export const HowItWorks = () => (
         transition={{ delay: 0.3 }}
         className="space-y-6"
       >
-        <h2 className="text-2xl font-semibold text-primary mb-4">
+        <h2 className="text-2xl font-semibold text-primary mb-8">
           Comment ça marche?
         </h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Répondez aux questions",
-              description: "Une série de questions pour évaluer votre espace"
-            },
-            {
-              title: "Obtenez votre score",
-              description: "Recevez une évaluation détaillée de votre performance"
-            },
-            {
-              title: "Plan d'action",
-              description: "Des recommandations personnalisées pour progresser"
-            }
-          ].map((step, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </div>
-          ))}
+        <div className="relative">
+          {/* Ligne verticale de la timeline */}
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/20"></div>
+          
+          <div className="space-y-12">
+            {[
+              {
+                title: "Répondez aux questions",
+                description: "Une série de questions pour évaluer votre espace"
+              },
+              {
+                title: "Obtenez votre score",
+                description: "Recevez une évaluation détaillée de votre performance"
+              },
+              {
+                title: "Plan d'action",
+                description: "Des recommandations personnalisées pour progresser"
+              }
+            ].map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.2 }}
+                className="relative pl-16"
+              >
+                {/* Point de la timeline */}
+                <div className="absolute left-7 w-2.5 h-2.5 rounded-full bg-primary transform -translate-x-1/2 mt-2">
+                  <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25"></div>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                  <span className="text-sm font-medium text-primary/60 mb-1 block">
+                    Étape {index + 1}
+                  </span>
+                  <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
+                  <p className="text-gray-600">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </motion.div>
     </div>
