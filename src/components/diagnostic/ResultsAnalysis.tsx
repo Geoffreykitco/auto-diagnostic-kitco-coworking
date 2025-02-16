@@ -110,7 +110,7 @@ export const ResultsAnalysis = ({
     }} transition={{
       delay: 0.4
     }} className="flex flex-col items-center space-y-4">
-        <p className="text-lg text-gray-700">Envie de trouver des solutions pour avancer ?</p>
+        <p className="text-gray-700 text-sm">Envie de trouver des solutions pour avancer ?</p>
         <motion.button whileHover={{
         scale: 1.05
       }} whileTap={{
