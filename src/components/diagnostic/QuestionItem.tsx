@@ -95,10 +95,15 @@ export const QuestionItem = ({
               }`}
             >
               {question.type === 'multiple' ? (
-                <Checkbox 
-                  checked={isOptionSelected(questionIndex, optionIndex)}
-                  className="h-5 w-5"
-                />
+                <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
+                  isOptionSelected(questionIndex, optionIndex)
+                    ? 'border-primary'
+                    : 'border-gray-300'
+                }`}>
+                  {isOptionSelected(questionIndex, optionIndex) && (
+                    <div className="h-3 w-3 rounded bg-primary" />
+                  )}
+                </div>
               ) : (
                 <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
                   isOptionSelected(questionIndex, optionIndex)
