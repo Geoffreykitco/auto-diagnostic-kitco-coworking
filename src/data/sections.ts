@@ -6,6 +6,7 @@ export const sections = {
       {
         question: "Est-ce que vous faites du marketing actif pour votre espace de coworking ?",
         tooltip: "À quelle fréquence faites-vous la promotion de votre espace auprès des membres potentiels ?",
+        type: "single",
         options: [
           { label: "Oui, régulièrement", points: 10 },
           { label: "Oui, occasionnellement", points: 5 },
@@ -15,6 +16,7 @@ export const sections = {
       {
         question: "Quelle présence en ligne avez-vous ?",
         tooltip: "Quelles plateformes digitales utilisez-vous pour présenter votre espace ?",
+        type: "multiple",
         options: [
           { label: "Site web", points: 5 },
           { label: "Réseaux sociaux", points: 5 },
@@ -25,6 +27,7 @@ export const sections = {
       {
         question: "Proposez-vous une offre spéciale pour les nouveaux membres ?",
         tooltip: "Avez-vous des promotions pour encourager les essais ?",
+        type: "single",
         options: [
           { label: "Oui, essai gratuit ou réduction", points: 10 },
           { label: "Oui, mais peu promu", points: 5 },
@@ -34,6 +37,7 @@ export const sections = {
       {
         question: "Comment communiquez-vous avec les clients potentiels ?",
         tooltip: "Quels canaux utilisez-vous pour interagir avec les prospects ?",
+        type: "multiple",
         options: [
           { label: "Newsletter ou campagnes email", points: 5 },
           { label: "Engagement sur les réseaux sociaux", points: 5 },
@@ -44,6 +48,7 @@ export const sections = {
       {
         question: "À quelle fréquence publiez-vous sur les réseaux sociaux ?",
         tooltip: "À quelle fréquence partagez-vous du contenu sur votre espace de coworking ?",
+        type: "single",
         options: [
           { label: "Tous les jours", points: 10 },
           { label: "Plusieurs fois par semaine", points: 7 },

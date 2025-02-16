@@ -1,6 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
   TooltipContent,
@@ -17,6 +18,7 @@ interface Option {
 interface Question {
   question: string;
   tooltip: string;
+  type: 'single' | 'multiple';
   options: Option[];
 }
 
@@ -42,14 +44,35 @@ export const QuestionSection = ({
   showPrevious = true,
   showNext = true 
 }: QuestionSectionProps) => {
-  // Garder trace des questions déjà répondues
-  const [answeredQuestions, setAnsweredQuestions] = useState<number[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
 
-  const handleOptionSelect = (questionIndex: number, points: number) => {
-    if (!answeredQuestions.includes(questionIndex)) {
-      setAnsweredQuestions([...answeredQuestions, questionIndex]);
-      onOptionSelect(questionIndex, points);
-    }
+  const handleOptionSelect = (questionIndex: number, optionIndex: number, points: number, type: 'single' | 'multiple') => {
+    setSelectedOptions(prev => {
+      const newSelected = { ...prev };
+      if (type === 'single') {
+        // Pour les questions à choix unique, on remplace la sélection
+        newSelected[questionIndex] = [optionIndex];
+        onOptionSelect(questionIndex, points);
+      } else {
+        // Pour les questions à choix multiple, on toggle la sélection
+        const currentSelection = prev[questionIndex] || [];
+        if (currentSelection.includes(optionIndex)) {
+          newSelected[questionIndex] = currentSelection.filter(i => i !== optionIndex);
+        } else {
+          newSelected[questionIndex] = [...currentSelection, optionIndex];
+        }
+        // Calculer les points totaux pour les choix multiples
+        const totalPoints = section.questions[questionIndex].options
+          .filter((_, idx) => newSelected[questionIndex].includes(idx))
+          .reduce((sum, option) => sum + option.points, 0);
+        onOptionSelect(questionIndex, totalPoints);
+      }
+      return newSelected;
+    });
+  };
+
+  const isOptionSelected = (questionIndex: number, optionIndex: number) => {
+    return selectedOptions[questionIndex]?.includes(optionIndex) || false;
   };
 
   return (
@@ -90,14 +113,29 @@ export const QuestionSection = ({
               {q.options.map((option, optionIndex) => (
                 <button
                   key={optionIndex}
-                  onClick={() => handleOptionSelect(questionIndex, option.points)}
-                  disabled={answeredQuestions.includes(questionIndex)}
-                  className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${
-                    answeredQuestions.includes(questionIndex)
-                      ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60'
+                  onClick={() => handleOptionSelect(questionIndex, optionIndex, option.points, q.type)}
+                  className={`w-full text-left p-4 rounded-lg border transition-all duration-200 flex items-center gap-3 ${
+                    isOptionSelected(questionIndex, optionIndex)
+                      ? 'border-primary bg-primary/5'
                       : 'border-gray-200 hover:border-primary hover:bg-primary/5'
                   }`}
                 >
+                  {q.type === 'multiple' ? (
+                    <Checkbox 
+                      checked={isOptionSelected(questionIndex, optionIndex)}
+                      className="h-5 w-5"
+                    />
+                  ) : (
+                    <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+                      isOptionSelected(questionIndex, optionIndex)
+                        ? 'border-primary'
+                        : 'border-gray-300'
+                    }`}>
+                      {isOptionSelected(questionIndex, optionIndex) && (
+                        <div className="h-3 w-3 rounded-full bg-primary" />
+                      )}
+                    </div>
+                  )}
                   {option.label}
                 </button>
               ))}
