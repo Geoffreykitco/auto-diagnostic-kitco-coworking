@@ -45,71 +45,11 @@ export const ResultsAnalysis = ({ answers }: ResultsAnalysisProps) => {
     return "Des améliorations significatives sont possibles. Établissez un plan d'action prioritaire.";
   };
 
-  const getAnswerText = (sectionName: string, questionIndex: number, answer: number) => {
-    const section = sections[sectionName];
-    if (!section) return "";
-    
-    const question = section.questions[questionIndex];
-    if (!question) return "";
-
-    if (question.type === 'text') {
-      return answer.toString();
-    }
-
-    if (question.type === 'multiple') {
-      const selectedLabels = question.options
-        .map((opt, idx) => ({ ...opt, index: idx }))
-        .filter(opt => ((answer >> opt.index) & 1) === 1)
-        .map(opt => opt.label);
-      return selectedLabels.join(", ");
-    }
-
-    const selectedOption = question.options.find(opt => opt.points === answer);
-    return selectedOption ? selectedOption.label : "";
-  };
-
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
   const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
 
-  console.log("Answers:", answers); // Pour déboguer
-
   return (
     <div className="space-y-8">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
-      >
-        <h2 className="text-2xl font-bold text-primary mb-6">Récapitulatif des réponses</h2>
-        {Object.entries(sections).map(([sectionName, section]) => {
-          const sectionAnswers = answers[sectionName];
-          if (!sectionAnswers) return null;
-          
-          return (
-            <div key={sectionName} className="mb-8">
-              <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
-              <div className="space-y-4">
-                {section.questions.map((question, index) => {
-                  const answer = sectionAnswers[index];
-                  if (answer === undefined) return null;
-
-                  return (
-                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                      <p className="font-medium text-gray-700 mb-2">{question.question}</p>
-                      <p className="text-gray-600">
-                        <span className="font-medium">Réponse : </span>
-                        {getAnswerText(sectionName, index, answer)}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </motion.div>
-
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
