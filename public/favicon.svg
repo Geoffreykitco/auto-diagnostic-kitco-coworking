@@ -1,5 +1,5 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <rect width="32" height="32" fill="#0D2F1E"/>
-  <path d="M16 8 L16 24 M10 8 L22 24 M22 8 L10 24" stroke="white" stroke-width="2" fill="none"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="20" fill="white">K</text>
 </svg>
