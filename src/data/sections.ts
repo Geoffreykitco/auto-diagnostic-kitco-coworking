@@ -1,4 +1,3 @@
-
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -319,5 +318,10 @@ export const sections = {
         ]
       }
     ]
+  },
+  resultats: {
+    title: "Analyse des résultats",
+    description: "Voici l'analyse détaillée de vos réponses pour chaque section du diagnostic.",
+    questions: []
   }
 };

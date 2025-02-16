@@ -8,12 +8,21 @@ import { QuestionSection } from "@/components/diagnostic/QuestionSection";
 import { Footer } from "@/components/diagnostic/Footer";
 import { sections } from "@/data/sections";
 
-const sectionOrder = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
+const sectionOrder = [
+  'informations',
+  'acquisition',
+  'activation',
+  'retention',
+  'revenus',
+  'recommandation',
+  'resultats'
+];
 
 const Index = () => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
   const [currentSection, setCurrentSection] = useState('informations');
+  const [answers, setAnswers] = useState({});
   const { toast } = useToast();
 
   const currentSectionIndex = sectionOrder.indexOf(currentSection);
@@ -25,12 +34,23 @@ const Index = () => {
       title: "Bienvenue dans l'auto-diagnostic!",
       description: "Commençons l'évaluation de votre espace de coworking.",
     });
-    setProgress(16.67); // Ajusté pour 6 sections au total
+    setProgress(14.28); // Ajusté pour 7 sections au total
     setStarted(true);
   };
 
   const handleOptionSelect = (questionIndex: number, points: number) => {
-    setProgress(prev => Math.min(prev + 16.67, 100)); // Ajusté pour 6 sections
+    setAnswers(prev => ({
+      ...prev,
+      [currentSection]: {
+        ...prev[currentSection],
+        [questionIndex]: points
+      }
+    }));
+    
+    if (currentSection !== 'resultats') {
+      setProgress(prev => Math.min(prev + 14.28, 100)); // Ajusté pour 7 sections
+    }
+    
     toast({
       title: "Réponse enregistrée",
       description: "Passons à la question suivante.",
@@ -40,14 +60,16 @@ const Index = () => {
   const handlePrevious = () => {
     if (!isFirstSection) {
       setCurrentSection(sectionOrder[currentSectionIndex - 1]);
-      setProgress(prev => Math.max(prev - 16.67, 0)); // Ajusté pour 6 sections
+      setProgress(prev => Math.max(prev - 14.28, 0));
     }
   };
 
   const handleNext = () => {
     if (!isLastSection) {
       setCurrentSection(sectionOrder[currentSectionIndex + 1]);
-      setProgress(prev => Math.min(prev + 16.67, 100)); // Ajusté pour 6 sections
+      if (currentSection !== 'resultats') {
+        setProgress(prev => Math.min(prev + 14.28, 100));
+      }
     }
   };
 
@@ -69,6 +91,7 @@ const Index = () => {
             onNext={handleNext}
             showPrevious={!isFirstSection}
             showNext={!isLastSection}
+            answers={answers}
           />
         )}
       </div>
