@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 export const HowItWorks = () => <main className="container mx-auto max-w-4xl px-4 py-12">
     <div className="glass-morphism rounded-lg p-8">
@@ -21,7 +22,7 @@ export const HowItWorks = () => <main className="container mx-auto max-w-4xl px-
             description: "Pour comprendre votre contexte business"
           }, {
             title: "Obtenez votre score",
-            description: "Recevez une évaluation détaillée de votre performance"
+            description: "Recevez un diagnostique de performance de votre coworking"
           }, {
             title: "Plan d'action",
             description: "Des recommandations personnalisées pour progresser"
