@@ -94,11 +94,24 @@ export const ResultsAnalysis = ({
       delay: 0.4
     }} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
         <div className="space-y-4 text-gray-600">
-          <p className="font-semibold">Vous connaissez maintenant vos axes d'amélioration !</p>
-          <p>Votre espace de coworking a du potentiel et ce diagnostic vous a permis d'identifier les leviers à activer pour optimiser votre acquisition, fidélisation et rentabilité.</p>
-          <p className="font-medium">📆 Prenons un moment ensemble pour transformer ces insights en actions concrètes.
+          <p className="font-semibold">Vous connaissez maintenant vos axes d'amélioration.</p>
+          <p className="text-base">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
+          <p className="font-medium">
 
-        </p>
+
+Je vais vous aider à améliorer ce texte en le rendant plus percutant et engageant. Voici une proposition :
+
+"Votre diagnostic est prêt : passons à l'action !
+
+Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle des opportunités concrètes pour :
+
+Attirer plus de membres
+Renforcer la fidélisation
+Optimiser votre rentabilité
+
+Transformez ces insights en résultats.
+
+→ Échanger avec Geoffrey</p>
           <p></p>
         </div>
         <div className="flex flex-col items-center mt-6">
@@ -109,7 +122,8 @@ export const ResultsAnalysis = ({
         }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}>
             Échanger avec Geoffrey
           </motion.button>
-          <p className="text-gray-700 text-sm mt-4">Prenons un moment ensemble pour trouver ensemble des actions concrètes.</p>
+          <p className="text-gray-700 text-sm mt-4">30min pour un plan d'action concrêt
+        </p>
         </div>
       </motion.div>
     </div>;
