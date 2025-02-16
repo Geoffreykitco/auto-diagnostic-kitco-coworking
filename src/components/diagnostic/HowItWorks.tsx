@@ -40,7 +40,7 @@ export const HowItWorks = () => <main className="container mx-auto max-w-4xl px-
                   <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25"></div>
                 </div>
                 
-                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <div className="aspect-square bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                   <span className="text-sm font-medium text-primary/60 mb-1 block">
                     Étape {index + 1}
                   </span>
