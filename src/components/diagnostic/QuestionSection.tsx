@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import { DiagnosticBreadcrumb } from './DiagnosticBreadcrumb';
 import { ResultsAnalysis } from './ResultsAnalysis';
 import { QuestionItem } from './QuestionItem';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 
 interface Option {
   label: string;
@@ -46,6 +47,7 @@ export const QuestionSection = ({
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: number[] }>({});
   const [textValues, setTextValues] = useState<{ [key: number]: string }>({});
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   const textTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -95,11 +97,18 @@ export const QuestionSection = ({
       return newSelected;
     });
     
-    toast({
-      title: "Réponse enregistrée 🎉",
-      description: "Passons à la question suivante.",
-      className: "animate-slide-in-right duration-200"
-    });
+    if (isMobile) {
+      toast({
+        title: "✓",
+        className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
+      });
+    } else {
+      toast({
+        title: "Réponse enregistrée",
+        description: "Passons à la question suivante.",
+        className: "animate-slide-in-right duration-200"
+      });
+    }
   };
 
   const handleTextChange = (questionIndex: number, value: string, question: string) => {
@@ -127,11 +136,18 @@ export const QuestionSection = ({
 
     textTimeoutRef.current = setTimeout(() => {
       onOptionSelect(questionIndex, 0);
-      toast({
-        title: "Réponse enregistrée 🎉",
-        description: "Passons à la question suivante.",
-        className: "animate-slide-in-right duration-200"
-      });
+      if (isMobile) {
+        toast({
+          title: "✓",
+          className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
+        });
+      } else {
+        toast({
+          title: "Réponse enregistrée",
+          description: "Passons à la question suivante.",
+          className: "animate-slide-in-right duration-200"
+        });
+      }
     }, 1000);
   };
 
