@@ -27,7 +27,6 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
             scale: 1.05,
             backgroundColor: "#7c4deb",
           }}
-          whileTap={{ scale: 0.98 }}
           transition={{
             duration: 0.2,
             ease: "easeInOut"
