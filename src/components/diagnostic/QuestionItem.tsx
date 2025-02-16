@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -82,7 +81,7 @@ export const QuestionItem = ({
       return "Nombre de coworkers...";
     }
     if (lowerQuestion.includes("pourcentage moyen")) {
-      return "Pourcentage (0-100)...";
+      return "Montant en %";
     }
     if (lowerQuestion.includes("point mort mensuel")) {
       return "Montant en €...";
@@ -177,4 +176,3 @@ export const QuestionItem = ({
     </motion.div>
   );
 };
-
