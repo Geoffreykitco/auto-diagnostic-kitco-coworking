@@ -64,10 +64,15 @@ export default {
           "0%": { width: "0%" },
           "100%": { width: "var(--progress)" },
         },
+        "slide-in-right": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" }
+        },
       },
       animation: {
         "fade-in": "fade-in 0.5s ease-out",
         "progress-fill": "progress-fill 0.5s ease-out forwards",
+        "slide-in-right": "slide-in-right 0.2s ease-out"
       },
     },
   },
