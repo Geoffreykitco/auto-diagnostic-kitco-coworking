@@ -32,13 +32,7 @@ const Index = () => {
   const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
   const handleStart = () => {
-    if (isMobile) {
-      toast({
-        title: "C'est parti !",
-        className: "bg-primary/90 text-white border-0 text-xs rounded-full max-w-[60px] p-2 items-center justify-center",
-        duration: 1000,
-      });
-    } else {
+    if (!isMobile) {
       toast({
         title: "Bienvenue dans l'auto-diagnostic!",
         description: "Commençons l'évaluation de votre espace de coworking.",
@@ -73,12 +67,7 @@ const Index = () => {
       return newAnswers;
     });
     
-    if (isMobile) {
-      toast({
-        title: "✓",
-        className: "bg-primary/90 text-white border-0 rounded-full max-w-[60px] p-2 items-center justify-center",
-      });
-    } else {
+    if (!isMobile) {
       toast({
         title: "Réponse enregistrée",
         description: "Passons à la question suivante.",
