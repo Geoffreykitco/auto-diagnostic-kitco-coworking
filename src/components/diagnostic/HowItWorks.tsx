@@ -1,6 +1,5 @@
 
 import { motion } from 'framer-motion';
-import { Target, Award, Lightbulb } from 'lucide-react';
 
 export const HowItWorks = () => (
   <main className="container mx-auto max-w-4xl px-4 py-12">
@@ -12,30 +11,26 @@ export const HowItWorks = () => (
         className="space-y-6"
       >
         <h2 className="text-2xl font-semibold text-primary mb-4">
-          En 3 étapes
+          Comment ça marche?
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
-              icon: <Target className="w-6 h-6 text-primary" />,
-              title: "Répondez",
-              description: "5 minutes pour évaluer votre espace"
+              title: "Répondez aux questions",
+              description: "Une série de questions pour évaluer votre espace"
             },
             {
-              icon: <Award className="w-6 h-6 text-primary" />,
-              title: "Découvrez",
-              description: "Votre score de performance"
+              title: "Obtenez votre score",
+              description: "Recevez une évaluation détaillée de votre performance"
             },
             {
-              icon: <Lightbulb className="w-6 h-6 text-primary" />,
-              title: "Progressez",
-              description: "Actions concrètes à mettre en place"
+              title: "Plan d'action",
+              description: "Des recommandations personnalisées pour progresser"
             }
           ].map((step, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col items-center text-center">
-              {step.icon}
-              <h3 className="font-semibold text-lg mt-3 mb-2">{step.title}</h3>
-              <p className="text-gray-600 text-sm">{step.description}</p>
+            <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
+              <p className="text-gray-600">{step.description}</p>
             </div>
           ))}
         </div>
