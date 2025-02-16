@@ -1,15 +1,13 @@
-
 import { motion } from 'framer-motion';
 import { Info, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { useState } from 'react';
 
 interface Option {
@@ -76,17 +74,13 @@ export const QuestionSection = ({
   const handleTextChange = (questionIndex: number, value: string, question: string) => {
     let processedValue = value;
     
-    // Traitement spécial pour le point mort mensuel
     if (question.toLowerCase().includes("point mort mensuel")) {
-      // Supprimer tous les caractères non numériques sauf les points et les virgules
       const numericValue = value.replace(/[^0-9.,]/g, '');
-      // Convertir la virgule en point pour la manipulation numérique
       const normalizedValue = numericValue.replace(',', '.');
       
       if (normalizedValue !== '') {
         const number = parseFloat(normalizedValue);
         if (!isNaN(number)) {
-          // Formater le nombre avec le symbole €
           processedValue = `${number.toLocaleString('fr-FR')} €`;
         } else {
           processedValue = value;
@@ -152,19 +146,17 @@ export const QuestionSection = ({
             }`}
           >
             <div className="flex items-start gap-2">
-              <h3 className="text-xl font-semibold text-primary">{q.question}</h3>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button className="text-gray-400 hover:text-primary">
-                      <Info className="h-5 w-5" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{q.tooltip}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <h3 className="text-xl font-semibold text-primary flex-grow">{q.question}</h3>
+              <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <button className="text-gray-400 hover:text-primary transition-colors duration-200">
+                    <Info className="h-5 w-5" />
+                  </button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80 p-4 text-sm text-gray-700 bg-white">
+                  <p>{q.tooltip}</p>
+                </HoverCardContent>
+              </HoverCard>
             </div>
             <div className="space-y-3">
               {q.type === 'text' ? (
