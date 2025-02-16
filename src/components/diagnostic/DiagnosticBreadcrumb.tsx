@@ -39,7 +39,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
             <BreadcrumbItem key={step.id}>
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-bold text-lg text-primary">
-                  {step.label}
+                  {step.label === "Referal" ? "Recommandation" : step.label}
                 </BreadcrumbPage>
               ) : (
                 <>
@@ -47,7 +47,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
                     className="text-gray-500"
                     href="#"
                   >
-                    {step.label}
+                    {step.label === "Referal" ? "Recommandation" : step.label}
                   </BreadcrumbLink>
                 </>
               )}
