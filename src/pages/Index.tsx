@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
@@ -81,6 +82,20 @@ const Index = () => {
   };
 
   const handleNext = () => {
+    const unansweredQuestions = sections[currentSection].questions.reduce((count, _, index) => {
+      return !answers[currentSection]?.[index] ? count + 1 : count;
+    }, 0);
+
+    if (unansweredQuestions > 0) {
+      toast({
+        title: "Questions sans réponse ⚠️",
+        description: "Veuillez répondre à toutes les questions avant de continuer.",
+        duration: 2000,
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!isLastSection) {
       setCurrentSection(sectionOrder[currentSectionIndex + 1]);
     }
