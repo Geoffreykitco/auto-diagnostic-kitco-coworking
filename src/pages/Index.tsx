@@ -69,8 +69,7 @@ const Index = () => {
     
     if (!isMobile) {
       toast({
-        title: "Réponse enregistrée",
-        description: "Passons à la question suivante.",
+        title: "Réponse enregistrée 🎉",
         duration: 1200,
       });
     }
