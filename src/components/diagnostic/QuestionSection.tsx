@@ -62,8 +62,11 @@ export const QuestionSection = ({
       { id: 'results', label: "Résultats" }
     ];
 
+    // Extrait le texte après "Partie X : " si présent
+    const cleanTitle = section.title.replace(/^Partie \d+ : /, '').toLowerCase();
+    
     const currentStep = steps.find(step => 
-      section.title.toLowerCase().includes(step.id.toLowerCase())
+      cleanTitle.includes(step.id.toLowerCase())
     );
 
     return { steps, currentStep };
