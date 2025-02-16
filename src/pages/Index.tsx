@@ -32,12 +32,13 @@ const Index = () => {
   const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
   const handleStart = () => {
-    toast({
-      title: "Bienvenue dans l'auto-diagnostic 👋",
-      description: "Commençons l'évaluation de votre espace de coworking.",
-      duration: 2000,
-      variant: "default",
-    });
+    if (!isMobile) {
+      toast({
+        title: "Bienvenue dans l'auto-diagnostic 👋",
+        description: "Commençons l'évaluation de votre espace de coworking.",
+        duration: 1500,
+      });
+    }
     setProgress(0);
     setStarted(true);
   };
@@ -82,22 +83,6 @@ const Index = () => {
   };
 
   const handleNext = () => {
-    // Vérifier si toutes les questions de la section actuelle ont des réponses
-    const currentSectionAnswers = answers[currentSection] || {};
-    const currentSectionQuestions = sections[currentSection].questions;
-    
-    const unansweredQuestions = currentSectionQuestions.length - Object.keys(currentSectionAnswers).length;
-
-    if (unansweredQuestions > 0) {
-      toast({
-        title: "Questions sans réponse ⚠️",
-        description: "Veuillez répondre à toutes les questions avant de continuer.",
-        duration: 2000,
-        variant: "destructive",
-      });
-      return;
-    }
-
     if (!isLastSection) {
       setCurrentSection(sectionOrder[currentSectionIndex + 1]);
     }

@@ -38,19 +38,6 @@ export const ResultsAnalysis = ({
   };
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
   const globalScore = sectionsToAnalyze.reduce((sum, section) => sum + calculateSectionScore(section), 0) / sectionsToAnalyze.length;
-  const processSteps = [{
-    icon: "🎯",
-    title: "Diagnostic",
-    description: "Identifier vos axes d'amélioration"
-  }, {
-    icon: "📋",
-    title: "Plan d'action",
-    description: "Définir les étapes clés"
-  }, {
-    icon: "⚡️",
-    title: "Action",
-    description: "Mettre en œuvre et progresser"
-  }];
   return <div className="space-y-8">
       <motion.div initial={{
       opacity: 0,
@@ -109,8 +96,10 @@ export const ResultsAnalysis = ({
         <div className="space-y-4 text-gray-600">
           <p className="font-semibold">Vous connaissez maintenant vos axes d'amélioration.</p>
           <p className="text-base">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
+          <p className="font-medium">
+        </p>
+          <p></p>
         </div>
-
         <div className="flex flex-col items-center mt-6">
           <motion.button whileHover={{
           scale: 1.05
@@ -119,13 +108,8 @@ export const ResultsAnalysis = ({
         }} className="bg-primary hover:bg-primary-hover text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-200" onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}>
             Échanger avec Geoffrey
           </motion.button>
-          <p className="text-gray-700 mt-4 text-xs my-[5px]">
-            30min pour un plan d'action concrêt
-          </p>
-        </div>
-
-        <div className="mt-12">
-          
+          <p className="text-gray-700 mt-4 text-xs my-[5px]">30min pour un plan d'action concrêt
+        </p>
         </div>
       </motion.div>
     </div>;
