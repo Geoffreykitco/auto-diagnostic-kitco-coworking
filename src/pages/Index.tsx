@@ -70,6 +70,7 @@ const Index = () => {
     if (!isMobile) {
       toast({
         title: "Réponse enregistrée 🎉",
+        variant: "default",
         duration: 1200,
       });
     }
