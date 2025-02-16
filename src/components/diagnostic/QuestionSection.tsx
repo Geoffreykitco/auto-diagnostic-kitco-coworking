@@ -73,8 +73,28 @@ export const QuestionSection = ({
     });
   };
 
-  const handleTextChange = (questionIndex: number, value: string) => {
-    setTextValues(prev => ({ ...prev, [questionIndex]: value }));
+  const handleTextChange = (questionIndex: number, value: string, question: string) => {
+    let processedValue = value;
+    
+    // Traitement spécial pour le point mort mensuel
+    if (question.toLowerCase().includes("point mort mensuel")) {
+      // Supprimer tous les caractères non numériques sauf les points et les virgules
+      const numericValue = value.replace(/[^0-9.,]/g, '');
+      // Convertir la virgule en point pour la manipulation numérique
+      const normalizedValue = numericValue.replace(',', '.');
+      
+      if (normalizedValue !== '') {
+        const number = parseFloat(normalizedValue);
+        if (!isNaN(number)) {
+          // Formater le nombre avec le symbole €
+          processedValue = `${number.toLocaleString('fr-FR')} €`;
+        } else {
+          processedValue = value;
+        }
+      }
+    }
+
+    setTextValues(prev => ({ ...prev, [questionIndex]: processedValue }));
     onOptionSelect(questionIndex, 0);
   };
 
@@ -149,10 +169,10 @@ export const QuestionSection = ({
             <div className="space-y-3">
               {q.type === 'text' ? (
                 <Input
-                  type="text"
+                  type={q.question.toLowerCase().includes("point mort mensuel") ? "text" : "text"}
                   value={textValues[questionIndex] || ''}
-                  onChange={(e) => handleTextChange(questionIndex, e.target.value)}
-                  placeholder="Votre réponse..."
+                  onChange={(e) => handleTextChange(questionIndex, e.target.value, q.question)}
+                  placeholder={q.question.toLowerCase().includes("point mort mensuel") ? "Montant en €..." : "Votre réponse..."}
                   className="w-full"
                 />
               ) : (
