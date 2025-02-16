@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -112,11 +113,16 @@ export const ResultsAnalysis = ({
           <h3 className="text-xl font-semibold text-primary mb-4">Vous avez un message 🎥</h3>
           <div className="bg-gray-50 p-6 rounded-lg">
             <audio 
-              className="w-full"
+              className="w-full cursor-pointer focus:outline-none active:outline-none"
               controls
-              preload="metadata"
+              preload="auto"
+              controlsList="nodownload"
+              style={{ minHeight: "40px" }}
             >
-              <source src="https://drive.google.com/uc?export=download&id=1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS" type="audio/mp4" />
+              <source 
+                src="https://docs.google.com/uc?export=download&id=1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS" 
+                type="audio/mp4" 
+              />
               Votre navigateur ne supporte pas la lecture audio.
             </audio>
           </div>
