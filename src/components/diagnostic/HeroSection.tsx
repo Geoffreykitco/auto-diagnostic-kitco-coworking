@@ -20,20 +20,12 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         <p className="text-lg text-gray-600 mb-8">
           Évaluez l'efficacité de votre espace selon la méthodologie AARRR
         </p>
-        <motion.button
+        <button
           onClick={onStart}
           className="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium"
-          initial={{ scale: 1 }}
-          animate={{ scale: 1.05 }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut"
-          }}
         >
           Commencer l'évaluation
-        </motion.button>
+        </button>
       </motion.div>
     </div>
   </section>
