@@ -121,7 +121,7 @@ export const ResultsAnalysis = ({
                 style={{ minHeight: "40px", opacity: 1 }}
               >
                 <source 
-                  src="https://docs.google.com/uc?export=download&id=1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS" 
+                  src="https://drive.google.com/uc?export=download&id=1w0fOfIGy3sbbWtMT8aZPYnYhSsvMjbtS" 
                   type="audio/mpeg"
                 />
                 Votre navigateur ne supporte pas la lecture audio.
