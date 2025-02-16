@@ -24,6 +24,7 @@ interface Question {
 
 interface Section {
   title: string;
+  description: string;
   questions: Question[];
 }
 
@@ -50,18 +51,15 @@ export const QuestionSection = ({
     setSelectedOptions(prev => {
       const newSelected = { ...prev };
       if (type === 'single') {
-        // Pour les questions à choix unique, on remplace la sélection
         newSelected[questionIndex] = [optionIndex];
         onOptionSelect(questionIndex, points);
       } else {
-        // Pour les questions à choix multiple, on toggle la sélection
         const currentSelection = prev[questionIndex] || [];
         if (currentSelection.includes(optionIndex)) {
           newSelected[questionIndex] = currentSelection.filter(i => i !== optionIndex);
         } else {
           newSelected[questionIndex] = [...currentSelection, optionIndex];
         }
-        // Calculer les points totaux pour les choix multiples
         const totalPoints = section.questions[questionIndex].options
           .filter((_, idx) => newSelected[questionIndex].includes(idx))
           .reduce((sum, option) => sum + option.points, 0);
@@ -82,9 +80,14 @@ export const QuestionSection = ({
         animate={{ opacity: 1, y: 0 }}
         className="space-y-8"
       >
-        <h2 className="text-3xl font-bold text-primary mb-8">
-          {section.title}
-        </h2>
+        <div className="space-y-4">
+          <h2 className="text-3xl font-bold text-primary">
+            {section.title}
+          </h2>
+          <p className="text-gray-600 text-lg">
+            {section.description}
+          </p>
+        </div>
         
         {section.questions.map((q, questionIndex) => (
           <motion.div
