@@ -112,8 +112,8 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
           </DialogTrigger>
-          <DialogContent className={`${isMobile ? 'w-full h-full max-h-screen fixed inset-0 m-0 rounded-none p-0' : 'sm:max-w-[900px]'}`}>
-            <div className={`flex flex-col md:flex-row w-full h-full`}>
+          <DialogContent className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}>
+            <div className="flex flex-col md:flex-row w-full h-full">
               {!isMobile && (
                 <div className="w-full md:w-1/2">
                   <img
@@ -137,7 +137,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   </p>
                 </motion.div>
 
-                <form onSubmit={handleSubmit} className={`mt-4 md:mt-6 space-y-4 md:space-y-6 flex flex-col ${isMobile ? 'h-full' : ''}`}>
+                <form onSubmit={handleSubmit} className="mt-4 md:mt-6 space-y-4 md:space-y-6 flex flex-col h-full">
                   <div className="space-y-3 md:space-y-4 flex-grow">
                     <div>
                       <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
