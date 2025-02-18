@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { sections } from "@/data/sections";
 import { useToast } from "@/hooks/use-toast";
 import { GlobalScore } from "./sections/GlobalScore";
@@ -14,6 +15,10 @@ export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
   const { toast } = useToast();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
   const sectionWeights = {
