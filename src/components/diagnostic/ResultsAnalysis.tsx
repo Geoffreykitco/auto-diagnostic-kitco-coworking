@@ -1,6 +1,11 @@
 
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { Camera } from "lucide-react";
+import { useState } from "react";
 
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
@@ -9,6 +14,14 @@ interface ResultsAnalysisProps {
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
+  const { toast } = useToast();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [coworkingName, setCoworkingName] = useState('');
+  const [email, setEmail] = useState('');
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+
   const calculateSectionScore = (sectionName: string) => {
     if (!answers[sectionName] || !sections[sectionName]) return 0;
     const sectionAnswers = answers[sectionName];
@@ -105,7 +118,11 @@ export const ResultsAnalysis = ({
           level: getSectionLevel(calculateSectionScore(sectionName)),
           analysis: getSectionAnalysis(sectionName, calculateSectionScore(sectionName))
         })),
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        first_name: firstName,
+        last_name: lastName,
+        coworking_name: coworkingName,
+        email: email
       };
 
       const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
@@ -123,10 +140,42 @@ export const ResultsAnalysis = ({
         throw new Error('Failed to save diagnostic results');
       }
 
+      toast({
+        title: "Audit envoyé !",
+        description: "Vous recevrez votre audit par email dans quelques instants.",
+        duration: 3000,
+      });
+
       console.log('Diagnostic results saved successfully');
     } catch (error) {
       console.error('Error saving diagnostic results:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi de l'audit.",
+        duration: 3000,
+      });
     }
+  };
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setPhoto(file);
+      setPhotoPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!firstName || !lastName || !coworkingName || !email) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs.",
+        duration: 3000,
+      });
+      return;
+    }
+    saveToBaserow();
   };
 
   return (
@@ -184,25 +233,112 @@ export const ResultsAnalysis = ({
         className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
       >
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-primary mb-2">Notre Accompagnement</h3>
-          <p className="text-gray-600">Votre espace de coworking recèle un potentiel inexploité. Notre analyse révèle de vraies opportunités de croissance.</p>
+          <h3 className="text-xl font-semibold text-primary mb-2">Recevoir votre audit détaillé</h3>
+          <p className="text-gray-600">Obtenez une analyse approfondie de votre espace de coworking par email.</p>
         </div>
 
         <div className="flex flex-col items-center mt-6">
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
-            onClick={() => {
-              saveToBaserow();
-              window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9";
-            }}
-          >
-            Échanger avec Geoffrey
-          </motion.button>
-          <p className="text-gray-600 mt-3 text-sm">
-            30 minutes pour définir votre plan d'action
-          </p>
+          <Dialog>
+            <DialogTrigger asChild>
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
+              >
+                Recevoir mon audit par email
+              </motion.button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[800px]">
+              <DialogHeader>
+                <DialogTitle>Recevoir mon audit détaillé par email</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 relative">
+                    {photoPreview ? (
+                      <img 
+                        src={photoPreview} 
+                        alt="Preview" 
+                        className="h-full w-full object-cover rounded-lg"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <Camera className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="mt-2">
+                          <label htmlFor="photo-upload" className="cursor-pointer text-primary hover:text-primary-hover">
+                            Ajouter une photo
+                          </label>
+                          <p className="text-xs text-gray-500 mt-1">PNG, JPG jusqu'à 10MB</p>
+                        </div>
+                      </div>
+                    )}
+                    <input
+                      id="photo-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoChange}
+                      className="hidden"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+                      Prénom
+                    </label>
+                    <Input
+                      id="firstName"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Votre prénom"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+                      Nom
+                    </label>
+                    <Input
+                      id="lastName"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Votre nom"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
+                      Nom du coworking
+                    </label>
+                    <Input
+                      id="coworkingName"
+                      value={coworkingName}
+                      onChange={(e) => setCoworkingName(e.target.value)}
+                      placeholder="Nom de votre espace"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="votre@email.com"
+                    />
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200 mt-4"
+                  >
+                    Envoyer
+                  </motion.button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
       </motion.div>
     </div>
