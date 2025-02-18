@@ -1,6 +1,6 @@
 
 export const revenusSection = {
-  title: "Revenue - Optimiser la rentabilité de l'espace de coworking",
+  title: "Revenue - Optimiser la rentabilité du coworking",
   description: "Objectif : Évaluer la capacité du coworking à diversifier ses sources de revenus, optimiser sa gestion commerciale et maximiser sa rentabilité.",
   questions: [
     {
