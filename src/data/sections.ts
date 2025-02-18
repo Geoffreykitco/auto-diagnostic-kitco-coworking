@@ -1,12 +1,11 @@
-
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
-    description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis.",
+    description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis et à fournir des recommandations adaptées.",
     questions: [
       {
         question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
-        tooltip: "Connaître l'ancienneté de votre coworking permet d'évaluer sa maturité et son positionnement sur le marché.",
+        tooltip: "L'ancienneté permet d'évaluer votre positionnement sur le marché et votre maturité opérationnelle.",
         type: "single",
         options: [
           { label: "Moins de 6 mois", points: 0 },
@@ -17,13 +16,12 @@ export const sections = {
       },
       {
         question: "Quels types de bureaux proposez-vous ?",
-        tooltip: "L'offre de bureaux impacte directement votre clientèle cible et votre stratégie de commercialisation.",
+        tooltip: "L'offre de bureaux influence votre clientèle cible et votre stratégie de commercialisation.",
         type: "multiple",
         options: [
           { label: "Bureaux partagés", points: 0 },
           { label: "Bureaux privés", points: 0 },
           { label: "Salles de réunion", points: 0 },
-          { label: "Espaces dédiés à des événements", points: 0 },
           { label: "Autres (préciser)", points: 0 }
         ]
       },
@@ -41,7 +39,7 @@ export const sections = {
       },
       {
         question: "Quel est le statut de votre espace de coworking ?",
-        tooltip: "Être propriétaire ou locataire influence la rentabilité et la capacité d'investissement à long terme.",
+        tooltip: "Le statut de propriété influe sur vos coûts fixes et votre capacité d'investissement à long terme.",
         type: "single",
         options: [
           { label: "Propriétaire", points: 0 },
@@ -54,15 +52,15 @@ export const sections = {
         tooltip: "La taille de votre espace impacte vos coûts d'exploitation et votre capacité à accueillir des membres.",
         type: "single",
         options: [
-          { label: "Moins de 100m²", points: 0 },
-          { label: "100 à 300m²", points: 0 },
-          { label: "300 à 600m²", points: 0 },
-          { label: "Plus de 600m²", points: 0 }
+          { label: "Moins de 100 m²", points: 0 },
+          { label: "100 à 300 m²", points: 0 },
+          { label: "300 à 600 m²", points: 0 },
+          { label: "Plus de 600 m²", points: 0 }
         ]
       },
       {
         question: "Avez-vous d'autres espaces de coworking concurrents à proximité ?",
-        tooltip: "Analyser la concurrence locale aide à ajuster votre positionnement et votre stratégie de différenciation.",
+        tooltip: "Analyser la concurrence locale permet d'ajuster votre positionnement et votre stratégie de différenciation.",
         type: "single",
         options: [
           { label: "Oui, plusieurs dans un rayon de 1 km", points: 0 },
@@ -73,9 +71,15 @@ export const sections = {
       },
       {
         question: "Combien de coworkers peut accueillir votre coworking ?",
-        tooltip: "La capacité d'accueil de votre espace est un indicateur important pour évaluer votre potentiel de croissance.",
-        type: "text",
-        options: []
+        tooltip: "La capacité d'accueil est un indicateur clé pour évaluer votre potentiel de croissance et votre rentabilité.",
+        type: "single",
+        options: [
+          { label: "Moins de 10", points: 0 },
+          { label: "10 à 30", points: 0 },
+          { label: "30 à 50", points: 0 },
+          { label: "50 à 100", points: 0 },
+          { label: "Plus de 100", points: 0 }
+        ]
       },
       {
         question: "Dans quelle ville est situé votre espace de coworking ?",
@@ -84,16 +88,42 @@ export const sections = {
         options: []
       },
       {
-        question: "Quel est le pourcentage moyen de remplissage de votre espace de coworking ?",
-        tooltip: "Un bon taux d'occupation garantit la rentabilité et aide à anticiper les besoins d'expansion ou d'ajustement des offres.",
-        type: "text",
-        options: []
+        question: "Quels sont les horaires d'ouverture de votre espace ?",
+        tooltip: "Les horaires d'ouverture influencent l'accessibilité et le type de clientèle attiré.",
+        type: "multiple",
+        options: [
+          { label: "Lundi - Vendredi (8h-18h)", points: 0 },
+          { label: "Lundi - Vendredi (8h-22h)", points: 0 },
+          { label: "Ouvert 24h/24, 7j/7", points: 0 },
+          { label: "Fermé le week-end", points: 0 },
+          { label: "Ouvert uniquement sur réservation", points: 0 }
+        ]
       },
       {
-        question: "Quel est votre point mort mensuel ?",
-        tooltip: "Connaître votre point mort vous permet de mieux gérer vos finances et de fixer des objectifs de revenus réalistes.",
-        type: "text",
-        options: []
+        question: "Quel est le type de clientèle majoritaire dans votre espace ?",
+        tooltip: "Identifier votre clientèle cible permet d'adapter votre offre et votre communication pour mieux répondre aux attentes des membres.",
+        type: "single",
+        options: [
+          { label: "Freelances et indépendants", points: 0 },
+          { label: "Startups et PME", points: 0 },
+          { label: "Grandes entreprises", points: 0 },
+          { label: "Étudiants", points: 0 }
+        ]
+      },
+      {
+        question: "Quels services proposez-vous dans votre espace ?",
+        tooltip: "Des services variés améliorent l'expérience client et favorisent la rétention des membres.",
+        type: "multiple",
+        options: [
+          { label: "Phone box", points: 0 },
+          { label: "Salle de repos", points: 0 },
+          { label: "Cuisine équipée", points: 0 },
+          { label: "Café / Boissons à disposition", points: 0 },
+          { label: "Service d'impression", points: 0 },
+          { label: "Casier sécurisé", points: 0 },
+          { label: "Accès 24h/24", points: 0 },
+          { label: "Accès à un espace extérieur (terrasse, balcon, jardin)", points: 0 }
+        ]
       }
     ]
   },
