@@ -22,7 +22,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/b9043bcf-972f-4245-bd59-9814bb7c3472.png');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/cbde0978-24fa-4f75-acd5-e089d860be33.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -78,11 +78,11 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
             <DialogTitle className="sr-only">Formulaire d'audit</DialogTitle>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-0">
               <div className="h-[600px]">
-                <div className="h-full bg-[#1D2720] relative flex items-center justify-center">
+                <div className="h-full bg-gray-50 relative">
                   <img 
                     src={photoPreview} 
-                    alt="Logo KITCO - Des coworkings bien pensés" 
-                    className="w-4/5 object-contain"
+                    alt="Personnes collaborant dans un espace de coworking" 
+                    className="h-full w-full object-cover rounded-l-xl"
                   />
                   <input
                     id="photo-upload"
