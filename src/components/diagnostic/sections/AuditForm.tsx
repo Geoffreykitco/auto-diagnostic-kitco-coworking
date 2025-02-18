@@ -22,7 +22,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/93416d08-f285-44db-8cdf-20595f524c14.png');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/7d8bb150-4786-4caf-8d77-f9016b19bc6c.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -81,7 +81,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                 <div className="h-full bg-gray-50 relative">
                   <img 
                     src={photoPreview} 
-                    alt="Personnes travaillant ensemble dans un espace de coworking" 
+                    alt="Personnes travaillant sur un ordinateur dans un espace de coworking" 
                     className="h-full w-full object-cover rounded-l-xl"
                   />
                   <input
