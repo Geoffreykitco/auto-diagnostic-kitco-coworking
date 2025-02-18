@@ -92,9 +92,24 @@ export const ResultsAnalysis = ({
         analysis={getGlobalAnalysis(globalScore)}
       />
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {sectionsToAnalyze.map((sectionName, index) => {
           const score = Math.round(calculateSectionScore(answers[sectionName], sectionName));
+          if (index === sectionsToAnalyze.length - 1) {
+            return (
+              <>
+                <SectionScore
+                  key={sectionName}
+                  title={sections[sectionName].title}
+                  score={score}
+                  level={getSectionLevel(score)}
+                  analysis={getSectionAnalysis(sectionName, score)}
+                  index={index}
+                />
+                <AuditForm onSubmit={saveToBaserow} />
+              </>
+            );
+          }
           return (
             <SectionScore
               key={sectionName}
@@ -107,8 +122,6 @@ export const ResultsAnalysis = ({
           );
         })}
       </div>
-
-      <AuditForm onSubmit={saveToBaserow} />
     </div>
   );
 };
