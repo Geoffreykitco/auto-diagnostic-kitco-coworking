@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from 'framer-motion';
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Camera } from "lucide-react";
@@ -23,7 +23,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>('/lovable-uploads/b48e1db6-f548-464c-83e7-2c0cca27eb3c.png');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/b48e1db6-f548-464c-83e7-2c0cca27eb3c.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -71,28 +71,15 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
             </motion.button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[1000px] p-0 gap-0">
+            <DialogTitle className="sr-only">Formulaire d'audit</DialogTitle>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-0">
               <div className="h-[600px]">
                 <div className="h-full bg-gray-50 relative">
-                  {photoPreview ? (
-                    <img 
-                      src={photoPreview} 
-                      alt="Preview" 
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full">
-                      <div className="text-center">
-                        <Camera className="mx-auto h-12 w-12 text-gray-400" />
-                        <div className="mt-2">
-                          <label htmlFor="photo-upload" className="cursor-pointer text-primary hover:text-primary-hover">
-                            Ajouter une photo
-                          </label>
-                          <p className="text-xs text-gray-500 mt-1">PNG, JPG jusqu'à 10MB</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  <img 
+                    src={photoPreview} 
+                    alt="Aperçu" 
+                    className="h-full w-full object-cover"
+                  />
                   <input
                     id="photo-upload"
                     type="file"
