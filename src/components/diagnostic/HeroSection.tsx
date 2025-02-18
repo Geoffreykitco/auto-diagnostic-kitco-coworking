@@ -41,7 +41,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
         </motion.p>
         <motion.button
           onClick={onStart}
-          className="bg-white px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-medium shadow-lg hover:shadow-2xl glass-morphism"
+          className="bg-white/95 px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)]"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{
