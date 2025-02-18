@@ -112,10 +112,10 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
           </DialogTrigger>
-          <DialogContent className={`${isMobile ? 'w-full h-full max-h-screen inset-0 rounded-none m-0' : 'sm:max-w-[900px]'} p-0 gap-0`}>
-            <div className={`flex flex-col md:flex-row w-full ${isMobile ? 'h-full' : ''}`}>
+          <DialogContent className={`${isMobile ? 'w-full h-full max-h-screen fixed inset-0 m-0 rounded-none p-0' : 'sm:max-w-[900px]'}`}>
+            <div className={`flex flex-col md:flex-row w-full h-full`}>
               {!isMobile && (
-                <div className="w-full md:w-1/2 h-[300px] md:h-auto">
+                <div className="w-full md:w-1/2">
                   <img
                     src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
                     alt="Coworking space"
@@ -123,7 +123,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   />
                 </div>
               )}
-              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'flex flex-col flex-grow overflow-y-auto' : ''}`}>
+              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'flex flex-col h-full overflow-y-auto' : ''}`}>
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   </p>
                 </motion.div>
 
-                <form onSubmit={handleSubmit} className={`mt-4 md:mt-6 space-y-4 md:space-y-6 ${isMobile ? 'flex flex-col flex-grow' : ''}`}>
+                <form onSubmit={handleSubmit} className={`mt-4 md:mt-6 space-y-4 md:space-y-6 flex flex-col ${isMobile ? 'h-full' : ''}`}>
                   <div className="space-y-3 md:space-y-4 flex-grow">
                     <div>
                       <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -182,7 +182,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className={`w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base ${isMobile ? 'mt-auto mb-4' : 'mt-4'}`}
+                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base mt-auto mb-4"
                   >
                     Recevoir mon audit
                   </motion.button>
