@@ -22,7 +22,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/2917663d-49a4-4c4d-b120-c17b39e0b19f.png');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/0689701c-c6b4-43c5-b498-da9da42266b5.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -74,15 +74,15 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               🔽 Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[1000px] p-0 gap-0">
+          <DialogContent className="sm:max-w-[1000px] p-0 gap-0 overflow-hidden rounded-xl">
             <DialogTitle className="sr-only">Formulaire d'audit</DialogTitle>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-0">
               <div className="h-[600px]">
                 <div className="h-full bg-gray-50 relative">
                   <img 
                     src={photoPreview} 
-                    alt="Aperçu" 
-                    className="h-full w-full object-cover"
+                    alt="Personnes travaillant ensemble dans un espace de coworking" 
+                    className="h-full w-full object-cover rounded-l-xl"
                   />
                   <input
                     id="photo-upload"
