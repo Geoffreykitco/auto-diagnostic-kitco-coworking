@@ -64,25 +64,9 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-primary hover:bg-primary-hover text-white text-xl font-semibold py-4 px-10 rounded-lg shadow-md transition-all duration-200 group"
+              className="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)] transition-all duration-300"
             >
-              <div className="flex space-x-1">
-                {Array.from("Recevoir mon audit par email").map((letter, index) => (
-                  <motion.span
-                    key={index}
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{
-                      duration: 1.5,
-                      ease: "easeInOut",
-                      repeat: Infinity,
-                      delay: index * 0.05
-                    }}
-                    className="inline-block"
-                  >
-                    {letter === " " ? "\u00A0" : letter}
-                  </motion.span>
-                ))}
-              </div>
+              Recevoir mon audit par email
             </motion.button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[800px]">
