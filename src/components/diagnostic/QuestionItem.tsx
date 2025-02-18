@@ -5,7 +5,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from "@/components/ui/hover-card"
 import { Input } from "@/components/ui/input";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -36,7 +36,7 @@ export const QuestionItem = ({
   selectedOptions,
   textValues,
   onOptionSelect,
-  onTextChange
+  onTextChange,
 }: QuestionItemProps) => {
   const isMobile = useIsMobile();
 
@@ -44,10 +44,24 @@ export const QuestionItem = ({
     return selectedOptions[questionIndex]?.includes(optionIndex);
   };
 
-  const handleOptionClick = (optionIndex: number, points: number, type: 'single' | 'multiple' | 'text') => {
-    if (type !== 'text') {
-      onOptionSelect(questionIndex, optionIndex, points, type);
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    if (question.question.toLowerCase().includes("pourcentage") || 
+        question.question.toLowerCase().includes("remplissage")) {
+      // Enlever tous les caractères non numériques sauf le point
+      const numericValue = value.replace(/[^0-9]/g, '');
+      
+      // Convertir en nombre et s'assurer qu'il est entre 0 et 100
+      let number = parseInt(numericValue);
+      if (isNaN(number)) number = 0;
+      if (number > 100) number = 100;
+      
+      // Formater avec le symbole %
+      value = number ? `${number}%` : '';
     }
+
+    onTextChange(questionIndex, value, question.question);
   };
 
   return (
@@ -82,7 +96,7 @@ export const QuestionItem = ({
         <Input
           type="text"
           value={textValues[questionIndex] || ''}
-          onChange={(e) => onTextChange(questionIndex, e.target.value, question.question)}
+          onChange={handleTextChange}
           placeholder="Votre réponse..."
           className="w-full"
         />
@@ -91,7 +105,7 @@ export const QuestionItem = ({
           {question.options.map((option, optionIndex) => (
             <button
               key={optionIndex}
-              onClick={() => handleOptionClick(optionIndex, option.points, question.type)}
+              onClick={() => onOptionSelect(questionIndex, optionIndex, option.points, question.type)}
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
                   isSelected(optionIndex)
