@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -93,6 +92,42 @@ export const ResultsAnalysis = ({
     return "Votre coworking présente des marges de progression importantes. Des actions structurées sont nécessaires pour améliorer votre acquisition, fidélisation et monétisation. Mettez en place un plan d'action clair pour corriger vos points faibles et garantir une croissance durable.";
   };
 
+  const saveToBaserow = async () => {
+    try {
+      const diagnosticData = {
+        global_score: Math.round(globalScore),
+        global_level: getSectionLevel(globalScore),
+        global_analysis: getGlobalAnalysis(globalScore),
+        sections: sectionsToAnalyze.map(sectionName => ({
+          name: sections[sectionName].title,
+          score: Math.round(calculateSectionScore(sectionName)),
+          level: getSectionLevel(calculateSectionScore(sectionName)),
+          analysis: getSectionAnalysis(sectionName, calculateSectionScore(sectionName))
+        })),
+        created_at: new Date().toISOString()
+      };
+
+      const response = await fetch('https://api.baserow.io/api/database/rows/table/<YOUR_TABLE_ID>/', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Token <YOUR_API_TOKEN>',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...diagnosticData
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save diagnostic results');
+      }
+
+      console.log('Diagnostic results saved successfully');
+    } catch (error) {
+      console.error('Error saving diagnostic results:', error);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <motion.div 
@@ -157,7 +192,10 @@ export const ResultsAnalysis = ({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
-            onClick={() => window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9"}
+            onClick={() => {
+              saveToBaserow();
+              window.location.href = "https://calendar.app.google/o7Hs96ieaHG2AudD9";
+            }}
           >
             Échanger avec Geoffrey
           </motion.button>
