@@ -90,14 +90,18 @@ export const informationsSection = {
     {
       question: "Quels sont les horaires d'ouverture de votre espace ?",
       tooltip: "Les horaires d'ouverture influencent l'accessibilité et le type de clientèle attiré.",
-      type: "multiple",
+      type: "single",
       options: [
-        { label: "Lundi - Vendredi (8h-18h)", points: 0 },
-        { label: "Lundi - Vendredi (8h-22h)", points: 0 },
-        { label: "Ouvert 24h/24, 7j/7", points: 0 },
-        { label: "Fermé le week-end", points: 0 },
-        { label: "Ouvert uniquement sur réservation", points: 0 }
+        { label: "Lundi au Vendredi - Horaires de bureau", points: 0 },
+        { label: "Ouvert 7J/7 - Horaires de bureau", points: 0 },
+        { label: "Ouvert 7J/7 - 24h/24", points: 0 }
       ]
+    },
+    {
+      question: "Quel est votre pourcentage moyen de remplissage ?",
+      tooltip: "Le taux d'occupation est un indicateur clé de la performance et de l'attractivité de votre espace.",
+      type: "text",
+      options: []
     },
     {
       question: "Quel est le type de clientèle majoritaire dans votre espace ?",
