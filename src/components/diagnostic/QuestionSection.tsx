@@ -200,7 +200,7 @@ export const QuestionSection = ({
         initial="initial"
         animate="animate"
         exit="exit"
-        className="space-y-6 md:space-y-8 relative"
+        className="space-y-6 md:space-y-8"
       >
         <div className="space-y-3 md:space-y-4 text-left px-4 md:px-0">
           <motion.h2 
@@ -240,7 +240,7 @@ export const QuestionSection = ({
         )}
 
         <motion.div 
-          className="flex justify-between items-center px-4 md:px-0 absolute left-0 right-0 top-[50%] -translate-y-1/2 pointer-events-none"
+          className="flex justify-between items-center pt-6 md:pt-8 px-4 md:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -248,7 +248,7 @@ export const QuestionSection = ({
           {showPrevious && (
             <button
               onClick={onPrevious}
-              className="pointer-events-auto flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors text-sm md:text-base font-medium"
+              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-primary hover:bg-primary/5 rounded-lg transition-colors text-sm md:text-base font-medium"
             >
               <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
               Précédent
@@ -257,7 +257,7 @@ export const QuestionSection = ({
           {showNext && (
             <button
               onClick={handleNext}
-              className="pointer-events-auto flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-white bg-[#132720] hover:bg-[#132720]/90 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
+              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-white bg-[#132720] hover:bg-[#132720]/90 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
             >
               Suivant
               <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
