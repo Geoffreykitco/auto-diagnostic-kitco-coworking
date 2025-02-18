@@ -22,7 +22,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/91f6635c-d776-4f3c-887e-fef5e313c700.png');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/93416d08-f285-44db-8cdf-20595f524c14.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
