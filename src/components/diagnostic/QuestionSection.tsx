@@ -202,7 +202,7 @@ export const QuestionSection = ({
         exit="exit"
         className="space-y-6 md:space-y-8"
       >
-        <div className="space-y-3 md:space-y-4">
+        <div className="space-y-3 md:space-y-4 text-left">
           <motion.h2 
             className="text-2xl md:text-4xl font-bold text-primary tracking-tight"
             initial={{ opacity: 0, x: -20 }}

@@ -55,7 +55,7 @@ export const QuestionItem = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * questionIndex }}
-      className="bg-white p-6 rounded-lg border border-gray-200"
+      className="bg-white p-6 rounded-lg border border-gray-200 text-left"
     >
       <div className="flex gap-2 items-start mb-4">
         <h3 className="text-lg font-medium text-gray-900 flex-grow">
