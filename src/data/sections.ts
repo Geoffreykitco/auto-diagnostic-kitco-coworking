@@ -1,3 +1,4 @@
+
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -219,8 +220,8 @@ export const sections = {
     ]
   },
   retention: {
-    title: "Rétention : Fidéliser les membres sur le long terme",
-    description: "La rétention évalue votre capacité à fidéliser vos membres sur le long terme.",
+    title: "Rétention - Fidéliser ses membres sur le long terme",
+    description: "Objectif : Évaluer la capacité d'un coworking à maintenir l'engagement de ses membres et limiter le churn.",
     questions: [
       {
         question: "Vos membres reviennent-ils régulièrement ?",
@@ -233,8 +234,18 @@ export const sections = {
         ]
       },
       {
-        question: "Organisez-vous des événements pour votre communauté ?",
-        tooltip: "Les événements renforcent le sentiment d'appartenance et la fidélisation des membres.",
+        question: "Proposez-vous des avantages ou un programme de fidélité pour vos membres ?",
+        tooltip: "Un programme de fidélisation (tarifs préférentiels, accès prioritaire, avantages exclusifs) favorise l'engagement sur le long terme.",
+        type: "single",
+        options: [
+          { label: "Oui, un programme structuré et actif", points: 10 },
+          { label: "Oui, mais peu utilisé", points: 5 },
+          { label: "Non, aucun programme de fidélité", points: 0 }
+        ]
+      },
+      {
+        question: "Organisez-vous des événements ou des activités pour votre communauté ?",
+        tooltip: "Les événements permettent de créer un lien fort entre les membres et d'augmenter la fidélité.",
         type: "single",
         options: [
           { label: "Oui, régulièrement", points: 10 },
@@ -243,13 +254,23 @@ export const sections = {
         ]
       },
       {
-        question: "Recueillez-vous des retours de vos membres ?",
-        tooltip: "La collecte régulière de feedback permet d'améliorer continuellement votre service.",
+        question: "Recueillez-vous et exploitez-vous les retours de vos membres ?",
+        tooltip: "Un coworking qui collecte et agit sur les feedbacks améliore son expérience utilisateur et réduit le taux de départ.",
         type: "single",
         options: [
-          { label: "Oui, via des enquêtes ou échanges directs", points: 10 },
-          { label: "Oui, mais de manière informelle", points: 5 },
+          { label: "Oui, via des enquêtes ou échanges réguliers", points: 10 },
+          { label: "Oui, mais sans exploitation systématique", points: 5 },
           { label: "Non, aucun retour structuré", points: 0 }
+        ]
+      },
+      {
+        question: "Mettez-vous en place des actions pour améliorer l'expérience et le bien-être des membres ?",
+        tooltip: "Un cadre agréable et des services adaptés (aménagements, confort, services additionnels) favorisent la fidélisation.",
+        type: "single",
+        options: [
+          { label: "Oui, nous optimisons en continu selon les besoins", points: 10 },
+          { label: "Oui, mais de manière ponctuelle", points: 5 },
+          { label: "Non, aucune action spécifique", points: 0 }
         ]
       }
     ]
