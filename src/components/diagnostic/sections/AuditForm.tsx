@@ -22,13 +22,11 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/cbde0978-24fa-4f75-acd5-e089d860be33.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setPhoto(file);
-      setPhotoPreview(URL.createObjectURL(file));
     }
   };
 
@@ -70,9 +68,13 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               🔽 Recevoir mon audit et passer à l'action
             </motion.button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[1000px] overflow-hidden rounded-xl">
+          <DialogContent className="sm:max-w-[1000px] p-0 overflow-hidden">
+            <DialogTitle className="sr-only">Formulaire d'audit</DialogTitle>
+            <DialogDescription className="sr-only">
+              Remplissez le formulaire pour recevoir votre audit personnalisé
+            </DialogDescription>
             <div className="flex flex-col w-full">
-              <div className="p-6 bg-white">
+              <div className="p-6 space-y-4">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -135,7 +137,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               </div>
               <div className="h-[300px]">
                 <img 
-                  src={photoPreview} 
+                  src="/lovable-uploads/09abd0e0-d270-4f38-aee1-139743513d7b.png" 
                   alt="Personnes collaborant dans un espace de coworking" 
                   className="h-full w-full object-cover"
                 />
