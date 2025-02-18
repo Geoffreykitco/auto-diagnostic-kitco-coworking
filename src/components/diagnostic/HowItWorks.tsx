@@ -12,7 +12,7 @@ export const HowItWorks = () => {
         className="text-center mb-8"
       >
         <h2 className="text-2xl md:text-[2.5rem] leading-tight font-bold text-gray-900">
-          "Les amateurs attendent les coworkers, <span className="text-primary">les attirent et les fidélisent</span>."
+          "Les amateurs attendent les coworkers, <span className="text-primary">les experts les attirent et les fidélisent</span>."
         </h2>
       </motion.div>
 
