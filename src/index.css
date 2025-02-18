@@ -69,7 +69,9 @@
 }
 
 .glass-morphism {
-  @apply backdrop-blur-lg bg-white/90 border border-white/20 shadow-lg;
+  @apply backdrop-blur-lg bg-white/90;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .hero-pattern {
