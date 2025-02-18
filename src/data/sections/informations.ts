@@ -1,3 +1,4 @@
+
 export const informationsSection = {
   title: "Partie 1 : Informations Générales",
   description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis et à fournir des recommandations adaptées.",
@@ -105,7 +106,7 @@ export const informationsSection = {
     {
       question: "Quel est le type de clientèle majoritaire dans votre espace ?",
       tooltip: "Identifier votre clientèle cible permet d'adapter votre offre et votre communication pour mieux répondre aux attentes des membres.",
-      type: "single",
+      type: "multiple",
       options: [
         { label: "Freelances et indépendants", points: 0 },
         { label: "Startups et PME", points: 0 },
@@ -129,3 +130,4 @@ export const informationsSection = {
     }
   ]
 };
+
