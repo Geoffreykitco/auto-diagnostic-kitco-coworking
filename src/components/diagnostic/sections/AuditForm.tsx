@@ -46,7 +46,7 @@ export const AuditForm = ({
   return <div className="bg-white rounded-lg p-8 space-y-6 shadow-lg max-w-2xl mx-auto">
       <div className="text-center space-y-4">
         <h2 className="text-2xl font-semibold">Augmentez le taux de remplissage de votre espace de coworking</h2>
-        <p className="text-gray-600">Vous avez maintenant une vision claire de la performance de votre espace de coworking et ses axes d'amélioration/dévellopement.</p>
+        <p className="text-gray-600">Vous avez maintenant une vision claire de la performance de votre espace de coworking et ses axes d'amélioration/développement.</p>
         <p className="text-gray-600">Développez votre potentiel et identifiez les leviers à activer pour attirer plus de membres.</p>
       </div>
 
