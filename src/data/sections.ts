@@ -1,4 +1,3 @@
-
 export const sections = {
   informations: {
     title: "Partie 1 : Informations Générales",
@@ -113,19 +112,6 @@ export const sections = {
           { label: "Campagnes publicitaires payantes", points: 5 },
           { label: "Bouche-à-oreille et recommandations", points: 5 },
           { label: "Aucun canal spécifique utilisé", points: 0 }
-        ]
-      },
-      {
-        question: "Quel canal vous apporte le plus de nouveaux membres ?",
-        tooltip: "Identifier votre canal le plus performant permet d'optimiser vos efforts d'acquisition.",
-        type: "single",
-        options: [
-          { label: "Site internet optimisé", points: 0 },
-          { label: "Réseaux sociaux actifs", points: 0 },
-          { label: "Google Maps et annuaires locaux", points: 0 },
-          { label: "Événements et partenariats locaux", points: 0 },
-          { label: "Campagnes publicitaires payantes", points: 0 },
-          { label: "Bouche-à-oreille et recommandations", points: 0 }
         ]
       },
       {
