@@ -98,55 +98,68 @@ export const sections = {
     ]
   },
   acquisition: {
-    title: "Partie 2 : Acquisition",
-    description: "L'acquisition concerne votre capacité à attirer de nouveaux membres dans votre espace de coworking.",
+    title: "Acquisition : Attirer de nouveaux membres dans votre coworking",
+    description: "L'acquisition concerne votre capacité à attirer de nouveaux membres dans votre coworking.",
     questions: [
       {
-        question: "Menez-vous des actions marketing pour promouvoir votre espace ?",
-        tooltip: "La régularité de vos actions marketing impacte directement votre visibilité et votre capacité à attirer de nouveaux membres.",
-        type: "single",
-        options: [
-          { label: "Oui, régulièrement", points: 10 },
-          { label: "Oui, mais de façon occasionnelle", points: 5 },
-          { label: "Non, aucune action spécifique", points: 0 }
-        ]
-      },
-      {
-        question: "Quelle est votre présence en ligne ?",
-        tooltip: "Une présence en ligne diversifiée augmente votre visibilité et facilite l'acquisition de nouveaux membres.",
+        question: "Quels canaux utilisez-vous pour attirer de nouveaux membres ?",
+        tooltip: "Un mix entre visibilité organique et payante optimise votre capacité d'acquisition.",
         type: "multiple",
         options: [
           { label: "Site internet", points: 5 },
-          { label: "Réseaux sociaux (LinkedIn, Instagram, Facebook, etc.)", points: 5 },
-          { label: "Google Maps et annuaires locaux", points: 5 },
-          { label: "Aucune présence", points: 0 }
+          { label: "Réseaux sociaux", points: 5 },
+          { label: "Publicités payantes", points: 5 },
+          { label: "SEO et contenus de blog", points: 5 },
+          { label: "Bouche-à-oreille et recommandations", points: 5 },
+          { label: "Aucun canal utilisé", points: 0 }
         ]
       },
       {
-        question: "Offrez-vous une offre spéciale pour les nouveaux membres ?",
-        tooltip: "Les offres spéciales peuvent encourager les prospects à franchir le pas et devenir membres.",
+        question: "À quelle fréquence faites-vous des actions marketing ?",
+        tooltip: "La régularité des actions marketing est un facteur clé de la croissance.",
         type: "single",
         options: [
-          { label: "Oui, essai gratuit ou réduction", points: 10 },
+          { label: "Quotidiennement", points: 10 },
+          { label: "Hebdomadairement", points: 7 },
+          { label: "Mensuellement", points: 5 },
+          { label: "Rarement ou jamais", points: 0 }
+        ]
+      },
+      {
+        question: "Proposez-vous une offre découverte ou un essai gratuit ?",
+        tooltip: "Les essais gratuits facilitent l'engagement des prospects.",
+        type: "single",
+        options: [
+          { label: "Oui, avec une communication active", points: 10 },
           { label: "Oui, mais peu mise en avant", points: 5 },
+          { label: "Non, mais nous y réfléchissons", points: 2 },
           { label: "Non, aucune offre spéciale", points: 0 }
         ]
       },
       {
-        question: "Comment communiquez-vous avec vos prospects ?",
-        tooltip: "Une communication diversifiée et régulière augmente vos chances de conversion.",
-        type: "multiple",
+        question: "Comment suivez-vous les prospects après un premier contact ?",
+        tooltip: "Un bon suivi augmente les taux de conversion.",
+        type: "single",
         options: [
-          { label: "Newsletter ou campagnes e-mail", points: 5 },
-          { label: "Engagement sur les réseaux sociaux", points: 5 },
-          { label: "Bouche-à-oreille et événements de networking", points: 5 },
-          { label: "Aucune communication régulière", points: 0 }
+          { label: "Relance systématique par email ou téléphone", points: 10 },
+          { label: "Relance occasionnelle selon le prospect", points: 5 },
+          { label: "Aucun suivi organisé", points: 0 }
+        ]
+      },
+      {
+        question: "Collectez-vous et exploitez-vous les avis clients ?",
+        tooltip: "Les avis influencent la crédibilité et la confiance des futurs membres.",
+        type: "single",
+        options: [
+          { label: "Oui, via un processus structuré", points: 10 },
+          { label: "Oui, mais de manière informelle", points: 5 },
+          { label: "Non, aucun avis collecté", points: 0 }
         ]
       }
     ]
   },
   activation: {
-    title: "Partie 3 : Activation",
+    title: "Activation : Convertir les visiteurs en membres actifs",
     description: "L'activation mesure votre capacité à transformer les visiteurs en membres actifs.",
     questions: [
       {
@@ -193,7 +206,7 @@ export const sections = {
     ]
   },
   retention: {
-    title: "Partie 4 : Rétention",
+    title: "Rétention : Fidéliser les membres sur le long terme",
     description: "La rétention évalue votre capacité à fidéliser vos membres sur le long terme.",
     questions: [
       {
@@ -229,7 +242,7 @@ export const sections = {
     ]
   },
   revenus: {
-    title: "Partie 5 : Revenus",
+    title: "Revenue : Optimiser la monétisation de votre coworking",
     description: "Cette section analyse votre capacité à monétiser votre espace et à générer des revenus durables.",
     questions: [
       {
@@ -256,27 +269,57 @@ export const sections = {
     ]
   },
   recommandation: {
-    title: "Partie 6 : Recommandation",
-    description: "La recommandation évalue votre capacité à transformer vos membres en ambassadeurs.",
+    title: "Referral : Transformer les membres en ambassadeurs",
+    description: "Le referral évalue votre capacité à transformer vos membres en ambassadeurs de votre espace.",
     questions: [
       {
-        question: "Vos membres recommandent-ils spontanément votre espace ?",
-        tooltip: "Le bouche-à-oreille est un indicateur fort de la satisfaction de vos membres.",
+        question: "Encouragez-vous vos membres à laisser des avis en ligne ?",
+        tooltip: "Les avis clients influencent la crédibilité de votre coworking.",
         type: "single",
         options: [
-          { label: "Oui, souvent", points: 10 },
-          { label: "Oui, parfois", points: 5 },
-          { label: "Non, rarement", points: 0 }
+          { label: "Oui, avec des rappels et un suivi actif", points: 10 },
+          { label: "Oui, mais sans suivi structuré", points: 5 },
+          { label: "Non, aucun encouragement", points: 0 }
         ]
       },
       {
-        question: "Avez-vous un programme de parrainage ou de fidélité ?",
-        tooltip: "Un programme de parrainage structure et encourage la recommandation.",
+        question: "Avez-vous un programme de parrainage actif ?",
+        tooltip: "Un programme de parrainage incite à la recommandation.",
         type: "single",
         options: [
-          { label: "Oui, avec des avantages clairs", points: 10 },
-          { label: "Oui, mais peu utilisé", points: 5 },
+          { label: "Oui, avec des avantages bien définis", points: 10 },
+          { label: "Oui, mais peu exploité", points: 5 },
           { label: "Non, aucun programme", points: 0 }
+        ]
+      },
+      {
+        question: "Organisez-vous des événements favorisant le networking ?",
+        tooltip: "Les événements renforcent le sentiment d'appartenance.",
+        type: "single",
+        options: [
+          { label: "Oui, régulièrement", points: 10 },
+          { label: "Oui, mais de manière occasionnelle", points: 5 },
+          { label: "Non, jamais", points: 0 }
+        ]
+      },
+      {
+        question: "Offrez-vous des récompenses aux membres qui recommandent votre coworking ?",
+        tooltip: "Un bon système de récompense motive le bouche-à-oreille.",
+        type: "single",
+        options: [
+          { label: "Oui, avec des récompenses bien définies", points: 10 },
+          { label: "Oui, mais peu mises en avant", points: 5 },
+          { label: "Non, aucun système de récompense", points: 0 }
+        ]
+      },
+      {
+        question: "Comment mesurez-vous l'impact des recommandations de vos membres ?",
+        tooltip: "Suivre les recommandations permet d'optimiser vos efforts marketing.",
+        type: "single",
+        options: [
+          { label: "Nous suivons avec des indicateurs précis", points: 10 },
+          { label: "Nous avons une idée approximative mais sans suivi détaillé", points: 5 },
+          { label: "Nous ne mesurons pas l'impact des recommandations", points: 0 }
         ]
       }
     ]
