@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
@@ -22,7 +21,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('https://drive.google.com/uc?export=view&id=1N_cytQxVSKy1lSIcv5o6YbXEzWMpJVRj');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/93416d08-f285-44db-8cdf-20595f524c14.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
