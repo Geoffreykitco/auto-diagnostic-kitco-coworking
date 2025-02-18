@@ -64,6 +64,13 @@ export const QuestionItem = ({
     onTextChange(questionIndex, value, question.question);
   };
 
+  const handleOptionClick = (optionIndex: number, points: number) => {
+    // On s'assure que le type est soit 'single' soit 'multiple'
+    if (question.type === 'single' || question.type === 'multiple') {
+      onOptionSelect(questionIndex, optionIndex, points, question.type);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -105,7 +112,7 @@ export const QuestionItem = ({
           {question.options.map((option, optionIndex) => (
             <button
               key={optionIndex}
-              onClick={() => onOptionSelect(questionIndex, optionIndex, option.points, question.type)}
+              onClick={() => handleOptionClick(optionIndex, option.points)}
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
                   isSelected(optionIndex)
