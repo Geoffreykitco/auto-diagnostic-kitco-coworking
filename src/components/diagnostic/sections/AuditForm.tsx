@@ -48,11 +48,10 @@ export const AuditForm = ({
         <h2 className="text-2xl font-semibold">Augmentez le taux de remplissage de votre coworking</h2>
         <div className="flex items-center justify-center gap-2">
           
-          <p className="text-gray-600">Recevez votre audit détaillé directement par email</p>
-        </div>
-        <p className="text-gray-600">
-          Vous avez une vision claire de la performance de votre coworking
+          <p className="text-gray-600">Vous avez une vision claire de la performance de votre coworking
         </p>
+        </div>
+        <p className="text-gray-600">Recevez votre audit détaillé et votre plan d'action claire de la performance de votre coworking</p>
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
