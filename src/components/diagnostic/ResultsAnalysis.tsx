@@ -129,6 +129,9 @@ export const ResultsAnalysis = ({
                     style={{ width: `${score}%` }}
                   />
                 </div>
+                <div className="text-md text-gray-700 mt-2">
+                  Niveau : <span className="font-semibold">{getSectionLevel(score)}</span>
+                </div>
                 <p className="text-sm text-gray-600 mt-2">
                   {getSectionAnalysis(sectionName, score)}
                 </p>
