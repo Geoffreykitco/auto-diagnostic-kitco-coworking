@@ -224,17 +224,19 @@ export const QuestionSection = ({
         {section.title.toLowerCase().includes('résultats') ? (
           <ResultsAnalysis answers={answers} />
         ) : (
-          section.questions.map((q, questionIndex) => (
-            <QuestionItem
-              key={questionIndex}
-              question={q}
-              questionIndex={questionIndex}
-              selectedOptions={selectedOptions}
-              textValues={textValues}
-              onOptionSelect={handleOptionSelect}
-              onTextChange={handleTextChange}
-            />
-          ))
+          <div className="space-y-6">
+            {section.questions.map((q, questionIndex) => (
+              <QuestionItem
+                key={questionIndex}
+                question={q}
+                questionIndex={questionIndex}
+                selectedOptions={selectedOptions}
+                textValues={textValues}
+                onOptionSelect={handleOptionSelect}
+                onTextChange={handleTextChange}
+              />
+            ))}
+          </div>
         )}
 
         <motion.div 
