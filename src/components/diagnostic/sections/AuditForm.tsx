@@ -63,12 +63,8 @@ export const AuditForm = ({
         <p className="text-gray-600">
           Vous avez maintenant une vision claire de la performance de votre espace de coworking.
         </p>
-        <p className="text-gray-600">
-          Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
-        </p>
-        <p className="text-gray-600">
-          Recevez votre audit détaillé et passez à l'action
-        </p>
+        
+        
       </div>
 
       <div className="flex flex-col items-center mt-8">
