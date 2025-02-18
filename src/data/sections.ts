@@ -98,7 +98,7 @@ export const sections = {
     ]
   },
   acquisition: {
-    title: "Acquisition - Comment attirer de nouveaux membres ?",
+    title: "Acquisition - Attirer de nouveaux coworkers",
     description: "Objectif : Évaluer la capacité d'un coworking à générer du trafic qualifié et à se rendre visible auprès de ses futurs membres.",
     questions: [
       {
