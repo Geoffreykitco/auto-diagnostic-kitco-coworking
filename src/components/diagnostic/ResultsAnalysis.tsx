@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { sections } from "@/data/sections";
 
@@ -107,10 +108,10 @@ export const ResultsAnalysis = ({
         created_at: new Date().toISOString()
       };
 
-      const response = await fetch('https://api.baserow.io/api/database/rows/table/<YOUR_TABLE_ID>/', {
+      const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token <YOUR_API_TOKEN>',
+          'Authorization': 'Token 185511',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
