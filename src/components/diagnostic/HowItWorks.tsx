@@ -1,5 +1,7 @@
+
 import { motion } from 'framer-motion';
 import { useIsMobile } from "@/hooks/use-mobile";
+
 export const HowItWorks = () => {
   const isMobile = useIsMobile();
   return <main className="container mx-auto max-w-4xl px-4 md:py-12 py-[35px]">
@@ -11,6 +13,17 @@ export const HowItWorks = () => {
       }} transition={{
         delay: 0.3
       }} className="space-y-4 md:space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8"
+          >
+            <h2 className="text-2xl md:text-[2.5rem] leading-tight font-bold text-gray-900">
+              "Les amateurs espèrent des membres, les experts les attirent et les fidélisent."
+            </h2>
+          </motion.div>
+
           <h2 className="text-xl md:text-2xl font-semibold text-primary mb-4 md:mb-8">
             Comment ça marche?
           </h2>
