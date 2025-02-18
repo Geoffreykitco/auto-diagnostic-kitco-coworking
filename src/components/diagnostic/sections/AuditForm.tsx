@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
@@ -22,7 +21,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/7736445b-1bac-408e-9fde-81267619092b.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -81,7 +80,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                 <div className="h-full bg-gray-50 relative">
                   <img 
                     src={photoPreview} 
-                    alt="Personnes travaillant sur un ordinateur dans un espace de coworking" 
+                    alt="Deux personnes collaborant sur un projet dans un espace de coworking" 
                     className="h-full w-full object-cover rounded-l-xl"
                   />
                   <input
