@@ -8,6 +8,7 @@ import { HowItWorks } from "@/components/diagnostic/HowItWorks";
 import { QuestionSection } from "@/components/diagnostic/QuestionSection";
 import { Footer } from "@/components/diagnostic/Footer";
 import { sections } from "@/data/sections";
+import { ResultsAnalysis } from '@/components/diagnostic/ResultsAnalysis';
 
 const sectionOrder = [
   'informations',
@@ -21,9 +22,15 @@ const sectionOrder = [
 
 const Index = () => {
   const [progress, setProgress] = useState(0);
-  const [started, setStarted] = useState(false);
-  const [currentSection, setCurrentSection] = useState('informations');
-  const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
+  const [started, setStarted] = useState(true); // Modifié pour commencer directement
+  const [currentSection, setCurrentSection] = useState('resultats'); // Modifié pour aller directement aux résultats
+  const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({
+    acquisition: { 0: 8, 1: 7, 2: 10, 3: 7, 4: 5 },
+    activation: { 0: 10, 1: 5, 2: 5, 3: 7, 4: 5 },
+    retention: { 0: 5, 1: 5, 2: 10, 3: 5, 4: 5 },
+    revenus: { 0: 15, 1: 10, 2: 10, 3: 10, 4: 5 },
+    recommandation: { 0: 10, 1: 5, 2: 5, 3: 5, 4: 5 }
+  });
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
@@ -98,6 +105,10 @@ const Index = () => {
             <HeroSection onStart={handleStart} />
             <HowItWorks />
           </>
+        ) : currentSection === 'resultats' ? (
+          <div className="container mx-auto px-4 py-8">
+            <ResultsAnalysis answers={answers} />
+          </div>
         ) : (
           <QuestionSection 
             section={sections[currentSection]}
