@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import { Input } from "@/components/ui/input";
@@ -60,9 +59,8 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200"
           >
-            <span className="text-lg">▼</span>
             Recevoir mon audit et passer à l'action
           </motion.button>
         </DialogTrigger>
