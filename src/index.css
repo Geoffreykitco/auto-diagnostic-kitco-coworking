@@ -81,10 +81,10 @@
 }
 
 @keyframes underline {
-  from {
+  0% {
     background-size: 0% 2px;
   }
-  to {
+  100% {
     background-size: 100% 2px;
   }
 }
