@@ -335,7 +335,7 @@ export const sections = {
     ]
   },
   recommandation: {
-    title: "Referral - Transformer ses membres en ambassadeurs",
+    title: "Recommandation - Transformer ses membres en ambassadeurs",
     description: "Objectif : Évaluer la capacité d'un coworking à générer des recommandations naturelles, que ce soit via le bouche-à-oreille, un programme de parrainage ou la mise en avant des avis clients.",
     questions: [
       {
