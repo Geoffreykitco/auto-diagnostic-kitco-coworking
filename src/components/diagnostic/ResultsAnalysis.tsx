@@ -237,15 +237,31 @@ export const ResultsAnalysis = ({
           <p className="text-gray-600">Obtenez une analyse approfondie de votre espace de coworking par email.</p>
         </div>
 
-        <div className="flex flex-col items-center mt-6">
+        <div className="flex flex-col items-center mt-8">
           <Dialog>
             <DialogTrigger asChild>
               <motion.button 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
+                className="bg-primary hover:bg-primary-hover text-white text-xl font-semibold py-4 px-10 rounded-lg shadow-md transition-all duration-200 group"
               >
-                Recevoir mon audit par email
+                <div className="flex space-x-1">
+                  {Array.from("Recevoir mon audit par email").map((letter, index) => (
+                    <motion.span
+                      key={index}
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        delay: index * 0.05
+                      }}
+                      className="inline-block"
+                    >
+                      {letter === " " ? "\u00A0" : letter}
+                    </motion.span>
+                  ))}
+                </div>
               </motion.button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[800px]">
