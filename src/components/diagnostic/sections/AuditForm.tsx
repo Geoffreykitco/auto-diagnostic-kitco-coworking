@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Camera } from "lucide-react";
 
 interface AuditFormProps {
   onSubmit: (formData: {
@@ -23,7 +22,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/b48e1db6-f548-464c-83e7-2c0cca27eb3c.png');
+  const [photoPreview, setPhotoPreview] = useState<string>('/lovable-uploads/2917663d-49a4-4c4d-b120-c17b39e0b19f.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
