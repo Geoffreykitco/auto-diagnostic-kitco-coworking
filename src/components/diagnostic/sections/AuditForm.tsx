@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { motion } from 'framer-motion';
-import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -57,94 +56,68 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
         </p>
       </div>
 
-      <div className="flex flex-col items-center mt-8">
-        <Dialog>
-          <DialogTrigger asChild>
-            <motion.button 
+      <div className="mt-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+                Prénom
+              </label>
+              <Input
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="Votre prénom"
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+                Nom
+              </label>
+              <Input
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Votre nom"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
+                Nom du coworking
+              </label>
+              <Input
+                id="coworkingName"
+                value={coworkingName}
+                onChange={(e) => setCoworkingName(e.target.value)}
+                placeholder="Nom de votre espace"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="votre@email.com"
+              />
+            </div>
+          </div>
+          <div className="mt-6">
+            <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)] transition-all duration-300"
+              type="submit"
+              className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
             >
               🔽 Recevoir mon audit et passer à l'action
             </motion.button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[1000px] p-0 overflow-hidden">
-            <DialogTitle className="sr-only">Formulaire d'audit</DialogTitle>
-            <DialogDescription className="sr-only">
-              Remplissez le formulaire pour recevoir votre audit personnalisé
-            </DialogDescription>
-            <div className="flex flex-col w-full">
-              <div className="p-6 space-y-4">
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Prénom
-                      </label>
-                      <Input
-                        id="firstName"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Votre prénom"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nom
-                      </label>
-                      <Input
-                        id="lastName"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        placeholder="Votre nom"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nom du coworking
-                      </label>
-                      <Input
-                        id="coworkingName"
-                        value={coworkingName}
-                        onChange={(e) => setCoworkingName(e.target.value)}
-                        placeholder="Nom de votre espace"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="votre@email.com"
-                      />
-                    </div>
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200 mt-4"
-                  >
-                    Envoyer
-                  </motion.button>
-                </form>
-              </div>
-              <div className="h-[300px]">
-                <img 
-                  src="/lovable-uploads/09abd0e0-d270-4f38-aee1-139743513d7b.png" 
-                  alt="Personnes collaborant dans un espace de coworking" 
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+          </div>
+        </form>
       </div>
     </motion.div>
   );
