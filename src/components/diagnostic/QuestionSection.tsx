@@ -191,7 +191,7 @@ export const QuestionSection = ({
   };
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-6 md:py-12 relative">
+    <div className="container mx-auto max-w-4xl px-0 md:px-4 py-6 md:py-12 relative">
       <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       
       <motion.div
@@ -202,7 +202,7 @@ export const QuestionSection = ({
         exit="exit"
         className="space-y-6 md:space-y-8"
       >
-        <div className="space-y-3 md:space-y-4 text-left">
+        <div className="space-y-3 md:space-y-4 text-left px-4 md:px-0">
           <motion.h2 
             className="text-2xl md:text-4xl font-bold text-primary tracking-tight"
             initial={{ opacity: 0, x: -20 }}
@@ -224,7 +224,7 @@ export const QuestionSection = ({
         {section.title.toLowerCase().includes('résultats') ? (
           <ResultsAnalysis answers={answers} />
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-6 px-4 md:px-0">
             {section.questions.map((q, questionIndex) => (
               <QuestionItem
                 key={questionIndex}
@@ -240,7 +240,7 @@ export const QuestionSection = ({
         )}
 
         <motion.div 
-          className="flex justify-between items-center pt-6 md:pt-8"
+          className="flex justify-between items-center pt-6 md:pt-8 px-4 md:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
