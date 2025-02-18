@@ -23,7 +23,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>('/lovable-uploads/7c357e00-2c7e-4d6b-a8ed-c7452c6b6bc3.png');
+  const [photoPreview, setPhotoPreview] = useState<string | null>('/lovable-uploads/b48e1db6-f548-464c-83e7-2c0cca27eb3c.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -70,16 +70,15 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               Recevoir mon audit par email
             </motion.button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[800px] p-0 gap-0">
+          <DialogContent className="sm:max-w-[1000px] p-0 gap-0">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-0">
-              <div className="h-full">
+              <div className="h-[600px]">
                 <div className="h-full bg-gray-50 relative">
                   {photoPreview ? (
                     <img 
                       src={photoPreview} 
                       alt="Preview" 
-                      className="h-full w-full object-cover scale-x-[-1]"
-                      style={{ transform: 'scaleX(-1)' }}
+                      className="h-full w-full object-cover"
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full">
