@@ -191,7 +191,7 @@ export const QuestionSection = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full md:max-w-4xl md:mx-auto">
       <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       
       <motion.div
