@@ -335,57 +335,57 @@ export const sections = {
     ]
   },
   recommandation: {
-    title: "Referral : Transformer les membres en ambassadeurs",
-    description: "Le referral évalue votre capacité à transformer vos membres en ambassadeurs de votre espace.",
+    title: "Referral - Transformer ses membres en ambassadeurs",
+    description: "Objectif : Évaluer la capacité d'un coworking à générer des recommandations naturelles, que ce soit via le bouche-à-oreille, un programme de parrainage ou la mise en avant des avis clients.",
     questions: [
       {
-        question: "Encouragez-vous vos membres à laisser des avis en ligne ?",
-        tooltip: "Les avis clients influencent la crédibilité de votre coworking.",
+        question: "Vos membres recommandent-ils spontanément votre espace ?",
+        tooltip: "Le bouche-à-oreille est un indicateur clé de satisfaction et de fidélisation.",
         type: "single",
         options: [
-          { label: "Oui, avec des rappels et un suivi actif", points: 10 },
-          { label: "Oui, mais sans suivi structuré", points: 5 },
-          { label: "Non, aucun encouragement", points: 0 }
+          { label: "Oui, souvent", points: 10 },
+          { label: "Oui, parfois", points: 5 },
+          { label: "Non, rarement", points: 0 }
         ]
       },
       {
-        question: "Avez-vous un programme de parrainage actif ?",
-        tooltip: "Un programme de parrainage incite à la recommandation.",
+        question: "Avez-vous mis en place un programme de parrainage ou de fidélité ?",
+        tooltip: "Un programme structuré incite les membres à recommander activement l'espace à leur entourage.",
         type: "single",
         options: [
-          { label: "Oui, avec des avantages bien définis", points: 10 },
-          { label: "Oui, mais peu exploité", points: 5 },
-          { label: "Non, aucun programme", points: 0 }
+          { label: "Oui, et il est actif", points: 10 },
+          { label: "Oui, mais il est peu utilisé", points: 5 },
+          { label: "Non, aucun programme de parrainage", points: 0 }
         ]
       },
       {
-        question: "Organisez-vous des événements favorisant le networking ?",
-        tooltip: "Les événements renforcent le sentiment d'appartenance.",
+        question: "Utilisez-vous les avis clients pour renforcer votre crédibilité ?",
+        tooltip: "Les avis en ligne (Google, Trustpilot, etc.) influencent fortement les prospects.",
         type: "single",
         options: [
-          { label: "Oui, régulièrement", points: 10 },
-          { label: "Oui, mais de manière occasionnelle", points: 5 },
-          { label: "Non, jamais", points: 0 }
+          { label: "Oui, nous les collectons et les mettons en avant", points: 10 },
+          { label: "Oui, mais sans les exploiter pleinement", points: 5 },
+          { label: "Non, nous ne faisons pas de suivi des avis", points: 0 }
         ]
       },
       {
-        question: "Offrez-vous des récompenses aux membres qui recommandent votre coworking ?",
-        tooltip: "Un bon système de récompense motive le bouche-à-oreille.",
+        question: "Vos membres participent-ils activement à la communication et promotion de votre espace ?",
+        tooltip: "Une communauté engagée partage naturellement son expérience et attire de nouveaux membres.",
         type: "single",
         options: [
-          { label: "Oui, avec des récompenses bien définies", points: 10 },
-          { label: "Oui, mais peu mises en avant", points: 5 },
-          { label: "Non, aucun système de récompense", points: 0 }
+          { label: "Oui, ils partagent régulièrement sur les réseaux sociaux et via le bouche-à-oreille", points: 10 },
+          { label: "Oui, mais seulement une minorité le fait", points: 5 },
+          { label: "Non, nous n'avons pas de communauté active sur ce point", points: 0 }
         ]
       },
       {
-        question: "Comment mesurez-vous l'impact des recommandations de vos membres ?",
-        tooltip: "Suivre les recommandations permet d'optimiser vos efforts marketing.",
+        question: "Incitez-vous vos membres à créer du contenu ou à partager leur expérience ?",
+        tooltip: "Le contenu généré par les membres (témoignages, publications, vidéos) augmente la visibilité du coworking.",
         type: "single",
         options: [
-          { label: "Nous suivons avec des indicateurs précis", points: 10 },
-          { label: "Nous avons une idée approximative mais sans suivi détaillé", points: 5 },
-          { label: "Nous ne mesurons pas l'impact des recommandations", points: 0 }
+          { label: "Oui, avec des incitations claires (réductions, événements VIP, mise en avant)", points: 10 },
+          { label: "Oui, mais sans cadre précis", points: 5 },
+          { label: "Non, nous n'avons pas d'actions spécifiques pour encourager cela", points: 0 }
         ]
       }
     ]
