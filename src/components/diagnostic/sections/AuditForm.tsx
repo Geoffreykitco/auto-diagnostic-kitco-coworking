@@ -55,6 +55,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
     >
       <div className="space-y-4">
         <h3 className="text-xl font-semibold text-primary mb-2">Recevoir votre audit détaillé</h3>
+        <h4 className="text-lg font-medium text-primary mb-2">Votre audit directement dans votre boite email</h4>
         <p className="text-gray-600">Obtenez une analyse approfondie de votre espace de coworking par email.</p>
       </div>
 
