@@ -1,4 +1,3 @@
-
 export const informationsSection = {
   title: "Partie 1 : Informations Générales",
   description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis et à fournir des recommandations adaptées.",
@@ -125,7 +124,6 @@ export const informationsSection = {
         { label: "Café / Boissons à disposition", points: 0 },
         { label: "Service d'impression", points: 0 },
         { label: "Casier sécurisé", points: 0 },
-        { label: "Accès 24h/24", points: 0 },
         { label: "Accès à un espace extérieur (terrasse, balcon, jardin)", points: 0 }
       ]
     }
