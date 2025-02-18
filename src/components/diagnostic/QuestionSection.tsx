@@ -240,7 +240,7 @@ export const QuestionSection = ({
         )}
 
         <motion.div 
-          className="flex justify-between items-center pt-6 md:pt-8 px-4 md:px-0"
+          className="flex justify-center items-center gap-4 pt-6 md:pt-8 px-4 md:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -257,7 +257,7 @@ export const QuestionSection = ({
           {showNext && (
             <button
               onClick={handleNext}
-              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-white bg-[#132720] hover:bg-[#132720]/90 rounded-lg transition-colors ml-auto text-sm md:text-base font-medium"
+              className="flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 text-white bg-[#132720] hover:bg-[#132720]/90 rounded-lg transition-colors text-sm md:text-base font-medium"
             >
               Suivant
               <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
