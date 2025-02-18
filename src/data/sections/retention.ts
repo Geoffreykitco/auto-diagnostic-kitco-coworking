@@ -1,0 +1,57 @@
+
+export const retentionSection = {
+  title: "Rétention - Fidéliser ses membres sur le long terme",
+  description: "Objectif : Évaluer la capacité d'un coworking à maintenir l'engagement de ses membres et limiter le churn.",
+  questions: [
+    {
+      question: "Vos membres reviennent-ils régulièrement ?",
+      tooltip: "La régularité de fréquentation est un indicateur clé de la satisfaction des membres.",
+      type: "single",
+      options: [
+        { label: "Oui, la plupart d'entre eux", points: 10 },
+        { label: "Oui, mais seulement une partie", points: 5 },
+        { label: "Non, le turnover est élevé", points: 0 }
+      ]
+    },
+    {
+      question: "Proposez-vous des avantages ou un programme de fidélité pour vos membres ?",
+      tooltip: "Un programme de fidélisation (tarifs préférentiels, accès prioritaire, avantages exclusifs) favorise l'engagement sur le long terme.",
+      type: "single",
+      options: [
+        { label: "Oui, un programme structuré et actif", points: 10 },
+        { label: "Oui, mais peu utilisé", points: 5 },
+        { label: "Non, aucun programme de fidélité", points: 0 }
+      ]
+    },
+    {
+      question: "Organisez-vous des événements ou des activités pour votre communauté ?",
+      tooltip: "Les événements permettent de créer un lien fort entre les membres et d'augmenter la fidélité.",
+      type: "single",
+      options: [
+        { label: "Oui, régulièrement", points: 10 },
+        { label: "Oui, mais occasionnellement", points: 5 },
+        { label: "Non, jamais", points: 0 }
+      ]
+    },
+    {
+      question: "Recueillez-vous et exploitez-vous les retours de vos membres ?",
+      tooltip: "Un coworking qui collecte et agit sur les feedbacks améliore son expérience utilisateur et réduit le taux de départ.",
+      type: "single",
+      options: [
+        { label: "Oui, via des enquêtes ou échanges réguliers", points: 10 },
+        { label: "Oui, mais sans exploitation systématique", points: 5 },
+        { label: "Non, aucun retour structuré", points: 0 }
+      ]
+    },
+    {
+      question: "Mettez-vous en place des actions pour améliorer l'expérience et le bien-être des membres ?",
+      tooltip: "Un cadre agréable et des services adaptés (aménagements, confort, services additionnels) favorisent la fidélisation.",
+      type: "single",
+      options: [
+        { label: "Oui, nous optimisons en continu selon les besoins", points: 10 },
+        { label: "Oui, mais de manière ponctuelle", points: 5 },
+        { label: "Non, aucune action spécifique", points: 0 }
+      ]
+    }
+  ]
+};
