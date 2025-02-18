@@ -23,7 +23,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>('/lovable-uploads/7c357e00-2c7e-4d6b-a8ed-c7452c6b6bc3.png');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -77,7 +77,8 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                     <img 
                       src={photoPreview} 
                       alt="Preview" 
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover scale-x-[-1]"
+                      style={{ transform: 'scaleX(-1)' }}
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full">
