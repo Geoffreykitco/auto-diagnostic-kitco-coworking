@@ -22,24 +22,21 @@ const sectionOrder = [
 
 const Index = () => {
   const [progress, setProgress] = useState(0);
-  const [started, setStarted] = useState(false); // Modifié : false au lieu de true
-  const [currentSection, setCurrentSection] = useState('informations'); // Modifié : 'informations' au lieu de 'resultats'
+  const [started, setStarted] = useState(false);
+  const [currentSection, setCurrentSection] = useState('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
   const { toast } = useToast();
-  const isMobile = useIsMobile();
 
   const currentSectionIndex = sectionOrder.indexOf(currentSection);
   const isFirstSection = currentSectionIndex === 0;
   const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
   const handleStart = () => {
-    if (!isMobile) {
-      toast({
-        title: "Bienvenue dans l'auto-diagnostic 👋",
-        description: "Commençons l'évaluation de votre espace de coworking.",
-        duration: 1500,
-      });
-    }
+    toast({
+      title: "Bienvenue dans l'auto-diagnostic 👋",
+      description: "Commençons l'évaluation de votre espace de coworking.",
+      duration: 1500,
+    });
     setProgress(0);
     setStarted(true);
   };
@@ -68,13 +65,11 @@ const Index = () => {
       return newAnswers;
     });
     
-    if (!isMobile) {
-      toast({
-        title: "Réponse enregistrée 🎉",
-        variant: "default",
-        duration: 1200,
-      });
-    }
+    toast({
+      title: "Réponse enregistrée 🎉",
+      variant: "default",
+      duration: 1200,
+    });
   };
 
   const handlePrevious = () => {
