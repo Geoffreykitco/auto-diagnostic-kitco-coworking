@@ -200,7 +200,7 @@ export const QuestionSection = ({
         initial="initial"
         animate="animate"
         exit="exit"
-        className="space-y-6 md:space-y-8"
+        className="space-y-4 md:space-y-6"
       >
         <div className="space-y-3 md:space-y-4 text-left px-4 md:px-0">
           <motion.h2 
@@ -240,7 +240,7 @@ export const QuestionSection = ({
         )}
 
         <motion.div 
-          className="flex justify-between items-center pt-6 md:pt-8 px-4 md:px-0"
+          className="flex justify-between items-center pt-2 md:pt-4 -mt-4 md:-mt-6 px-4 md:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
