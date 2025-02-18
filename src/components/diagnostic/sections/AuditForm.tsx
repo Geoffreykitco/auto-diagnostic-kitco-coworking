@@ -61,9 +61,7 @@ export const AuditForm = ({
           scale: 1.02
         }} whileTap={{
           scale: 0.98
-        }} className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200">
-            Recevoir mon audit et passer à l'action
-          </motion.button>
+        }} className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200">Recevoir mon audit par email</motion.button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[900px] p-0 gap-0">
           <div className="flex flex-col md:flex-row w-full">
