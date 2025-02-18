@@ -1,8 +1,9 @@
 
 import { useState } from "react";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +22,7 @@ interface AuditFormProps {
 
 export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   const [fullName, setFullName] = useState('');
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
@@ -61,98 +63,135 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       photo
     });
     setOpen(false);
+
+    toast({
+      title: "Merci !",
+      description: "Votre demande a été envoyée avec succès.",
+      duration: 3000,
+    });
   };
 
   return (
-    <div className="bg-white rounded-lg p-8 space-y-6 shadow-lg max-w-2xl mx-auto">
-      <div className="text-center space-y-4">
-        <h2 className="text-2xl font-semibold">Augmentez le taux de remplissage de votre espace de coworking</h2>
-        <p className="text-gray-600">
-          Vous avez maintenant une vision claire de la performance de votre espace de coworking. Mais comment transformer ces signaux en un plan d'action concret ?
-        </p>
-        <p className="text-gray-600">
-          Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
-        </p>
-      </div>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200"
+    <AnimatePresence>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        className="bg-white rounded-lg p-4 md:p-8 space-y-6 shadow-lg max-w-2xl mx-auto"
+      >
+        <div className="text-center space-y-4">
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-xl md:text-2xl font-semibold"
           >
-            Recevez votre audit et découvrez votre feuille de route personnalisée
-          </motion.button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[900px] p-0 gap-0">
-          <div className="flex flex-col md:flex-row w-full">
-            <div className="w-full md:w-1/2 h-[300px] md:h-auto">
-              <img
-                src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
-                alt="Coworking space"
-                className="w-full h-full object-cover rounded-l-lg"
-              />
-            </div>
-            <div className="w-full md:w-1/2 p-6">
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-primary">Optimisez le taux de remplissage de votre coworking</h3>
-                <p className="text-gray-600">
-                  Vous avez maintenant une vision claire de la performance de votre espace de coworking.
-                </p>
-              </div>
+            Augmentez le taux de remplissage de votre espace de coworking
+          </motion.h2>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-3"
+          >
+            <p className="text-gray-600 text-sm md:text-base">
+              Vous avez maintenant une vision claire de la performance de votre espace de coworking. Mais comment transformer ces signaux en un plan d'action concret ?
+            </p>
+            <p className="text-gray-600 text-sm md:text-base">
+              Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
+            </p>
+          </motion.div>
+        </div>
 
-              <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Prénom et nom
-                    </label>
-                    <Input
-                      id="fullName"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Nom du coworking
-                    </label>
-                    <Input
-                      id="coworkingName"
-                      value={coworkingName}
-                      onChange={(e) => setCoworkingName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                      required
-                    />
-                  </div>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base"
+            >
+              Recevez votre audit et découvrez votre feuille de route personnalisée
+            </motion.button>
+          </DialogTrigger>
+          <DialogContent className={`sm:max-w-[900px] p-0 gap-0 ${isMobile ? 'w-[95%]' : ''}`}>
+            <div className="flex flex-col md:flex-row w-full">
+              {!isMobile && (
+                <div className="w-full md:w-1/2 h-[300px] md:h-auto">
+                  <img
+                    src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
+                    alt="Coworking space"
+                    className="w-full h-full object-cover rounded-l-lg"
+                  />
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
+              )}
+              <div className="w-full md:w-1/2 p-4 md:p-6">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-4"
                 >
-                  Recevoir mon audit
-                </motion.button>
-              </form>
+                  <h3 className="text-lg md:text-xl font-semibold text-primary">
+                    Optimisez le taux de remplissage de votre coworking
+                  </h3>
+                  <p className="text-gray-600 text-sm md:text-base">
+                    Vous avez maintenant une vision claire de la performance de votre espace de coworking.
+                  </p>
+                </motion.div>
+
+                <form onSubmit={handleSubmit} className="mt-4 md:mt-6 space-y-4 md:space-y-6">
+                  <div className="space-y-3 md:space-y-4">
+                    <div>
+                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                        Prénom et nom
+                      </label>
+                      <Input
+                        id="fullName"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className="text-sm md:text-base"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
+                        Nom du coworking
+                      </label>
+                      <Input
+                        id="coworkingName"
+                        value={coworkingName}
+                        onChange={(e) => setCoworkingName(e.target.value)}
+                        className="text-sm md:text-base"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Email
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        className="text-sm md:text-base"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base mt-4"
+                  >
+                    Recevoir mon audit
+                  </motion.button>
+                </form>
+              </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+          </DialogContent>
+        </Dialog>
+      </motion.div>
+    </AnimatePresence>
   );
 };
