@@ -3,6 +3,11 @@ import { useState } from "react";
 import { motion } from 'framer-motion';
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface AuditFormProps {
   onSubmit: (formData: {
@@ -21,13 +26,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setPhoto(file);
-    }
-  };
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,85 +39,94 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       return;
     }
     onSubmit({ firstName, lastName, coworkingName, email, photo });
+    setOpen(false);
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-      className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
-    >
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-primary mb-2">Optimisez le taux de remplissage de votre coworking</h3>
-        <p className="text-gray-600">
-          Vous avez maintenant une vision claire de la performance de votre espace de coworking.
-        </p>
-      </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
+        >
+          🔽 Recevoir mon audit et passer à l'action
+        </motion.button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[900px] p-0 gap-0">
+        <div className="flex flex-col md:flex-row w-full">
+          <div className="w-full md:w-1/2 h-[300px] md:h-auto">
+            <img
+              src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
+              alt="Coworking space"
+              className="w-full h-full object-cover rounded-l-lg"
+            />
+          </div>
+          <div className="w-full md:w-1/2 p-6">
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-primary">Optimisez le taux de remplissage de votre coworking</h3>
+              <p className="text-gray-600">
+                Vous avez maintenant une vision claire de la performance de votre espace de coworking.
+              </p>
+            </div>
 
-      <div className="mt-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                Prénom
-              </label>
-              <Input
-                id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="Votre prénom"
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                Nom
-              </label>
-              <Input
-                id="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Votre nom"
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="mt-6 space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                    Prénom & Nom
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="firstName"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Prénom"
+                    />
+                    <Input
+                      id="lastName"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Nom"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
+                    Nom du coworking
+                  </label>
+                  <Input
+                    id="coworkingName"
+                    value={coworkingName}
+                    onChange={(e) => setCoworkingName(e.target.value)}
+                    placeholder="Nom de votre espace"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="votre@email.com"
+                  />
+                </div>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
+              >
+                Recevoir mon audit
+              </motion.button>
+            </form>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
-                Nom du coworking
-              </label>
-              <Input
-                id="coworkingName"
-                value={coworkingName}
-                onChange={(e) => setCoworkingName(e.target.value)}
-                placeholder="Nom de votre espace"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="votre@email.com"
-              />
-            </div>
-          </div>
-          <div className="mt-6">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all duration-200"
-            >
-              🔽 Recevoir mon audit et passer à l'action
-            </motion.button>
-          </div>
-        </form>
-      </div>
-    </motion.div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
