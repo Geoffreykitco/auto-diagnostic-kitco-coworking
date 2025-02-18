@@ -53,9 +53,14 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
     >
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-primary mb-2">Recevoir votre audit détaillé</h3>
-        <h4 className="text-lg font-medium text-primary mb-2">Votre audit directement dans votre boite email</h4>
-        <p className="text-gray-600">Obtenez une analyse approfondie de votre espace de coworking par email.</p>
+        <h3 className="text-xl font-semibold text-primary mb-2">Recevez votre audit détaillé et passez à l'action</h3>
+        <h4 className="text-lg font-medium text-primary mb-2">📩 Votre audit directement dans votre boîte email</h4>
+        <p className="text-gray-600">
+          Vous avez maintenant une vision claire de la performance de votre espace de coworking.
+        </p>
+        <p className="text-gray-600">
+          Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
+        </p>
       </div>
 
       <div className="flex flex-col items-center mt-8">
@@ -66,7 +71,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               whileTap={{ scale: 0.98 }}
               className="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)] transition-all duration-300"
             >
-              Recevoir mon audit par email
+              🔽 Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[1000px] p-0 gap-0">
