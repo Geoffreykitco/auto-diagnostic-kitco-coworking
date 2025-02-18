@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from 'framer-motion';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Camera } from "lucide-react";
@@ -69,27 +69,26 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               Recevoir mon audit par email
             </motion.button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[800px]">
-            <DialogHeader>
-              <DialogTitle>Recevoir mon audit détaillé par email</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div className="space-y-6">
-                <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 relative">
+          <DialogContent className="sm:max-w-[800px] p-0 gap-0">
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-0">
+              <div className="h-full">
+                <div className="h-full bg-gray-50 relative">
                   {photoPreview ? (
                     <img 
                       src={photoPreview} 
                       alt="Preview" 
-                      className="h-full w-full object-cover rounded-lg"
+                      className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div className="text-center">
-                      <Camera className="mx-auto h-12 w-12 text-gray-400" />
-                      <div className="mt-2">
-                        <label htmlFor="photo-upload" className="cursor-pointer text-primary hover:text-primary-hover">
-                          Ajouter une photo
-                        </label>
-                        <p className="text-xs text-gray-500 mt-1">PNG, JPG jusqu'à 10MB</p>
+                    <div className="flex items-center justify-center h-full">
+                      <div className="text-center">
+                        <Camera className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="mt-2">
+                          <label htmlFor="photo-upload" className="cursor-pointer text-primary hover:text-primary-hover">
+                            Ajouter une photo
+                          </label>
+                          <p className="text-xs text-gray-500 mt-1">PNG, JPG jusqu'à 10MB</p>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -102,7 +101,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   />
                 </div>
               </div>
-              <div className="space-y-4">
+              <div className="p-6 space-y-4">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
                     Prénom
