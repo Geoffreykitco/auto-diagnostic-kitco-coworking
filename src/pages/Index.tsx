@@ -22,15 +22,9 @@ const sectionOrder = [
 
 const Index = () => {
   const [progress, setProgress] = useState(0);
-  const [started, setStarted] = useState(true); // Modifié pour commencer directement
-  const [currentSection, setCurrentSection] = useState('resultats'); // Modifié pour aller directement aux résultats
-  const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({
-    acquisition: { 0: 8, 1: 7, 2: 10, 3: 7, 4: 5 },
-    activation: { 0: 10, 1: 5, 2: 5, 3: 7, 4: 5 },
-    retention: { 0: 5, 1: 5, 2: 10, 3: 5, 4: 5 },
-    revenus: { 0: 15, 1: 10, 2: 10, 3: 10, 4: 5 },
-    recommandation: { 0: 10, 1: 5, 2: 5, 3: 5, 4: 5 }
-  });
+  const [started, setStarted] = useState(false); // Modifié : false au lieu de true
+  const [currentSection, setCurrentSection] = useState('informations'); // Modifié : 'informations' au lieu de 'resultats'
+  const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
