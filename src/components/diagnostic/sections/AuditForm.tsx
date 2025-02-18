@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from 'framer-motion';
 import { Input } from "@/components/ui/input";
@@ -44,16 +45,13 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   return (
     <div className="bg-white rounded-lg p-8 space-y-6 shadow-lg max-w-2xl mx-auto">
       <div className="text-center space-y-4">
-        <h2 className="text-2xl font-semibold">Recevez votre audit détaillé et passez à l'action</h2>
+        <h2 className="text-2xl font-semibold">Augmentez le taux de remplissage de votre coworking</h2>
         <div className="flex items-center justify-center gap-2">
           <span className="text-red-500">📮</span>
-          <p className="text-gray-600">Votre audit directement dans votre boîte email</p>
+          <p className="text-gray-600">Recevez votre audit détaillé directement par email</p>
         </div>
         <p className="text-gray-600">
-          Vous avez maintenant une vision claire de la performance de votre espace de coworking.
-        </p>
-        <p className="text-gray-600">
-          Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
+          Vous avez une vision claire de la performance de votre coworking
         </p>
       </div>
 
@@ -65,7 +63,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
             className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-4 px-8 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center gap-2"
           >
             <span className="text-lg">▼</span>
-            Recevez votre audit et découvrez votre feuille de route personnalisée
+            Recevoir mon audit et passer à l'action
           </motion.button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[900px] p-0 gap-0">
