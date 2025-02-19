@@ -26,21 +26,17 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-8 px-4"
         >
-          <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] relative">
-            <img 
-              src={IMAGES.LOGO.HEADER}
-              alt="Kitco Logo" 
-              className="w-full h-full object-contain"
-              loading="eager"
-              onError={(e) => {
-                console.error('Image loading error:', IMAGES.LOGO.HEADER);
-                setImgError(true);
-              }}
-              style={{ display: imgError ? 'none' : 'block' }}
-            />
-            {imgError && (
-              <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-md">
-                <span className="text-gray-500">KITCO</span>
+          <div className="text-center">
+            {!imgError ? (
+              <img 
+                src={IMAGES.LOGO.HEADER}
+                alt="KITCO" 
+                className="max-h-[136px] w-auto mx-auto"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="bg-primary text-white p-6 rounded-lg inline-block">
+                <span className="text-2xl font-bold">KITCO</span>
               </div>
             )}
           </div>
