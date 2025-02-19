@@ -21,6 +21,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
               src={IMAGES.LOGO.HEADER}
               alt="Kitco Logo" 
               className="w-full h-full object-contain"
+              loading="eager"
             />
           </div>
         </motion.div>

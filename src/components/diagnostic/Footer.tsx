@@ -8,7 +8,8 @@ export const Footer = () => {
         <img 
           src={IMAGES.LOGO.FOOTER}
           alt="KITCO - Des coworkings bien pensés" 
-          className="h-24 mb-4" 
+          className="h-24 mb-4"
+          loading="eager"
         />
       </div>
     </footer>
