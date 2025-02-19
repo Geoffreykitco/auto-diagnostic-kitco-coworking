@@ -56,6 +56,24 @@ export const QuestionItem = ({
   // Style spécial pour la première question
   const isFirstQuestion = question.question === "Depuis combien de temps votre espace de coworking est-il ouvert ?";
 
+  const getButtonClasses = (option: Option) => {
+    const baseClasses = "w-full p-4 text-left rounded-lg transition-all text-sm md:text-base border";
+    
+    if (isFirstQuestion) {
+      return `${baseClasses} ${
+        selectedValue === option.points
+          ? "bg-white border-[#14281F] text-[#14281F] font-medium"
+          : "bg-white hover:text-[#14281F] hover:border-[#14281F] text-gray-700 border-transparent"
+      }`;
+    }
+    
+    return `${baseClasses} ${
+      selectedValue === option.points
+        ? "border-[#132720] text-[#132720] bg-white font-medium"
+        : "bg-gray-50 hover:bg-gray-100 text-gray-700 border-transparent"
+    }`;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -109,14 +127,7 @@ export const QuestionItem = ({
             <button
               key={optionIndex}
               onClick={() => onSelect(option.points)}
-              className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base border
-                ${isFirstQuestion 
-                  ? `bg-white hover:bg-white text-gray-700 hover:text-[#14281F] border-transparent hover:border-[#14281F] 
-                     ${selectedValue === option.points ? "border-[#14281F] text-[#14281F]" : ""}`
-                  : selectedValue === option.points
-                    ? "border border-[#132720] text-[#132720] bg-white font-medium"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border-transparent"
-                }`}
+              className={getButtonClasses(option)}
             >
               {option.label}
             </button>
