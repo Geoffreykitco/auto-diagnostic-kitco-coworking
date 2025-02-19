@@ -23,26 +23,18 @@ interface Question {
 
 interface QuestionItemProps {
   question: Question;
-  questionIndex: number;
-  selectedOptions: { [key: number]: number[] };
-  textValues: { [key: number]: string };
-  onOptionSelect: (questionIndex: number, optionIndex: number, points: number, type: 'single' | 'multiple') => void;
-  onTextChange: (questionIndex: number, value: string, question: string) => void;
+  questionIndex: number;  // Renommé de index à questionIndex
+  onSelect: (points: number) => void;
+  selectedValue?: number;
 }
 
 export const QuestionItem = ({
   question,
   questionIndex,
-  selectedOptions,
-  textValues,
-  onOptionSelect,
-  onTextChange,
+  onSelect,
+  selectedValue,
 }: QuestionItemProps) => {
   const isMobile = useIsMobile();
-
-  const isSelected = (optionIndex: number) => {
-    return selectedOptions[questionIndex]?.includes(optionIndex);
-  };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -55,24 +47,10 @@ export const QuestionItem = ({
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
       
-      value = number ? `${number}%` : '';
+      onSelect(number);
+    } else {
+      onSelect(0); // Pour les champs texte non numériques
     }
-
-    onTextChange(questionIndex, value, question.question);
-  };
-
-  const handleOptionClick = (optionIndex: number, points: number) => {
-    if (question.type === 'single' || question.type === 'multiple') {
-      onOptionSelect(questionIndex, optionIndex, points, question.type);
-    }
-  };
-
-  const getPlaceholder = () => {
-    if (question.question.toLowerCase().includes("pourcentage") || 
-        question.question.toLowerCase().includes("remplissage")) {
-      return "Votre réponse (en %)";
-    }
-    return "Votre réponse...";
   };
 
   return (
@@ -105,16 +83,21 @@ export const QuestionItem = ({
 
       {question.type === 'text' ? (
         <div className="w-full">
-          <input
+          <Input
             type="text"
-            value={textValues[questionIndex] || ''}
+            value={selectedValue?.toString() || ''}
             onChange={handleTextChange}
-            placeholder={getPlaceholder()}
-            className={`w-full p-3 rounded-lg transition-all text-sm md:text-base outline-none ${
-              textValues[questionIndex] 
-                ? "border border-[#132720] text-[#132720] bg-white font-medium" 
-                : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
-            } focus:ring-0 focus:border-[#132720]`}
+            placeholder={
+              question.question.toLowerCase().includes("pourcentage") || 
+              question.question.toLowerCase().includes("remplissage")
+                ? "Votre réponse (en %)"
+                : "Votre réponse..."
+            }
+            className={`w-full ${
+              selectedValue 
+                ? "border-[#132720] text-[#132720] bg-white font-medium" 
+                : "bg-gray-50 hover:bg-gray-100 text-gray-700"
+            }`}
           />
         </div>
       ) : (
@@ -122,10 +105,10 @@ export const QuestionItem = ({
           {question.options.map((option, optionIndex) => (
             <button
               key={optionIndex}
-              onClick={() => handleOptionClick(optionIndex, option.points)}
+              onClick={() => onSelect(option.points)}
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
-                  isSelected(optionIndex)
+                  selectedValue === option.points
                     ? "border border-[#132720] text-[#132720] bg-white font-medium"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
                 }

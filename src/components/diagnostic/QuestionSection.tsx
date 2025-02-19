@@ -8,7 +8,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 interface Question {
   question: string;
   tooltip: string;
-  type: 'single' | 'multiple' | 'text';  // Mise à jour du type pour correspondre à QuestionItem
+  type: 'single' | 'multiple' | 'text';
   options: Array<{
     label: string;
     points: number;
@@ -71,7 +71,7 @@ export const QuestionSection = ({
             <QuestionItem
               key={index}
               question={question}
-              index={index}
+              questionIndex={index}  // Changé de index à questionIndex
               onSelect={(points) => onOptionSelect(index, points)}
               selectedValue={answers[section.title]?.[index]}
             />
