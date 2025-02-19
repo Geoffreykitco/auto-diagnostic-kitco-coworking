@@ -11,42 +11,35 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
       return;
     }
 
-    if (question.type === 'multiple') {
-      const selected = [];
-      for (let i = 0; i < question.options.length; i++) {
-        if ((selectedValue & (1 << i)) !== 0) {
-          selected.push(i);
-        }
-      }
-      setSelectedIndices(selected);
-    } else {
-      // Pour les questions single et text, on cherche l'option avec les points correspondants
-      const index = question.options.findIndex(opt => opt.points === selectedValue);
-      setSelectedIndices(index !== -1 ? [index] : []);
-    }
+    // Pour les questions single et text, on cherche l'option avec les points correspondants
+    const index = question.options.findIndex(opt => opt.points === selectedValue);
+    setSelectedIndices(index !== -1 ? [index] : []);
   }, [selectedValue, question.options]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
     const index = question.options.findIndex(opt => opt.points === points);
+    const isSelected = selectedIndices.includes(index);
 
     if (question.type === 'multiple') {
-      const isSelected = selectedIndices.includes(index);
+      // Pour les questions multiples, on ajoute ou retire l'index
       const newIndices = isSelected
         ? selectedIndices.filter(i => i !== index)
         : [...selectedIndices, index];
       
-      // Pour le type multiple, on accumule les points de toutes les options sélectionnées
+      // On calcule le total des points en additionnant les points de chaque option sélectionnée
       const totalPoints = newIndices.reduce((sum, idx) => 
         sum + question.options[idx].points, 0);
       
       setSelectedIndices(newIndices);
       onSelect(totalPoints);
     } else {
-      const isSelected = selectedIndices.includes(index);
+      // Pour les questions single, on remplace la sélection
       if (isSelected) {
+        // Si on clique sur une option déjà sélectionnée, on la désélectionne
         setSelectedIndices([]);
         onSelect(0);
       } else {
+        // Sinon on sélectionne la nouvelle option
         setSelectedIndices([index]);
         onSelect(points);
       }
@@ -57,7 +50,8 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
       index,
       points,
       currentSelection: selectedIndices,
-      isSelected: selectedIndices.includes(index)
+      isSelected,
+      newTotal: isSelected ? (question.type === 'multiple' ? selectedIndices.reduce((sum, idx) => sum + question.options[idx].points, 0) - points : 0) : points
     });
   };
 
