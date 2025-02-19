@@ -44,27 +44,25 @@ export const QuestionItem = ({
         // Pour les questions à choix multiple, décomposer selectedValue en points individuels
         const points: number[] = [];
         let remainingValue = selectedValue;
-        question.options.forEach(option => {
-          if (remainingValue >= option.points && remainingValue % option.points === 0) {
+        
+        // Trier les options par points décroissants pour une décomposition correcte
+        const sortedOptions = [...question.options].sort((a, b) => b.points - a.points);
+        
+        sortedOptions.forEach(option => {
+          while (remainingValue >= option.points) {
             points.push(option.points);
             remainingValue -= option.points;
           }
         });
         setSelectedPoints(points);
       } else {
+        // Pour les questions à choix unique, on ne garde que la valeur sélectionnée
         setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
       }
     } else {
       setSelectedPoints([]);
     }
   }, [selectedValue, question]);
-
-  console.log('QuestionItem render:', { 
-    questionIndex, 
-    selectedValue, 
-    selectedPoints,
-    type: question.type 
-  });
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -87,25 +85,38 @@ export const QuestionItem = ({
     let newPoints: number[];
     
     if (question.type === 'multiple') {
+      // Pour les questions à choix multiple
       if (selectedPoints.includes(points)) {
-        // Désélectionner l'option
+        // Si déjà sélectionné, on retire
         newPoints = selectedPoints.filter(p => p !== points);
       } else {
-        // Sélectionner l'option
+        // Sinon on ajoute
         newPoints = [...selectedPoints, points];
       }
     } else {
-      // Pour les questions à choix unique, remplacer la sélection
-      newPoints = [points];
+      // Pour les questions à choix unique
+      if (selectedPoints.length === 1 && selectedPoints[0] === points) {
+        // Si on clique sur la réponse déjà sélectionnée, on la désélectionne
+        newPoints = [];
+      } else {
+        // Sinon on sélectionne uniquement cette réponse
+        newPoints = [points];
+      }
     }
     
-    setSelectedPoints(newPoints);
+    // Calculer le total des points et mettre à jour
     const totalPoints = newPoints.reduce((sum, p) => sum + p, 0);
+    setSelectedPoints(newPoints);
     onSelect(totalPoints);
   };
 
   const isOptionSelected = (points: number) => {
-    return selectedPoints.includes(points);
+    if (question.type === 'multiple') {
+      return selectedPoints.includes(points);
+    } else {
+      // Pour les questions à choix unique, vérifier si c'est la seule valeur sélectionnée
+      return selectedPoints.length === 1 && selectedPoints[0] === points;
+    }
   };
 
   return (
