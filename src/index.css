@@ -60,8 +60,7 @@
   }
   
   input {
-    @apply text-base border-[#14281F] !important;
-    background-color: white !important;
+    @apply text-base;
   }
   
   button {
