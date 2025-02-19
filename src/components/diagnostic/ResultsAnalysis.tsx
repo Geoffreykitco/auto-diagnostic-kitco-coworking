@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { sections } from "@/data/sections";
 import { useToast } from "@/hooks/use-toast";
@@ -28,6 +27,18 @@ export const ResultsAnalysis = ({
     revenus: 0.15,
     recommandation: 0.15
   };
+
+  const steps = [
+    { id: 'informations', label: 'Informations' },
+    { id: 'acquisition', label: 'Acquisition - Attirer les coworkers' },
+    { id: 'activation', label: 'Activation - Transformer les visiteurs en membres' },
+    { id: 'retention', label: 'Rétention - Fidéliser vos membres' },
+    { id: 'revenus', label: 'Revenus - Générer et optimiser les revenus' },
+    { id: 'recommandation', label: 'Recommandation - Développer le bouche à oreille' },
+    { id: 'resultats', label: 'Résultat diagnostique' }
+  ];
+
+  const currentStep = steps[steps.length - 1];
 
   const globalScore = sectionsToAnalyze.reduce((sum, section) => {
     const sectionScore = calculateSectionScore(answers[section], section);
@@ -91,6 +102,10 @@ export const ResultsAnalysis = ({
 
   return (
     <div className="space-y-8">
+      <div className="mt-16 mb-8">
+        <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
+      </div>
+      
       <GlobalScore 
         score={globalScore}
         level={getSectionLevel(globalScore)}
