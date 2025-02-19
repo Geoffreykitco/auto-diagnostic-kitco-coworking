@@ -1,7 +1,7 @@
 
 export const IMAGES = {
   LOGO: {
-    HEADER: '/lovable-uploads/19b375a7-a124-4c5a-bb22-fcf8a5d0d625.png',
-    FOOTER: '/lovable-uploads/4f475708-debc-4def-a7a9-bd9704ba9dae.png'
+    HEADER: '/lovable-uploads/6037e9f3-0144-4e48-a6df-84d8a4df9090.png',
+    FOOTER: '/lovable-uploads/b174de00-ea40-45ad-a7ea-7a89e146751a.png'
   }
 } as const;
