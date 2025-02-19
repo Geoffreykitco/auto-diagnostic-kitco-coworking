@@ -23,7 +23,7 @@ interface Question {
 
 interface QuestionItemProps {
   question: Question;
-  questionIndex: number;  // Renommé de index à questionIndex
+  questionIndex: number;
   onSelect: (points: number) => void;
   selectedValue?: number;
 }
@@ -49,7 +49,7 @@ export const QuestionItem = ({
       
       onSelect(number);
     } else {
-      onSelect(0); // Pour les champs texte non numériques
+      onSelect(0);
     }
   };
 
@@ -58,7 +58,7 @@ export const QuestionItem = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * questionIndex }}
-      className="bg-white p-6 rounded-lg border border-gray-200 text-left"
+      className="bg-white p-6 rounded-lg border border-gray-200 text-left shadow-sm"
     >
       <div className="flex gap-2 items-start mb-4">
         <h3 className="text-lg font-medium text-gray-900 flex-grow">
@@ -96,7 +96,7 @@ export const QuestionItem = ({
             className={`w-full ${
               selectedValue 
                 ? "border-[#132720] text-[#132720] bg-white font-medium" 
-                : "bg-gray-50 hover:bg-gray-100 text-gray-700"
+                : "bg-gray-50 hover:bg-gray-100 text-gray-700 hover:border-gray-300"
             }`}
           />
         </div>
@@ -109,8 +109,8 @@ export const QuestionItem = ({
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
                   selectedValue === option.points
-                    ? "border border-[#132720] text-[#132720] bg-white font-medium"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
+                    ? "border-2 border-[#132720] text-[#132720] bg-white font-medium shadow-sm"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent hover:border-gray-300"
                 }
               `}
             >
