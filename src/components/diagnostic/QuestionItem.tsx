@@ -65,14 +65,14 @@ export const QuestionItem = ({
     if (isFirstQuestion) {
       return `${baseClasses} ${
         isSelected
-          ? "bg-[#14281F] border-[#14281F] text-white shadow-lg font-medium ring-2 ring-[#14281F] ring-offset-2"
+          ? "bg-[#14281F]/50 border-[#14281F] text-white shadow-lg font-medium ring-2 ring-[#14281F] ring-offset-2"
           : "bg-white hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20 hover:shadow-sm"
       }`;
     }
     
     return `${baseClasses} ${
       isSelected
-        ? "border-primary bg-primary/5 text-primary shadow-sm font-medium"
+        ? "border-primary bg-primary/50 text-white shadow-sm font-medium"
         : "bg-white hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-primary/20 hover:shadow-sm"
     }`;
   };
