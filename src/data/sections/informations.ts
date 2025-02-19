@@ -1,3 +1,4 @@
+
 export const informationsSection = {
   title: "Informations Générales",
   description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis et à fournir des recommandations adaptées.",
@@ -97,7 +98,7 @@ export const informationsSection = {
       ]
     },
     {
-      question: "Quel est votre pourcentage moyen de remplissage ?",
+      question: "Quel est votre pourcentage moyen de remplissage ? (en %)",
       tooltip: "Le taux d'occupation est un indicateur clé de la performance et de l'attractivité de votre espace.",
       type: "text",
       options: []
