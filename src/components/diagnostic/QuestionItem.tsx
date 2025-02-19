@@ -110,11 +110,11 @@ export const QuestionItem = ({
             value={textValues[questionIndex] || ''}
             onChange={handleTextChange}
             placeholder={getPlaceholder()}
-            className={`w-full p-3 rounded-lg transition-all text-sm md:text-base ${
+            className={`w-full p-3 rounded-lg transition-all text-sm md:text-base outline-none ${
               textValues[questionIndex] 
                 ? "border border-[#132720] text-[#132720] bg-white font-medium" 
                 : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
-            }`}
+            } focus:ring-0 focus:border-[#132720]`}
           />
         </div>
       ) : (
