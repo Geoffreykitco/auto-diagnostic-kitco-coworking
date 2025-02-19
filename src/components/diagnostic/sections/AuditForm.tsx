@@ -26,8 +26,43 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Réinitialisation des champs
+  const resetForm = () => {
+    setFullName('');
+    setCoworkingName('');
+    setEmail('');
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Gestion de la fermeture
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen && (fullName || coworkingName || email)) {
+      if (window.confirm("Voulez-vous vraiment fermer ? Vos données seront perdues.")) {
+        resetForm();
+        setOpen(false);
+      }
+    } else {
+      setOpen(newOpen);
+    }
+  };
+
+  const validateName = (name: string) => {
+    const trimmedName = name.trim();
+    const names = trimmedName.split(/\s+/).filter(Boolean);
+    
+    if (names.length < 1) {
+      return { isValid: false, firstName: '', lastName: '' };
+    }
+    
+    return {
+      isValid: true,
+      firstName: names[0],
+      lastName: names.slice(1).join(' ') || ''
+    };
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,7 +75,15 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       return;
     }
 
-    const [firstName = "", lastName = ""] = fullName.split(" ");
+    const nameValidation = validateName(fullName);
+    if (!nameValidation.isValid) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer un nom valide.",
+        duration: 3000,
+      });
+      return;
+    }
 
     if (!fullName || !coworkingName || !email) {
       toast({
@@ -51,19 +94,33 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       return;
     }
 
-    onSubmit({
-      firstName,
-      lastName,
-      coworkingName,
-      email
-    });
-    setOpen(false);
-
-    toast({
-      title: "Merci !",
-      description: "Votre demande a été envoyée avec succès.",
-      duration: 3000,
-    });
+    setIsSubmitting(true);
+    
+    try {
+      await onSubmit({
+        firstName: nameValidation.firstName,
+        lastName: nameValidation.lastName,
+        coworkingName,
+        email
+      });
+      
+      toast({
+        title: "Merci !",
+        description: "Votre demande a été envoyée avec succès.",
+        duration: 3000,
+      });
+      
+      resetForm();
+      setOpen(false);
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi du formulaire.",
+        duration: 3000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -88,7 +145,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
           </div>
         </div>
 
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={handleOpenChange}>
           <DialogTrigger asChild>
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -98,18 +155,20 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
               Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
           </DialogTrigger>
-          <DialogContent className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}>
+          <DialogContent 
+            className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}
+          >
             <div className="flex flex-col md:flex-row w-full h-full">
               {!isMobile && (
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 relative">
                   <img
                     src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
                     alt="Coworking space"
-                    className="w-full h-full object-cover rounded-l-lg"
+                    className="w-full h-full object-cover rounded-l-lg absolute inset-0"
                   />
                 </div>
               )}
-              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''}`}>
+              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
                 <div className="mb-6">
                   <h3 className="text-lg md:text-xl font-semibold text-primary mb-2">
                     Optimisez le taux de remplissage de votre coworking
@@ -119,52 +178,58 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Prénom et nom
-                    </label>
-                    <Input
-                      id="fullName"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      className="text-sm md:text-base"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Nom du coworking
-                    </label>
-                    <Input
-                      id="coworkingName"
-                      value={coworkingName}
-                      onChange={(e) => setCoworkingName(e.target.value)}
-                      className="text-sm md:text-base"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                      className="text-sm md:text-base"
-                      required
-                    />
+                <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
+                  <div className="flex-1 space-y-4">
+                    <div>
+                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                        Prénom et nom
+                      </label>
+                      <Input
+                        id="fullName"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className="text-sm md:text-base"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
+                        Nom du coworking
+                      </label>
+                      <Input
+                        id="coworkingName"
+                        value={coworkingName}
+                        onChange={(e) => setCoworkingName(e.target.value)}
+                        className="text-sm md:text-base"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Email
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        className="text-sm md:text-base"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
                   </div>
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base"
+                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                    disabled={isSubmitting}
                   >
-                    Recevoir mon audit
+                    {isSubmitting ? "Envoi en cours..." : "Recevoir mon audit"}
                   </motion.button>
                 </form>
               </div>
