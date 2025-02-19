@@ -5,49 +5,61 @@ import { Question } from "./types";
 export const useQuestionState = (question: Question, selectedValue?: number) => {
   const [selectedPoints, setSelectedPoints] = useState<number[]>([]);
 
+  // Synchronise l'état local avec la valeur sélectionnée reçue du parent
   useEffect(() => {
-    if (selectedValue !== undefined) {
-      if (question.type === 'multiple') {
-        // Pour les questions à choix multiples, on permet la sélection de plusieurs options
-        const selectedOptions = question.options.filter(option => 
-          (selectedValue & option.points) === option.points
-        );
-        setSelectedPoints(selectedOptions.map(opt => opt.points));
-      } else {
-        // Pour les questions à choix unique
-        setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
-      }
-    } else {
+    if (selectedValue === undefined) {
       setSelectedPoints([]);
+      return;
+    }
+
+    if (question.type === 'multiple') {
+      // Pour les choix multiples, on décode la valeur binaire
+      const selectedOptions = question.options.filter(option => 
+        (selectedValue & option.points) === option.points
+      );
+      setSelectedPoints(selectedOptions.map(opt => opt.points));
+    } else {
+      // Pour les choix uniques, on utilise directement la valeur
+      setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
     }
   }, [selectedValue, question]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
-    let newPoints: number[];
-    
+    let newSelectedPoints: number[];
+
     if (question.type === 'multiple') {
-      // Pour les choix multiples, on bascule la sélection
+      // Pour les choix multiples, on ajoute ou retire le point sélectionné
       if (selectedPoints.includes(points)) {
-        newPoints = selectedPoints.filter(p => p !== points);
+        newSelectedPoints = selectedPoints.filter(p => p !== points);
       } else {
-        newPoints = [...selectedPoints, points];
+        newSelectedPoints = [...selectedPoints, points];
       }
-      
-      // Calcul de la valeur binaire pour stocker les sélections multiples
-      const binaryValue = newPoints.reduce((sum, p) => sum + p, 0);
-      onSelect(binaryValue);
     } else {
-      // Pour les choix uniques, on remplace la sélection
-      newPoints = selectedPoints[0] === points ? [] : [points];
-      onSelect(newPoints[0] || 0);
+      // Pour les choix uniques, on remplace ou retire la sélection
+      if (selectedPoints[0] === points) {
+        newSelectedPoints = [];
+      } else {
+        newSelectedPoints = [points];
+      }
     }
-    
-    setSelectedPoints(newPoints);
+
+    // On met à jour l'état local
+    setSelectedPoints(newSelectedPoints);
+
+    // On calcule et envoie la valeur au parent
+    if (question.type === 'multiple') {
+      // Pour les choix multiples, on additionne les points
+      const totalPoints = newSelectedPoints.reduce((sum, p) => sum + p, 0);
+      onSelect(totalPoints);
+    } else {
+      // Pour les choix uniques, on prend le premier point ou 0
+      onSelect(newSelectedPoints[0] || 0);
+    }
 
     console.log('Selection updated:', {
       type: question.type,
-      selectedPoints: newPoints,
-      totalPoints: newPoints.reduce((sum, p) => sum + p, 0)
+      selectedPoints: newSelectedPoints,
+      totalValue: newSelectedPoints.reduce((sum, p) => sum + p, 0)
     });
   };
 
