@@ -99,7 +99,7 @@ export const QuestionItem = ({
         // Si on clique sur la réponse déjà sélectionnée, on la désélectionne
         newPoints = [];
       } else {
-        // Sinon on sélectionne uniquement cette réponse
+        // Sinon on remplace la sélection précédente par la nouvelle
         newPoints = [points];
       }
     }
@@ -108,15 +108,18 @@ export const QuestionItem = ({
     const totalPoints = newPoints.reduce((sum, p) => sum + p, 0);
     setSelectedPoints(newPoints);
     onSelect(totalPoints);
+
+    console.log('Selection updated:', {
+      type: question.type,
+      selectedPoints: newPoints,
+      totalPoints
+    });
   };
 
   const isOptionSelected = (points: number) => {
-    if (question.type === 'multiple') {
-      return selectedPoints.includes(points);
-    } else {
-      // Pour les questions à choix unique, vérifier si c'est la seule valeur sélectionnée
-      return selectedPoints.length === 1 && selectedPoints[0] === points;
-    }
+    // Pour les questions à choix unique ET multiple, on vérifie simplement
+    // si les points font partie des points sélectionnés
+    return selectedPoints.includes(points);
   };
 
   return (
