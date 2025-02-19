@@ -93,10 +93,10 @@ export const QuestionItem = ({
                 ? "Votre réponse (en %)"
                 : "Votre réponse..."
             }
-            className={`w-full ${
+            className={`w-full bg-white focus:border-[#132720] focus:ring-1 focus:ring-[#132720] ${
               selectedValue 
-                ? "border-[#132720] text-[#132720] bg-white font-medium" 
-                : "bg-gray-50 hover:bg-gray-100 text-gray-700"
+                ? "border-[#132720] text-[#132720] font-medium" 
+                : "text-gray-700"
             }`}
           />
         </div>
