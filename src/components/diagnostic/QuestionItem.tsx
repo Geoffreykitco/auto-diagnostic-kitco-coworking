@@ -61,7 +61,8 @@ export const QuestionItem = ({
     onSelect(points);
   };
 
-  const getButtonClasses = (option: Option, isSelected: boolean) => {
+  const getButtonClasses = (option: Option) => {
+    const isSelected = selectedValue === option.points;
     const classes = `
       relative w-full p-4 text-left rounded-lg transition-all duration-200 
       flex items-center justify-between gap-3
@@ -78,7 +79,7 @@ export const QuestionItem = ({
   const getTextInputClasses = () => {
     const classes = `
       w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border
-      ${selectedValue 
+      ${selectedValue !== undefined
         ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
         : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
       }
@@ -140,7 +141,7 @@ export const QuestionItem = ({
               <motion.button
                 key={optionIndex}
                 onClick={() => handleOptionSelect(option.points)}
-                className={getButtonClasses(option, isSelected)}
+                className={getButtonClasses(option)}
                 whileHover={{ scale: 1.005 }}
                 whileTap={{ scale: 0.995 }}
               >
