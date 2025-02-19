@@ -5,7 +5,6 @@ import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
@@ -21,7 +20,6 @@ interface DiagnosticBreadcrumbProps {
 }
 
 const formatLabel = (label: string) => {
-  // Si le label contient un tiret, ne prendre que la partie avant le tiret
   if (label.includes('-')) {
     return label.split('-')[0].trim();
   }
@@ -44,9 +42,9 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
         <Breadcrumb>
           <BreadcrumbList className="flex-wrap">
             <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="text-sm">
-                {currentStep.id === 'informations' ? 'Démarrage' : 'Retour'}
-              </BreadcrumbLink>
+              <span className="text-sm text-gray-500">
+                {currentStep.id === 'informations' ? 'Démarrage' : 'Étape précédente'}
+              </span>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -69,25 +67,20 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
     >
       <Breadcrumb>
         <BreadcrumbList className="flex-wrap items-center gap-4">
-          <BreadcrumbItem className="text-gray-600">
-            <BreadcrumbLink href="/">Démarrage</BreadcrumbLink>
+          <BreadcrumbItem className="text-gray-500">
+            <span>Démarrage</span>
           </BreadcrumbItem>
           <BreadcrumbSeparator className="text-gray-400">❯</BreadcrumbSeparator>
           {steps.map((step, index) => (
-            <BreadcrumbItem key={step.id} className="text-gray-600">
+            <BreadcrumbItem key={step.id} className="text-gray-500">
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-bold text-[#132720]">
                   {formatLabel(step.label)}
                 </BreadcrumbPage>
               ) : (
-                <>
-                  <BreadcrumbLink 
-                    className="hover:text-gray-900"
-                    href="#"
-                  >
-                    {formatLabel(step.label)}
-                  </BreadcrumbLink>
-                </>
+                <span className="text-gray-500">
+                  {formatLabel(step.label)}
+                </span>
               )}
               {index < steps.length - 1 && (
                 <BreadcrumbSeparator className="text-gray-400 ml-4">❯</BreadcrumbSeparator>
