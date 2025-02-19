@@ -61,14 +61,14 @@ export const QuestionItem = ({
     if (isFirstQuestion) {
       return `${baseClasses} group ${
         selectedValue === option.points
-          ? "bg-[#14281F] border-[#14281F] text-white shadow-sm font-medium"
+          ? "bg-[#14281F] border-[#14281F] text-white shadow-lg font-medium"
           : "bg-white hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20"
       }`;
     }
     
     return `${baseClasses} ${
       selectedValue === option.points
-        ? "border-[#132720] text-[#132720] bg-white font-medium"
+        ? "border-[#132720] text-[#132720] bg-white shadow-md font-medium"
         : "bg-gray-50 hover:bg-gray-100 text-gray-700 border-transparent"
     }`;
   };
@@ -129,21 +129,43 @@ export const QuestionItem = ({
               className={getButtonClasses(option)}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="flex items-center justify-between">
-                <span>{option.label}</span>
+              <div className="flex items-center justify-between gap-3">
+                <span className="flex-1">{option.label}</span>
                 {selectedValue === option.points && (
                   <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ type: "spring", duration: 0.5 }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 10,
+                      duration: 0.2 
+                    }}
+                    className={`
+                      rounded-full p-1
+                      ${isFirstQuestion 
+                        ? 'bg-white/20' 
+                        : 'bg-[#14281F]/10'
+                      }
+                    `}
                   >
-                    <Check className={`h-5 w-5 ${isFirstQuestion ? 'text-white' : 'text-[#14281F]'}`} />
+                    <Check className={`h-5 w-5 ${
+                      isFirstQuestion 
+                        ? 'text-white' 
+                        : 'text-[#14281F]'
+                    }`} />
                   </motion.div>
                 )}
               </div>
-              {isFirstQuestion && selectedValue === option.points && (
+              {selectedValue === option.points && (
                 <motion.div
-                  className="absolute inset-0 bg-[#14281F]/5 rounded-lg"
+                  className={`
+                    absolute inset-0 rounded-lg
+                    ${isFirstQuestion 
+                      ? 'bg-gradient-to-r from-[#14281F]/5 to-[#14281F]/0' 
+                      : 'bg-[#14281F]/5'
+                    }
+                  `}
                   layoutId="selectedBackground"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
