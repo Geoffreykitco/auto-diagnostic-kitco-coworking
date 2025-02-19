@@ -1,4 +1,6 @@
 
+import { Question } from "@/components/diagnostic/question/types";
+
 export const informationsSection = {
   title: "Informations Générales",
   description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis et à fournir des recommandations adaptées.",
@@ -6,7 +8,7 @@ export const informationsSection = {
     {
       question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
       tooltip: "L'ancienneté permet d'évaluer votre positionnement sur le marché et votre maturité opérationnelle.",
-      type: "single",
+      type: "single" as const,
       options: [
         { label: "Moins de 6 mois", points: 0 },
         { label: "6 mois à 1 an", points: 0 },

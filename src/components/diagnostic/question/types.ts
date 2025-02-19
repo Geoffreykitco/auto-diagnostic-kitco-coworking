@@ -4,10 +4,12 @@ export interface Option {
   readonly points: number;
 }
 
+export type QuestionType = 'single' | 'multiple' | 'text';
+
 export interface Question {
   readonly question: string;
   readonly tooltip: string;
-  readonly type: 'single' | 'multiple' | 'text';
+  readonly type: QuestionType;
   readonly options: readonly Option[];
 }
 

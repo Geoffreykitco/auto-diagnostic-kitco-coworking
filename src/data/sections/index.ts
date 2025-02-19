@@ -14,12 +14,13 @@ export interface Section {
   readonly questions: readonly Question[];
 }
 
+// Cast chaque section comme Section pour assurer la compatibilité des types
 export const sections: Record<string, Section> = {
-  informations: informationsSection,
-  acquisition: acquisitionSection,
-  activation: activationSection,
-  retention: retentionSection,
-  revenus: revenusSection,
-  recommandation: recommandationSection,
-  resultats: resultatsSection
-};
+  informations: informationsSection as Section,
+  acquisition: acquisitionSection as Section,
+  activation: activationSection as Section,
+  retention: retentionSection as Section,
+  revenus: revenusSection as Section,
+  recommandation: recommandationSection as Section,
+  resultats: resultatsSection as Section
+} as const;
