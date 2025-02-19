@@ -35,9 +35,6 @@ export const QuestionItem = ({
 }: QuestionItemProps) => {
   const isMobile = useIsMobile();
 
-  console.log('Question:', question.question);
-  console.log('Selected Value:', selectedValue);
-
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
 
@@ -49,7 +46,6 @@ export const QuestionItem = ({
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
       
-      console.log('Selecting text value:', number);
       onSelect(number);
     } else {
       onSelect(0);
@@ -57,35 +53,7 @@ export const QuestionItem = ({
   };
 
   const handleOptionSelect = (points: number) => {
-    console.log('Selecting option with points:', points);
     onSelect(points);
-  };
-
-  const getButtonClasses = (option: Option) => {
-    const isSelected = selectedValue === option.points;
-    const classes = `
-      relative w-full p-4 text-left rounded-lg transition-all duration-200 
-      flex items-center justify-between gap-3
-      text-sm md:text-base border
-      ${isSelected 
-        ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
-        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
-      }
-    `;
-    console.log('Button classes for option', option.label, ':', classes, 'isSelected:', isSelected);
-    return classes;
-  };
-
-  const getTextInputClasses = () => {
-    const classes = `
-      w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border
-      ${selectedValue !== undefined
-        ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
-        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
-      }
-    `;
-    console.log('Text input classes:', classes, 'selectedValue:', selectedValue);
-    return classes;
   };
 
   return (
@@ -129,7 +97,13 @@ export const QuestionItem = ({
                 ? "Votre réponse (en %)"
                 : "Votre réponse..."
             }
-            className={getTextInputClasses()}
+            className={`
+              w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border
+              ${selectedValue !== undefined
+                ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
+                : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
+              }
+            `}
           />
         </div>
       ) : (
@@ -141,7 +115,15 @@ export const QuestionItem = ({
               <motion.button
                 key={optionIndex}
                 onClick={() => handleOptionSelect(option.points)}
-                className={getButtonClasses(option)}
+                className={`
+                  relative w-full p-4 text-left rounded-lg transition-all duration-200 
+                  flex items-center justify-between gap-3
+                  text-sm md:text-base border
+                  ${isSelected 
+                    ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
+                    : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
+                  }
+                `}
                 whileHover={{ scale: 1.005 }}
                 whileTap={{ scale: 0.995 }}
               >
