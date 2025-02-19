@@ -53,27 +53,25 @@ export const QuestionItem = ({
   };
 
   const getButtonClasses = (option: Option, isSelected: boolean) => {
-    const baseClasses = `
+    return `
       relative w-full p-4 text-left rounded-lg transition-all duration-200 
       flex items-center justify-between gap-3
       text-sm md:text-base border
-    `;
-    
-    return `${baseClasses} ${
-      isSelected
-        ? "bg-white border-[#12271F] text-gray-900 shadow-sm font-medium ring-1 ring-[#12271F] ring-offset-2"
+      ${isSelected 
+        ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
         : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
-    }`;
+      }
+    `;
   };
 
   const getTextInputClasses = () => {
-    const baseClasses = "w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border";
-    
-    return `${baseClasses} ${
-      selectedValue
-        ? "bg-white border-[#12271F] text-gray-900 shadow-sm font-medium ring-1 ring-[#12271F] ring-offset-2"
+    return `
+      w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border
+      ${selectedValue 
+        ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
         : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
-    }`;
+      }
+    `;
   };
 
   return (
@@ -148,13 +146,6 @@ export const QuestionItem = ({
                     <Check className="h-4 w-4 text-white" />
                   </motion.div>
                 )}
-                {isSelected && (
-                  <motion.div
-                    className="absolute inset-0 rounded-lg bg-white"
-                    layoutId={`selected-${questionIndex}`}
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
               </motion.button>
             );
           })}
@@ -163,4 +154,3 @@ export const QuestionItem = ({
     </motion.div>
   );
 };
-
