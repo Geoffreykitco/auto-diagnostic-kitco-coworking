@@ -27,7 +27,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
   if (isMobile) {
     return (
       <motion.div
-        className="w-full px-4 py-2"
+        className="w-full px-4 py-2 mb-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
@@ -39,7 +39,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
                 {currentStep.id === 'informations' ? 'Démarrage' : 'Étape précédente'}
               </span>
             </BreadcrumbItem>
-            <BreadcrumbSeparator>❯</BreadcrumbSeparator>
+            <BreadcrumbSeparator className="mx-2">❯</BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbPage className="text-sm font-medium">
                 {currentStep.label}
@@ -53,16 +53,16 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
 
   return (
     <motion.div
-      className="w-full px-4 py-2"
+      className="w-full px-4 py-2 mb-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
       <Breadcrumb>
-        <BreadcrumbList>
+        <BreadcrumbList className="flex items-center gap-2">
           {steps.map((step, index) => (
             <BreadcrumbItem key={step.id}>
-              {index > 0 && <BreadcrumbSeparator>❯</BreadcrumbSeparator>}
+              {index > 0 && <BreadcrumbSeparator className="mx-2">❯</BreadcrumbSeparator>}
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-medium">
                   {index === 0 ? 'Démarrage' : step.label}
