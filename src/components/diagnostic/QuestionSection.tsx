@@ -58,7 +58,7 @@ export const QuestionSection = ({
 
   // Trouver l'étape courante basée sur le titre de la section
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
-  return <div className="container mx-auto px-4 py-[20px]">
+  return <div className="container mx-auto px-4 py-[5px]">
       <div className="mt-16 mb-8">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
