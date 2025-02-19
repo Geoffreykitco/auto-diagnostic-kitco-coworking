@@ -7,6 +7,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
 
 interface Option {
   label: string;
@@ -34,6 +35,7 @@ export const QuestionItem = ({
   selectedValue,
 }: QuestionItemProps) => {
   const isMobile = useIsMobile();
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -50,6 +52,27 @@ export const QuestionItem = ({
     } else {
       onSelect(0);
     }
+  };
+
+  const handleOptionSelect = (points: number) => {
+    if (question.type === 'multiple') {
+      let newSelectedOptions;
+      if (selectedOptions.includes(points)) {
+        newSelectedOptions = selectedOptions.filter(p => p !== points);
+      } else {
+        newSelectedOptions = [...selectedOptions, points];
+      }
+      setSelectedOptions(newSelectedOptions);
+      onSelect(points);
+    } else {
+      onSelect(points);
+    }
+  };
+
+  const isOptionSelected = (points: number) => {
+    return question.type === 'multiple' 
+      ? selectedOptions.includes(points)
+      : selectedValue === points;
   };
 
   return (
@@ -101,9 +124,9 @@ export const QuestionItem = ({
           {question.options.map((option, optionIndex) => (
             <motion.button
               key={optionIndex}
-              onClick={() => onSelect(option.points)}
+              onClick={() => handleOptionSelect(option.points)}
               className={
-                selectedValue === option.points
+                isOptionSelected(option.points)
                   ? "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-white border-2 border-[#12271F] text-gray-900 shadow-sm font-medium"
                   : "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
               }
@@ -111,7 +134,7 @@ export const QuestionItem = ({
               whileTap={{ scale: 0.995 }}
             >
               <span className="flex-1">{option.label}</span>
-              {selectedValue === option.points && (
+              {isOptionSelected(option.points) && (
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
