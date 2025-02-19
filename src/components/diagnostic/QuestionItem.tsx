@@ -104,13 +104,19 @@ export const QuestionItem = ({
       </div>
 
       {question.type === 'text' ? (
-        <Input
-          type="text"
-          value={textValues[questionIndex] || ''}
-          onChange={handleTextChange}
-          placeholder={getPlaceholder()}
-          className={`w-full transition-all ${textValues[questionIndex] ? 'border border-[#132720] text-[#132720] font-medium' : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent'}`}
-        />
+        <div className="w-full">
+          <input
+            type="text"
+            value={textValues[questionIndex] || ''}
+            onChange={handleTextChange}
+            placeholder={getPlaceholder()}
+            className={`w-full p-3 rounded-lg transition-all text-sm md:text-base ${
+              textValues[questionIndex] 
+                ? "border border-[#132720] text-[#132720] bg-white font-medium" 
+                : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
+            }`}
+          />
+        </div>
       ) : (
         <div className="space-y-2">
           {question.options.map((option, optionIndex) => (
