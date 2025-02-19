@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
 import { useState } from 'react';
+import { toast } from '@/components/ui/use-toast';
 
 export const Footer = () => {
   const [imgError, setImgError] = useState(false);
@@ -25,8 +26,13 @@ export const Footer = () => {
             alt="KITCO - Des coworkings bien pensés" 
             className="h-full w-auto object-contain"
             loading="eager"
-            onError={(e) => {
+            onError={() => {
               console.error('Image loading error:', IMAGES.LOGO.FOOTER);
+              toast({
+                title: "Erreur de chargement",
+                description: "L'image du footer n'a pas pu être chargée",
+                variant: "destructive"
+              });
               setImgError(true);
             }}
             style={{ display: imgError ? 'none' : 'block' }}

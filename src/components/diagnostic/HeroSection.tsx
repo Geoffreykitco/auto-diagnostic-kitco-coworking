@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
 import { useState } from 'react';
+import { toast } from '@/components/ui/use-toast';
 
 interface HeroSectionProps {
   onStart: () => void;
@@ -32,8 +33,13 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
               alt="Kitco Logo" 
               className="w-full h-full object-contain"
               loading="eager"
-              onError={(e) => {
+              onError={() => {
                 console.error('Image loading error:', IMAGES.LOGO.HEADER);
+                toast({
+                  title: "Erreur de chargement",
+                  description: "L'image du header n'a pas pu être chargée",
+                  variant: "destructive"
+                });
                 setImgError(true);
               }}
               style={{ display: imgError ? 'none' : 'block' }}
