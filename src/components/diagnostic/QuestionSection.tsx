@@ -28,7 +28,7 @@ interface QuestionSectionProps {
   onNext: () => void;
   showPrevious: boolean;
   showNext: boolean;
-  answers: Record<string, Record<number, number>>;
+  answers: Record<number, number>;
 }
 
 export const QuestionSection = ({ 
@@ -40,7 +40,6 @@ export const QuestionSection = ({
   showNext,
   answers 
 }: QuestionSectionProps) => {
-  // Les étapes de navigation
   const steps = [
     { id: 'informations', label: 'Informations' },
     { id: 'acquisition', label: 'Acquisition - Attirer les coworkers' },
@@ -51,7 +50,6 @@ export const QuestionSection = ({
     { id: 'resultats', label: 'Résultat diagnostique' }
   ];
 
-  // Trouver l'étape courante basée sur le titre de la section
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
 
   return (
@@ -76,7 +74,7 @@ export const QuestionSection = ({
               question={question}
               questionIndex={index}
               onSelect={(points) => onOptionSelect(index, points)}
-              selectedValue={answers[section.title]?.[index]}
+              selectedValue={answers[index]}
             />
           ))}
         </div>
