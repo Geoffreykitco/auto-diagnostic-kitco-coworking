@@ -53,6 +53,9 @@ export const QuestionItem = ({
     }
   };
 
+  // Style spécial pour la première question
+  const isFirstQuestion = question.question === "Depuis combien de temps votre espace de coworking est-il ouvert ?";
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -107,10 +110,15 @@ export const QuestionItem = ({
               key={optionIndex}
               onClick={() => onSelect(option.points)}
               className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base
-                ${selectedValue === option.points
-                  ? "bg-white border border-[#14281F] text-[#14281F] font-medium"
-                  : "bg-gray-50 hover:bg-white hover:border-[#14281F] hover:border text-gray-700 border-transparent"
-                }
+                ${isFirstQuestion ? (
+                  selectedValue === option.points
+                    ? "bg-white border border-[#14281F] text-[#14281F] font-medium"
+                    : "bg-gray-50 hover:bg-white hover:border hover:border-[#14281F] hover:text-[#14281F] text-gray-700 border-transparent"
+                ) : (
+                  selectedValue === option.points
+                    ? "border border-[#132720] text-[#132720] bg-white font-medium"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
+                )}
               `}
             >
               {option.label}
