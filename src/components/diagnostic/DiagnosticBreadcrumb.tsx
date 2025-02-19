@@ -27,7 +27,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
   if (isMobile) {
     return (
       <motion.div
-        className="mb-6"
+        className="w-full px-4 py-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
@@ -35,15 +35,15 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-muted-foreground">
                 {currentStep.id === 'informations' ? 'Démarrage' : 'Étape précédente'}
               </span>
             </BreadcrumbItem>
-            <BreadcrumbSeparator className="text-gray-400 mx-2">❯</BreadcrumbSeparator>
+            <BreadcrumbSeparator>❯</BreadcrumbSeparator>
             <BreadcrumbItem>
-              <span className="text-sm font-semibold text-[#132720]">
+              <BreadcrumbPage className="text-sm font-medium">
                 {currentStep.label}
-              </span>
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -53,24 +53,22 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
 
   return (
     <motion.div
-      className="mb-8"
+      className="w-full px-4 py-2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
       <Breadcrumb>
-        <BreadcrumbList className="flex items-center flex-wrap gap-2">
+        <BreadcrumbList>
           {steps.map((step, index) => (
             <BreadcrumbItem key={step.id}>
-              {index > 0 && (
-                <BreadcrumbSeparator className="text-gray-400 mx-2">❯</BreadcrumbSeparator>
-              )}
+              {index > 0 && <BreadcrumbSeparator>❯</BreadcrumbSeparator>}
               {step.id === currentStep.id ? (
-                <BreadcrumbPage className="font-semibold text-[#132720]">
+                <BreadcrumbPage className="font-medium">
                   {index === 0 ? 'Démarrage' : step.label}
                 </BreadcrumbPage>
               ) : (
-                <span className="text-gray-500">
+                <span className="text-muted-foreground">
                   {index === 0 ? 'Démarrage' : step.label}
                 </span>
               )}
