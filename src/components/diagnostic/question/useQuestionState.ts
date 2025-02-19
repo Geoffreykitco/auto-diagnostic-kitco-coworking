@@ -12,34 +12,51 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
     }
 
     if (question.type === 'multiple') {
-      // On décode la valeur binaire pour trouver les points sélectionnés
-      const selected = question.options
-        .filter(opt => (selectedValue & (1 << opt.points)) !== 0)
-        .map(opt => opt.points);
+      // Pour les questions à choix multiples, on décode la valeur binaire
+      const selected = [];
+      for (let i = 0; i < 32; i++) {
+        if ((selectedValue & (1 << i)) !== 0) {
+          selected.push(i);
+        }
+      }
       setSelectedPoints(selected);
     } else {
-      // Pour les choix uniques, on utilise directement la valeur
+      // Pour les questions à choix unique, on utilise directement la valeur
       setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
     }
-  }, [selectedValue, question]);
+  }, [selectedValue, question.type]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
     if (question.type === 'multiple') {
+      // Gestion des choix multiples
       const isSelected = selectedPoints.includes(points);
-      const newPoints = isSelected 
-        ? selectedPoints.filter(p => p !== points)
-        : [...selectedPoints, points];
+      let newPoints;
       
-      // Calcul de la valeur binaire finale
+      if (isSelected) {
+        // Désélection d'une option
+        newPoints = selectedPoints.filter(p => p !== points);
+      } else {
+        // Ajout d'une nouvelle option
+        newPoints = [...selectedPoints, points];
+      }
+      
+      // Calcul de la valeur binaire pour stocker les sélections multiples
       const binaryValue = newPoints.reduce((acc, point) => acc | (1 << point), 0);
       setSelectedPoints(newPoints);
       onSelect(binaryValue);
     } else {
-      // Pour les choix uniques, on gère la sélection/désélection
+      // Gestion des choix uniques
       const isSelected = selectedPoints.includes(points);
-      const newPoints = isSelected ? [] : [points];
-      setSelectedPoints(newPoints);
-      onSelect(isSelected ? 0 : points);
+      
+      if (isSelected) {
+        // Désélection de l'option
+        setSelectedPoints([]);
+        onSelect(0);
+      } else {
+        // Sélection d'une nouvelle option (remplace l'ancienne s'il y en avait une)
+        setSelectedPoints([points]);
+        onSelect(points);
+      }
     }
 
     console.log('Option selection:', {
