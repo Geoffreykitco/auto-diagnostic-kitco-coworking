@@ -59,8 +59,9 @@
     @apply leading-7 text-gray-600;
   }
   
-  input, textarea {
-    @apply text-base;
+  input {
+    @apply text-base border-[#14281F] !important;
+    background-color: white !important;
   }
   
   button {
@@ -97,4 +98,3 @@
   padding-bottom: 2px;
   animation: underline 1s ease-out 2.5s forwards;
 }
-
