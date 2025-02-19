@@ -8,30 +8,11 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
   useEffect(() => {
     if (selectedValue !== undefined) {
       if (question.type === 'multiple') {
-        const points: number[] = [];
-        let remainingValue = selectedValue;
-        
-        // Protection contre les valeurs négatives
-        if (remainingValue < 0) remainingValue = 0;
-        
-        const sortedOptions = [...question.options].sort((a, b) => b.points - a.points);
-        
-        for (const option of sortedOptions) {
-          // Protection contre les points négatifs ou nuls
-          if (option.points <= 0) continue;
-          
-          // Utilisation d'une boucle while avec protection contre les boucles infinies
-          let iterations = 0;
-          const maxIterations = 1000; // Protection contre les boucles infinies
-          
-          while (remainingValue >= option.points && iterations < maxIterations) {
-            points.push(option.points);
-            remainingValue -= option.points;
-            iterations++;
-          }
-        }
-        
-        setSelectedPoints(points);
+        // Pour les questions à choix multiples, on permet la sélection de plusieurs options
+        const selectedOptions = question.options.filter(option => 
+          (selectedValue & option.points) === option.points
+        );
+        setSelectedPoints(selectedOptions.map(opt => opt.points));
       } else {
         // Pour les questions à choix unique
         setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
@@ -45,27 +26,28 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
     let newPoints: number[];
     
     if (question.type === 'multiple') {
+      // Pour les choix multiples, on bascule la sélection
       if (selectedPoints.includes(points)) {
         newPoints = selectedPoints.filter(p => p !== points);
       } else {
         newPoints = [...selectedPoints, points];
       }
+      
+      // Calcul de la valeur binaire pour stocker les sélections multiples
+      const binaryValue = newPoints.reduce((sum, p) => sum + p, 0);
+      onSelect(binaryValue);
     } else {
-      if (selectedPoints.length === 1 && selectedPoints[0] === points) {
-        newPoints = [];
-      } else {
-        newPoints = [points];
-      }
+      // Pour les choix uniques, on remplace la sélection
+      newPoints = selectedPoints[0] === points ? [] : [points];
+      onSelect(newPoints[0] || 0);
     }
     
-    const totalPoints = newPoints.reduce((sum, p) => sum + p, 0);
     setSelectedPoints(newPoints);
-    onSelect(totalPoints);
 
     console.log('Selection updated:', {
       type: question.type,
       selectedPoints: newPoints,
-      totalPoints
+      totalPoints: newPoints.reduce((sum, p) => sum + p, 0)
     });
   };
 
