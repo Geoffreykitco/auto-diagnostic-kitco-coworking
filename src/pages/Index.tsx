@@ -80,6 +80,20 @@ const Index = () => {
 
   const handleNext = () => {
     if (!isLastSection) {
+      // Vérifier si toutes les questions de la section actuelle ont été répondues
+      const currentSectionQuestions = sections[currentSection].questions;
+      const currentSectionAnswers = answers[currentSection] || {};
+      
+      if (Object.keys(currentSectionAnswers).length < currentSectionQuestions.length) {
+        toast({
+          title: "⚠️ Action requise",
+          description: "Veuillez répondre à toutes les questions avant de continuer.",
+          variant: "destructive",
+          duration: 3000,
+        });
+        return;
+      }
+      
       setCurrentSection(sectionOrder[currentSectionIndex + 1]);
     }
   };
