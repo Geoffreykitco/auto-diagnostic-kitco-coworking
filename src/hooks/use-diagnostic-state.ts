@@ -1,16 +1,18 @@
 
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
-import { UseToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
+
+type SectionType = 'informations' | 'acquisition' | 'activation' | 'retention' | 'revenus' | 'recommandation' | 'resultats';
 
 interface UseDiagnosticStateProps {
-  toast: UseToast['toast'];
+  toast: ReturnType<typeof useToast>['toast'];
 }
 
 export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
-  const [currentSection, setCurrentSection] = useState('informations');
+  const [currentSection, setCurrentSection] = useState<SectionType>('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
 
   const calculateProgress = useCallback((newAnswers: Record<string, Record<number, number>>) => {
@@ -55,7 +57,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   }, [currentSection, calculateProgress, toast]);
 
   const handlePrevious = useCallback(() => {
-    const sectionOrder = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
+    const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
     if (currentIndex > 0) {
       setCurrentSection(sectionOrder[currentIndex - 1]);
@@ -63,7 +65,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   }, [currentSection]);
 
   const handleNext = useCallback(() => {
-    const sectionOrder = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
+    const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
     
     if (currentIndex < sectionOrder.length - 1) {

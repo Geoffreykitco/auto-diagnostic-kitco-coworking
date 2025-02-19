@@ -10,7 +10,9 @@ import { sections } from "@/data/sections";
 import { ResultsAnalysis } from '@/components/diagnostic/ResultsAnalysis';
 import { useDiagnosticState } from '@/hooks/use-diagnostic-state';
 
-const sectionOrder = [
+type SectionType = 'informations' | 'acquisition' | 'activation' | 'retention' | 'revenus' | 'recommandation' | 'resultats';
+
+const sectionOrder: SectionType[] = [
   'informations',
   'acquisition',
   'activation',
@@ -18,7 +20,7 @@ const sectionOrder = [
   'revenus',
   'recommandation',
   'resultats'
-] as const;
+];
 
 const Index = () => {
   const { toast } = useToast();
