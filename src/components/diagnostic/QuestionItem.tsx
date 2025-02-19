@@ -95,7 +95,7 @@ export const QuestionItem = ({
             }
             className={`w-full ${
               selectedValue 
-                ? "border border-[#132720] text-[#132720] bg-white font-medium ring-0" 
+                ? "border-[#132720] text-[#132720] bg-white font-medium" 
                 : "bg-gray-50 hover:bg-gray-100 text-gray-700"
             }`}
           />
@@ -109,7 +109,7 @@ export const QuestionItem = ({
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
                   selectedValue === option.points
-                    ? "border border-[#132720] text-[#132720] bg-white font-medium ring-0"
+                    ? "border border-[#132720] text-[#132720] bg-white font-medium"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
                 }
               `}
