@@ -1,14 +1,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useAuditForm } from "@/hooks/use-audit-form";
+import { AuditHeader } from "./audit/AuditHeader";
+import { AuditFormContent } from "./audit/AuditFormContent";
 
 interface AuditFormProps {
   onSubmit: (formData: {
@@ -16,26 +13,25 @@ interface AuditFormProps {
     lastName: string;
     coworkingName: string;
     email: string;
-  }) => void;
+  }) => Promise<void>;
 }
 
 export const AuditForm = ({ onSubmit }: AuditFormProps) => {
-  const { toast } = useToast();
   const isMobile = useIsMobile();
-  const [fullName, setFullName] = useState('');
-  const [coworkingName, setCoworkingName] = useState('');
-  const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  // Réinitialisation des champs
-  const resetForm = () => {
-    setFullName('');
-    setCoworkingName('');
-    setEmail('');
-  };
 
-  // Gestion de la fermeture
+  const {
+    fullName,
+    setFullName,
+    coworkingName,
+    setCoworkingName,
+    email,
+    setEmail,
+    isSubmitting,
+    handleSubmit,
+    resetForm
+  } = useAuditForm({ onSubmit });
+
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen && (fullName || coworkingName || email)) {
       if (window.confirm("Voulez-vous vraiment fermer ? Vos données seront perdues.")) {
@@ -47,79 +43,10 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
     }
   };
 
-  const validateName = (name: string) => {
-    const trimmedName = name.trim();
-    const names = trimmedName.split(/\s+/).filter(Boolean);
-    
-    if (names.length < 1) {
-      return { isValid: false, firstName: '', lastName: '' };
-    }
-    
-    return {
-      isValid: true,
-      firstName: names[0],
-      lastName: names.slice(1).join(' ') || ''
-    };
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez entrer une adresse email valide.",
-        duration: 3000,
-      });
-      return;
-    }
-
-    const nameValidation = validateName(fullName);
-    if (!nameValidation.isValid) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez entrer un nom valide.",
-        duration: 3000,
-      });
-      return;
-    }
-
-    if (!fullName || !coworkingName || !email) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs.",
-        duration: 3000,
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    
-    try {
-      await onSubmit({
-        firstName: nameValidation.firstName,
-        lastName: nameValidation.lastName,
-        coworkingName,
-        email
-      });
-      
-      toast({
-        title: "Merci !",
-        description: "Votre demande a été envoyée avec succès.",
-        duration: 3000,
-      });
-      
-      resetForm();
+  const onSubmitForm = async (e: React.FormEvent) => {
+    const success = await handleSubmit(e);
+    if (success) {
       setOpen(false);
-    } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi du formulaire.",
-        duration: 3000,
-      });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -131,19 +58,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
         exit={{ opacity: 0, y: -20 }}
         className="bg-white rounded-lg p-4 md:p-8 space-y-6 shadow-lg max-w-2xl mx-auto"
       >
-        <div className="text-center space-y-4">
-          <h2 className="text-xl md:text-2xl font-semibold">
-            Augmentez le taux de remplissage de votre espace de coworking
-          </h2>
-          <div className="space-y-3">
-            <p className="text-gray-600 text-sm md:text-base">
-              Vous avez maintenant une vision claire de la performance de votre espace de coworking. Mais comment transformer ces signaux en un plan d'action concret ?
-            </p>
-            <p className="text-gray-600 text-sm md:text-base">
-              Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
-            </p>
-          </div>
-        </div>
+        <AuditHeader />
 
         <Dialog open={open} onOpenChange={handleOpenChange}>
           <DialogTrigger asChild>
@@ -178,60 +93,16 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
-                  <div className="flex-1 space-y-4">
-                    <div>
-                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Prénom et nom
-                      </label>
-                      <Input
-                        id="fullName"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="text-sm md:text-base"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nom du coworking
-                      </label>
-                      <Input
-                        id="coworkingName"
-                        value={coworkingName}
-                        onChange={(e) => setCoworkingName(e.target.value)}
-                        className="text-sm md:text-base"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                        className="text-sm md:text-base"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Envoi en cours..." : "Recevoir mon audit"}
-                  </motion.button>
-                </form>
+                <AuditFormContent
+                  fullName={fullName}
+                  coworkingName={coworkingName}
+                  email={email}
+                  isSubmitting={isSubmitting}
+                  onFullNameChange={setFullName}
+                  onCoworkingNameChange={setCoworkingName}
+                  onEmailChange={setEmail}
+                  onSubmit={onSubmitForm}
+                />
               </div>
             </div>
           </DialogContent>
