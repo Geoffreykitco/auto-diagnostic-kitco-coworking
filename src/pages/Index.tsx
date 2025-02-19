@@ -35,7 +35,7 @@ const Index = () => {
     toast({
       title: "Bienvenue dans l'auto-diagnostic 👋",
       description: "Commençons l'évaluation de votre espace de coworking.",
-      duration: 1500,
+      duration: 4000,
     });
     setProgress(0);
     setStarted(true);
