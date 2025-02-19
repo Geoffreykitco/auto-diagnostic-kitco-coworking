@@ -72,7 +72,7 @@ export const QuestionItem = ({
     
     return `${baseClasses} ${
       isSelected
-        ? "border-primary bg-primary/50 text-white shadow-sm font-medium"
+        ? "border-primary bg-primary/5 text-primary shadow-sm font-medium"
         : "bg-white hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-primary/20 hover:shadow-sm"
     }`;
   };
