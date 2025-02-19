@@ -6,8 +6,6 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = ({ onStart }: HeroSectionProps) => {
-  const baseUrl = 'https://geoffrey-dacruz-auto-diagnostique-kitco.lovable.dev';
-  
   return (
     <section className="hero-pattern py-20 px-4">
       <div className="container mx-auto max-w-4xl">
@@ -19,7 +17,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
         >
           <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] transition-transform duration-300">
             <img 
-              src={`${baseUrl}/lovable-uploads/19b375a7-a124-4c5a-bb22-fcf8a5d0d625.png`}
+              src="/lovable-uploads/19b375a7-a124-4c5a-bb22-fcf8a5d0d625.png"
               alt="Kitco Logo" 
               className="w-full h-full object-contain"
             />
