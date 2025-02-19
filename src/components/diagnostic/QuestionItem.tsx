@@ -67,6 +67,14 @@ export const QuestionItem = ({
     }
   };
 
+  const getPlaceholder = () => {
+    if (question.question.toLowerCase().includes("pourcentage") || 
+        question.question.toLowerCase().includes("remplissage")) {
+      return "Votre réponse (en %)";
+    }
+    return "Votre réponse...";
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -100,8 +108,8 @@ export const QuestionItem = ({
           type="text"
           value={textValues[questionIndex] || ''}
           onChange={handleTextChange}
-          placeholder="Votre réponse..."
-          className="w-full"
+          placeholder={getPlaceholder()}
+          className={`w-full transition-all ${textValues[questionIndex] ? 'border border-[#132720] text-[#132720] font-medium' : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent'}`}
         />
       ) : (
         <div className="space-y-2">
@@ -112,7 +120,7 @@ export const QuestionItem = ({
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
                   isSelected(optionIndex)
-                    ? "border-2 border-[#132720] text-[#132720] bg-white font-medium"
+                    ? "border border-[#132720] text-[#132720] bg-white font-medium"
                     : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
                 }
               `}
