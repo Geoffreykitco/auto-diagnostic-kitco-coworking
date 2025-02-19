@@ -58,21 +58,31 @@ export const QuestionItem = ({
     if (question.type === 'multiple') {
       let newSelectedOptions;
       if (selectedOptions.includes(points)) {
+        // Remove the points if already selected
         newSelectedOptions = selectedOptions.filter(p => p !== points);
       } else {
+        // Add the points if not already selected
         newSelectedOptions = [...selectedOptions, points];
       }
       setSelectedOptions(newSelectedOptions);
-      onSelect(points);
+      
+      // Calculate total points for all selected options
+      const totalPoints = newSelectedOptions.reduce((sum, p) => sum + p, 0);
+      onSelect(totalPoints);
     } else {
+      // For single selection, just use the points directly
+      setSelectedOptions([points]); // Keep track of the single selection
       onSelect(points);
     }
   };
 
   const isOptionSelected = (points: number) => {
-    return question.type === 'multiple' 
-      ? selectedOptions.includes(points)
-      : selectedValue === points;
+    if (question.type === 'multiple') {
+      return selectedOptions.includes(points);
+    } else {
+      // For single selection questions, compare with selectedValue
+      return selectedValue === points;
+    }
   };
 
   return (
