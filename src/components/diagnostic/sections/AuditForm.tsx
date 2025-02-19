@@ -137,52 +137,50 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   </p>
                 </motion.div>
 
-                <form onSubmit={handleSubmit} className="mt-4 md:mt-6 space-y-4 md:space-y-6 flex flex-col h-full">
-                  <div className="space-y-3 md:space-y-4 flex-grow">
-                    <div>
-                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Prénom et nom
-                      </label>
-                      <Input
-                        id="fullName"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="text-sm md:text-base"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nom du coworking
-                      </label>
-                      <Input
-                        id="coworkingName"
-                        value={coworkingName}
-                        onChange={(e) => setCoworkingName(e.target.value)}
-                        className="text-sm md:text-base"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                        className="text-sm md:text-base"
-                        required
-                      />
-                    </div>
+                <form onSubmit={handleSubmit} className="mt-4 md:mt-6 space-y-4">
+                  <div>
+                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                      Prénom et nom
+                    </label>
+                    <Input
+                      id="fullName"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      className="text-sm md:text-base"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="coworkingName" className="block text-sm font-medium text-gray-700 mb-1">
+                      Nom du coworking
+                    </label>
+                    <Input
+                      id="coworkingName"
+                      value={coworkingName}
+                      onChange={(e) => setCoworkingName(e.target.value)}
+                      className="text-sm md:text-base"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      className="text-sm md:text-base"
+                      required
+                    />
                   </div>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base mt-auto mb-4"
+                    className="w-full bg-[#12271F] hover:bg-[#1d312a] text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base mt-4"
                   >
                     Recevoir mon audit
                   </motion.button>
