@@ -49,15 +49,12 @@ export const QuestionItem = ({
 
     if (question.question.toLowerCase().includes("pourcentage") || 
         question.question.toLowerCase().includes("remplissage")) {
-      // Enlever tous les caractères non numériques sauf le point
       const numericValue = value.replace(/[^0-9]/g, '');
       
-      // Convertir en nombre et s'assurer qu'il est entre 0 et 100
       let number = parseInt(numericValue);
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
       
-      // Formater avec le symbole %
       value = number ? `${number}%` : '';
     }
 
@@ -65,7 +62,6 @@ export const QuestionItem = ({
   };
 
   const handleOptionClick = (optionIndex: number, points: number) => {
-    // On s'assure que le type est soit 'single' soit 'multiple'
     if (question.type === 'single' || question.type === 'multiple') {
       onOptionSelect(questionIndex, optionIndex, points, question.type);
     }
@@ -116,8 +112,8 @@ export const QuestionItem = ({
               className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
                 ${
                   isSelected(optionIndex)
-                    ? "bg-primary text-white"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-700"
+                    ? "border-2 border-[#132720] text-[#132720] bg-white font-medium"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
                 }
               `}
             >
