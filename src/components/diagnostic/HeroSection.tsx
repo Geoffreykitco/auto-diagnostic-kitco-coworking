@@ -1,5 +1,6 @@
 
 import { motion } from 'framer-motion';
+import { IMAGES } from '@/utils/constants';
 
 interface HeroSectionProps {
   onStart: () => void;
@@ -17,7 +18,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
         >
           <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] transition-transform duration-300">
             <img 
-              src="/lovable-uploads/19b375a7-a124-4c5a-bb22-fcf8a5d0d625.png"
+              src={IMAGES.LOGO.HEADER}
               alt="Kitco Logo" 
               className="w-full h-full object-contain"
             />
