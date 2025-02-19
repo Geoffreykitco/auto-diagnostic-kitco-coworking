@@ -7,7 +7,6 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
 
 interface Option {
   label: string;
@@ -35,7 +34,6 @@ export const QuestionItem = ({
   selectedValue,
 }: QuestionItemProps) => {
   const isMobile = useIsMobile();
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -55,33 +53,19 @@ export const QuestionItem = ({
   };
 
   const handleOptionSelect = (points: number) => {
-    if (question.type === 'multiple') {
-      let newSelectedOptions;
-      if (selectedOptions.includes(points)) {
-        // Remove the points if already selected
-        newSelectedOptions = selectedOptions.filter(p => p !== points);
-      } else {
-        // Add the points if not already selected
-        newSelectedOptions = [...selectedOptions, points];
-      }
-      setSelectedOptions(newSelectedOptions);
-      
-      // Calculate total points for all selected options
-      const totalPoints = newSelectedOptions.reduce((sum, p) => sum + p, 0);
-      onSelect(totalPoints);
-    } else {
-      // For single selection, just use the points directly
-      setSelectedOptions([points]); // Keep track of the single selection
-      onSelect(points);
-    }
+    onSelect(points);
   };
 
-  const isOptionSelected = (points: number) => {
+  const isOptionSelected = (option: Option) => {
+    if (!selectedValue) return false;
+
     if (question.type === 'multiple') {
-      return selectedOptions.includes(points);
+      // Pour les questions à choix multiple, on vérifie si les points de l'option
+      // contribuent au total des points sélectionnés
+      return selectedValue >= option.points && (selectedValue % option.points === 0);
     } else {
-      // For single selection questions, compare with selectedValue
-      return selectedValue === points;
+      // Pour les questions à choix unique, on compare directement avec selectedValue
+      return selectedValue === option.points;
     }
   };
 
@@ -136,7 +120,7 @@ export const QuestionItem = ({
               key={optionIndex}
               onClick={() => handleOptionSelect(option.points)}
               className={
-                isOptionSelected(option.points)
+                isOptionSelected(option)
                   ? "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-white border-2 border-[#12271F] text-gray-900 shadow-sm font-medium"
                   : "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
               }
@@ -144,7 +128,7 @@ export const QuestionItem = ({
               whileTap={{ scale: 0.995 }}
             >
               <span className="flex-1">{option.label}</span>
-              {isOptionSelected(option.points) && (
+              {isOptionSelected(option) && (
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
