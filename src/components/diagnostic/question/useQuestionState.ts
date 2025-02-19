@@ -10,16 +10,30 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
       if (question.type === 'multiple') {
         const points: number[] = [];
         let remainingValue = selectedValue;
+        
+        // Protection contre les valeurs négatives
+        if (remainingValue < 0) remainingValue = 0;
+        
         const sortedOptions = [...question.options].sort((a, b) => b.points - a.points);
         
-        sortedOptions.forEach(option => {
-          while (remainingValue >= option.points) {
+        for (const option of sortedOptions) {
+          // Protection contre les points négatifs ou nuls
+          if (option.points <= 0) continue;
+          
+          // Utilisation d'une boucle while avec protection contre les boucles infinies
+          let iterations = 0;
+          const maxIterations = 1000; // Protection contre les boucles infinies
+          
+          while (remainingValue >= option.points && iterations < maxIterations) {
             points.push(option.points);
             remainingValue -= option.points;
+            iterations++;
           }
-        });
+        }
+        
         setSelectedPoints(points);
       } else {
+        // Pour les questions à choix unique
         setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
       }
     } else {
