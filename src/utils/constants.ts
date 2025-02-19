@@ -1,7 +1,5 @@
 
-const BASE_URL = import.meta.env.MODE === 'development' 
-  ? '' 
-  : 'https://geoffrey-dacruz-auto-diagnostique-kitco.lovable.dev';
+const BASE_URL = 'https://geoffrey-dacruz-auto-diagnostique-kitco.lovable.dev';
 
 export const IMAGES = {
   LOGO: {
