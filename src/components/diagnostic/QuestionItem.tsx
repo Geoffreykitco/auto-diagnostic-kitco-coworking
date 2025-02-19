@@ -53,17 +53,16 @@ export const QuestionItem = ({
     }
   };
 
-  // Style spécial pour la première question
   const isFirstQuestion = question.question === "Depuis combien de temps votre espace de coworking est-il ouvert ?";
 
   const getButtonClasses = (option: Option) => {
-    const baseClasses = "w-full p-4 text-left rounded-lg transition-all text-sm md:text-base border";
+    const baseClasses = "relative w-full p-4 text-left rounded-lg transition-all duration-200 ease-in-out text-sm md:text-base border";
     
     if (isFirstQuestion) {
-      return `${baseClasses} ${
+      return `${baseClasses} group ${
         selectedValue === option.points
-          ? "bg-white border-[#14281F] text-[#14281F] font-medium"
-          : "bg-white hover:text-[#14281F] hover:border-[#14281F] text-gray-700 border-transparent"
+          ? "bg-[#14281F] border-[#14281F] text-white shadow-sm font-medium"
+          : "bg-white hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20"
       }`;
     }
     
@@ -79,16 +78,16 @@ export const QuestionItem = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * questionIndex }}
-      className="bg-white p-6 rounded-lg border border-gray-200 text-left"
+      className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-left"
     >
-      <div className="flex gap-2 items-start mb-4">
+      <div className="flex gap-2 items-start mb-6">
         <h3 className="text-lg font-medium text-gray-900 flex-grow">
           {question.question}
         </h3>
         <HoverCard>
           <HoverCardTrigger asChild>
-            <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
-              <Info className="h-5 w-5 text-gray-500" />
+            <button className="p-1.5 hover:bg-gray-50 rounded-full transition-colors">
+              <Info className="h-[18px] w-[18px] text-gray-400" />
               <span className="sr-only">Plus d'informations</span>
             </button>
           </HoverCardTrigger>
@@ -114,23 +113,31 @@ export const QuestionItem = ({
                 ? "Votre réponse (en %)"
                 : "Votre réponse..."
             }
-            className={`w-full ${
+            className={`w-full transition-all duration-200 ${
               selectedValue 
-                ? "border-[#132720] text-[#132720] font-medium" 
-                : "text-gray-700"
+                ? "border-[#132720] text-[#132720] font-medium shadow-sm" 
+                : "text-gray-700 hover:border-[#14281F]/20"
             }`}
           />
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {question.options.map((option, optionIndex) => (
-            <button
+            <motion.button
               key={optionIndex}
               onClick={() => onSelect(option.points)}
               className={getButtonClasses(option)}
+              whileTap={{ scale: 0.98 }}
             >
               {option.label}
-            </button>
+              {isFirstQuestion && selectedValue === option.points && (
+                <motion.div
+                  className="absolute inset-0 bg-[#14281F]/5 rounded-lg"
+                  layoutId="selectedBackground"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </motion.button>
           ))}
         </div>
       )}
