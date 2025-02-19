@@ -3,80 +3,88 @@ import { useState, useEffect } from "react";
 import { Question } from "./types";
 
 export const useQuestionState = (question: Question, selectedValue?: number) => {
-  const [selectedPoints, setSelectedPoints] = useState<number[]>([]);
+  const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+  const isDiscoverySection = question.options.every(opt => opt.points === 0);
 
   useEffect(() => {
     if (selectedValue === undefined) {
-      setSelectedPoints([]);
+      setSelectedIndices([]);
       return;
     }
 
     if (question.type === 'multiple') {
-      // Pour les questions à choix multiples, on décode la valeur binaire
-      // On utilise toujours l'index car les points peuvent être à 0
       const selected = [];
       for (let i = 0; i < question.options.length; i++) {
         if ((selectedValue & (1 << i)) !== 0) {
           selected.push(i);
         }
       }
-      setSelectedPoints(selected);
+      setSelectedIndices(selected);
     } else {
-      // Pour les questions à choix unique, on cherche l'index correspondant
-      // Si tous les points sont à 0, on utilise directement selectedValue comme index
-      if (question.options.every(opt => opt.points === 0)) {
-        setSelectedPoints(selectedValue > 0 ? [selectedValue - 1] : []);
+      if (isDiscoverySection) {
+        // Pour les sections de découverte, la valeur est directement l'index + 1
+        setSelectedIndices(selectedValue > 0 ? [selectedValue - 1] : []);
       } else {
-        const selectedIndex = question.options.findIndex(opt => opt.points === selectedValue);
-        setSelectedPoints(selectedIndex !== -1 ? [selectedIndex] : []);
+        // Pour les autres sections, on cherche l'option avec les points correspondants
+        const index = question.options.findIndex(opt => opt.points === selectedValue);
+        setSelectedIndices(index !== -1 ? [index] : []);
       }
     }
-  }, [selectedValue, question.options]);
+  }, [selectedValue, question.options, isDiscoverySection]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
-    const optionIndex = question.options.findIndex(opt => opt.points === points);
-    const isDiscoverySection = question.options.every(opt => opt.points === 0);
+    let index: number;
     
+    if (isDiscoverySection) {
+      // Dans une section de découverte, on utilise directement l'index de l'option
+      index = question.options.findIndex((_, i) => i === points);
+    } else {
+      // Dans les autres sections, on cherche l'option avec les points correspondants
+      index = question.options.findIndex(opt => opt.points === points);
+    }
+
     if (question.type === 'multiple') {
-      const isSelected = selectedPoints.includes(optionIndex);
-      const newPoints = isSelected
-        ? selectedPoints.filter(p => p !== optionIndex)
-        : [...selectedPoints, optionIndex];
+      const isSelected = selectedIndices.includes(index);
+      const newIndices = isSelected
+        ? selectedIndices.filter(i => i !== index)
+        : [...selectedIndices, index];
       
-      // Calcul de la valeur binaire basée sur les index
-      const binaryValue = newPoints.reduce((acc, index) => acc | (1 << index), 0);
-      setSelectedPoints(newPoints);
+      const binaryValue = newIndices.reduce((acc, idx) => acc | (1 << idx), 0);
+      setSelectedIndices(newIndices);
       onSelect(binaryValue);
     } else {
-      const isSelected = selectedPoints.includes(optionIndex);
+      const isSelected = selectedIndices.includes(index);
       if (isSelected) {
-        setSelectedPoints([]);
+        setSelectedIndices([]);
         onSelect(0);
       } else {
-        setSelectedPoints([optionIndex]);
-        // Pour les sections de découverte, on utilise l'index + 1 comme valeur
-        // Pour les autres sections, on utilise les points définis
-        onSelect(isDiscoverySection ? optionIndex + 1 : points);
+        setSelectedIndices([index]);
+        onSelect(isDiscoverySection ? index + 1 : points);
       }
     }
 
     console.log('Option selection:', {
       type: question.type,
-      optionIndex,
+      index,
       points,
       isDiscoverySection,
-      currentSelection: selectedPoints,
-      isSelected: selectedPoints.includes(optionIndex)
+      currentSelection: selectedIndices,
+      isSelected: selectedIndices.includes(index)
     });
   };
 
   const isOptionSelected = (points: number): boolean => {
-    const optionIndex = question.options.findIndex(opt => opt.points === points);
-    return selectedPoints.includes(optionIndex);
+    if (isDiscoverySection) {
+      const index = question.options.findIndex((_, i) => i === points);
+      return selectedIndices.includes(index);
+    } else {
+      const index = question.options.findIndex(opt => opt.points === points);
+      return selectedIndices.includes(index);
+    }
   };
 
   return {
-    selectedPoints,
+    selectedPoints: selectedIndices,
     handleOptionSelect,
     isOptionSelected,
   };
