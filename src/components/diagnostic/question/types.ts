@@ -1,14 +1,14 @@
 
 export interface Option {
-  label: string;
-  points: number;
+  readonly label: string;
+  readonly points: number;
 }
 
 export interface Question {
-  question: string;
-  tooltip: string;
-  type: 'single' | 'multiple' | 'text';
-  options: Option[];
+  readonly question: string;
+  readonly tooltip: string;
+  readonly type: 'single' | 'multiple' | 'text';
+  readonly options: readonly Option[];
 }
 
 export interface QuestionItemProps {

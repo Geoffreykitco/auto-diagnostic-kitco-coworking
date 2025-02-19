@@ -4,21 +4,12 @@ import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { QuestionItem } from "./QuestionItem";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-
-interface Question {
-  question: string;
-  tooltip: string;
-  type: 'single' | 'multiple' | 'text';
-  options: Array<{
-    label: string;
-    points: number;
-  }>;
-}
+import { Question } from "./question/types";
 
 interface Section {
   title: string;
   description: string;
-  questions: Question[];
+  questions: readonly Question[];
 }
 
 interface QuestionSectionProps {
