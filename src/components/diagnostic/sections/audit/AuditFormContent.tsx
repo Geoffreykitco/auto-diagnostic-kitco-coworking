@@ -99,19 +99,19 @@ export const AuditFormContent = ({
             placeholder="john@moncoworking.com"
           />
         </div>
-      </div>
 
-      <motion.button
-        whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-        whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-        transition={{ duration: 0.2 }}
-        type="submit"
-        className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
-        disabled={isSubmitting}
-        aria-busy={isSubmitting}
-      >
-        {isSubmitting ? "Envoi en cours..." : "Recevoir mon audit"}
-      </motion.button>
+        <motion.button
+          whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+          whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+          transition={{ duration: 0.2 }}
+          type="submit"
+          className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+        >
+          {isSubmitting ? "Envoi en cours..." : "Recevoir mon audit"}
+        </motion.button>
+      </div>
     </form>
   );
 };
