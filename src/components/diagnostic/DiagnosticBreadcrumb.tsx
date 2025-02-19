@@ -20,6 +20,14 @@ interface DiagnosticBreadcrumbProps {
   currentStep: Step | undefined;
 }
 
+const formatLabel = (label: string) => {
+  // Si le label contient un tiret, ne prendre que la partie avant le tiret
+  if (label.includes('-')) {
+    return label.split('-')[0].trim();
+  }
+  return label;
+};
+
 export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrumbProps) => {
   const isMobile = useIsMobile();
   
@@ -69,7 +77,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
             <BreadcrumbItem key={step.id}>
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-bold text-lg text-primary">
-                  {step.label === "Referal" ? "Recommandation" : step.label}
+                  {formatLabel(step.label)}
                 </BreadcrumbPage>
               ) : (
                 <>
@@ -77,7 +85,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
                     className="text-gray-500"
                     href="#"
                   >
-                    {step.label === "Referal" ? "Recommandation" : step.label}
+                    {formatLabel(step.label)}
                   </BreadcrumbLink>
                 </>
               )}
