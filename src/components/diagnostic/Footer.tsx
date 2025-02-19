@@ -1,8 +1,11 @@
 
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
+import { useState } from 'react';
 
 export const Footer = () => {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <motion.footer 
       initial={{ opacity: 0, y: 20 }}
@@ -22,7 +25,17 @@ export const Footer = () => {
             alt="KITCO - Des coworkings bien pensés" 
             className="h-full w-auto object-contain"
             loading="eager"
+            onError={() => {
+              console.error('Image loading error:', IMAGES.LOGO.FOOTER);
+              setImgError(true);
+            }}
+            style={{ display: imgError ? 'none' : 'block' }}
           />
+          {imgError && (
+            <div className="h-full flex items-center justify-center bg-gray-100 rounded-md px-4">
+              <span className="text-gray-500">KITCO - Des coworkings bien pensés</span>
+            </div>
+          )}
         </motion.div>
       </div>
     </motion.footer>

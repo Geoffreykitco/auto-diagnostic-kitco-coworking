@@ -1,12 +1,15 @@
 
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
+import { useState } from 'react';
 
 interface HeroSectionProps {
   onStart: () => void;
 }
 
 export const HeroSection = ({ onStart }: HeroSectionProps) => {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <section className="hero-pattern relative py-20 px-4 overflow-hidden">
       <motion.div 
@@ -32,7 +35,17 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
               loading="eager"
+              onError={() => {
+                console.error('Image loading error:', IMAGES.LOGO.HEADER);
+                setImgError(true);
+              }}
+              style={{ display: imgError ? 'none' : 'block' }}
             />
+            {imgError && (
+              <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-md">
+                <span className="text-gray-500">KITCO</span>
+              </div>
+            )}
           </div>
         </motion.div>
 
