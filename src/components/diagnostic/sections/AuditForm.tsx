@@ -16,7 +16,6 @@ interface AuditFormProps {
     lastName: string;
     coworkingName: string;
     email: string;
-    photo: File | null;
   }) => void;
 }
 
@@ -26,13 +25,11 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
   const [fullName, setFullName] = useState('');
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
-  const [photo, setPhoto] = useState<File | null>(null);
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast({
@@ -43,7 +40,6 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       return;
     }
 
-    // Split full name into first and last name
     const [firstName = "", lastName = ""] = fullName.split(" ");
 
     if (!fullName || !coworkingName || !email) {
@@ -59,8 +55,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
       firstName,
       lastName,
       coworkingName,
-      email,
-      photo
+      email
     });
     setOpen(false);
 
@@ -80,26 +75,17 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
         className="bg-white rounded-lg p-4 md:p-8 space-y-6 shadow-lg max-w-2xl mx-auto"
       >
         <div className="text-center space-y-4">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-xl md:text-2xl font-semibold"
-          >
+          <h2 className="text-xl md:text-2xl font-semibold">
             Augmentez le taux de remplissage de votre espace de coworking
-          </motion.h2>
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-3"
-          >
+          </h2>
+          <div className="space-y-3">
             <p className="text-gray-600 text-sm md:text-base">
               Vous avez maintenant une vision claire de la performance de votre espace de coworking. Mais comment transformer ces signaux en un plan d'action concret ?
             </p>
             <p className="text-gray-600 text-sm md:text-base">
               Ne laissez pas ces opportunités inexplorées. Passez à l'action dès maintenant !
             </p>
-          </motion.div>
+          </div>
         </div>
 
         <Dialog open={open} onOpenChange={setOpen}>
@@ -107,7 +93,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-[#15231f] hover:bg-[#1d2d29] text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base"
+              className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base"
             >
               Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
@@ -123,21 +109,17 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   />
                 </div>
               )}
-              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'flex flex-col h-full overflow-y-auto' : ''}`}>
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-4"
-                >
-                  <h3 className="text-lg md:text-xl font-semibold text-primary">
+              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''}`}>
+                <div className="mb-6">
+                  <h3 className="text-lg md:text-xl font-semibold text-primary mb-2">
                     Optimisez le taux de remplissage de votre coworking
                   </h3>
                   <p className="text-gray-600 text-sm md:text-base">
                     Vous avez maintenant une vision claire de la performance de votre espace de coworking.
                   </p>
-                </motion.div>
+                </div>
 
-                <form onSubmit={handleSubmit} className="mt-4 md:mt-6 space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
                       Prénom et nom
@@ -180,7 +162,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full bg-[#12271F] hover:bg-[#1d312a] text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base mt-4"
+                    className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base"
                   >
                     Recevoir mon audit
                   </motion.button>
