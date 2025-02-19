@@ -4,7 +4,6 @@ import { Question } from "./types";
 
 export const useQuestionState = (question: Question, selectedValue?: number) => {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
-  const isDiscoverySection = question.options.every(opt => opt.points === 0);
 
   useEffect(() => {
     if (selectedValue === undefined) {
@@ -21,27 +20,14 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
       }
       setSelectedIndices(selected);
     } else {
-      if (isDiscoverySection) {
-        // Pour les sections de découverte, la valeur est directement l'index + 1
-        setSelectedIndices(selectedValue > 0 ? [selectedValue - 1] : []);
-      } else {
-        // Pour les autres sections, on cherche l'option avec les points correspondants
-        const index = question.options.findIndex(opt => opt.points === selectedValue);
-        setSelectedIndices(index !== -1 ? [index] : []);
-      }
+      // Pour les questions single et text, on cherche l'option avec les points correspondants
+      const index = question.options.findIndex(opt => opt.points === selectedValue);
+      setSelectedIndices(index !== -1 ? [index] : []);
     }
-  }, [selectedValue, question.options, isDiscoverySection]);
+  }, [selectedValue, question.options]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
-    let index: number;
-    
-    if (isDiscoverySection) {
-      // Dans une section de découverte, on utilise directement l'index de l'option
-      index = question.options.findIndex((_, i) => i === points);
-    } else {
-      // Dans les autres sections, on cherche l'option avec les points correspondants
-      index = question.options.findIndex(opt => opt.points === points);
-    }
+    const index = question.options.findIndex(opt => opt.points === points);
 
     if (question.type === 'multiple') {
       const isSelected = selectedIndices.includes(index);
@@ -49,9 +35,12 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
         ? selectedIndices.filter(i => i !== index)
         : [...selectedIndices, index];
       
-      const binaryValue = newIndices.reduce((acc, idx) => acc | (1 << idx), 0);
+      // Pour le type multiple, on accumule les points de toutes les options sélectionnées
+      const totalPoints = newIndices.reduce((sum, idx) => 
+        sum + question.options[idx].points, 0);
+      
       setSelectedIndices(newIndices);
-      onSelect(binaryValue);
+      onSelect(totalPoints);
     } else {
       const isSelected = selectedIndices.includes(index);
       if (isSelected) {
@@ -59,7 +48,7 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
         onSelect(0);
       } else {
         setSelectedIndices([index]);
-        onSelect(isDiscoverySection ? index + 1 : points);
+        onSelect(points);
       }
     }
 
@@ -67,20 +56,14 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
       type: question.type,
       index,
       points,
-      isDiscoverySection,
       currentSelection: selectedIndices,
       isSelected: selectedIndices.includes(index)
     });
   };
 
   const isOptionSelected = (points: number): boolean => {
-    if (isDiscoverySection) {
-      const index = question.options.findIndex((_, i) => i === points);
-      return selectedIndices.includes(index);
-    } else {
-      const index = question.options.findIndex(opt => opt.points === points);
-      return selectedIndices.includes(index);
-    }
+    const index = question.options.findIndex(opt => opt.points === points);
+    return selectedIndices.includes(index);
   };
 
   return {
