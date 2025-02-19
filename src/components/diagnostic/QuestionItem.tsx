@@ -117,9 +117,8 @@ export const QuestionItem = ({
             value={selectedValue?.toString() || ''}
             onChange={handleTextChange}
             placeholder={
+              question.question.toLowerCase().includes("pourcentage") || 
               question.question.toLowerCase().includes("remplissage")
-                ? "en %"
-                : question.question.toLowerCase().includes("pourcentage")
                 ? "Votre réponse (en %)"
                 : "Votre réponse..."
             }
