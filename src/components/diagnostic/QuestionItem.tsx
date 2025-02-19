@@ -135,6 +135,21 @@ export const QuestionItem = ({
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="flex-1">{option.label}</span>
+                {selectedValue === option.points && !isFirstQuestion && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 10,
+                      duration: 0.2 
+                    }}
+                    className="bg-[#14281F]/10 rounded-full p-1"
+                  >
+                    <Check className="h-5 w-5 text-[#14281F]" />
+                  </motion.div>
+                )}
                 {selectedValue === option.points && isFirstQuestion && (
                   <motion.div
                     initial={{ scale: 0 }}
