@@ -66,26 +66,27 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
       transition={{ duration: 0.3 }}
     >
       <Breadcrumb>
-        <BreadcrumbList className="flex-wrap items-center gap-4">
-          <BreadcrumbItem className="text-gray-500">
-            <span>Démarrage</span>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <span className="text-gray-500">Démarrage</span>
           </BreadcrumbItem>
-          <BreadcrumbSeparator className="text-gray-400">❯</BreadcrumbSeparator>
           {steps.map((step, index) => (
-            <BreadcrumbItem key={step.id} className="text-gray-500">
-              {step.id === currentStep.id ? (
-                <BreadcrumbPage className="font-bold text-[#132720]">
-                  {formatLabel(step.label)}
-                </BreadcrumbPage>
-              ) : (
-                <span className="text-gray-500">
-                  {formatLabel(step.label)}
-                </span>
-              )}
-              {index < steps.length - 1 && (
-                <BreadcrumbSeparator className="text-gray-400 ml-4">❯</BreadcrumbSeparator>
-              )}
-            </BreadcrumbItem>
+            <>
+              <BreadcrumbSeparator key={`sep-${step.id}`} className="text-gray-400">
+                ❯
+              </BreadcrumbSeparator>
+              <BreadcrumbItem key={step.id}>
+                {step.id === currentStep.id ? (
+                  <BreadcrumbPage className="font-bold text-[#132720]">
+                    {formatLabel(step.label)}
+                  </BreadcrumbPage>
+                ) : (
+                  <span className="text-gray-500">
+                    {formatLabel(step.label)}
+                  </span>
+                )}
+              </BreadcrumbItem>
+            </>
           ))}
         </BreadcrumbList>
       </Breadcrumb>
