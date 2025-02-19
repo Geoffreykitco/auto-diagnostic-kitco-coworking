@@ -1,6 +1,5 @@
-
 export const informationsSection = {
-  title: "Partie 1 : Informations Générales",
+  title: "Informations Générales",
   description: "Cette section permet de mieux comprendre votre espace de coworking et son contexte. Les informations collectées nous aideront à établir un diagnostic plus précis et à fournir des recommandations adaptées.",
   questions: [
     {
@@ -129,5 +128,4 @@ export const informationsSection = {
       ]
     }
   ]
-};
-
+} as const;
