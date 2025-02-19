@@ -16,7 +16,7 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => (
       >
         <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] transition-transform duration-300">
           <img 
-            src="/logo-kitco.png"
+            src="/lovable-uploads/e3060401-3a65-4db1-9901-85114f9e0da2.png"
             alt="Kitco Logo" 
             className="w-full h-full object-contain"
           />
