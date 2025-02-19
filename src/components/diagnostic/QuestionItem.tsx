@@ -135,7 +135,7 @@ export const QuestionItem = ({
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="flex-1">{option.label}</span>
-                {selectedValue === option.points && (
+                {selectedValue === option.points && isFirstQuestion && (
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -145,19 +145,9 @@ export const QuestionItem = ({
                       damping: 10,
                       duration: 0.2 
                     }}
-                    className={`
-                      rounded-full p-1
-                      ${isFirstQuestion 
-                        ? 'bg-white/20' 
-                        : 'bg-[#14281F]/10'
-                      }
-                    `}
+                    className="bg-white/20 rounded-full p-1"
                   >
-                    <Check className={`h-5 w-5 ${
-                      isFirstQuestion 
-                        ? 'text-white' 
-                        : 'text-[#14281F]'
-                    }`} />
+                    <Check className="h-5 w-5 text-white" />
                   </motion.div>
                 )}
               </div>
