@@ -54,8 +54,10 @@ export const QuestionSection = ({
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
+    <div className="container mx-auto px-4">
+      <div className="mt-16 mb-8">
+        <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
+      </div>
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -71,7 +73,7 @@ export const QuestionSection = ({
             <QuestionItem
               key={index}
               question={question}
-              questionIndex={index}  // Changé de index à questionIndex
+              questionIndex={index}
               onSelect={(points) => onOptionSelect(index, points)}
               selectedValue={answers[section.title]?.[index]}
             />
