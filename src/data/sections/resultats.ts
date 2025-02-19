@@ -1,6 +1,8 @@
 
+import { Question } from "@/components/diagnostic/question/types";
+
 export const resultatsSection = {
-  title: "Analyse des résultats",
-  description: "Voici l'analyse détaillée de vos réponses pour chaque section du diagnostic.",
+  title: "Résultats",
+  description: "Voici vos résultats basés sur vos réponses.",
   questions: []
-};
+} as const;

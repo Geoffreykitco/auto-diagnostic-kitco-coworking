@@ -1,8 +1,15 @@
+import { Question } from "@/components/diagnostic/question/types";
 
 export const revenusSection = {
-  title: "Revenue - Optimiser la rentabilité du coworking",
-  description: "Objectif : Évaluer la capacité du coworking à diversifier ses sources de revenus, optimiser sa gestion commerciale et maximiser sa rentabilité.",
+  title: "Revenus - Générer et optimiser les revenus",
+  description: "Cette section évalue votre capacité à générer et optimiser vos revenus.",
   questions: [
+    {
+      question: "Quel est votre taux d'occupation moyen ?",
+      tooltip: "Le pourcentage moyen d'occupation de votre espace sur les derniers mois.",
+      type: "text" as const,
+      options: []
+    },
     {
       question: "Quelle est votre principale source de revenus ?",
       tooltip: "Un espace de coworking peut maximiser sa rentabilité en diversifiant ses sources de revenus.",
@@ -57,4 +64,4 @@ export const revenusSection = {
       ]
     }
   ]
-};
+} as const;

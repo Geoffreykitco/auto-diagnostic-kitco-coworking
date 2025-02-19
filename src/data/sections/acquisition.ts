@@ -1,8 +1,20 @@
+import { Question } from "@/components/diagnostic/question/types";
 
 export const acquisitionSection = {
-  title: "Acquisition - Attirer de nouveaux coworkers",
-  description: "Objectif : Évaluer la capacité d'un coworking à générer du trafic qualifié et à se rendre visible auprès de ses futurs membres.",
+  title: "Acquisition - Attirer les coworkers",
+  description: "Cette section évalue votre capacité à attirer de nouveaux membres potentiels et à générer des visites de votre espace.",
   questions: [
+    {
+      question: "Quel est votre taux de conversion des visites en inscriptions ?",
+      tooltip: "Le pourcentage de visiteurs qui deviennent effectivement membres après avoir visité votre espace.",
+      type: "single" as const,
+      options: [
+        { label: "Moins de 20%", points: 0 },
+        { label: "Entre 20% et 40%", points: 1 },
+        { label: "Entre 40% et 60%", points: 2 },
+        { label: "Plus de 60%", points: 3 }
+      ]
+    },
     {
       question: "Quels canaux utilisez-vous pour attirer de nouveaux membres ?",
       tooltip: "Une stratégie d'acquisition efficace repose sur la diversité des canaux utilisés pour toucher différentes audiences.",
@@ -63,4 +75,4 @@ export const acquisitionSection = {
       ]
     }
   ]
-};
+} as const;

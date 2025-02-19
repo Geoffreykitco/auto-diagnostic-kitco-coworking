@@ -1,58 +1,44 @@
+import { Question } from "@/components/diagnostic/question/types";
 
 export const activationSection = {
   title: "Activation - Transformer les visiteurs en membres",
-  description: "Objectif : Évaluer la capacité d'un coworking à convertir les visiteurs en membres actifs en facilitant leur parcours d'entrée.",
+  description: "Cette section évalue votre capacité à convertir les visiteurs intéressés en membres actifs de votre espace.",
   questions: [
     {
-      question: "Que peut faire un visiteur lorsqu'il découvre votre espace ?",
-      tooltip: "Plus un visiteur peut facilement découvrir l'espace, plus il a de chances de devenir membre.",
-      type: "single",
+      question: "Quel est votre taux de remplissage actuel ?",
+      tooltip: "Le pourcentage d'occupation de votre espace par rapport à sa capacité totale.",
+      type: "text" as const,
+      options: []
+    },
+    {
+      question: "Mettez-vous en place un système d'onboarding pour les nouveaux membres (visite des locaux, présentation des équipes, etc.) ?",
+      tooltip: "Un processus structuré pour accueillir et intégrer les nouveaux membres dans votre espace.",
+      type: "single" as const,
       options: [
-        { label: "Payer et réserver immédiatement", points: 10 },
-        { label: "Essayer gratuitement pendant une période limitée", points: 7 },
-        { label: "Demander une visite guidée", points: 5 },
-        { label: "Visiter librement sans engagement", points: 0 }
+        { label: "Non", points: 0 },
+        { label: "Oui, partiellement", points: 1 },
+        { label: "Oui, complètement", points: 2 }
       ]
     },
     {
-      question: "Avez-vous un processus d'onboarding structuré pour les nouveaux membres ?",
-      tooltip: "Un accueil bien organisé améliore l'expérience des nouveaux membres et leur engagement sur le long terme.",
-      type: "single",
+      question: "Organisez-vous des événements ou ateliers pour encourager l'interaction entre les membres ?",
+      tooltip: "Des activités régulières pour favoriser le réseautage et la collaboration entre les membres.",
+      type: "single" as const,
       options: [
-        { label: "Oui, avec un parcours d'accueil clair", points: 10 },
-        { label: "Oui, mais informel", points: 5 },
-        { label: "Non, les membres doivent se débrouiller seuls", points: 0 }
+        { label: "Jamais", points: 0 },
+        { label: "Occasionnellement", points: 1 },
+        { label: "Régulièrement", points: 2 }
       ]
     },
     {
-      question: "Vos offres et tarifs sont-ils clairs pour les nouveaux membres ?",
-      tooltip: "Une offre compréhensible facilite la prise de décision et améliore le taux de conversion.",
-      type: "single",
+      question: "Proposez-vous des services ou des ressources pour aider les membres à développer leurs projets ?",
+      tooltip: "Un soutien concret pour aider les membres à atteindre leurs objectifs professionnels.",
+      type: "single" as const,
       options: [
-        { label: "Oui, tout est bien expliqué", points: 10 },
-        { label: "Oui, mais certains aspects demandent des explications", points: 5 },
-        { label: "Non, c'est souvent source de confusion", points: 0 }
-      ]
-    },
-    {
-      question: "Relancez-vous les prospects après une visite ou un essai ?",
-      tooltip: "Un suivi des prospects après leur visite augmente considérablement les chances de conversion.",
-      type: "single",
-      options: [
-        { label: "Oui, systématiquement", points: 10 },
-        { label: "Oui, mais pas toujours", points: 5 },
-        { label: "Non, jamais", points: 0 }
-      ]
-    },
-    {
-      question: "Mettez-vous en place des actions pour faciliter la prise de décision des prospects ?",
-      tooltip: "Certaines initiatives permettent d'accélérer la conversion en réduisant les freins à l'engagement.",
-      type: "single",
-      options: [
-        { label: "Oui, avec des offres limitées ou des incitations fortes (ex. réduction premier mois)", points: 10 },
-        { label: "Oui, mais sans plan structuré", points: 5 },
-        { label: "Non, nous laissons les prospects décider seuls", points: 0 }
+        { label: "Non", points: 0 },
+        { label: "Quelques services de base", points: 1 },
+        { label: "Un large éventail de services et de ressources", points: 2 }
       ]
     }
   ]
-};
+} as const;

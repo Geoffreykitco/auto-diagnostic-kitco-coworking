@@ -1,8 +1,15 @@
+import { Question } from "@/components/diagnostic/question/types";
 
 export const recommandationSection = {
-  title: "Recommandation - Clients à ambassadeurs",
-  description: "Objectif : Évaluer la capacité d'un coworking à générer des recommandations naturelles, que ce soit via le bouche-à-oreille, un programme de parrainage ou la mise en avant des avis clients.",
+  title: "Recommandation - Développer le bouche à oreille",
+  description: "Cette section évalue votre capacité à générer des recommandations et à développer votre communauté.",
   questions: [
+    {
+      question: "Quel pourcentage de vos nouveaux membres vient de recommandations ?",
+      tooltip: "Le pourcentage de nouveaux membres qui rejoignent votre espace suite à une recommandation d'un membre existant.",
+      type: "text" as const,
+      options: []
+    },
     {
       question: "Vos membres recommandent-ils spontanément votre espace ?",
       tooltip: "Le bouche-à-oreille est un indicateur clé de satisfaction et de fidélisation.",
@@ -54,4 +61,4 @@ export const recommandationSection = {
       ]
     }
   ]
-};
+} as const;
