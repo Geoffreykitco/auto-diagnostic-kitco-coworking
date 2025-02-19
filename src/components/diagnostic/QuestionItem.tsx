@@ -77,6 +77,24 @@ export const QuestionItem = ({
     }`;
   };
 
+  const getTextInputClasses = () => {
+    const baseClasses = "w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border";
+    
+    if (isFirstQuestion) {
+      return `${baseClasses} ${
+        selectedValue
+          ? "bg-[#14281F]/50 border-[#14281F] text-white shadow-lg font-medium ring-2 ring-[#14281F] ring-offset-2"
+          : "bg-gray-50/80 hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20 hover:shadow-sm"
+      }`;
+    }
+    
+    return `${baseClasses} ${
+      selectedValue
+        ? "border-primary bg-primary/5 text-primary shadow-sm font-medium"
+        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-primary/20 hover:shadow-sm"
+    }`;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -112,7 +130,7 @@ export const QuestionItem = ({
 
       {question.type === 'text' ? (
         <div className="w-full">
-          <Input
+          <input
             type="text"
             value={selectedValue?.toString() || ''}
             onChange={handleTextChange}
@@ -123,11 +141,7 @@ export const QuestionItem = ({
                 ? "Votre réponse (en %)"
                 : "Votre réponse..."
             }
-            className={`w-full transition-all duration-200 ${
-              selectedValue 
-                ? "border-primary text-primary font-medium shadow-sm" 
-                : "text-gray-700 hover:border-primary/20"
-            }`}
+            className={getTextInputClasses()}
           />
         </div>
       ) : (
