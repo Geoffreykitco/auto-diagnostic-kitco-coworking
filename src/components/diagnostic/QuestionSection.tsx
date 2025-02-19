@@ -8,7 +8,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 interface Question {
   question: string;
   tooltip: string;
-  type: string;
+  type: 'single' | 'multiple' | 'text';  // Mise à jour du type pour correspondre à QuestionItem
   options: Array<{
     label: string;
     points: number;
