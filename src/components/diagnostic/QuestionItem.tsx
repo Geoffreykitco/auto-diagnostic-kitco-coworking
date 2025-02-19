@@ -52,10 +52,6 @@ export const QuestionItem = ({
     }
   };
 
-  const handleOptionSelect = (points: number) => {
-    onSelect(points);
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -97,54 +93,40 @@ export const QuestionItem = ({
                 ? "Votre réponse (en %)"
                 : "Votre réponse..."
             }
-            className={`
-              w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border
-              ${selectedValue !== undefined
-                ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
-                : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
-              }
-            `}
+            className="w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
           />
         </div>
       ) : (
         <div className="space-y-2.5">
-          {question.options.map((option, optionIndex) => {
-            const isSelected = selectedValue === option.points;
-            
-            return (
-              <motion.button
-                key={optionIndex}
-                onClick={() => handleOptionSelect(option.points)}
-                className={`
-                  relative w-full p-4 text-left rounded-lg transition-all duration-200 
-                  flex items-center justify-between gap-3
-                  text-sm md:text-base border
-                  ${isSelected 
-                    ? "bg-white border-2 !border-[#12271F] text-gray-900 shadow-sm font-medium" 
-                    : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
-                  }
-                `}
-                whileHover={{ scale: 1.005 }}
-                whileTap={{ scale: 0.995 }}
-              >
-                <span className="flex-1">{option.label}</span>
-                {isSelected && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 10
-                    }}
-                    className="rounded-full p-1 bg-[#12271F]"
-                  >
-                    <Check className="h-4 w-4 text-white" />
-                  </motion.div>
-                )}
-              </motion.button>
-            );
-          })}
+          {question.options.map((option, optionIndex) => (
+            <motion.button
+              key={optionIndex}
+              onClick={() => onSelect(option.points)}
+              className={
+                selectedValue === option.points
+                  ? "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-white border-2 border-[#12271F] text-gray-900 shadow-sm font-medium"
+                  : "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
+              }
+              whileHover={{ scale: 1.005 }}
+              whileTap={{ scale: 0.995 }}
+            >
+              <span className="flex-1">{option.label}</span>
+              {selectedValue === option.points && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10
+                  }}
+                  className="rounded-full p-1 bg-[#12271F]"
+                >
+                  <Check className="h-4 w-4 text-white" />
+                </motion.div>
+              )}
+            </motion.button>
+          ))}
         </div>
       )}
     </motion.div>
