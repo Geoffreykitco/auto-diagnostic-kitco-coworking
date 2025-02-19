@@ -13,62 +13,55 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
 
     if (question.type === 'multiple') {
       // Pour les questions à choix multiples, on décode la valeur binaire
-      const selected = [];
-      for (let i = 0; i < 32; i++) {
-        if ((selectedValue & (1 << i)) !== 0) {
-          selected.push(i);
-        }
-      }
+      const selected = question.options
+        .map((opt, index) => ({ index, points: opt.points }))
+        .filter(({ index }) => (selectedValue & (1 << index)) !== 0)
+        .map(({ index }) => index);
       setSelectedPoints(selected);
     } else {
-      // Pour les questions à choix unique, on utilise directement la valeur
-      setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
+      // Pour les questions à choix unique, on trouve l'index de l'option sélectionnée
+      const selectedIndex = question.options.findIndex(opt => opt.points === selectedValue);
+      setSelectedPoints(selectedIndex !== -1 ? [selectedIndex] : []);
     }
-  }, [selectedValue, question.type]);
+  }, [selectedValue, question.options]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
+    // Trouver l'index de l'option dans le tableau des options
+    const optionIndex = question.options.findIndex(opt => opt.points === points);
+    
     if (question.type === 'multiple') {
-      // Gestion des choix multiples
-      const isSelected = selectedPoints.includes(points);
-      let newPoints;
+      const isSelected = selectedPoints.includes(optionIndex);
+      const newPoints = isSelected
+        ? selectedPoints.filter(p => p !== optionIndex)
+        : [...selectedPoints, optionIndex];
       
-      if (isSelected) {
-        // Désélection d'une option
-        newPoints = selectedPoints.filter(p => p !== points);
-      } else {
-        // Ajout d'une nouvelle option
-        newPoints = [...selectedPoints, points];
-      }
-      
-      // Calcul de la valeur binaire pour stocker les sélections multiples
-      const binaryValue = newPoints.reduce((acc, point) => acc | (1 << point), 0);
+      // Calcul de la valeur binaire basée sur les index plutôt que les points
+      const binaryValue = newPoints.reduce((acc, index) => acc | (1 << index), 0);
       setSelectedPoints(newPoints);
       onSelect(binaryValue);
     } else {
-      // Gestion des choix uniques
-      const isSelected = selectedPoints.includes(points);
-      
+      const isSelected = selectedPoints.includes(optionIndex);
       if (isSelected) {
-        // Désélection de l'option
         setSelectedPoints([]);
         onSelect(0);
       } else {
-        // Sélection d'une nouvelle option (remplace l'ancienne s'il y en avait une)
-        setSelectedPoints([points]);
+        setSelectedPoints([optionIndex]);
         onSelect(points);
       }
     }
 
     console.log('Option selection:', {
       type: question.type,
+      optionIndex,
       points,
       currentSelection: selectedPoints,
-      isSelected: selectedPoints.includes(points)
+      isSelected: selectedPoints.includes(optionIndex)
     });
   };
 
   const isOptionSelected = (points: number): boolean => {
-    return selectedPoints.includes(points);
+    const optionIndex = question.options.findIndex(opt => opt.points === points);
+    return selectedPoints.includes(optionIndex);
   };
 
   return {
