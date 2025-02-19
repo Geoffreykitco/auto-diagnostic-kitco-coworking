@@ -61,7 +61,7 @@ export const QuestionItem = ({
     if (isFirstQuestion) {
       return `${baseClasses} group ${
         selectedValue === option.points
-          ? "bg-[#14281F] border-[#14281F] text-white shadow-lg font-medium"
+          ? "bg-[#14281F] border-[#14281F] text-white shadow-lg font-medium ring-2 ring-[#14281F] ring-offset-2"
           : "bg-white hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20"
       }`;
     }
@@ -78,10 +78,14 @@ export const QuestionItem = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * questionIndex }}
-      className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-left"
+      className={`bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-left
+        ${isFirstQuestion ? 'ring-1 ring-[#14281F]/10' : ''}
+      `}
     >
       <div className="flex gap-2 items-start mb-6">
-        <h3 className="text-lg font-medium text-gray-900 flex-grow">
+        <h3 className={`text-lg font-medium flex-grow
+          ${isFirstQuestion ? 'text-[#14281F]' : 'text-gray-900'}
+        `}>
           {question.question}
         </h3>
         <HoverCard>
