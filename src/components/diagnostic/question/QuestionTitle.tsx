@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { Info } from "lucide-react";
 import {
   HoverCard,
@@ -14,15 +15,19 @@ interface QuestionTitleProps {
 
 export const QuestionTitle = ({ question, tooltip }: QuestionTitleProps) => {
   const isMobile = useIsMobile();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex gap-2.5 items-start mb-6">
       <h3 className="text-lg font-medium flex-grow text-gray-900">
         {question}
       </h3>
-      <HoverCard>
+      <HoverCard open={isMobile ? isOpen : undefined}>
         <HoverCardTrigger asChild>
-          <button className="p-1.5 hover:bg-gray-50 rounded-full transition-colors">
+          <button 
+            className="p-1.5 hover:bg-gray-50 rounded-full transition-colors"
+            onClick={() => isMobile && setIsOpen(!isOpen)}
+          >
             <Info className="h-[18px] w-[18px] text-gray-400" />
             <span className="sr-only">Plus d'informations</span>
           </button>
