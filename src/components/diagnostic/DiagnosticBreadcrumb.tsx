@@ -58,6 +58,46 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
     );
   }
 
+  // Créer un tableau combiné de tous les éléments (items + séparateurs)
+  const breadcrumbItems = steps.reduce<React.ReactNode[]>((acc, step, index) => {
+    if (index === 0) {
+      acc.push(
+        <BreadcrumbItem key="start">
+          <span className="text-gray-500">Démarrage</span>
+        </BreadcrumbItem>
+      );
+      acc.push(
+        <BreadcrumbSeparator key="sep-start" className="text-gray-400">
+          ❯
+        </BreadcrumbSeparator>
+      );
+    }
+
+    acc.push(
+      <BreadcrumbItem key={`item-${step.id}`}>
+        {step.id === currentStep.id ? (
+          <BreadcrumbPage className="font-bold text-[#132720]">
+            {formatLabel(step.label)}
+          </BreadcrumbPage>
+        ) : (
+          <span className="text-gray-500">
+            {formatLabel(step.label)}
+          </span>
+        )}
+      </BreadcrumbItem>
+    );
+
+    if (index < steps.length - 1) {
+      acc.push(
+        <BreadcrumbSeparator key={`sep-${step.id}`} className="text-gray-400">
+          ❯
+        </BreadcrumbSeparator>
+      );
+    }
+
+    return acc;
+  }, []);
+
   return (
     <motion.div 
       className="mb-8"
@@ -66,28 +106,8 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
       transition={{ duration: 0.3 }}
     >
       <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <span className="text-gray-500">Démarrage</span>
-          </BreadcrumbItem>
-          {steps.map((step, index) => (
-            <>
-              <BreadcrumbSeparator key={`sep-${step.id}`} className="text-gray-400">
-                ❯
-              </BreadcrumbSeparator>
-              <BreadcrumbItem key={step.id}>
-                {step.id === currentStep.id ? (
-                  <BreadcrumbPage className="font-bold text-[#132720]">
-                    {formatLabel(step.label)}
-                  </BreadcrumbPage>
-                ) : (
-                  <span className="text-gray-500">
-                    {formatLabel(step.label)}
-                  </span>
-                )}
-              </BreadcrumbItem>
-            </>
-          ))}
+        <BreadcrumbList className="flex-wrap items-center gap-4">
+          {breadcrumbItems}
         </BreadcrumbList>
       </Breadcrumb>
     </motion.div>
