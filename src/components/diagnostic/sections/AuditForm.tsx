@@ -2,7 +2,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useAuditForm } from "@/hooks/use-audit-form";
 import { AuditHeader } from "./audit/AuditHeader";
 import { AuditFormContent } from "./audit/AuditFormContent";
@@ -34,7 +38,9 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
 
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen && (fullName || coworkingName || email)) {
-      if (window.confirm("Voulez-vous vraiment fermer ? Vos données seront perdues.")) {
+      // Attendre la confirmation avant de fermer
+      const shouldClose = window.confirm("Voulez-vous vraiment fermer ? Vos données seront perdues.");
+      if (shouldClose) {
         resetForm();
         setOpen(false);
       }
@@ -43,7 +49,8 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
     }
   };
 
-  const onSubmitForm = async (e: React.FormEvent) => {
+  const handleSubmitForm = async (e: React.FormEvent) => {
+    e.preventDefault();
     const success = await handleSubmit(e);
     if (success) {
       setOpen(false);
@@ -56,7 +63,10 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
         className="bg-white rounded-lg p-4 md:p-8 space-y-6 shadow-lg max-w-2xl mx-auto"
+        role="region"
+        aria-label="Formulaire d'audit de coworking"
       >
         <AuditHeader />
 
@@ -65,21 +75,26 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
               className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base"
+              aria-label="Ouvrir le formulaire d'audit"
             >
               Recevez votre audit et découvrez votre feuille de route personnalisée
             </motion.button>
           </DialogTrigger>
+
           <DialogContent 
             className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}
+            aria-label="Formulaire de demande d'audit"
           >
             <div className="flex flex-col md:flex-row w-full h-full">
               {!isMobile && (
                 <div className="w-full md:w-1/2 relative">
                   <img
                     src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
-                    alt="Coworking space"
+                    alt="Espace de coworking"
                     className="w-full h-full object-cover rounded-l-lg absolute inset-0"
+                    loading="lazy"
                   />
                 </div>
               )}
@@ -101,7 +116,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   onFullNameChange={setFullName}
                   onCoworkingNameChange={setCoworkingName}
                   onEmailChange={setEmail}
-                  onSubmit={onSubmitForm}
+                  onSubmit={handleSubmitForm}
                 />
               </div>
             </div>
