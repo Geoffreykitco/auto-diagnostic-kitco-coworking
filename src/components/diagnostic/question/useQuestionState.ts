@@ -12,11 +12,11 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
     }
 
     if (question.type === 'multiple') {
-      // Pour les choix multiples, on identifie chaque option sélectionnée
-      const selectedOptions = question.options.filter(option => 
-        (selectedValue & (1 << option.points)) !== 0
-      );
-      setSelectedPoints(selectedOptions.map(opt => opt.points));
+      // On décode la valeur binaire pour trouver les points sélectionnés
+      const selected = question.options
+        .filter(opt => (selectedValue & (1 << opt.points)) !== 0)
+        .map(opt => opt.points);
+      setSelectedPoints(selected);
     } else {
       // Pour les choix uniques, on utilise directement la valeur
       setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
@@ -24,38 +24,33 @@ export const useQuestionState = (question: Question, selectedValue?: number) => 
   }, [selectedValue, question]);
 
   const handleOptionSelect = (points: number, onSelect: (points: number) => void) => {
-    let newSelectedPoints: number[];
-
     if (question.type === 'multiple') {
-      // Pour les choix multiples, on bascule la sélection individuelle
-      if (selectedPoints.includes(points)) {
-        newSelectedPoints = selectedPoints.filter(p => p !== points);
-      } else {
-        newSelectedPoints = [...selectedPoints, points];
-      }
-
-      // On calcule la valeur binaire en utilisant des positions de bits
-      const binaryValue = newSelectedPoints.reduce((sum, point) => sum | (1 << point), 0);
+      const isSelected = selectedPoints.includes(points);
+      const newPoints = isSelected 
+        ? selectedPoints.filter(p => p !== points)
+        : [...selectedPoints, points];
+      
+      // Calcul de la valeur binaire finale
+      const binaryValue = newPoints.reduce((acc, point) => acc | (1 << point), 0);
+      setSelectedPoints(newPoints);
       onSelect(binaryValue);
     } else {
       // Pour les choix uniques, on gère la sélection/désélection
-      newSelectedPoints = selectedPoints[0] === points ? [] : [points];
-      onSelect(newSelectedPoints[0] || 0);
+      const isSelected = selectedPoints.includes(points);
+      const newPoints = isSelected ? [] : [points];
+      setSelectedPoints(newPoints);
+      onSelect(isSelected ? 0 : points);
     }
 
-    // On met à jour l'état local
-    setSelectedPoints(newSelectedPoints);
-
-    console.log('Selection updated:', {
+    console.log('Option selection:', {
       type: question.type,
-      selectedPoints: newSelectedPoints,
-      binaryValue: question.type === 'multiple' 
-        ? newSelectedPoints.reduce((sum, point) => sum | (1 << point), 0)
-        : newSelectedPoints[0] || 0
+      points,
+      currentSelection: selectedPoints,
+      isSelected: selectedPoints.includes(points)
     });
   };
 
-  const isOptionSelected = (points: number) => {
+  const isOptionSelected = (points: number): boolean => {
     return selectedPoints.includes(points);
   };
 
