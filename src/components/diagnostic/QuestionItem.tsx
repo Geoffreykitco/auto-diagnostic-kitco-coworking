@@ -6,7 +6,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import { Input } from "@/components/ui/input";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Option {
@@ -53,8 +52,6 @@ export const QuestionItem = ({
     }
   };
 
-  const isFirstQuestion = question.question === "Depuis combien de temps votre espace de coworking est-il ouvert ?";
-
   const getButtonClasses = (option: Option, isSelected: boolean) => {
     const baseClasses = `
       relative w-full p-4 text-left rounded-lg transition-all duration-200 
@@ -62,36 +59,20 @@ export const QuestionItem = ({
       text-sm md:text-base border
     `;
     
-    if (isFirstQuestion) {
-      return `${baseClasses} ${
-        isSelected
-          ? "bg-[#14281F]/50 border-[#14281F] text-white shadow-lg font-medium ring-2 ring-[#14281F] ring-offset-2"
-          : "bg-gray-50/80 hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20 hover:shadow-sm"
-      }`;
-    }
-    
     return `${baseClasses} ${
       isSelected
-        ? "border-primary bg-primary/5 text-primary shadow-sm font-medium"
-        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-primary/20 hover:shadow-sm"
+        ? "bg-white border-[#12271F] text-gray-900 shadow-sm font-medium ring-1 ring-[#12271F] ring-offset-2"
+        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
     }`;
   };
 
   const getTextInputClasses = () => {
     const baseClasses = "w-full p-4 text-left rounded-lg transition-all duration-200 text-sm md:text-base border";
     
-    if (isFirstQuestion) {
-      return `${baseClasses} ${
-        selectedValue
-          ? "bg-[#14281F]/50 border-[#14281F] text-white shadow-lg font-medium ring-2 ring-[#14281F] ring-offset-2"
-          : "bg-gray-50/80 hover:bg-[#F8FAF9] text-gray-700 border-gray-100 hover:border-[#14281F]/20 hover:shadow-sm"
-      }`;
-    }
-    
     return `${baseClasses} ${
       selectedValue
-        ? "border-primary bg-primary/5 text-primary shadow-sm font-medium"
-        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-primary/20 hover:shadow-sm"
+        ? "bg-white border-[#12271F] text-gray-900 shadow-sm font-medium ring-1 ring-[#12271F] ring-offset-2"
+        : "bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
     }`;
   };
 
@@ -100,15 +81,10 @@ export const QuestionItem = ({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.1 * questionIndex }}
-      className={`
-        bg-white p-6 rounded-xl border shadow-sm
-        ${isFirstQuestion ? 'border-[#14281F]/10' : 'border-gray-100'}
-      `}
+      className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm"
     >
       <div className="flex gap-2.5 items-start mb-6">
-        <h3 className={`text-lg font-medium flex-grow
-          ${isFirstQuestion ? 'text-[#14281F]' : 'text-gray-900'}
-        `}>
+        <h3 className="text-lg font-medium flex-grow text-gray-900">
           {question.question}
         </h3>
         <HoverCard>
@@ -167,23 +143,14 @@ export const QuestionItem = ({
                       stiffness: 400,
                       damping: 10
                     }}
-                    className={`
-                      rounded-full p-1
-                      ${isFirstQuestion ? 'bg-white/20' : 'bg-primary'}
-                    `}
+                    className="rounded-full p-1 bg-[#12271F]"
                   >
-                    <Check className={`h-4 w-4 ${isFirstQuestion ? 'text-white' : 'text-white'}`} />
+                    <Check className="h-4 w-4 text-white" />
                   </motion.div>
                 )}
                 {isSelected && (
                   <motion.div
-                    className={`
-                      absolute inset-0 rounded-lg
-                      ${isFirstQuestion 
-                        ? 'bg-gradient-to-r from-[#14281F]/5 to-[#14281F]/0' 
-                        : 'bg-primary/5'
-                      }
-                    `}
+                    className="absolute inset-0 rounded-lg bg-white"
                     layoutId={`selected-${questionIndex}`}
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
@@ -196,3 +163,4 @@ export const QuestionItem = ({
     </motion.div>
   );
 };
+
