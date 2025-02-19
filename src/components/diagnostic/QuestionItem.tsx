@@ -7,6 +7,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect, useState } from "react";
 
 interface Option {
   label: string;
@@ -34,6 +35,36 @@ export const QuestionItem = ({
   selectedValue,
 }: QuestionItemProps) => {
   const isMobile = useIsMobile();
+  const [selectedPoints, setSelectedPoints] = useState<number[]>([]);
+
+  // Synchroniser selectedPoints avec selectedValue
+  useEffect(() => {
+    if (selectedValue !== undefined) {
+      if (question.type === 'multiple') {
+        // Pour les questions à choix multiple, décomposer selectedValue en points individuels
+        const points: number[] = [];
+        let remainingValue = selectedValue;
+        question.options.forEach(option => {
+          if (remainingValue >= option.points && remainingValue % option.points === 0) {
+            points.push(option.points);
+            remainingValue -= option.points;
+          }
+        });
+        setSelectedPoints(points);
+      } else {
+        setSelectedPoints(selectedValue > 0 ? [selectedValue] : []);
+      }
+    } else {
+      setSelectedPoints([]);
+    }
+  }, [selectedValue, question]);
+
+  console.log('QuestionItem render:', { 
+    questionIndex, 
+    selectedValue, 
+    selectedPoints,
+    type: question.type 
+  });
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -53,20 +84,28 @@ export const QuestionItem = ({
   };
 
   const handleOptionSelect = (points: number) => {
-    onSelect(points);
+    let newPoints: number[];
+    
+    if (question.type === 'multiple') {
+      if (selectedPoints.includes(points)) {
+        // Désélectionner l'option
+        newPoints = selectedPoints.filter(p => p !== points);
+      } else {
+        // Sélectionner l'option
+        newPoints = [...selectedPoints, points];
+      }
+    } else {
+      // Pour les questions à choix unique, remplacer la sélection
+      newPoints = [points];
+    }
+    
+    setSelectedPoints(newPoints);
+    const totalPoints = newPoints.reduce((sum, p) => sum + p, 0);
+    onSelect(totalPoints);
   };
 
-  const isOptionSelected = (option: Option) => {
-    if (!selectedValue) return false;
-
-    if (question.type === 'multiple') {
-      // Pour les questions à choix multiple, on vérifie si les points de l'option
-      // contribuent au total des points sélectionnés
-      return selectedValue >= option.points && (selectedValue % option.points === 0);
-    } else {
-      // Pour les questions à choix unique, on compare directement avec selectedValue
-      return selectedValue === option.points;
-    }
+  const isOptionSelected = (points: number) => {
+    return selectedPoints.includes(points);
   };
 
   return (
@@ -120,7 +159,7 @@ export const QuestionItem = ({
               key={optionIndex}
               onClick={() => handleOptionSelect(option.points)}
               className={
-                isOptionSelected(option)
+                isOptionSelected(option.points)
                   ? "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-white border-2 border-[#12271F] text-gray-900 shadow-sm font-medium"
                   : "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
               }
@@ -128,7 +167,7 @@ export const QuestionItem = ({
               whileTap={{ scale: 0.995 }}
             >
               <span className="flex-1">{option.label}</span>
-              {isOptionSelected(option) && (
+              {isOptionSelected(option.points) && (
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
