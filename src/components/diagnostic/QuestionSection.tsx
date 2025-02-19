@@ -1,16 +1,9 @@
-
 import { motion } from "framer-motion";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { QuestionItem } from "./QuestionItem";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { Question } from "./question/types";
-
-interface Section {
-  title: string;
-  description: string;
-  questions: readonly Question[];
-}
+import { Section } from "@/data/sections";
 
 interface QuestionSectionProps {
   section: Section;
