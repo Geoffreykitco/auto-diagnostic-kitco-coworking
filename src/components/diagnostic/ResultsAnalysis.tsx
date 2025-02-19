@@ -1,9 +1,11 @@
+
 import { useEffect } from "react";
 import { sections } from "@/data/sections";
 import { useToast } from "@/hooks/use-toast";
 import { GlobalScore } from "./sections/GlobalScore";
 import { SectionScore } from "./sections/SectionScore";
 import { AuditForm } from "./sections/AuditForm";
+import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { calculateSectionScore, getGlobalAnalysis, getSectionAnalysis, getSectionLevel } from "@/utils/diagnosticUtils";
 
 interface ResultsAnalysisProps {
