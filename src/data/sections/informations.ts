@@ -21,8 +21,7 @@ export const informationsSection = {
       options: [
         { label: "Bureaux partagés", points: 0 },
         { label: "Bureaux privés", points: 0 },
-        { label: "Salles de réunion", points: 0 },
-        { label: "Autres (préciser)", points: 0 }
+        { label: "Salles de réunion", points: 0 }
       ]
     },
     {
@@ -33,8 +32,7 @@ export const informationsSection = {
         { label: "Abonnement mensuel", points: 0 },
         { label: "Abonnement annuel", points: 0 },
         { label: "Pass à la journée", points: 0 },
-        { label: "Pack de journées (5/10/20/...)", points: 0 },
-        { label: "Autres (préciser)", points: 0 }
+        { label: "Pack de journées (5/10/20/...)", points: 0 }
       ]
     },
     {
