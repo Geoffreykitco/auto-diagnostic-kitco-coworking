@@ -53,15 +53,12 @@ export const QuestionItem = ({
     }
   };
 
-  // Style spécial pour la première question
-  const isFirstQuestion = question.question === "Depuis combien de temps votre espace de coworking est-il ouvert ?";
-
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * questionIndex }}
-      className={`bg-white p-6 rounded-lg border border-gray-200 text-left`}
+      className="bg-white p-6 rounded-lg border border-gray-200 text-left"
     >
       <div className="flex gap-2 items-start mb-4">
         <h3 className="text-lg font-medium text-gray-900 flex-grow">
@@ -110,13 +107,9 @@ export const QuestionItem = ({
               key={optionIndex}
               onClick={() => onSelect(option.points)}
               className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base
-                ${isFirstQuestion 
-                  ? (selectedValue === option.points
-                    ? "bg-white border border-[#14281F] text-[#14281F] font-medium"
-                    : "bg-gray-50 hover:bg-white hover:border-[#14281F] hover:border text-gray-700 border-transparent")
-                  : (selectedValue === option.points
-                    ? "border border-[#132720] text-[#132720] bg-white font-medium"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent")
+                ${selectedValue === option.points
+                  ? "bg-white border border-[#14281F] text-[#14281F] font-medium"
+                  : "bg-gray-50 hover:bg-white hover:border-[#14281F] hover:border text-gray-700 border-transparent"
                 }
               `}
             >
