@@ -16,14 +16,16 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-8 px-4"
         >
-          <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] transition-transform duration-300">
+          <picture className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] transition-transform duration-300">
+            <source srcSet={IMAGES.LOGO.HEADER} type="image/png" />
             <img 
               src={IMAGES.LOGO.HEADER}
               alt="Kitco Logo" 
               className="w-full h-full object-contain"
               loading="eager"
+              decoding="sync"
             />
-          </div>
+          </picture>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
