@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { Info, Check } from "lucide-react";
 import {
   HoverCard,
   HoverCardContent,
@@ -129,7 +129,18 @@ export const QuestionItem = ({
               className={getButtonClasses(option)}
               whileTap={{ scale: 0.98 }}
             >
-              {option.label}
+              <div className="flex items-center justify-between">
+                <span>{option.label}</span>
+                {selectedValue === option.points && (
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", duration: 0.5 }}
+                  >
+                    <Check className={`h-5 w-5 ${isFirstQuestion ? 'text-white' : 'text-[#14281F]'}`} />
+                  </motion.div>
+                )}
+              </div>
               {isFirstQuestion && selectedValue === option.points && (
                 <motion.div
                   className="absolute inset-0 bg-[#14281F]/5 rounded-lg"
