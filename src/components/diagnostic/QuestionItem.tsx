@@ -112,8 +112,8 @@ export const QuestionItem = ({
               className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base
                 ${isFirstQuestion ? (
                   selectedValue === option.points
-                    ? "bg-white border border-[#14281F] text-[#14281F] font-medium"
-                    : "bg-gray-50 hover:bg-white hover:border hover:border-[#14281F] hover:text-[#14281F] text-gray-700 border-transparent"
+                    ? "bg-white border-[#14281F] border text-[#14281F] font-medium"
+                    : "bg-gray-50 hover:bg-white hover:border hover:border-[#14281F] hover:text-[#14281F] text-gray-700 border border-transparent"
                 ) : (
                   selectedValue === option.points
                     ? "border border-[#132720] text-[#132720] bg-white font-medium"
