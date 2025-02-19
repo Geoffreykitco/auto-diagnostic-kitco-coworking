@@ -109,11 +109,11 @@ export const QuestionItem = ({
             <button
               key={optionIndex}
               onClick={() => onSelect(option.points)}
-              className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base
+              className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base border
                 ${isFirstQuestion ? (
                   selectedValue === option.points
-                    ? "bg-white border-[#14281F] border text-[#14281F] font-medium"
-                    : "bg-gray-50 hover:bg-white hover:border hover:border-[#14281F] hover:text-[#14281F] text-gray-700 border border-transparent"
+                    ? "bg-white border-[#14281F] text-[#14281F] hover:bg-white hover:border-[#14281F] hover:text-[#14281F] font-medium"
+                    : "bg-gray-50 hover:bg-white hover:border-[#14281F] hover:text-[#14281F] text-gray-700 border-transparent"
                 ) : (
                   selectedValue === option.points
                     ? "border border-[#132720] text-[#132720] bg-white font-medium"
