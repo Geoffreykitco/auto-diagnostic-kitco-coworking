@@ -50,6 +50,8 @@ const Index = () => {
   };
 
   const handleOptionSelect = (questionIndex: number, points: number) => {
+    console.log('handleOptionSelect called with:', { questionIndex, points, currentSection });
+    
     setAnswers(prev => {
       const newAnswers = {
         ...prev,
@@ -59,6 +61,7 @@ const Index = () => {
         }
       };
       
+      console.log('New answers state:', newAnswers);
       const newProgress = calculateProgress(newAnswers);
       setProgress(newProgress);
       
@@ -80,7 +83,6 @@ const Index = () => {
 
   const handleNext = () => {
     if (!isLastSection) {
-      // Vérifier si toutes les questions de la section actuelle ont été répondues
       const currentSectionQuestions = sections[currentSection].questions;
       const currentSectionAnswers = answers[currentSection] || {};
       
@@ -120,7 +122,7 @@ const Index = () => {
             onNext={handleNext}
             showPrevious={!isFirstSection}
             showNext={!isLastSection}
-            answers={answers}
+            answers={answers[currentSection] || {}}
           />
         )}
       </div>
