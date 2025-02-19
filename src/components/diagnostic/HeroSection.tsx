@@ -27,15 +27,12 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
           className="flex justify-center mb-8 px-4"
         >
           <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] relative">
-            <motion.img 
+            <img 
               src={IMAGES.LOGO.HEADER}
               alt="Kitco Logo" 
               className="w-full h-full object-contain"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
               loading="eager"
-              onError={() => {
+              onError={(e) => {
                 console.error('Image loading error:', IMAGES.LOGO.HEADER);
                 setImgError(true);
               }}

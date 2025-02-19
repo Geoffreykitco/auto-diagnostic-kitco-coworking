@@ -25,7 +25,7 @@ export const Footer = () => {
             alt="KITCO - Des coworkings bien pensés" 
             className="h-full w-auto object-contain"
             loading="eager"
-            onError={() => {
+            onError={(e) => {
               console.error('Image loading error:', IMAGES.LOGO.FOOTER);
               setImgError(true);
             }}
