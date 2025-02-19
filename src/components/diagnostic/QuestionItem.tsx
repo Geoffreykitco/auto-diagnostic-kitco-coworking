@@ -53,21 +53,24 @@ export const QuestionItem = ({
     }
   };
 
+  // Style spécial pour la première question
+  const isFirstQuestion = question.question === "Depuis combien de temps votre espace de coworking est-il ouvert ?";
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.1 * questionIndex }}
-      className="bg-white p-6 rounded-lg border border-gray-200 text-left"
+      className={`bg-white p-6 rounded-lg border ${isFirstQuestion ? 'border-[#14281F]' : 'border-gray-200'} text-left`}
     >
       <div className="flex gap-2 items-start mb-4">
-        <h3 className="text-lg font-medium text-gray-900 flex-grow">
+        <h3 className={`text-lg font-medium ${isFirstQuestion ? 'text-[#14281F]' : 'text-gray-900'} flex-grow`}>
           {question.question}
         </h3>
         <HoverCard>
           <HoverCardTrigger asChild>
             <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
-              <Info className="h-5 w-5 text-gray-500" />
+              <Info className={`h-5 w-5 ${isFirstQuestion ? 'text-[#14281F]' : 'text-gray-500'}`} />
               <span className="sr-only">Plus d'informations</span>
             </button>
           </HoverCardTrigger>
@@ -106,11 +109,14 @@ export const QuestionItem = ({
             <button
               key={optionIndex}
               onClick={() => onSelect(option.points)}
-              className={`w-full p-3 text-left rounded-lg transition-all text-sm md:text-base
-                ${
-                  selectedValue === option.points
+              className={`w-full p-4 text-left rounded-lg transition-all text-sm md:text-base
+                ${isFirstQuestion 
+                  ? (selectedValue === option.points
+                    ? "border-2 border-[#14281F] text-[#14281F] bg-[#14281F]/5 font-medium shadow-sm"
+                    : "bg-white hover:bg-[#14281F]/5 text-gray-700 border-2 border-gray-200 hover:border-[#14281F]")
+                  : (selectedValue === option.points
                     ? "border border-[#132720] text-[#132720] bg-white font-medium"
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-transparent")
                 }
               `}
             >
