@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { QuestionItem } from "./QuestionItem";
@@ -7,12 +8,12 @@ import { Section } from "@/data/sections";
 
 interface QuestionSectionProps {
   section: Section;
-  onOptionSelect: (questionIndex: number, points: number) => void;
+  onOptionSelect: (questionIndex: number, value: string | number | number[] | null) => void;
   onPrevious: () => void;
   onNext: () => void;
   showPrevious: boolean;
   showNext: boolean;
-  answers: Record<number, number>;
+  answers: Record<number, string | number | number[] | null>;
 }
 
 export const QuestionSection = ({ 
@@ -57,7 +58,7 @@ export const QuestionSection = ({
               key={index}
               question={question}
               questionIndex={index}
-              onSelect={(points) => onOptionSelect(index, points)}
+              onSelect={(value) => onOptionSelect(index, value)}
               selectedValue={answers[index]}
             />
           ))}
