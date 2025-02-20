@@ -78,9 +78,7 @@ export const Footer = () => {
             <a href="#" className="hover:text-white transition-colors duration-200">
               Politique de confidentialité
             </a>
-            <a href="#" className="hover:text-white transition-colors duration-200">
-              CGU
-            </a>
+            
           </div>
         </div>
       </div>
