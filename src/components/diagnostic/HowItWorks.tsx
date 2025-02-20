@@ -1,16 +1,17 @@
-
 import { motion } from 'framer-motion';
 import { useIsMobile } from "@/hooks/use-mobile";
-
 export const HowItWorks = () => {
   const isMobile = useIsMobile();
-  return <main className="container mx-auto max-w-4xl px-4 md:py-12 py-[35px]">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-8"
-      >
+  return <main className="container mx-auto max-w-4xl px-4 md:py-12 py-[80px]">
+      <motion.div initial={{
+      opacity: 0,
+      y: 20
+    }} animate={{
+      opacity: 1,
+      y: 0
+    }} transition={{
+      duration: 0.6
+    }} className="text-center mb-8">
         <h2 className="text-2xl md:text-[2.5rem] leading-tight text-gray-900">
           Les amateurs attendent les coworkers, <span className="story-link text-primary">les experts les attirent et les fidélisent</span>.
         </h2>
@@ -77,4 +78,3 @@ export const HowItWorks = () => {
       </div>
     </main>;
 };
-
