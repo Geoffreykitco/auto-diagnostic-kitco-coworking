@@ -1,12 +1,7 @@
 
 import { useEffect } from "react";
-import { sections } from "@/data/sections";
-import { useToast } from "@/hooks/use-toast";
-import { GlobalScore } from "./sections/GlobalScore";
-import { SectionScore } from "./sections/SectionScore";
-import { AuditForm } from "./sections/AuditForm";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
-import { calculateSectionScore, getGlobalAnalysis, getSectionAnalysis, getSectionLevel } from "@/utils/diagnosticUtils";
+import { AuditForm } from "./sections/AuditForm";
 
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
@@ -21,15 +16,6 @@ export const ResultsAnalysis = ({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const sectionsToAnalyze = ['acquisition', 'activation', 'retention', 'revenus', 'recommandation'];
-  const sectionWeights = {
-    acquisition: 0.25,
-    activation: 0.25,
-    retention: 0.20,
-    revenus: 0.15,
-    recommandation: 0.15
-  };
-
   const steps = [
     { id: 'informations', label: 'Informations' },
     { id: 'acquisition', label: 'Acquisition - Attirer les coworkers' },
@@ -37,15 +23,10 @@ export const ResultsAnalysis = ({
     { id: 'retention', label: 'Rétention - Fidéliser vos membres' },
     { id: 'revenus', label: 'Revenus - Générer et optimiser les revenus' },
     { id: 'recommandation', label: 'Recommandation - Développer le bouche à oreille' },
-    { id: 'resultats', label: 'Résultat diagnostique' }
+    { id: 'resultats', label: 'Formulaire de contact' }
   ];
 
   const currentStep = steps[steps.length - 1];
-
-  const globalScore = sectionsToAnalyze.reduce((sum, section) => {
-    const sectionScore = calculateSectionScore(answers[section], section);
-    return sum + (sectionScore * sectionWeights[section as keyof typeof sectionWeights]);
-  }, 0);
 
   const saveToBaserow = async (formData: {
     firstName: string;
@@ -56,15 +37,6 @@ export const ResultsAnalysis = ({
   }) => {
     try {
       const diagnosticData = {
-        global_score: Math.round(globalScore),
-        global_level: getSectionLevel(globalScore),
-        global_analysis: getGlobalAnalysis(globalScore),
-        sections: sectionsToAnalyze.map(sectionName => ({
-          name: sections[sectionName].title,
-          score: Math.round(calculateSectionScore(answers[sectionName], sectionName)),
-          level: getSectionLevel(calculateSectionScore(answers[sectionName], sectionName)),
-          analysis: getSectionAnalysis(sectionName, calculateSectionScore(answers[sectionName], sectionName))
-        })),
         created_at: new Date().toISOString(),
         first_name: formData.firstName,
         last_name: formData.lastName,
@@ -82,21 +54,21 @@ export const ResultsAnalysis = ({
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save diagnostic results');
+        throw new Error('Failed to save form results');
       }
 
       toast({
-        title: "Audit envoyé !",
-        description: "Vous recevrez votre audit par email dans quelques instants.",
+        title: "Formulaire envoyé !",
+        description: "Vous recevrez une réponse par email dans les plus brefs délais.",
         duration: 3000,
       });
 
-      console.log('Diagnostic results saved successfully');
+      console.log('Form results saved successfully');
     } catch (error) {
-      console.error('Error saving diagnostic results:', error);
+      console.error('Error saving form results:', error);
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi de l'audit.",
+        description: "Une erreur est survenue lors de l'envoi du formulaire.",
         duration: 3000,
       });
     }
@@ -108,42 +80,10 @@ export const ResultsAnalysis = ({
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
-      <GlobalScore 
-        score={globalScore}
-        level={getSectionLevel(globalScore)}
-        analysis={getGlobalAnalysis(globalScore)}
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {sectionsToAnalyze.map((sectionName, index) => {
-          const score = Math.round(calculateSectionScore(answers[sectionName], sectionName));
-          if (index === sectionsToAnalyze.length - 1) {
-            return (
-              <>
-                <SectionScore
-                  key={sectionName}
-                  title={sections[sectionName].title}
-                  score={score}
-                  level={getSectionLevel(score)}
-                  analysis={getSectionAnalysis(sectionName, score)}
-                  index={index}
-                />
-                <AuditForm onSubmit={saveToBaserow} />
-              </>
-            );
-          }
-          return (
-            <SectionScore
-              key={sectionName}
-              title={sections[sectionName].title}
-              score={score}
-              level={getSectionLevel(score)}
-              analysis={getSectionAnalysis(sectionName, score)}
-              index={index}
-            />
-          );
-        })}
+      <div className="max-w-2xl mx-auto">
+        <AuditForm onSubmit={saveToBaserow} />
       </div>
     </div>
   );
 };
+
