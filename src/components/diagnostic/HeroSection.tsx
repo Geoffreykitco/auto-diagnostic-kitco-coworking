@@ -28,25 +28,25 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
           className="flex justify-center mb-8 px-4"
         >
           <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] relative">
-            <img 
-              src={IMAGES.LOGO.HEADER}
-              alt="Kitco Logo" 
-              className="w-full h-full object-contain"
-              loading="eager"
-              onError={() => {
-                console.error('Image loading error:', IMAGES.LOGO.HEADER);
-                toast({
-                  title: "Erreur de chargement",
-                  description: "L'image du header n'a pas pu être chargée",
-                  variant: "destructive"
-                });
-                setImgError(true);
-              }}
-              style={{ display: imgError ? 'none' : 'block' }}
-            />
-            {imgError && (
-              <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-md">
-                <span className="text-gray-500">KITCO</span>
+            {!imgError ? (
+              <img 
+                src={IMAGES.LOGO.HEADER}
+                alt="Kitco - Des coworkings bien pensés" 
+                className="w-full h-full object-contain"
+                loading="eager"
+                onError={() => {
+                  console.error('Image loading error:', IMAGES.LOGO.HEADER);
+                  setImgError(true);
+                  toast({
+                    title: "Note",
+                    description: "Un problème est survenu lors du chargement du logo",
+                    variant: "default"
+                  });
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-white/90 rounded-lg border-2 border-primary/20">
+                <span className="text-xl md:text-2xl font-bold text-primary">KITCO</span>
               </div>
             )}
           </div>

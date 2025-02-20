@@ -1,7 +1,7 @@
 
 export const IMAGES = {
   LOGO: {
-    HEADER: '/logo-kitco.png',
-    FOOTER: '/logo-kitco.png'
+    HEADER: '/kitco-logo.svg',
+    FOOTER: '/kitco-logo.svg'
   }
 } as const;
