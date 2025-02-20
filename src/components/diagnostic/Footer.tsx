@@ -18,7 +18,7 @@ export const Footer = () => {
   }} transition={{
     duration: 0.5
   }} className="w-full bg-primary/80 text-white backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto py-[20px] px-[20px]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo Section */}
           <div className="flex flex-col items-center md:items-start space-y-4">
