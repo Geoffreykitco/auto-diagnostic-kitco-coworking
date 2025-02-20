@@ -32,9 +32,10 @@ export const Footer = () => {
               className="w-full h-full object-contain"
               loading="eager"
               onError={(e) => {
-                console.error('Image loading error details:', {
+                console.error('Image loading error detailed:', {
                   src: (e.target as HTMLImageElement).src,
-                  error: e
+                  currentPath: IMAGES.LOGO.FOOTER,
+                  timestamp: new Date().toISOString()
                 });
                 setImgError(true);
                 toast({
