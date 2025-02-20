@@ -19,7 +19,7 @@ export const Footer = () => {
     y: 0
   }} transition={{
     duration: 0.5
-  }} className="w-full bg-primary/80 text-white backdrop-blur-sm">
+  }} className="w-full bg-primary/80 text-white backdrop-blur-sm rounded-t-xl">
       <div className="container mx-auto py-8 px-[20px]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo Section */}
