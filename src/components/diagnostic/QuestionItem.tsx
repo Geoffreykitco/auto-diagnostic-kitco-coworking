@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { QuestionTitle } from "./question/QuestionTitle";
 import { TextInput } from "./question/TextInput";
 import { OptionButton } from "./question/OptionButton";
-import { useQuestionState } from "./question/useQuestionState";
 import type { QuestionItemProps } from "./question/types";
 
 export const QuestionItem = ({
@@ -12,22 +11,39 @@ export const QuestionItem = ({
   onSelect,
   selectedValue,
 }: QuestionItemProps) => {
-  const { handleOptionSelect, isOptionSelected } = useQuestionState(question, selectedValue);
-
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-
+    const value = e.target.value;
     if (question.question.toLowerCase().includes("pourcentage") || 
         question.question.toLowerCase().includes("remplissage")) {
+      // Pour les champs numériques (pourcentages)
       const numericValue = value.replace(/[^0-9]/g, '');
-      
       let number = parseInt(numericValue);
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
-      
       onSelect(number);
     } else {
-      onSelect(0);
+      // Pour les champs texte
+      onSelect(0); // On garde 0 comme valeur par défaut pour maintenir la compatibilité
+    }
+  };
+
+  const handleOptionSelect = (points: number) => {
+    if (question.type === 'multiple') {
+      // Pour les questions à choix multiples, on peut sélectionner/désélectionner
+      onSelect(points);
+    } else {
+      // Pour les questions à choix unique, on sélectionne/désélectionne
+      onSelect(selectedValue === points ? 0 : points);
+    }
+  };
+
+  const isOptionSelected = (points: number): boolean => {
+    if (question.type === 'multiple') {
+      // Pour les choix multiples, vérifie si l'option est dans la sélection
+      return (selectedValue & points) === points;
+    } else {
+      // Pour les choix uniques, vérifie si c'est l'option sélectionnée
+      return selectedValue === points;
     }
   };
 
@@ -62,7 +78,7 @@ export const QuestionItem = ({
               key={optionIndex}
               label={option.label}
               isSelected={isOptionSelected(option.points)}
-              onClick={() => handleOptionSelect(option.points, onSelect)}
+              onClick={() => handleOptionSelect(option.points)}
             />
           ))}
         </div>
