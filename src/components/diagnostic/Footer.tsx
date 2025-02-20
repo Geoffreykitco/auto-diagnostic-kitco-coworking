@@ -1,10 +1,8 @@
-
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
 import { useState, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Separator } from "@/components/ui/separator";
-
 export const Footer = () => {
   const [imgError, setImgError] = useState(false);
   useEffect(() => {
@@ -76,9 +74,7 @@ export const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-white/80">
           <p>&copy; {currentYear} KITCO. Tous droits réservés.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors duration-200">
-              Mentions légales
-            </a>
+            
             <a href="#" className="hover:text-white transition-colors duration-200">
               Politique de confidentialité
             </a>
