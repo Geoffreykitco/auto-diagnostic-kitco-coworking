@@ -1,8 +1,10 @@
+
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
 import { useState, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Separator } from "@/components/ui/separator";
+
 export const Footer = () => {
   const [imgError, setImgError] = useState(false);
   useEffect(() => {
@@ -18,7 +20,7 @@ export const Footer = () => {
   }} transition={{
     duration: 0.5
   }} className="w-full bg-primary/80 text-white backdrop-blur-sm">
-      <div className="container mx-auto py-[20px] px-[20px]">
+      <div className="container mx-auto py-8 px-[20px]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo Section */}
           <div className="flex flex-col items-center md:items-start space-y-4">
@@ -74,11 +76,9 @@ export const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-white/80">
           <p>&copy; {currentYear} KITCO. Tous droits réservés.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            
             <a href="#" className="hover:text-white transition-colors duration-200">
               Politique de confidentialité
             </a>
-            
           </div>
         </div>
       </div>
