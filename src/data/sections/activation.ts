@@ -1,3 +1,4 @@
+
 import { Question } from "@/components/diagnostic/question/types";
 
 export const activationSection = {

@@ -23,27 +23,32 @@ export const QuestionItem = ({
       onSelect(number);
     } else {
       // Pour les champs texte
-      onSelect(0); // On garde 0 comme valeur par défaut pour maintenir la compatibilité
+      onSelect(value);
     }
   };
 
-  const handleOptionSelect = (points: number) => {
+  const handleOptionSelect = (optionIndex: number) => {
     if (question.type === 'multiple') {
       // Pour les questions à choix multiples, on peut sélectionner/désélectionner
-      onSelect(points);
+      const newSelection = typeof selectedValue === 'object' ? [...selectedValue] : [];
+      const index = newSelection.indexOf(optionIndex);
+      if (index === -1) {
+        newSelection.push(optionIndex);
+      } else {
+        newSelection.splice(index, 1);
+      }
+      onSelect(newSelection);
     } else {
       // Pour les questions à choix unique, on sélectionne/désélectionne
-      onSelect(selectedValue === points ? 0 : points);
+      onSelect(selectedValue === optionIndex ? null : optionIndex);
     }
   };
 
-  const isOptionSelected = (points: number): boolean => {
+  const isOptionSelected = (optionIndex: number): boolean => {
     if (question.type === 'multiple') {
-      // Pour les choix multiples, vérifie si l'option est dans la sélection
-      return (selectedValue & points) === points;
+      return Array.isArray(selectedValue) && selectedValue.includes(optionIndex);
     } else {
-      // Pour les choix uniques, vérifie si c'est l'option sélectionnée
-      return selectedValue === points;
+      return selectedValue === optionIndex;
     }
   };
 
@@ -77,8 +82,8 @@ export const QuestionItem = ({
             <OptionButton
               key={optionIndex}
               label={option.label}
-              isSelected={isOptionSelected(option.points)}
-              onClick={() => handleOptionSelect(option.points)}
+              isSelected={isOptionSelected(optionIndex)}
+              onClick={() => handleOptionSelect(optionIndex)}
             />
           ))}
         </div>

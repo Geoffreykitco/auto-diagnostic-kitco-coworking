@@ -1,7 +1,7 @@
 
 export interface Option {
   readonly label: string;
-  readonly points: number;
+  readonly points?: number; // On garde points optionnel pour la compatibilité mais on ne l'utilise plus
 }
 
 export type QuestionType = 'single' | 'multiple' | 'text';
@@ -16,6 +16,6 @@ export interface Question {
 export interface QuestionItemProps {
   question: Question;
   questionIndex: number;
-  onSelect: (points: number) => void;
-  selectedValue?: number;
+  onSelect: (value: string | number | number[] | null) => void;
+  selectedValue?: string | number | number[] | null;
 }
