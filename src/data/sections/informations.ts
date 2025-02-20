@@ -1,4 +1,3 @@
-
 import { Question } from "@/components/diagnostic/question/types";
 
 export const informationsSection = {
@@ -9,6 +8,7 @@ export const informationsSection = {
       question: "Depuis combien de temps votre espace de coworking est-il ouvert ?",
       tooltip: "L'ancienneté permet d'évaluer votre positionnement sur le marché et votre maturité opérationnelle.",
       type: "single" as const,
+      isInformative: true,
       options: [
         { label: "Moins de 6 mois", points: 0 },
         { label: "6 mois à 1 an", points: 0 },
@@ -20,6 +20,7 @@ export const informationsSection = {
       question: "Quels types de bureaux proposez-vous ?",
       tooltip: "L'offre de bureaux influence votre clientèle cible et votre stratégie de commercialisation.",
       type: "multiple",
+      isInformative: true,
       options: [
         { label: "Bureaux partagés", points: 0 },
         { label: "Bureaux privés", points: 0 },
@@ -30,6 +31,7 @@ export const informationsSection = {
       question: "Quels types d'abonnement proposez-vous ?",
       tooltip: "Un choix flexible d'abonnements permet d'attirer différents profils de clients et d'optimiser le taux d'occupation.",
       type: "multiple",
+      isInformative: true,
       options: [
         { label: "Abonnement mensuel", points: 0 },
         { label: "Abonnement annuel", points: 0 },
@@ -41,6 +43,7 @@ export const informationsSection = {
       question: "Quel est le statut de votre espace de coworking ?",
       tooltip: "Le statut de propriété influe sur vos coûts fixes et votre capacité d'investissement à long terme.",
       type: "single",
+      isInformative: true,
       options: [
         { label: "Propriétaire", points: 0 },
         { label: "Locataire", points: 0 },
@@ -51,6 +54,7 @@ export const informationsSection = {
       question: "Quelle est la superficie totale de votre espace de coworking ?",
       tooltip: "La taille de votre espace impacte vos coûts d'exploitation et votre capacité à accueillir des membres.",
       type: "single",
+      isInformative: true,
       options: [
         { label: "Moins de 100 m²", points: 0 },
         { label: "100 à 300 m²", points: 0 },
@@ -62,6 +66,7 @@ export const informationsSection = {
       question: "Avez-vous d'autres espaces de coworking concurrents à proximité ?",
       tooltip: "Analyser la concurrence locale permet d'ajuster votre positionnement et votre stratégie de différenciation.",
       type: "single",
+      isInformative: true,
       options: [
         { label: "Oui, plusieurs dans un rayon de 1 km", points: 0 },
         { label: "Oui, quelques-uns dans ma ville", points: 0 },
@@ -73,6 +78,7 @@ export const informationsSection = {
       question: "Combien de coworkers peut accueillir votre coworking ?",
       tooltip: "La capacité d'accueil est un indicateur clé pour évaluer votre potentiel de croissance et votre rentabilité.",
       type: "single",
+      isInformative: true,
       options: [
         { label: "Moins de 10", points: 0 },
         { label: "10 à 30", points: 0 },
@@ -85,12 +91,14 @@ export const informationsSection = {
       question: "Dans quelle ville est situé votre espace de coworking ?",
       tooltip: "La localisation influence fortement l'attractivité et le type de clientèle que vous attirez.",
       type: "text",
+      isInformative: true,
       options: []
     },
     {
       question: "Quels sont les horaires d'ouverture de votre espace ?",
       tooltip: "Les horaires d'ouverture influencent l'accessibilité et le type de clientèle attiré.",
       type: "single",
+      isInformative: true,
       options: [
         { label: "Lundi au Vendredi - Horaires de bureau", points: 0 },
         { label: "Ouvert 7J/7 - Horaires de bureau", points: 0 },
@@ -101,12 +109,14 @@ export const informationsSection = {
       question: "Quel est votre pourcentage moyen de remplissage ? (en %)",
       tooltip: "Le taux d'occupation est un indicateur clé de la performance et de l'attractivité de votre espace.",
       type: "text",
+      isInformative: true,
       options: []
     },
     {
       question: "Quel est le type de clientèle majoritaire dans votre espace ?",
       tooltip: "Identifier votre clientèle cible permet d'adapter votre offre et votre communication pour mieux répondre aux attentes des membres.",
       type: "multiple",
+      isInformative: true,
       options: [
         { label: "Freelances et indépendants", points: 0 },
         { label: "Startups et PME", points: 0 },
@@ -118,6 +128,7 @@ export const informationsSection = {
       question: "Quels services proposez-vous dans votre espace ?",
       tooltip: "Des services variés améliorent l'expérience client et favorisent la rétention des membres.",
       type: "multiple",
+      isInformative: true,
       options: [
         { label: "Phone box", points: 0 },
         { label: "Salle de repos", points: 0 },

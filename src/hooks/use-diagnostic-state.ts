@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
+import { Answer } from '@/components/diagnostic/question/types';
 
 type SectionType = 'informations' | 'acquisition' | 'activation' | 'retention' | 'revenus' | 'recommandation' | 'resultats';
 
@@ -13,13 +14,19 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
   const [currentSection, setCurrentSection] = useState<SectionType>('informations');
-  const [answers, setAnswers] = useState<Record<string, Record<number, number>>>({});
+  const [answers, setAnswers] = useState<Record<string, Record<number, Answer>>>({});
 
-  const calculateProgress = useCallback((newAnswers: Record<string, Record<number, number>>) => {
-    const totalQuestions = Object.values(sections).reduce((sum, section) => sum + section.questions.length, 0);
-    const answeredQuestions = Object.values(newAnswers).reduce((sum, sectionAnswers) => {
-      return sum + Object.keys(sectionAnswers).length;
+  const calculateProgress = useCallback((newAnswers: Record<string, Record<number, Answer>>) => {
+    const totalQuestions = Object.values(sections).reduce((sum, section) => 
+      sum + section.questions.filter(q => !q.isInformative).length, 0);
+    
+    const answeredQuestions = Object.entries(newAnswers).reduce((sum, [sectionKey, sectionAnswers]) => {
+      const section = sections[sectionKey as keyof typeof sections];
+      return sum + Object.entries(sectionAnswers).filter(([questionIndex]) => 
+        !section.questions[parseInt(questionIndex)].isInformative
+      ).length;
     }, 0);
+    
     return (answeredQuestions / totalQuestions) * 100;
   }, []);
 
@@ -33,13 +40,18 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     setStarted(true);
   }, [toast]);
 
-  const handleOptionSelect = useCallback((questionIndex: number, points: number) => {
+  const handleOptionSelect = useCallback((questionIndex: number, value: string | number | number[] | null) => {
     setAnswers(prev => {
+      const question = sections[currentSection].questions[questionIndex];
       const newAnswers = {
         ...prev,
         [currentSection]: {
           ...prev[currentSection],
-          [questionIndex]: points
+          [questionIndex]: {
+            value,
+            // On ne définit pas de score pour les questions informatives
+            ...(question.isInformative ? {} : { score: 0 }) // Le score sera calculé plus tard
+          }
         }
       };
       

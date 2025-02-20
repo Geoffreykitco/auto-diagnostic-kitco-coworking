@@ -5,6 +5,7 @@ import { QuestionItem } from "./QuestionItem";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Section } from "@/data/sections";
+import { Answer } from "./question/types";
 
 interface QuestionSectionProps {
   section: Section;
@@ -13,7 +14,7 @@ interface QuestionSectionProps {
   onNext: () => void;
   showPrevious: boolean;
   showNext: boolean;
-  answers: Record<number, string | number | number[] | null>;
+  answers: Record<number, Answer>;
 }
 
 export const QuestionSection = ({ 
@@ -59,7 +60,7 @@ export const QuestionSection = ({
               question={question}
               questionIndex={index}
               onSelect={(value) => onOptionSelect(index, value)}
-              selectedValue={answers[index]}
+              selectedValue={answers[index]?.value}
             />
           ))}
         </div>

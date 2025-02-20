@@ -1,7 +1,7 @@
 
 export interface Option {
   readonly label: string;
-  readonly points?: number; // On garde points optionnel pour la compatibilité mais on ne l'utilise plus
+  readonly points: number;
 }
 
 export type QuestionType = 'single' | 'multiple' | 'text';
@@ -11,6 +11,7 @@ export interface Question {
   readonly tooltip: string;
   readonly type: QuestionType;
   readonly options: readonly Option[];
+  readonly isInformative?: boolean; // Nouveau champ pour identifier les questions informatives
 }
 
 export interface QuestionItemProps {
@@ -19,3 +20,9 @@ export interface QuestionItemProps {
   onSelect: (value: string | number | number[] | null) => void;
   selectedValue?: string | number | number[] | null;
 }
+
+export interface Answer {
+  value: string | number | number[] | null;
+  score?: number; // undefined pour les questions informatives
+}
+
