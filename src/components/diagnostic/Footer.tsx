@@ -1,11 +1,15 @@
 
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 
 export const Footer = () => {
   const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    console.log("Current footer image path:", IMAGES.LOGO.FOOTER);
+  }, []);
 
   return (
     <motion.footer 
@@ -27,8 +31,11 @@ export const Footer = () => {
               alt="KITCO - Des coworkings bien pensés" 
               className="w-full h-full object-contain"
               loading="eager"
-              onError={() => {
-                console.error('Image loading error:', IMAGES.LOGO.FOOTER);
+              onError={(e) => {
+                console.error('Image loading error details:', {
+                  src: (e.target as HTMLImageElement).src,
+                  error: e
+                });
                 setImgError(true);
                 toast({
                   title: "Note",
