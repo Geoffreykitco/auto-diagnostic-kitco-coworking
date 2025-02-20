@@ -19,13 +19,13 @@ export const Footer = () => {
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.3 }}
-          className="h-24 mb-4 relative"
+          className="w-[280px] md:w-[400px] h-[100px] md:h-[140px] relative"
         >
           {!imgError ? (
             <img 
               src={IMAGES.LOGO.FOOTER}
               alt="KITCO - Des coworkings bien pensés" 
-              className="h-full w-auto object-contain"
+              className="w-full h-full object-contain"
               loading="eager"
               onError={() => {
                 console.error('Image loading error:', IMAGES.LOGO.FOOTER);
@@ -38,8 +38,8 @@ export const Footer = () => {
               }}
             />
           ) : (
-            <div className="h-full flex items-center justify-center bg-white/90 rounded-lg border-2 border-primary/20 px-6">
-              <span className="text-xl font-bold text-primary">KITCO</span>
+            <div className="w-full h-full flex items-center justify-center bg-white/90 rounded-lg border-2 border-primary/20">
+              <span className="text-xl md:text-2xl font-bold text-primary">KITCO</span>
             </div>
           )}
         </motion.div>
