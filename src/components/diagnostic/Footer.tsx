@@ -1,8 +1,10 @@
+
 import { motion } from 'framer-motion';
 import { IMAGES } from '@/utils/constants';
 import { useState, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Separator } from "@/components/ui/separator";
+
 export const Footer = () => {
   const [imgError, setImgError] = useState(false);
   useEffect(() => {
@@ -17,7 +19,7 @@ export const Footer = () => {
     y: 0
   }} transition={{
     duration: 0.5
-  }} className="w-full bg-[#1A1F2C] text-white">
+  }} className="w-full bg-primary text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo Section */}
