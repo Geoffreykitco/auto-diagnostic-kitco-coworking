@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -127,8 +126,7 @@ export const ResultsAnalysis = ({
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
           <div className="rounded-lg h-full">
-            <AuditHeader />
-            <CTACard globalScore={globalScore} />
+            <AuditHeader globalScore={globalScore} />
           </div>
         </div>
       </div>

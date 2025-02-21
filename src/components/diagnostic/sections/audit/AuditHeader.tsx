@@ -1,9 +1,14 @@
 
 import { motion } from 'framer-motion';
+import { CTACard } from "../../results/CTACard";
 
-export const AuditHeader = () => {
+interface AuditHeaderProps {
+  globalScore: number;
+}
+
+export const AuditHeader = ({ globalScore }: AuditHeaderProps) => {
   return (
-    <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+    <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg space-y-6">
       <div className="text-center space-y-4">
         <h2 className="text-xl md:text-2xl font-semibold">
           Augmentez le taux de remplissage de votre espace de coworking
@@ -15,6 +20,7 @@ export const AuditHeader = () => {
           </p>
         </div>
       </div>
+      <CTACard globalScore={globalScore} />
     </div>
   );
 };
