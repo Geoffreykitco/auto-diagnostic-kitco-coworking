@@ -5,8 +5,18 @@ import { sections } from "@/data/sections";
 import { Answer } from "@/components/diagnostic/question/types";
 
 export const DiagnosticPage = () => {
-  const [currentSection] = useState("informations");
+  const [currentSection, setCurrentSection] = useState("informations");
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
+
+  const sectionOrder = [
+    "informations",
+    "acquisition",
+    "activation",
+    "retention",
+    "revenus",
+    "recommandation",
+    "resultats"
+  ];
 
   const handleOptionSelect = (questionIndex: number, value: string | number | number[] | null) => {
     setAnswers(prev => ({
@@ -19,14 +29,25 @@ export const DiagnosticPage = () => {
   };
 
   const handlePrevious = () => {
-    // À implémenter pour la navigation entre sections
-    console.log("Previous clicked");
+    const currentIndex = sectionOrder.indexOf(currentSection);
+    if (currentIndex > 0) {
+      setCurrentSection(sectionOrder[currentIndex - 1]);
+      // Scroll to top for better UX
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleNext = () => {
-    // À implémenter pour la navigation entre sections
-    console.log("Next clicked");
+    const currentIndex = sectionOrder.indexOf(currentSection);
+    if (currentIndex < sectionOrder.length - 1) {
+      setCurrentSection(sectionOrder[currentIndex + 1]);
+      // Scroll to top for better UX
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
+
+  const showPrevious = sectionOrder.indexOf(currentSection) > 0;
+  const showNext = sectionOrder.indexOf(currentSection) < sectionOrder.length - 1;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -35,8 +56,8 @@ export const DiagnosticPage = () => {
         onOptionSelect={handleOptionSelect}
         onPrevious={handlePrevious}
         onNext={handleNext}
-        showPrevious={false} // Première section, pas de retour possible
-        showNext={true}
+        showPrevious={showPrevious}
+        showNext={showNext}
         answers={answers}
       />
     </div>
