@@ -1,117 +1,46 @@
-
 import { motion } from 'framer-motion';
-import { Input } from "@/components/ui/input";
+import { CardStack } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { useState } from "react";
+import { AuditHeader } from "./AuditHeader";
 
-interface AuditFormContentProps {
-  fullName: string;
-  coworkingName: string;
-  email: string;
-  isSubmitting: boolean;
-  onFullNameChange: (value: string) => void;
-  onCoworkingNameChange: (value: string) => void;
-  onEmailChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent) => Promise<void>;
-}
-
-export const AuditFormContent = ({
-  fullName,
-  coworkingName,
-  email,
-  isSubmitting,
-  onFullNameChange,
-  onCoworkingNameChange,
-  onEmailChange,
-  onSubmit
-}: AuditFormContentProps) => {
+export const AuditFormContent = () => {
   return (
-    <form 
-      onSubmit={onSubmit} 
-      className="space-y-4 flex-1 flex flex-col"
-      aria-label="Formulaire de demande d'audit"
-    >
-      <div className="flex-1 space-y-4" role="group" aria-label="Informations personnelles">
-        <div>
-          <label 
-            htmlFor="fullName" 
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Prénom et nom
-          </label>
-          <Input
-            id="fullName"
-            name="fullName"
-            type="text"
-            value={fullName}
-            onChange={(e) => onFullNameChange(e.target.value)}
-            className="text-sm md:text-base"
-            required
-            disabled={isSubmitting}
-            aria-label="Prénom et nom"
-            aria-required="true"
-            aria-invalid={fullName.length === 0 ? "true" : "false"}
-            placeholder="John Doe"
-          />
+    <div className="max-w-3xl mx-auto px-4">
+      <div className="space-y-8">
+        <div className="bg-white rounded-lg p-6">
+          <div className="text-center space-y-4">
+            <h2 className="text-xl md:text-2xl font-semibold">
+              Augmentez le taux de remplissage de votre espace de coworking
+            </h2>
+            <div className="space-y-3">
+              <p className="text-gray-600 text-sm md:text-base">
+                Vous avez maintenant une vision claire de la performance de votre espace de coworking. 
+                Mais comment transformer ces signaux en un plan d'action concret ?
+              </p>
+            </div>
+          </div>
         </div>
+        
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-semibold">Evaluez votre espace de coworking</h3>
+            <p className="text-gray-500">
+              Répondez aux questions suivantes pour obtenir une analyse personnalisée de votre espace.
+            </p>
+          </div>
 
-        <div>
-          <label 
-            htmlFor="coworkingName" 
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Nom du coworking
-          </label>
-          <Input
-            id="coworkingName"
-            name="coworkingName"
-            type="text"
-            value={coworkingName}
-            onChange={(e) => onCoworkingNameChange(e.target.value)}
-            className="text-sm md:text-base"
-            required
-            disabled={isSubmitting}
-            aria-label="Nom du coworking"
-            aria-required="true"
-            aria-invalid={coworkingName.length === 0 ? "true" : "false"}
-            placeholder="MonCoworking"
-          />
-        </div>
-
-        <div>
-          <label 
-            htmlFor="email" 
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Email
-          </label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => onEmailChange(e.target.value)}
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            className="text-sm md:text-base"
-            required
-            disabled={isSubmitting}
-            aria-label="Adresse email"
-            aria-required="true"
-            aria-invalid={!email.includes('@') ? "true" : "false"}
-            placeholder="john@moncoworking.com"
-          />
+          <CardStack>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <p>Question 1</p>
+                <p className="text-gray-500">0%</p>
+              </div>
+              <Progress value={0} />
+            </div>
+          </CardStack>
         </div>
       </div>
-
-      <motion.button
-        whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-        whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-        transition={{ duration: 0.2 }}
-        type="submit"
-        className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
-        disabled={isSubmitting}
-        aria-busy={isSubmitting}
-      >
-        {isSubmitting ? "Envoi en cours..." : "Recevoir mon audit"}
-      </motion.button>
-    </form>
+    </div>
   );
 };
