@@ -1,33 +1,31 @@
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { AuditForm } from "../sections/AuditForm";
-import { ArrowRight } from "lucide-react";
+
 interface CTACardProps {
   globalScore: number;
 }
+
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
-  const {
-    toast
-  } = useToast();
-  return <>
-      <motion.div initial={{
-      opacity: 0,
-      x: -20
-    }} animate={{
-      opacity: 1,
-      x: 0
-    }} transition={{
-      duration: 0.3
-    }} className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+  const { toast } = useToast();
+
+  return (
+    <>
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg"
+      >
         <div className="space-y-6">
           <div>
             <h3 className="font-semibold text-primary mb-3 text-2xl text-center">Envie d'augmenter le taux de remplissage de votre coworking ? </h3>
-            <p className="text-gray-600 leading-relaxed mb-4 text-center text-sm">Vous avez maintenant une vision claire de la performance de votre espace de coworking. Transformez ces insights en résultats concrets.</p>
-            <button className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-md text-sm transition-colors">
+            <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center">-Vous avez maintenant une vision claire de la performance de votre espace de coworking.
+Transformez ces insights en résultats concrets. </p>
+            <button className="px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-md text-sm transition-colors">
               Recevoir mon audit et mon plan d'action
-              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
           
@@ -74,7 +72,6 @@ export const CTACard = ({
         </div>
       </motion.div>
 
-      {/* Timeline horizontale */}
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -90,5 +87,6 @@ export const CTACard = ({
           {["J'identifie mes axes d'améliorations", "Je réalise un plan d'action", "Je passe à l'action", "Je développe mon coworking"].map((step, index) => {})}
         </div>
       </motion.div>
-    </>;
+    </>
+  );
 };
