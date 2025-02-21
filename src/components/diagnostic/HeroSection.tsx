@@ -1,16 +1,11 @@
 
 import { motion } from 'framer-motion';
-import { IMAGES } from '@/utils/constants';
-import { useState } from 'react';
-import { toast } from '@/components/ui/use-toast';
 
 interface HeroSectionProps {
   onStart: () => void;
 }
 
 export const HeroSection = ({ onStart }: HeroSectionProps) => {
-  const [imgError, setImgError] = useState(false);
-
   return (
     <section className="hero-pattern relative py-20 px-4 overflow-hidden">
       <motion.div 
@@ -27,28 +22,8 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-8 px-4"
         >
-          <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] relative">
-            {!imgError ? (
-              <img 
-                src={IMAGES.LOGO.HEADER}
-                alt="Kitco - Des coworkings bien pensés" 
-                className="w-full h-full object-contain"
-                loading="eager"
-                onError={() => {
-                  console.error('Image loading error:', IMAGES.LOGO.HEADER);
-                  setImgError(true);
-                  toast({
-                    title: "Note",
-                    description: "Un problème est survenu lors du chargement du logo",
-                    variant: "default"
-                  });
-                }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-white/90 rounded-lg border-2 border-primary/20">
-                <span className="text-xl md:text-2xl font-bold text-primary">KITCO</span>
-              </div>
-            )}
+          <div className="text-4xl md:text-5xl font-bold text-primary">
+            KITCO
           </div>
         </motion.div>
 
