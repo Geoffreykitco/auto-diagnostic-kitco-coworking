@@ -11,7 +11,7 @@ export interface Question {
   readonly tooltip: string;
   readonly type: QuestionType;
   readonly options: readonly Option[];
-  readonly isInformative?: boolean; // Nouveau champ pour identifier les questions informatives
+  readonly isInformative?: boolean;
 }
 
 export interface QuestionItemProps {
@@ -23,6 +23,5 @@ export interface QuestionItemProps {
 
 export interface Answer {
   value: string | number | number[] | null;
-  score?: number; // undefined pour les questions informatives
+  score: number; // Le score calculé pour cette réponse
 }
-

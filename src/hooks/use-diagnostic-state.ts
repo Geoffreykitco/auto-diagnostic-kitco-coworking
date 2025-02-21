@@ -2,7 +2,7 @@
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
-import { Answer } from '@/components/diagnostic/question/types';
+import { Answer, Question } from '@/components/diagnostic/question/types';
 
 type SectionType = 'informations' | 'acquisition' | 'activation' | 'retention' | 'revenus' | 'recommandation' | 'resultats';
 
@@ -15,6 +15,30 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [started, setStarted] = useState(false);
   const [currentSection, setCurrentSection] = useState<SectionType>('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, Answer>>>({});
+
+  const calculateScore = (question: Question, value: string | number | number[] | null): number => {
+    if (question.isInformative) return 0;
+    
+    if (question.type === 'text') {
+      // Pour les questions de type texte, pas de points
+      return 0;
+    } else if (question.type === 'single') {
+      // Pour les questions à choix unique, retourner les points de l'option sélectionnée
+      if (typeof value === 'number') {
+        return question.options[value]?.points || 0;
+      }
+      return 0;
+    } else if (question.type === 'multiple') {
+      // Pour les questions à choix multiples, sommer les points des options sélectionnées
+      if (Array.isArray(value)) {
+        return value.reduce((total, optionIndex) => {
+          return total + (question.options[optionIndex]?.points || 0);
+        }, 0);
+      }
+      return 0;
+    }
+    return 0;
+  };
 
   const calculateProgress = useCallback((newAnswers: Record<string, Record<number, Answer>>) => {
     const totalQuestions = Object.values(sections).reduce((sum, section) => 
@@ -43,14 +67,15 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const handleOptionSelect = useCallback((questionIndex: number, value: string | number | number[] | null) => {
     setAnswers(prev => {
       const question = sections[currentSection].questions[questionIndex];
+      const score = calculateScore(question, value);
+      
       const newAnswers = {
         ...prev,
         [currentSection]: {
           ...prev[currentSection],
           [questionIndex]: {
             value,
-            // On ne définit pas de score pour les questions informatives
-            ...(question.isInformative ? {} : { score: 0 }) // Le score sera calculé plus tard
+            score
           }
         }
       };
