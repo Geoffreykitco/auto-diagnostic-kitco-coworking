@@ -23,5 +23,5 @@ export interface QuestionItemProps {
 
 export interface Answer {
   value: string | number | number[] | null;
-  score: number;
+  score: number; // Le score calculé pour cette réponse
 }
