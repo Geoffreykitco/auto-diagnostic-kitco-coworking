@@ -75,24 +75,36 @@ export const ResultsAnalysis = ({
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
-        className="bg-gray-50 rounded-lg p-6 border border-gray-200 h-full"
+        className="bg-white rounded-lg p-6 border border-gray-200 h-full"
       >
-        <div className="flex items-start gap-3">
-          <ChartBar className="h-5 w-5 text-primary mt-1" />
-          <div>
-            <h4 className="text-lg font-semibold capitalize mb-2">
-              {section}
-            </h4>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="text-xl font-bold text-primary">
-                {sectionScore.score}%
-              </div>
-              <div className="text-sm font-medium px-3 py-1 rounded-full bg-primary/10 text-primary">
-                Niveau: {sectionScore.level}
-              </div>
-            </div>
-            <p className="text-sm text-gray-600">{sectionScore.message}</p>
+        <h4 className="text-lg font-semibold mb-4">
+          {section === 'revenus' ? 'Revenue' : section} - {
+            section === 'acquisition' ? "Attirer de nouveaux coworkers" :
+            section === 'activation' ? "Transformer les visiteurs en membres" :
+            section === 'retention' ? "Fidéliser ses membres sur le long terme" :
+            section === 'revenus' ? "Optimiser la rentabilité du coworking" :
+            "Clients à ambassadeurs"
+          }
+        </h4>
+        
+        <div className="space-y-2">
+          <div className="flex justify-between items-center text-sm text-gray-600 mb-1">
+            <span>Score</span>
+            <span className="font-medium">{sectionScore.score}%</span>
           </div>
+          <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+            <div 
+              className="bg-primary h-2 rounded-full transition-all duration-500"
+              style={{ width: `${sectionScore.score}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <div className="text-sm">
+            Niveau : <span className="font-medium">{sectionScore.level}</span> 😊
+          </div>
+          <p className="text-sm text-gray-600">{sectionScore.message}</p>
         </div>
       </motion.div>
     );
@@ -104,28 +116,34 @@ export const ResultsAnalysis = ({
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
-      <div className="space-y-8">
+      <div className="space-y-8 max-w-5xl mx-auto">
         {/* Résultat Global */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-xl shadow-lg p-8"
+          className="bg-white rounded-lg p-8 border border-gray-200"
         >
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <Award className="h-16 w-16 text-primary" />
-              <div className="absolute -top-2 -right-2 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                {globalScore}%
-              </div>
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-primary mb-3">
-                Résultat de votre diagnostic
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold">
+                Progression du diagnostic
               </h2>
-              <p className="text-lg text-gray-700">
-                {getGlobalMessage(globalScore)}
-              </p>
+              <span className="text-xl font-bold">{globalScore}%</span>
+            </div>
+
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div 
+                className="bg-primary h-2.5 rounded-full transition-all duration-500"
+                style={{ width: `${globalScore}%` }}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-sm">
+                Niveau : <span className="font-medium">Intermédiaire</span> 😊
+              </div>
+              <p className="text-gray-600">{getGlobalMessage(globalScore)}</p>
             </div>
           </div>
         </motion.div>
@@ -151,65 +169,53 @@ export const ResultsAnalysis = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-xl shadow-lg p-6"
+            className="bg-[#0B1A17] text-white rounded-lg p-6"
           >
-            <div className="flex justify-start mb-4">
-              <ArrowUp className="h-10 w-10 text-primary" />
+            <div className="flex items-center space-x-2 mb-4">
+              <Award className="h-6 w-6" />
+              <span className="font-medium">Recevoir mon audit et passer à l'action</span>
             </div>
+            
+            <AuditForm onSubmit={async (formData) => {
+              try {
+                const diagnosticData = {
+                  created_at: new Date().toISOString(),
+                  first_name: formData.firstName,
+                  last_name: formData.lastName,
+                  coworking_name: formData.coworkingName,
+                  email: formData.email,
+                  global_score: globalScore
+                };
 
-            <h3 className="text-2xl font-bold text-primary mb-4">
-              Augmentez votre taux de remplissage
-            </h3>
+                const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': 'Token 185511',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(diagnosticData)
+                });
 
-            <p className="text-gray-700 mb-6">
-              Découvrez comment optimiser chaque aspect de votre espace de coworking.
-            </p>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4">
-                Recevez votre audit détaillé
-              </h4>
-              <AuditForm onSubmit={async (formData) => {
-                try {
-                  const diagnosticData = {
-                    created_at: new Date().toISOString(),
-                    first_name: formData.firstName,
-                    last_name: formData.lastName,
-                    coworking_name: formData.coworkingName,
-                    email: formData.email,
-                    global_score: globalScore
-                  };
-
-                  const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
-                    method: 'POST',
-                    headers: {
-                      'Authorization': 'Token 185511',
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(diagnosticData)
-                  });
-
-                  if (!response.ok) {
-                    throw new Error('Failed to save form results');
-                  }
-
-                  toast({
-                    title: "Formulaire envoyé !",
-                    description: "Vous recevrez une réponse par email dans les plus brefs délais.",
-                    duration: 3000,
-                  });
-
-                  console.log('Form results saved successfully');
-                } catch (error) {
-                  console.error('Error saving form results:', error);
-                  toast({
-                    title: "Erreur",
-                    description: "Une erreur est survenue lors de l'envoi du formulaire.",
-                    duration: 3000,
-                  });
+                if (!response.ok) {
+                  throw new Error('Failed to save form results');
                 }
-              }} />
-            </div>
+
+                toast({
+                  title: "Formulaire envoyé !",
+                  description: "Vous recevrez une réponse par email dans les plus brefs délais.",
+                  duration: 3000,
+                });
+
+                console.log('Form results saved successfully');
+              } catch (error) {
+                console.error('Error saving form results:', error);
+                toast({
+                  title: "Erreur",
+                  description: "Une erreur est survenue lors de l'envoi du formulaire.",
+                  duration: 3000,
+                });
+              }
+            }} />
           </motion.div>
         </div>
       </div>
