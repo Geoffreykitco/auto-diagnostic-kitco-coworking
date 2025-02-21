@@ -1,108 +1,40 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Layout } from "@/components/layout/Layout";
-import { QuestionSection } from "@/components/diagnostic/QuestionSection";
-import { acquisitionSection } from "@/data/sections/acquisition";
-import { activationSection } from "@/data/sections/activation";
-import { retentionSection } from "@/data/sections/retention";
-import { revenusSection } from "@/data/sections/revenus";
-import { recommandationSection } from "@/data/sections/recommandation";
-import { resultatsSection } from "@/data/sections/resultats";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
+import { QuestionSection } from "@/components/diagnostic/QuestionSection";
+import { sections } from "@/data/sections";
+import { useDiagnosticState } from "@/hooks/use-diagnostic-state";
+import { useToast } from "@/hooks/use-toast";
 import "./App.css";
 
 export default function App() {
+  const { toast } = useToast();
+  const diagnostic = useDiagnosticState({ toast });
+
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route 
-            path="/diagnostic/acquisition" 
+          <Route
+            path="/diagnostic"
             element={
-              <QuestionSection 
-                section={acquisitionSection}
-                onOptionSelect={() => {}}
-                onPrevious={() => {}}
-                onNext={() => {}}
-                showPrevious={false}
+              <QuestionSection
+                section={sections[diagnostic.currentSection]}
+                onOptionSelect={diagnostic.handleOptionSelect}
+                onPrevious={diagnostic.handlePrevious}
+                onNext={diagnostic.handleNext}
+                showPrevious={diagnostic.currentSection !== 'informations'}
                 showNext={true}
-                answers={{}}
-              />
-            } 
-          />
-          <Route 
-            path="/diagnostic/activation" 
-            element={
-              <QuestionSection 
-                section={activationSection}
-                onOptionSelect={() => {}}
-                onPrevious={() => {}}
-                onNext={() => {}}
-                showPrevious={true}
-                showNext={true}
-                answers={{}}
+                answers={diagnostic.answers}
+                currentSection={diagnostic.currentSection}
               />
             }
           />
-          <Route 
-            path="/diagnostic/retention" 
-            element={
-              <QuestionSection 
-                section={retentionSection}
-                onOptionSelect={() => {}}
-                onPrevious={() => {}}
-                onNext={() => {}}
-                showPrevious={true}
-                showNext={true}
-                answers={{}}
-              />
-            }
-          />
-          <Route 
-            path="/diagnostic/revenus" 
-            element={
-              <QuestionSection 
-                section={revenusSection}
-                onOptionSelect={() => {}}
-                onPrevious={() => {}}
-                onNext={() => {}}
-                showPrevious={true}
-                showNext={true}
-                answers={{}}
-              />
-            }
-          />
-          <Route 
-            path="/diagnostic/recommandation" 
-            element={
-              <QuestionSection 
-                section={recommandationSection}
-                onOptionSelect={() => {}}
-                onPrevious={() => {}}
-                onNext={() => {}}
-                showPrevious={true}
-                showNext={true}
-                answers={{}}
-              />
-            }
-          />
-          <Route 
-            path="/diagnostic/resultats" 
-            element={
-              <QuestionSection 
-                section={resultatsSection}
-                onOptionSelect={() => {}}
-                onPrevious={() => {}}
-                onNext={() => {}}
-                showPrevious={true}
-                showNext={false}
-                answers={{}}
-              />
-            }
-          />
+          <Route path="/results-preview" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

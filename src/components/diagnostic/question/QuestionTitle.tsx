@@ -19,13 +19,13 @@ export const QuestionTitle = ({ question, tooltip }: QuestionTitleProps) => {
 
   return (
     <div className="flex gap-2.5 items-start mb-6">
-      <h3 className="text-lg font-medium flex-grow text-gray-900">
+      <h3 className="text-lg font-medium text-left text-gray-900">
         {question}
       </h3>
       <HoverCard open={isMobile ? isOpen : undefined}>
         <HoverCardTrigger asChild>
           <button 
-            className="p-1.5 hover:bg-gray-50 rounded-full transition-colors"
+            className="p-1.5 hover:bg-gray-50 rounded-full transition-colors flex-shrink-0"
             onClick={() => isMobile && setIsOpen(!isOpen)}
           >
             <Info className="h-[18px] w-[18px] text-gray-400" />
@@ -37,7 +37,7 @@ export const QuestionTitle = ({ question, tooltip }: QuestionTitleProps) => {
           align={isMobile ? "center" : "end"}
           side={isMobile ? "bottom" : "right"}
         >
-          <p className="text-sm text-gray-600">{tooltip}</p>
+          <p className="text-sm text-gray-600 text-left">{tooltip}</p>
         </HoverCardContent>
       </HoverCard>
     </div>

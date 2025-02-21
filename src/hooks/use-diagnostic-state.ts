@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
@@ -18,7 +19,10 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [sectionScores, setSectionScores] = useState<Record<string, { level: ScoreLevel; message: string; score: number }>>({});
 
   const calculateScore = (question: Question, value: string | number | number[] | null): number => {
-    if (question.isInformative) return 0;
+    // Si la question est marquée comme informative, retourner 0
+    if ('isInformative' in question && question.isInformative === true) {
+      return 0;
+    }
     
     if (question.type === 'text') {
       return 0;
@@ -39,14 +43,16 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   };
 
   const calculateProgress = useCallback((newAnswers: Record<string, Record<number, Answer>>): number => {
-    const totalQuestions = Object.values(sections).reduce((sum, section) => 
-      sum + section.questions.filter(q => !q.isInformative).length, 0);
+    const totalQuestions = Object.values(sections).reduce((sum, section) => {
+      return sum + section.questions.filter(q => !('isInformative' in q) || !q.isInformative).length;
+    }, 0);
     
     const answeredQuestions = Object.entries(newAnswers).reduce((sum, [sectionKey, sectionAnswers]) => {
       const section = sections[sectionKey as keyof typeof sections];
-      return sum + Object.entries(sectionAnswers).filter(([questionIndex]) => 
-        !section.questions[parseInt(questionIndex)].isInformative
-      ).length;
+      return sum + Object.entries(sectionAnswers).filter(([questionIndex]) => {
+        const question = section.questions[parseInt(questionIndex)];
+        return !('isInformative' in question) || !question.isInformative;
+      }).length;
     }, 0);
     
     return (answeredQuestions / totalQuestions) * 100;
@@ -126,7 +132,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       const currentSectionQuestions = sections[currentSection].questions;
       const currentSectionAnswers = answers[currentSection] || {};
       
-      if (Object.keys(currentSectionAnswers).length < currentSectionQuestions.length) {
+      if (currentSectionQuestions.length > 0 && Object.keys(currentSectionAnswers).length < currentSectionQuestions.length) {
         toast({
           title: "⚠️ Action requise",
           description: "Veuillez répondre à toutes les questions avant de continuer.",
@@ -134,6 +140,22 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
           duration: 3000,
         });
         return;
+      }
+      
+      if (sectionOrder[currentIndex + 1] === 'resultats') {
+        const hasAnswers = sectionOrder.slice(1, -1).some(section => 
+          Object.keys(answers[section] || {}).length > 0
+        );
+        
+        if (!hasAnswers) {
+          toast({
+            title: "⚠️ Action requise",
+            description: "Veuillez compléter au moins une section du diagnostic avant d'accéder aux résultats.",
+            variant: "destructive",
+            duration: 3000,
+          });
+          return;
+        }
       }
       
       setCurrentSection(sectionOrder[currentIndex + 1]);
