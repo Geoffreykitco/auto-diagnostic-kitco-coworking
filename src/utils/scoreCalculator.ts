@@ -1,4 +1,3 @@
-
 export type ScoreLevel = 'débutant' | 'intermédiaire' | 'avancé';
 
 interface SectionScore {
@@ -13,6 +12,11 @@ interface SectionWeight {
   retention: 0.20;
   revenus: 0.15;
   recommandation: 0.15;
+}
+
+export interface Answer {
+  value: string | number | number[] | null;
+  score: number;
 }
 
 const SCORE_THRESHOLDS = {
@@ -70,11 +74,6 @@ export const getSectionMessage = (section: string, level: ScoreLevel): string =>
     "Continuez à améliorer cette dimension de votre espace.";
 };
 
-interface Answer {
-  value: number;
-  score: number;
-}
-
 export const calculateSectionScore = (
   answers: Record<number, Answer>,
   maxPossibleScore: number
@@ -86,15 +85,12 @@ export const calculateSectionScore = (
   return {
     score: normalizedScore,
     level,
-    message: "Message personnalisé basé sur votre score"
+    message: getSectionMessage('', level) // Default message
   };
 };
 
-export const getMaxSectionScore = (questions: readonly { options: readonly { points: number }[] }[]): number => {
-  return questions.reduce((sum, question) => {
-    const maxPoints = Math.max(...question.options.map(option => option.points));
-    return sum + maxPoints;
-  }, 0);
+export const getMaxSectionScore = (options: readonly { points: number }[]): number => {
+  return Math.max(...options.map(option => option.points));
 };
 
 export const calculateGlobalScore = (sectionScores: Record<string, number>): number => {
