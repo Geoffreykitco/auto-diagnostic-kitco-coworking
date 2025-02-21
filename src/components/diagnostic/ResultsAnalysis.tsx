@@ -125,9 +125,21 @@ export const ResultsAnalysis = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <div className="col-span-2">
-            <CTACard globalScore={globalScore} />
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+            <h3 className="font-semibold text-primary mb-3 text-xl">Découvrez comment améliorer votre score</h3>
+            <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+              <iframe
+                src="https://www.loom.com/embed/YOUR_LOOM_VIDEO_ID"
+                frameBorder="0"
+                allowFullScreen
+                className="w-full h-full rounded-lg"
+              ></iframe>
+            </div>
           </div>
+        </div>
+
+        <div className="col-span-2">
+          <CTACard globalScore={globalScore} />
         </div>
       </div>
     </div>
