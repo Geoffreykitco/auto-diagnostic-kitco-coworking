@@ -77,7 +77,8 @@ export const getSectionMessage = (section: string, level: ScoreLevel): string =>
 
 export const calculateSectionScore = (
   answers: Record<number, Answer>,
-  maxPossibleScore: number
+  maxPossibleScore: number,
+  section: string
 ): SectionScore => {
   const totalScore = Object.values(answers).reduce((sum, answer) => sum + answer.score, 0);
   const normalizedScore = Math.min(Math.round((totalScore / maxPossibleScore) * 100), 100);
@@ -86,7 +87,7 @@ export const calculateSectionScore = (
   return {
     score: normalizedScore,
     level,
-    message: getSectionMessage('', level)
+    message: getSectionMessage(section, level)
   };
 };
 
