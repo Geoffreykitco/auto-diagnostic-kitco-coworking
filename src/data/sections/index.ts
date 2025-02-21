@@ -11,8 +11,23 @@ import { resultatsSection } from "./resultats";
 export interface Section {
   title: string;
   description: string;
-  questions: Question[];
+  questions: readonly Question[];
   isResultSection?: boolean;
+  videoUrl?: string;
+  recommendations?: {
+    global: {
+      beginner: string;
+      intermediate: string;
+      advanced: string;
+    };
+    sections: {
+      [key: string]: {
+        beginner: string;
+        intermediate: string;
+        advanced: string;
+      };
+    };
+  };
 }
 
 export const sections = {

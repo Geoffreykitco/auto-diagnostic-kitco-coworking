@@ -4,7 +4,7 @@ import { Question } from "@/components/diagnostic/question/types";
 export const resultatsSection = {
   title: "Résultats de votre diagnostic",
   description: "Voici une analyse détaillée de vos résultats avec nos recommandations pour chaque section.",
-  questions: [] as Question[],
+  questions: [] as readonly Question[],
   isResultSection: true,
   videoUrl: "https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa",
   recommendations: {
@@ -42,4 +42,3 @@ export const resultatsSection = {
     }
   }
 } as const;
-
