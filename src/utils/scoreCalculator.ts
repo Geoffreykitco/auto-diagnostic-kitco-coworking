@@ -1,3 +1,4 @@
+
 export type ScoreLevel = 'débutant' | 'intermédiaire' | 'avancé';
 
 interface SectionScore {
@@ -85,12 +86,15 @@ export const calculateSectionScore = (
   return {
     score: normalizedScore,
     level,
-    message: getSectionMessage('', level) // Default message
+    message: getSectionMessage('', level)
   };
 };
 
-export const getMaxSectionScore = (options: readonly { points: number }[]): number => {
-  return Math.max(...options.map(option => option.points));
+export const getMaxSectionScore = (questions: readonly { question: string; options: readonly { points: number }[] }[]): number => {
+  return questions.reduce((sum, question) => {
+    const maxPoints = Math.max(...question.options.map(option => option.points));
+    return sum + maxPoints;
+  }, 0);
 };
 
 export const calculateGlobalScore = (sectionScores: Record<string, number>): number => {
