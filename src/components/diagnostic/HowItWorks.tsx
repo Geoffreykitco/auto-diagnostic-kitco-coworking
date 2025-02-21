@@ -58,10 +58,10 @@ export const HowItWorks = () => {
                   transition={{ delay: index * 0.2 + 0.5 }}
                   className="relative md:pt-12"
                 >
-                  {/* Numéro de l'étape */}
+                  {/* Carré avec numéro */}
                   <div className={`absolute ${isMobile ? 'left-7 -translate-x-1/2' : 'left-1/2 -translate-x-1/2 top-0'}`}>
-                    <div className="flex items-center justify-center w-14 h-14 bg-primary/5 rounded-lg">
-                      <span className="text-primary text-2xl font-bold">
+                    <div className="flex items-center justify-center w-[40px] h-[40px] bg-primary/20 rounded-lg shadow-md">
+                      <span className="text-primary text-xl font-bold">
                         {index + 1}
                       </span>
                     </div>
@@ -70,7 +70,7 @@ export const HowItWorks = () => {
                   {/* Contenu de l'étape */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className={`glass-morphism p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-20' : ''}`}
+                    className={`glass-morphism p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-16' : 'mt-8'}`}
                   >
                     <span className="text-xs md:text-sm font-medium text-primary/60 mb-1 block">
                       Étape {index + 1}
