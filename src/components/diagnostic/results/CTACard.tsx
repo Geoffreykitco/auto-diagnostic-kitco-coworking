@@ -78,10 +78,10 @@ Transformez ces insights en résultats concrets.</p>
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="mt-8 relative"
+        className="mt-8 relative w-full max-w-none"
       >
         <div className="absolute top-4 left-0 right-0 h-0.5 bg-primary/20"></div>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-8 px-4">
           {[
             "J'identifie mes axes d'améliorations",
             "Je réalise un plan d'action",
