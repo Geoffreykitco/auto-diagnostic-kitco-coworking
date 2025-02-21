@@ -42,7 +42,7 @@ export const SectionCard = ({
   }} className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full">
       <div className="space-y-6">
         <div>
-          <h3 className="font-bold mb-2 text-left text-2xl">
+          <h3 className="mb-2 text-left font-semibold text-2xl">
             {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
           </h3>
         </div>
@@ -64,7 +64,7 @@ export const SectionCard = ({
               {level.charAt(0).toUpperCase() + level.slice(1)}
             </span>
           </div>
-          <p className="text-sm text-gray-600 text-left leading-relaxed">{message}</p>
+          <p className="text-sm text-gray-600 text-left leading-relaxed font-normal">{message}</p>
         </div>
       </div>
     </motion.div>;
