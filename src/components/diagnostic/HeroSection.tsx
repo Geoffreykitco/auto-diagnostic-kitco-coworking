@@ -16,57 +16,32 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
       />
       
       <div className="container mx-auto max-w-4xl relative">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-center mb-8 px-4"
-        >
-          <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] relative">
-            <div className="w-full h-full flex items-center justify-center bg-white/90 rounded-lg border-2 border-primary/20">
-              <span className="text-xl md:text-2xl font-bold text-primary">KITCO</span>
-            </div>
+        <div className="flex flex-col items-center mb-8 px-4 space-y-2">
+          <div className="w-[289px] md:w-[408px]">
+            <img 
+              src="/lovable-uploads/0719f9d2-282c-4729-ad17-b0baa338ef95.png" 
+              alt="KITCO - Des coworkings bien pensés" 
+              className="w-full h-auto"
+            />
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center relative z-10"
-        >
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-primary mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
+        <div className="text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             Auto-diagnostic de votre espace de coworking
-          </motion.h1>
+          </h1>
           
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-gray-600 mb-8"
-          >
+          <p className="text-lg text-gray-600 mb-8">
             Évaluez l'efficacité de votre espace selon la méthodologie AARRR
-          </motion.p>
+          </p>
           
-          <motion.button
+          <button
             onClick={onStart}
             className="bg-white/95 px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)]"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 8
-            }}
           >
             Commencer l'évaluation
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </section>
   );
