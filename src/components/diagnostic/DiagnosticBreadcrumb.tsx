@@ -31,7 +31,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
   if (isMobile) {
     return (
       <motion.div
-        className="w-full px-4 py-2 mb-6"
+        className="w-full py-2 mb-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
@@ -57,7 +57,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
 
   return (
     <motion.div
-      className="w-full px-4 py-2 mb-8"
+      className="w-full py-2 mb-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
