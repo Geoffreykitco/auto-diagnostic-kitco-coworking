@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -14,7 +15,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Logo & Description */}
           <div className="space-y-4">
-            <div className="w-[200px] h-[80px] relative">
+            <div className="w-[300px] h-[120px] relative">
               <img src="/lovable-uploads/1165c716-f19c-40b7-b8bc-6ce7bde6fa37.png" alt="KITCO" className="w-full h-full object-contain" />
             </div>
             
