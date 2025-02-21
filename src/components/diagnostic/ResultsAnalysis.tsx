@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
@@ -24,51 +25,6 @@ export const ResultsAnalysis = ({
   const { toast } = useToast();
   const [globalScore, setGlobalScore] = useState<number>(0);
 
-  const calculateResults = () => {
-    const sectionScores: Record<string, number> = {};
-    
-    Object.entries(answers).forEach(([section, sectionAnswers]) => {
-      if (section !== 'informations') {
-        const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-          const currentSection = sections[section as keyof typeof sections];
-          const question = currentSection.questions[Number(key)];
-          
-          let score = 0;
-          if (question.type === 'single') {
-            score = question.options[value]?.points || 0;
-          } else if (question.type === 'multiple' && Array.isArray(value)) {
-            score = value.reduce((sum, optionIndex) => {
-              return sum + (question.options[optionIndex]?.points || 0);
-            }, 0);
-          }
-
-          acc[Number(key)] = { value: value, score: score };
-          return acc;
-        }, {} as Record<number, { value: number; score: number }>);
-
-        const maxScore = Object.entries(sections[section as keyof typeof sections].questions).reduce((total, [question]) => {
-          if (question.type === 'multiple') {
-            return total + question.options.reduce((sum, option) => sum + option.points, 0);
-          } else {
-            return total + Math.max(...question.options.map(opt => opt.points));
-          }
-        }, 0);
-
-        const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
-        sectionScores[section] = sectionScore.score;
-      }
-    });
-
-    const calculatedGlobalScore = calculateGlobalScore(sectionScores);
-    setGlobalScore(calculatedGlobalScore);
-    return { sectionScores };
-  };
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    calculateResults();
-  }, [answers]);
-
   const steps = [
     { id: 'informations', label: 'Informations' },
     { id: 'acquisition', label: 'Acquisition - Attirer les coworkers' },
@@ -80,6 +36,35 @@ export const ResultsAnalysis = ({
   ];
 
   const currentStep = steps[steps.length - 1];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    calculateResults();
+  }, [answers]);
+
+  const calculateResults = () => {
+    const sectionScores: Record<string, number> = {};
+    
+    Object.entries(answers).forEach(([section, sectionAnswers]) => {
+      if (section !== 'informations') {
+        const currentSection = sections[section as keyof typeof sections];
+        if (currentSection) {
+          const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
+            acc[Number(key)] = { value, score: 0 };
+            return acc;
+          }, {} as Record<number, { value: number; score: number }>);
+
+          const maxScore = getMaxSectionScore(currentSection.questions);
+          const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
+          sectionScores[section] = sectionScore.score;
+        }
+      }
+    });
+
+    const calculatedGlobalScore = calculateGlobalScore(sectionScores);
+    setGlobalScore(calculatedGlobalScore);
+    return { sectionScores };
+  };
 
   const getSectionIcon = (section: string) => {
     switch (section) {
@@ -111,31 +96,15 @@ export const ResultsAnalysis = ({
   };
 
   const renderSectionCard = (section: string, sectionAnswers: Record<number, number>) => {
-    const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-      const currentSection = sections[section as keyof typeof sections];
-      const question = currentSection.questions[Number(key)];
-      
-      let score = 0;
-      if (question.type === 'single') {
-        score = question.options[value]?.points || 0;
-      } else if (question.type === 'multiple' && Array.isArray(value)) {
-        score = value.reduce((sum, optionIndex) => {
-          return sum + (question.options[optionIndex]?.points || 0);
-        }, 0);
-      }
+    const currentSection = sections[section as keyof typeof sections];
+    if (!currentSection) return null;
 
-      acc[Number(key)] = { value: value, score: score };
+    const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
+      acc[Number(key)] = { value, score: 0 };
       return acc;
     }, {} as Record<number, { value: number; score: number }>);
 
-    const maxScore = Object.entries(sections[section as keyof typeof sections].questions).reduce((total, [question]) => {
-      if (question.type === 'multiple') {
-        return total + question.options.reduce((sum, option) => sum + option.points, 0);
-      } else {
-        return total + Math.max(...question.options.map(opt => opt.points));
-      }
-    }, 0);
-
+    const maxScore = getMaxSectionScore(currentSection.questions);
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
 
     return (
