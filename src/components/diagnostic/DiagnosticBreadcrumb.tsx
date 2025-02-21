@@ -24,6 +24,10 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
 
   if (!currentStep || !steps?.length) return null;
 
+  const getShortLabel = (label: string) => {
+    return label.split(' - ')[0];
+  };
+
   if (isMobile) {
     return (
       <motion.div
@@ -42,7 +46,7 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
             <BreadcrumbSeparator className="mx-2">❯</BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbPage className="text-sm font-medium">
-                {currentStep.label}
+                {getShortLabel(currentStep.label)}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -65,11 +69,11 @@ export const DiagnosticBreadcrumb = ({ steps, currentStep }: DiagnosticBreadcrum
               {index > 0 && <BreadcrumbSeparator className="mx-2">❯</BreadcrumbSeparator>}
               {step.id === currentStep.id ? (
                 <BreadcrumbPage className="font-medium">
-                  {index === 0 ? 'Démarrage' : step.label}
+                  {index === 0 ? 'Démarrage' : getShortLabel(step.label)}
                 </BreadcrumbPage>
               ) : (
                 <span className="text-muted-foreground">
-                  {index === 0 ? 'Démarrage' : step.label}
+                  {index === 0 ? 'Démarrage' : getShortLabel(step.label)}
                 </span>
               )}
             </BreadcrumbItem>
