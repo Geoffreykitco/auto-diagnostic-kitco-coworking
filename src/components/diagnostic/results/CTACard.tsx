@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { AuditForm } from "../sections/AuditForm";
+import { ArrowRight } from "lucide-react";
 
 interface CTACardProps {
   globalScore: number;
@@ -24,9 +25,13 @@ export const CTACard = ({
           <h3 className="text-xl font-semibold text-primary mb-3">
             Passez à l'action maintenant
           </h3>
-          <p className="text-gray-600 text-sm leading-relaxed mb-6">
+          <p className="text-gray-600 text-sm leading-relaxed mb-4">
             Transformez ces insights en résultats concrets. Notre expert analysera en détail votre diagnostic et vous proposera un plan d'action personnalisé.
           </p>
+          <button className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-md text-sm transition-colors">
+            Obtenir mon plan d'action
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
         
         <AuditForm onSubmit={async formData => {
