@@ -30,6 +30,39 @@ Transformez ces insights en résultats concrets. </p>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
+
+        <div className="relative pt-8">
+          {/* Ligne verticale de la timeline */}
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-primary/20"></div>
+          
+          {/* Étapes de la timeline */}
+          {[
+            "J'identifie mes axes d'améliorations",
+            "Je réalise un plan d'action",
+            "Je passe à l'action",
+            "Je développe mon coworking"
+          ].map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="flex items-center gap-4 mb-6 last:mb-0"
+            >
+              {/* Point de la timeline */}
+              <div className="relative">
+                <div className="w-2.5 h-2.5 rounded-full bg-primary">
+                  <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25 animate-pulse"></div>
+                </div>
+              </div>
+              
+              {/* Texte de l'étape */}
+              <p className="text-sm text-gray-700 font-medium">
+                {step}
+              </p>
+            </motion.div>
+          ))}
+        </div>
         
         <AuditForm onSubmit={async formData => {
           try {
