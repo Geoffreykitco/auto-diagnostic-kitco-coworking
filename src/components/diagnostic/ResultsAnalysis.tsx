@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -6,7 +7,7 @@ import { calculateSectionScore, getMaxSectionScore, calculateGlobalScore, getGlo
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
-import { AuditHeader } from "./AuditHeader";
+import { AuditHeader } from "./sections/audit/AuditHeader";
 
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
