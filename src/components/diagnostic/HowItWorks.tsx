@@ -18,7 +18,8 @@ export const HowItWorks = () => {
         </h2>
       </motion.div>
 
-      <div className="glass-morphism rounded-lg p-6 md:p-8">
+      {/* Première Timeline */}
+      <div className="glass-morphism rounded-lg p-6 md:p-8 mb-8">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -26,7 +27,7 @@ export const HowItWorks = () => {
           className="space-y-4 md:space-y-6"
         >
           <h2 className="text-xl md:text-2xl font-semibold text-primary mb-4 md:mb-8">
-            Comment ça marche?
+            Comment ça marche? (Version 1)
           </h2>
           
           <div className="relative">
@@ -84,6 +85,77 @@ export const HowItWorks = () => {
                   >
                     <h3 className="font-semibold mb-2 text-sm md:text-base text-gray-900">{step.title}</h3>
                     <p className="text-gray-600 text-xs md:text-sm italic">{step.description}</p>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Deuxième Timeline avec un style différent */}
+      <div className="glass-morphism rounded-lg p-6 md:p-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="space-y-4 md:space-y-6"
+        >
+          <h2 className="text-xl md:text-2xl font-semibold text-primary mb-4 md:mb-8">
+            Comment ça marche? (Version 2)
+          </h2>
+          
+          <div className="relative">
+            {/* Ligne horizontale de la timeline */}
+            <div className="hidden md:block absolute left-0 right-0 top-[50%] h-0.5 bg-gradient-to-r from-primary via-primary/20 to-primary"></div>
+            
+            {/* Ligne verticale de la timeline pour mobile */}
+            <div className="md:hidden absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/20 to-primary"></div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+              {[
+                {
+                  title: "Diagnostic & Insights",
+                  description: "J'analyse mes performances"
+                },
+                {
+                  title: "Planification",
+                  description: "Je structure mon plan d'action"
+                },
+                {
+                  title: "Mise en œuvre",
+                  description: "J'active les leviers de croissance"
+                },
+                {
+                  title: "Optimisation continue",
+                  description: "Je pérennise et scale mon coworking"
+                }
+              ].map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2 + 0.8 }}
+                  className={`relative ${isMobile ? 'pl-16' : ''}`}
+                >
+                  {/* Numéro d'étape avec cercle */}
+                  <div className={`absolute ${isMobile ? 'left-0 top-0' : 'left-1/2 -translate-x-1/2 -top-6'}`}>
+                    <div className="relative">
+                      <div className="w-12 h-12 rounded-full bg-white border-2 border-primary flex items-center justify-center shadow-lg">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-primary font-bold">{index + 1}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Contenu */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                  >
+                    <h3 className="font-bold text-primary mb-2">{step.title}</h3>
+                    <p className="text-sm text-gray-600">{step.description}</p>
                   </motion.div>
                 </motion.div>
               ))}
