@@ -100,12 +100,12 @@ export const ResultsAnalysis = ({
   };
 
   return (
-    <div className="space-y-8 container mx-auto px-4">
-      <div className="mt-16 mb-8">
+    <div className="container mx-auto px-4">
+      <div className="mt-16">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
-      <div className="space-y-8 max-w-5xl mx-auto text-left">
+      <div className="space-y-8 max-w-5xl mx-auto">
         <GlobalScoreCard
           score={globalScore}
           getLevelColor={getLevelColor}
