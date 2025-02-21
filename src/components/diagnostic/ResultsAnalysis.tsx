@@ -24,7 +24,6 @@ export const ResultsAnalysis = ({
   // Calculer les scores pour chaque section
   const calculateResults = () => {
     const sectionScores: Record<string, number> = {};
-    const sectionMaxScores: Record<string, number> = {};
     
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
       if (section !== 'informations') {
@@ -34,16 +33,14 @@ export const ResultsAnalysis = ({
         }, {} as Record<number, { value: number; score: number }>);
 
         const maxScore = Object.keys(sectionAnswers).length * 3; // Supposant un score max de 3 par question
-        sectionMaxScores[section] = maxScore;
-        
         const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
         sectionScores[section] = sectionScore.score;
       }
     });
 
-    const calculatedGlobalScore = calculateGlobalScore(sectionScores, sectionMaxScores);
+    const calculatedGlobalScore = calculateGlobalScore(sectionScores);
     setGlobalScore(calculatedGlobalScore);
-    return { sectionScores, sectionMaxScores };
+    return { sectionScores };
   };
 
   useEffect(() => {
@@ -101,7 +98,7 @@ export const ResultsAnalysis = ({
                   </h4>
                   <div className="flex items-center gap-4 mb-2">
                     <div className="text-xl font-bold">
-                      {Math.round((sectionScore.score / maxScore) * 100)}%
+                      {sectionScore.score}%
                     </div>
                     <div className="text-sm font-medium px-3 py-1 rounded-full bg-primary/10 text-primary">
                       Niveau: {sectionScore.level}
