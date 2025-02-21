@@ -70,6 +70,6 @@ export const calculateSectionScore = (
   };
 };
 
-export const getMaxSectionScore = (options: { points: number }[]): number => {
+export const getMaxSectionScore = (options: readonly { points: number }[]): number => {
   return options.reduce((sum, option) => sum + option.points, 0);
 };
