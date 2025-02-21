@@ -1,32 +1,23 @@
-
 import { motion } from 'framer-motion';
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, MapPin } from 'lucide-react';
-
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
-  return (
-    <motion.footer 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full bg-primary text-white mt-20"
-    >
+  return <motion.footer initial={{
+    opacity: 0
+  }} animate={{
+    opacity: 1
+  }} transition={{
+    duration: 0.5
+  }} className="w-full bg-primary text-white mt-20">
       <div className="container mx-auto py-12 px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Logo & Description */}
           <div className="space-y-4">
             <div className="w-[160px] h-[50px] relative">
-              <img 
-                src="/lovable-uploads/b8466204-25a3-422d-a085-87c9ba8b9a8b.png"
-                alt="KITCO"
-                className="w-full h-full object-contain brightness-200"
-              />
+              <img src="/lovable-uploads/b8466204-25a3-422d-a085-87c9ba8b9a8b.png" alt="KITCO" className="w-full h-full object-contain brightness-200" />
             </div>
-            <p className="text-white/70 text-sm">
-              Des espaces de coworking conçus pour votre réussite.
-            </p>
+            
           </div>
 
           {/* Contact */}
@@ -79,13 +70,12 @@ export const Footer = () => {
 
         {/* Bottom Section */}
         <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-sm text-white/60">
-          <p>&copy; {currentYear} KITCO. Tous droits réservés.</p>
+          <p className="text-slate-50">&copy; {currentYear} KITCO. Tous droits réservés.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
             <a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a>
           </div>
         </div>
       </div>
-    </motion.footer>
-  );
+    </motion.footer>;
 };
