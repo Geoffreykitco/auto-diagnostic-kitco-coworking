@@ -16,16 +16,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo Section */}
           <div className="flex flex-col items-center md:items-start space-y-4">
-            <motion.div
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3 }}
-              className="w-[200px] h-[70px] relative"
-            >
-              <div className="w-full h-full flex items-center justify-center bg-white/10 rounded-lg border-2 border-white/20">
-                <span className="text-xl md:text-2xl font-bold text-white">KITCO</span>
-              </div>
-            </motion.div>
+            <div className="w-[200px] h-[70px] relative">
+              <img 
+                src="/lovable-uploads/b8466204-25a3-422d-a085-87c9ba8b9a8b.png"
+                alt="KITCO"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <p className="text-white/80 text-sm text-center md:text-left">
               Des coworkings bien pensés pour votre entreprise
             </p>
@@ -56,7 +53,6 @@ export const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-white/80">
           <p>&copy; {currentYear} KITCO. Tous droits réservés.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            
           </div>
         </div>
       </div>
