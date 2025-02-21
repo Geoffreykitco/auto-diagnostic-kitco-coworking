@@ -125,7 +125,9 @@ export const ResultsAnalysis = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <CTACard globalScore={globalScore} />
+          <div className="col-span-2">
+            <CTACard globalScore={globalScore} />
+          </div>
         </div>
       </div>
     </div>
