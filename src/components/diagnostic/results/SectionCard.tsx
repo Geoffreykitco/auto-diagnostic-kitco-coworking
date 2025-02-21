@@ -40,36 +40,38 @@ export const SectionCard = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+      className="bg-white rounded-lg p-4 border border-gray-200 shadow-lg h-full"
     >
-      <div className="mb-4">
-        <h4 className="text-lg font-semibold">
-          {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
-        </h4>
-      </div>
-      
-      <div className="space-y-4">
-        <div className="flex justify-between items-center text-sm mb-2">
-          <span className="text-gray-600">Score</span>
-          <span className={`font-medium ${getLevelColor(score)}`}>
-            {score}%
-          </span>
+      <div className="space-y-6">
+        <div>
+          <h4 className="text-lg font-semibold mb-1">
+            {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
+          </h4>
         </div>
-        <Progress 
-          value={score} 
-          className="h-2"
-          indicatorClassName={getProgressColor(score)}
-        />
-      </div>
+        
+        <div className="space-y-4">
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-600">Score</span>
+            <span className={`font-medium ${getLevelColor(score)}`}>
+              {score}%
+            </span>
+          </div>
+          <Progress 
+            value={score} 
+            className="h-3"
+            indicatorClassName={getProgressColor(score)}
+          />
+        </div>
 
-      <div className="mt-4 space-y-2">
-        <div className="flex items-center gap-2">
-          <span className="text-sm">Niveau : </span>
-          <span className={`font-medium ${getLevelColor(score)}`}>
-            {level.charAt(0).toUpperCase() + level.slice(1)}
-          </span>
+        <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center gap-2">
+            <span className="text-sm">Niveau : </span>
+            <span className={`font-medium ${getLevelColor(score)}`}>
+              {level.charAt(0).toUpperCase() + level.slice(1)}
+            </span>
+          </div>
+          <p className="text-sm text-gray-600">{message}</p>
         </div>
-        <p className="text-sm text-gray-600">{message}</p>
       </div>
     </motion.div>
   );
