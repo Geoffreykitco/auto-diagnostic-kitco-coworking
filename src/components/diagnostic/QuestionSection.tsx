@@ -53,17 +53,28 @@ export const QuestionSection = ({
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
         <p className="text-gray-600 mb-8">{section.description}</p>
 
-        <div className="space-y-8">
-          {section.questions.map((question, index) => (
-            <QuestionItem
-              key={index}
-              question={question}
-              questionIndex={index}
-              onSelect={(value) => onOptionSelect(index, value)}
-              selectedValue={answers[index]?.value}
+        {section.isResultSection ? (
+          <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden aspect-video mb-8">
+            <iframe 
+              src={(section as typeof resultatsSection).videoUrl}
+              frameBorder="0"
+              allowFullScreen
+              className="w-full h-full"
             />
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div className="space-y-8">
+            {section.questions.map((question, index) => (
+              <QuestionItem
+                key={index}
+                question={question}
+                questionIndex={index}
+                onSelect={(value) => onOptionSelect(index, value)}
+                selectedValue={answers[index]?.value}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="flex justify-between mt-12">
           {showPrevious ? (
@@ -84,7 +95,7 @@ export const QuestionSection = ({
               onClick={onNext}
               className="flex items-center gap-2 bg-primary hover:bg-primary-hover"
             >
-              Suivant
+              {section.isResultSection ? "Terminer" : "Suivant"}
               <ArrowRightIcon size={16} />
             </Button>
           )}
