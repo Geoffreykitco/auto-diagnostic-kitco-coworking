@@ -2,19 +2,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { HeroSection } from "@/components/diagnostic/HeroSection";
 import { HowItWorks } from "@/components/diagnostic/HowItWorks";
-import { useToast } from "@/hooks/use-toast";
 
 export default function Index() {
   const navigate = useNavigate();
-  const { toast } = useToast();
   
   const handleStart = () => {
-    toast({
-      title: "Bienvenue dans l'auto-diagnostic 👋",
-      description: "Commençons l'évaluation de votre espace de coworking.",
-      duration: 4000,
-    });
-    navigate('/diagnostic');
+    navigate('/results-preview');
   };
 
   return (
