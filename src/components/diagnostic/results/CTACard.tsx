@@ -22,8 +22,8 @@ export const CTACard = ({
   }} className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full">
       <div className="space-y-6">
         <div>
-          <h3 className="font-semibold text-primary mb-3 text-2xl text-center">Augmentez le taux de remplissage de votre espace de coworking</h3>
-          <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center">- Vous avez maintenant une vision claire de la performance de votre espace de coworking.
+          <h3 className="font-semibold text-primary mb-3 text-2xl text-center">Envie d'augmenter le taux de remplissage de votre coworking ? </h3>
+          <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center">-Vous avez maintenant une vision claire de la performance de votre espace de coworking.
 Transformez ces insights en résultats concrets. </p>
           <button className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-md text-sm transition-colors">
             Obtenir mon plan d'action
