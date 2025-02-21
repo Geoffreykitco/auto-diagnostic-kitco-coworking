@@ -63,14 +63,14 @@ export const SectionCard = ({
           />
         </div>
 
-        <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-          <div className="space-y-1">
-            <span className="text-sm text-gray-600 font-medium block">Niveau :</span>
-            <span className={`font-semibold block ${getLevelColor(score)}`}>
+        <div className="bg-gray-50 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-sm text-gray-600 font-medium">Niveau :</span>
+            <span className={`font-semibold ${getLevelColor(score)}`}>
               {level.charAt(0).toUpperCase() + level.slice(1)}
             </span>
           </div>
-          <p className="text-sm text-gray-600 leading-relaxed">{message}</p>
+          <p className="text-sm text-gray-600 text-left leading-relaxed">{message}</p>
         </div>
       </div>
     </motion.div>
