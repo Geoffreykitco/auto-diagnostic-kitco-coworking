@@ -19,7 +19,7 @@ export const CTACard = ({
     y: 0
   }} transition={{
     duration: 0.5
-  }} className="bg-[#0B1A17] text-white rounded-lg p-6 shadow-lg">
+  }} className="text-white rounded-lg p-6 shadow-lg bg-gray-50">
       
       
       <AuditForm onSubmit={async formData => {
