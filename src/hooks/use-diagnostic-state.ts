@@ -38,7 +38,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     return 0;
   };
 
-  const calculateProgress = useCallback((newAnswers: Record<string, Record<number, Answer>>) => {
+  const calculateProgress = useCallback((newAnswers: Record<string, Record<number, Answer>>): number => {
     const totalQuestions = Object.values(sections).reduce((sum, section) => 
       sum + section.questions.filter(q => !q.isInformative).length, 0);
     
@@ -52,7 +52,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     return (answeredQuestions / totalQuestions) * 100;
   }, []);
 
-  const updateSectionScores = useCallback((newAnswers: Record<string, Record<number, Answer>>) => {
+  const updateSectionScores = useCallback((newAnswers: Record<string, Record<number, Answer>>): void => {
     const newSectionScores: Record<string, { level: ScoreLevel; message: string; score: number }> = {};
     
     Object.entries(newAnswers).forEach(([sectionKey, sectionAnswers]) => {
@@ -114,13 +114,9 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     });
   }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
-  const handlePrevious = useCallback(() => {
-    const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
-    const currentIndex = sectionOrder.indexOf(currentSection);
-    if (currentIndex > 0) {
-      setCurrentSection(sectionOrder[currentIndex - 1]);
-    }
-  }, [currentSection]);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleNext = useCallback(() => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
@@ -141,8 +137,18 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       }
       
       setCurrentSection(sectionOrder[currentIndex + 1]);
+      scrollToTop();
     }
   }, [currentSection, answers, toast]);
+
+  const handlePrevious = useCallback(() => {
+    const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
+    const currentIndex = sectionOrder.indexOf(currentSection);
+    if (currentIndex > 0) {
+      setCurrentSection(sectionOrder[currentIndex - 1]);
+      scrollToTop();
+    }
+  }, [currentSection]);
 
   return {
     progress,
