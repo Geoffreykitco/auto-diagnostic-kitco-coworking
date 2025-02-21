@@ -1,11 +1,8 @@
-
 import { motion } from 'framer-motion';
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, MapPin } from 'lucide-react';
-
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
   return <motion.footer initial={{
     opacity: 0
   }} animate={{
@@ -18,15 +15,9 @@ export const Footer = () => {
           {/* Logo & Description */}
           <div className="space-y-4">
             <div className="w-[200px] h-[80px] relative">
-              <img 
-                src="/lovable-uploads/1165c716-f19c-40b7-b8bc-6ce7bde6fa37.png" 
-                alt="KITCO" 
-                className="w-full h-full object-contain"
-              />
+              <img src="/lovable-uploads/1165c716-f19c-40b7-b8bc-6ce7bde6fa37.png" alt="KITCO" className="w-full h-full object-contain" />
             </div>
-            <p className="text-white/70 text-sm">
-              Des coworkings bien pensés
-            </p>
+            
           </div>
 
           {/* Contact */}
