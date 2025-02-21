@@ -1,9 +1,15 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HeroSection } from "@/components/diagnostic/HeroSection";
 import { HowItWorks } from "@/components/diagnostic/HowItWorks";
 
 export default function Index() {
+  const navigate = useNavigate();
+  
+  const handleStart = () => {
+    navigate('/results-preview');
+  };
+
   return (
     <div className="container mx-auto px-4">
       {/* Lien temporaire pour la preview */}
@@ -16,7 +22,7 @@ export default function Index() {
         </Link>
       </div>
 
-      <HeroSection />
+      <HeroSection onStart={handleStart} />
       <HowItWorks />
     </div>
   );
