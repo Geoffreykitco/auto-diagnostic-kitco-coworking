@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Section } from "@/data/sections";
 import { Answer } from "./question/types";
-import { ResultsSection } from "./results/ResultsSection";
 
 interface QuestionSectionProps {
   section: Section;
@@ -15,28 +14,26 @@ interface QuestionSectionProps {
   onNext: () => void;
   showPrevious: boolean;
   showNext: boolean;
-  answers: Record<string, Record<number, Answer>>;
-  currentSection: string;
+  answers: Record<number, Answer>;
 }
 
-export const QuestionSection = ({
-  section,
-  onOptionSelect,
-  onPrevious,
-  onNext,
-  showPrevious,
+export const QuestionSection = ({ 
+  section, 
+  onOptionSelect, 
+  onPrevious, 
+  onNext, 
+  showPrevious, 
   showNext,
-  answers,
-  currentSection
+  answers 
 }: QuestionSectionProps) => {
   const steps = [
-    { id: 'informations', label: 'Démarrage' },
-    { id: 'acquisition', label: 'Acquisition' },
-    { id: 'activation', label: 'Activation' },
-    { id: 'retention', label: 'Rétention' },
-    { id: 'revenus', label: 'Revenus' },
-    { id: 'recommandation', label: 'Recommandation' },
-    { id: 'resultats', label: 'Résultats' }
+    { id: 'informations', label: 'Informations' },
+    { id: 'acquisition', label: 'Acquisition - Attirer les coworkers' },
+    { id: 'activation', label: 'Activation - Transformer les visiteurs en membres' },
+    { id: 'retention', label: 'Rétention - Fidéliser vos membres' },
+    { id: 'revenus', label: 'Revenus - Générer et optimiser les revenus' },
+    { id: 'recommandation', label: 'Recommandation - Développer le bouche à oreille' },
+    { id: 'resultats', label: 'Résultat diagnostique' }
   ];
 
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
@@ -51,26 +48,22 @@ export const QuestionSection = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-4xl mx-auto"
+        className="max-w-4xl mx-auto text-left"
       >
-        <h1 className="text-3xl font-bold text-left text-gray-900 mb-4">{section.title}</h1>
-        <p className="text-left text-gray-600 mb-8">{section.description}</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
+        <p className="text-gray-600 mb-8">{section.description}</p>
 
-        {section.isResultSection ? (
-          <ResultsSection answers={answers} steps={steps} />
-        ) : (
-          <div className="space-y-8">
-            {section.questions.map((question, index) => (
-              <QuestionItem
-                key={index}
-                question={question}
-                questionIndex={index}
-                onSelect={(value) => onOptionSelect(index, value)}
-                selectedValue={answers[currentSection]?.[index]?.value}
-              />
-            ))}
-          </div>
-        )}
+        <div className="space-y-8">
+          {section.questions.map((question, index) => (
+            <QuestionItem
+              key={index}
+              question={question}
+              questionIndex={index}
+              onSelect={(value) => onOptionSelect(index, value)}
+              selectedValue={answers[index]?.value}
+            />
+          ))}
+        </div>
 
         <div className="flex justify-between mt-12">
           {showPrevious ? (
@@ -91,7 +84,7 @@ export const QuestionSection = ({
               onClick={onNext}
               className="flex items-center gap-2 bg-primary hover:bg-primary-hover"
             >
-              {section.isResultSection ? "Terminer" : "Suivant"}
+              Suivant
               <ArrowRightIcon size={16} />
             </Button>
           )}

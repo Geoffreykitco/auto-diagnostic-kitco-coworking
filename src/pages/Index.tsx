@@ -7,7 +7,7 @@ export default function Index() {
   const navigate = useNavigate();
   
   const handleStart = () => {
-    navigate('/diagnostic');
+    navigate('/diagnostic/acquisition');
   };
 
   return (
