@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -11,13 +12,12 @@ export const Footer = () => {
     duration: 0.5
   }} className="w-full bg-primary text-white mt-20">
       <div className="container mx-auto py-12 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
           {/* Logo & Description */}
           <div className="space-y-4">
             <div className="w-[600px] h-[240px] relative">
               <img src="/lovable-uploads/1165c716-f19c-40b7-b8bc-6ce7bde6fa37.png" alt="KITCO" className="w-full h-full object-contain" />
             </div>
-            
           </div>
 
           {/* Contact */}
@@ -42,9 +42,6 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-
-          {/* Quick Links */}
-          
         </div>
 
         <Separator className="bg-white/10" />
