@@ -7,6 +7,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Section } from "@/data/sections";
 import { Answer } from "./question/types";
 import { resultatsSection } from "@/data/sections/resultats";
+import { calculateGlobalScore, getGlobalMessage } from "@/utils/scoreCalculator";
 
 interface QuestionSectionProps {
   section: Section;
@@ -18,61 +19,126 @@ interface QuestionSectionProps {
   answers: Record<number, Answer>;
 }
 
-const getScoreLevel = (score: number) => {
-  if (score >= 80) return "advanced";
-  if (score >= 50) return "intermediate";
-  return "beginner";
+const getScoreColor = (score: number): string => {
+  if (score >= 80) return "bg-green-500";
+  if (score >= 50) return "bg-yellow-500";
+  return "bg-red-500";
 };
 
-const calculateSectionScore = (answers: Record<number, Answer>): number => {
-  const totalPoints = Object.values(answers).reduce((sum, answer) => sum + answer.score, 0);
-  const maxPoints = Object.values(answers).length * 10; // Assuming max 10 points per question
-  return Math.round((totalPoints / maxPoints) * 100);
+const getNiveau = (score: number): string => {
+  if (score >= 80) return "Avancé";
+  if (score >= 50) return "Intermédiaire";
+  return "Débutant";
 };
 
-export const QuestionSection = ({ 
-  section, 
-  onOptionSelect, 
-  onPrevious, 
-  onNext, 
-  showPrevious, 
+export const QuestionSection = ({
+  section,
+  onOptionSelect,
+  onPrevious,
+  onNext,
+  showPrevious,
   showNext,
-  answers 
+  answers
 }: QuestionSectionProps) => {
   const steps = [
-    { id: 'informations', label: 'Informations' },
-    { id: 'acquisition', label: 'Acquisition - Attirer les coworkers' },
-    { id: 'activation', label: 'Activation - Transformer les visiteurs en membres' },
-    { id: 'retention', label: 'Rétention - Fidéliser vos membres' },
-    { id: 'revenus', label: 'Revenus - Générer et optimiser les revenus' },
-    { id: 'recommandation', label: 'Recommandation - Développer le bouche à oreille' },
-    { id: 'resultats', label: 'Résultat diagnostique' }
+    { id: 'informations', label: 'Démarrage' },
+    { id: 'acquisition', label: 'Acquisition' },
+    { id: 'activation', label: 'Activation' },
+    { id: 'retention', label: 'Rétention' },
+    { id: 'revenus', label: 'Revenus' },
+    { id: 'recommandation', label: 'Recommandation' },
+    { id: 'resultats', label: 'Résultats' }
   ];
 
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
 
-  const renderScoreCard = (sectionId: string, sectionAnswers: Record<number, Answer>) => {
-    const score = calculateSectionScore(sectionAnswers);
-    const level = getScoreLevel(score);
-    const recommendation = resultatsSection.recommendations.sections[sectionId][level];
-    
-    return (
-      <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200">
-        <h3 className="text-xl font-semibold mb-2">{steps.find(s => s.id === sectionId)?.label}</h3>
-        <div className="flex items-center gap-4 mb-4">
-          <div className="text-3xl font-bold">{score}%</div>
-          <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div 
-              className={`h-full rounded-full ${
-                score >= 80 ? 'bg-green-500' : 
-                score >= 50 ? 'bg-yellow-500' : 
-                'bg-red-500'
-              }`} 
-              style={{ width: `${score}%` }} 
-            />
-          </div>
+  const renderScoreCard = (title: string, score: number, message: string) => (
+    <div className="bg-white rounded-lg p-6 shadow border border-gray-200">
+      <h3 className="text-xl font-semibold mb-4">{title}</h3>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-600">Score</span>
+          <span className="text-red-600 font-semibold text-lg">{score}%</span>
         </div>
-        <p className="text-gray-600">{recommendation}</p>
+        <div className="h-2 w-full bg-gray-100 rounded-full">
+          <div 
+            className={`h-full rounded-full ${getScoreColor(score)}`}
+            style={{ width: `${score}%` }}
+          />
+        </div>
+        <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
+          <div className="flex gap-2 items-center">
+            <span className="text-sm text-gray-600">Niveau :</span>
+            <span className="text-red-600 font-medium">{getNiveau(score)}</span>
+          </div>
+          <p className="text-gray-600 text-sm">{message}</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderResultsSection = () => {
+    const globalScore = calculateGlobalScore(answers);
+    const globalMessage = getGlobalMessage(globalScore);
+
+    return (
+      <div className="space-y-8">
+        {/* Vidéo de présentation */}
+        <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden aspect-video mb-8">
+          <iframe 
+            src="https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa"
+            frameBorder="0"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+
+        {/* Score Global */}
+        {renderScoreCard("Score Global", globalScore, globalMessage)}
+
+        {/* Scores par section */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {Object.entries(answers).map(([sectionKey, sectionAnswers]) => {
+            if (sectionKey !== 'informations' && sectionKey !== 'resultats') {
+              const sectionTitle = steps.find(s => s.id === sectionKey)?.label || '';
+              const score = calculateGlobalScore({ [sectionKey]: sectionAnswers });
+              const message = resultatsSection.recommendations.sections[sectionKey][score >= 80 ? 'advanced' : score >= 50 ? 'intermediate' : 'beginner'];
+              
+              return (
+                <div key={sectionKey}>
+                  {renderScoreCard(
+                    `${sectionTitle} - ${steps.find(s => s.id === sectionKey)?.label}`,
+                    score,
+                    message
+                  )}
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-white rounded-lg p-8 border border-gray-200 shadow text-center space-y-4">
+          <h2 className="text-2xl font-bold">Envie d'augmenter le taux de remplissage de votre coworking ?</h2>
+          <p className="text-gray-600">
+            Vous avez maintenant une vision claire de la performance de votre espace de coworking. 
+            Transformez ces insights en résultats concrets.
+          </p>
+          <Button
+            className="bg-primary hover:bg-primary-hover text-white px-8 py-6 rounded-md text-lg"
+            onClick={() => {/* Ajoutez ici la logique pour rediriger vers le formulaire d'audit */}}
+          >
+            Recevoir mon audit et mon plan d'action
+          </Button>
+          <p className="text-sm text-gray-500 italic">Réponse garantie sous 24h ouvrées</p>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center text-sm text-gray-500 space-y-2">
+          <p>Outil de diagnostic développé par la société Kitco</p>
+          <p>© 2025 KITCO. Tous droits réservés.</p>
+        </div>
       </div>
     );
   };
@@ -87,29 +153,13 @@ export const QuestionSection = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-4xl mx-auto text-left"
+        className="max-w-4xl mx-auto"
       >
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
         <p className="text-gray-600 mb-8">{section.description}</p>
 
         {section.isResultSection ? (
-          <div className="space-y-8">
-            <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden aspect-video mb-8">
-              <iframe 
-                src={(section as typeof resultatsSection).videoUrl}
-                frameBorder="0"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </div>
-            <div className="space-y-6">
-              {['acquisition', 'activation', 'retention', 'revenus', 'recommandation'].map(sectionId => (
-                <div key={sectionId}>
-                  {answers[sectionId] && renderScoreCard(sectionId, answers[sectionId])}
-                </div>
-              ))}
-            </div>
-          </div>
+          renderResultsSection()
         ) : (
           <div className="space-y-8">
             {section.questions.map((question, index) => (
