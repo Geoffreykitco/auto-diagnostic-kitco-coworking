@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
 import { sections } from "@/data/sections";
-import { calculateSectionScore, getMaxSectionScore, calculateGlobalScore, getGlobalMessage } from "@/utils/scoreCalculator";
+import { 
+  calculateSectionScore, 
+  getMaxSectionScore,
+  calculateGlobalScore,
+  getGlobalMessage,
+} from "@/utils/scoreCalculator";
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
+
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
 }
+
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
@@ -36,6 +43,7 @@ export const ResultsAnalysis = ({
     label: 'Résultats'
   }];
   const currentStep = steps[steps.length - 1];
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -43,6 +51,7 @@ export const ResultsAnalysis = ({
     });
     calculateResults();
   }, [answers]);
+
   const calculateResults = () => {
     const sectionScores: Record<string, number> = {};
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
@@ -71,16 +80,19 @@ export const ResultsAnalysis = ({
       sectionScores
     };
   };
+
   const getLevelColor = (score: number): string => {
     if (score >= 80) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
     return "text-red-600";
   };
+
   const getProgressColor = (score: number): string => {
     if (score >= 80) return "bg-green-500";
     if (score >= 50) return "bg-yellow-500";
     return "bg-red-500";
   };
+
   const renderSectionCard = (section: string, sectionAnswers: Record<number, number>) => {
     const currentSection = sections[section as keyof typeof sections];
     if (!currentSection) return null;
@@ -98,13 +110,20 @@ export const ResultsAnalysis = ({
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
     return <SectionCard section={section} score={sectionScore.score} level={sectionScore.level} message={sectionScore.message} getLevelColor={getLevelColor} getProgressColor={getProgressColor} />;
   };
-  return <div className="max-w-5xl mx-auto px-4">
+
+  return (
+    <div className="max-w-5xl mx-auto px-4">
       <div className="mt-16 mb-8">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
       <div className="space-y-8">
-        <GlobalScoreCard score={globalScore} getLevelColor={getLevelColor} getProgressColor={getProgressColor} getGlobalMessage={getGlobalMessage} />
+        <GlobalScoreCard
+          score={globalScore}
+          getLevelColor={getLevelColor}
+          getProgressColor={getProgressColor}
+          getGlobalMessage={getGlobalMessage}
+        />
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
@@ -121,7 +140,12 @@ export const ResultsAnalysis = ({
           <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
             <h3 className="font-semibold text-primary mb-3 text-xl">Petit message vidéo</h3>
             <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-              <iframe src="https://www.loom.com/embed/YOUR_LOOM_VIDEO_ID" frameBorder="0" allowFullScreen className="w-full h-full rounded-lg"></iframe>
+              <iframe
+                src="https://www.loom.com/embed/2dd969ae22194fb79aa5663002143c26"
+                frameBorder="0"
+                allowFullScreen
+                className="w-full h-full rounded-lg"
+              ></iframe>
             </div>
           </div>
         </div>
@@ -130,5 +154,6 @@ export const ResultsAnalysis = ({
           <CTACard globalScore={globalScore} />
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
