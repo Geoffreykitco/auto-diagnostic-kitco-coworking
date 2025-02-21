@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { Footer } from "./Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,7 +16,6 @@ export const Layout = ({ children }: LayoutProps) => {
       <main className="flex-grow">
         {children}
       </main>
-      <Footer />
     </motion.div>
   );
 };

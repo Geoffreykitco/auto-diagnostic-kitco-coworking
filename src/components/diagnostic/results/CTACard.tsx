@@ -1,90 +1,68 @@
+
 import { motion } from "framer-motion";
-import { useToast } from "@/hooks/use-toast";
+import { Award } from "lucide-react";
 import { AuditForm } from "../sections/AuditForm";
+import { useToast } from "@/hooks/use-toast";
+
 interface CTACardProps {
   globalScore: number;
 }
-export const CTACard = ({
-  globalScore
-}: CTACardProps) => {
-  const {
-    toast
-  } = useToast();
-  return <>
-      <motion.div initial={{
-      opacity: 0,
-      x: -20
-    }} animate={{
-      opacity: 1,
-      x: 0
-    }} transition={{
-      duration: 0.3
-    }} className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
-        <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold text-primary mb-3 text-2xl text-center">Envie d'augmenter le taux de remplissage de votre coworking ? </h3>
-            <p className="text-gray-600 leading-relaxed mb-4 text-center text-base">Vous avez maintenant une vision claire de la performance de votre espace de coworking. Transformez ces insights en résultats concrets.</p>
-            <button className="px-8 py-4 bg-primary hover:bg-primary-hover text-white rounded-md text-base font-medium transition-colors">
-              Recevoir mon audit et mon plan d'action
-            </button>
-          </div>
-          
-          <AuditForm onSubmit={async formData => {
-          try {
-            const diagnosticData = {
-              created_at: new Date().toISOString(),
-              first_name: formData.firstName,
-              last_name: formData.lastName,
-              coworking_name: formData.coworkingName,
-              email: formData.email,
-              global_score: globalScore
-            };
-            const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
-              method: 'POST',
-              headers: {
-                'Authorization': 'Token 185511',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(diagnosticData)
-            });
-            if (!response.ok) {
-              throw new Error('Failed to save form results');
-            }
-            toast({
-              title: "Formulaire envoyé !",
-              description: "Vous recevrez une réponse par email dans les plus brefs délais.",
-              duration: 3000
-            });
-            console.log('Form results saved successfully');
-          } catch (error) {
-            console.error('Error saving form results:', error);
-            toast({
-              title: "Erreur",
-              description: "Une erreur est survenue lors de l'envoi du formulaire.",
-              duration: 3000
-            });
-          }
-        }} />
-          
-          <p className="text-xs text-gray-500 text-center italic">
-            Réponse garantie sous 24h ouvrées
-          </p>
-        </div>
-      </motion.div>
 
-      {/* Timeline horizontale */}
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} animate={{
-      opacity: 1,
-      y: 0
-    }} transition={{
-      duration: 0.5,
-      delay: 0.2
-    }} className="mt-8 relative w-full max-w-none">
-        <div className="absolute top-4 left-0 right-0 h-0.5 bg-primary/20"></div>
-        
-      </motion.div>
-    </>;
+export const CTACard = ({ globalScore }: CTACardProps) => {
+  const { toast } = useToast();
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-[#0B1A17] text-white rounded-lg p-6 shadow-lg"
+    >
+      <div className="flex items-center space-x-2 mb-4">
+        <Award className="h-6 w-6" />
+        <h3 className="font-medium">Recevoir mon audit et passer à l'action</h3>
+      </div>
+      
+      <AuditForm onSubmit={async (formData) => {
+        try {
+          const diagnosticData = {
+            created_at: new Date().toISOString(),
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            coworking_name: formData.coworkingName,
+            email: formData.email,
+            global_score: globalScore
+          };
+
+          const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Token 185511',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(diagnosticData)
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to save form results');
+          }
+
+          toast({
+            title: "Formulaire envoyé !",
+            description: "Vous recevrez une réponse par email dans les plus brefs délais.",
+            duration: 3000,
+          });
+
+          console.log('Form results saved successfully');
+        } catch (error) {
+          console.error('Error saving form results:', error);
+          toast({
+            title: "Erreur",
+            description: "Une erreur est survenue lors de l'envoi du formulaire.",
+            duration: 3000,
+          });
+        }
+      }} />
+    </motion.div>
+  );
 };
