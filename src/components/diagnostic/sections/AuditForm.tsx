@@ -38,7 +38,6 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
 
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen && (fullName || coworkingName || email)) {
-      // Attendre la confirmation avant de fermer
       const shouldClose = window.confirm("Voulez-vous vraiment fermer ? Vos données seront perdues.");
       if (shouldClose) {
         resetForm();
@@ -108,16 +107,7 @@ export const AuditForm = ({ onSubmit }: AuditFormProps) => {
                   </p>
                 </div>
 
-                <AuditFormContent
-                  fullName={fullName}
-                  coworkingName={coworkingName}
-                  email={email}
-                  isSubmitting={isSubmitting}
-                  onFullNameChange={setFullName}
-                  onCoworkingNameChange={setCoworkingName}
-                  onEmailChange={setEmail}
-                  onSubmit={handleSubmitForm}
-                />
+                <AuditFormContent />
               </div>
             </div>
           </DialogContent>

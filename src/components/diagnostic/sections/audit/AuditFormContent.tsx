@@ -1,5 +1,6 @@
+
 import { motion } from 'framer-motion';
-import { CardStack } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { AuditHeader } from "./AuditHeader";
@@ -30,7 +31,7 @@ export const AuditFormContent = () => {
             </p>
           </div>
 
-          <CardStack>
+          <Card className="p-4">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <p>Question 1</p>
@@ -38,7 +39,7 @@ export const AuditFormContent = () => {
               </div>
               <Progress value={0} />
             </div>
-          </CardStack>
+          </Card>
         </div>
       </div>
     </div>
