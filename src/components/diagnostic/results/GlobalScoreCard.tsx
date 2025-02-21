@@ -39,13 +39,14 @@ export const GlobalScoreCard = ({
           indicatorClassName={getProgressColor(score)}
         />
 
-        <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
-          <div className="text-sm">
-            Niveau : <span className={`font-medium ${getLevelColor(score)}`}>
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-sm">Niveau :</span>
+            <span className={`font-medium ${getLevelColor(score)}`}>
               {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
             </span>
           </div>
-          <p className="text-gray-600">{getGlobalMessage(score)}</p>
+          <p className="text-gray-600 text-left">{getGlobalMessage(score)}</p>
         </div>
       </div>
     </motion.div>
