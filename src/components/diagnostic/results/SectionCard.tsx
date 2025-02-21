@@ -1,8 +1,6 @@
-
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { ScoreLevel } from "@/utils/scoreCalculator";
-
 interface SectionCardProps {
   section: string;
   score: number;
@@ -11,7 +9,6 @@ interface SectionCardProps {
   getLevelColor: (score: number) => string;
   getProgressColor: (score: number) => string;
 }
-
 const getSectionTitle = (section: string) => {
   switch (section) {
     case 'acquisition':
@@ -26,22 +23,23 @@ const getSectionTitle = (section: string) => {
       return "Clients à ambassadeurs";
   }
 };
-
 export const SectionCard = ({
   section,
   score,
   level,
   message,
   getLevelColor,
-  getProgressColor,
+  getProgressColor
 }: SectionCardProps) => {
-  return (
-    <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full"
-    >
+  return <motion.div initial={{
+    opacity: 0,
+    x: -20
+  }} animate={{
+    opacity: 1,
+    x: 0
+  }} transition={{
+    duration: 0.3
+  }} className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full">
       <div className="space-y-6">
         <div>
           <h3 className="text-2xl font-bold mb-2 text-left">
@@ -56,11 +54,7 @@ export const SectionCard = ({
               {score}%
             </span>
           </div>
-          <Progress 
-            value={score} 
-            className="h-2.5"
-            indicatorClassName={getProgressColor(score)}
-          />
+          <Progress value={score} className="h-2.5" indicatorClassName={getProgressColor(score)} />
         </div>
 
         <div className="bg-gray-50 rounded-lg p-4">
@@ -70,9 +64,8 @@ export const SectionCard = ({
               {level.charAt(0).toUpperCase() + level.slice(1)}
             </span>
           </div>
-          <p className="text-sm text-gray-600 text-left leading-relaxed">{message}</p>
+          <p className="text-gray-600 text-left leading-relaxed text-base">{message}</p>
         </div>
       </div>
-    </motion.div>
-  );
+    </motion.div>;
 };
