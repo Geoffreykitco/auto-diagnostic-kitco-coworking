@@ -49,28 +49,30 @@ export const ResultsSection = ({ answers, steps }: ResultsSectionProps) => {
           })}
         </div>
 
-        <div className="bg-white rounded-lg overflow-hidden shadow-lg aspect-video">
-          <iframe 
-            src={resultatsSection.videoUrl}
-            frameBorder="0"
-            allowFullScreen
-            className="w-full h-full"
-          />
-        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-lg p-8 border border-gray-200 shadow text-center space-y-4">
+            <h2 className="text-2xl font-bold">Envie d'augmenter le taux de remplissage de votre coworking ?</h2>
+            <p className="text-gray-600">
+              Vous avez maintenant une vision claire de la performance de votre espace de coworking. 
+              Transformez ces insights en résultats concrets.
+            </p>
+            <Button
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-md text-lg mt-4"
+              onClick={() => {/* Ajoutez ici la logique pour rediriger vers le formulaire d'audit */}}
+            >
+              Recevoir mon audit et mon plan d'action
+            </Button>
+            <p className="text-sm text-gray-500 italic">Réponse garantie sous 24h ouvrées</p>
+          </div>
 
-        <div className="bg-white rounded-lg p-8 border border-gray-200 shadow text-center space-y-4">
-          <h2 className="text-2xl font-bold">Envie d'augmenter le taux de remplissage de votre coworking ?</h2>
-          <p className="text-gray-600">
-            Vous avez maintenant une vision claire de la performance de votre espace de coworking. 
-            Transformez ces insights en résultats concrets.
-          </p>
-          <Button
-            className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-md text-lg mt-4"
-            onClick={() => {/* Ajoutez ici la logique pour rediriger vers le formulaire d'audit */}}
-          >
-            Recevoir mon audit et mon plan d'action
-          </Button>
-          <p className="text-sm text-gray-500 italic">Réponse garantie sous 24h ouvrées</p>
+          <div className="bg-white rounded-lg overflow-hidden shadow-lg aspect-video">
+            <iframe 
+              src={resultatsSection.videoUrl}
+              frameBorder="0"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
         </div>
       </div>
 
