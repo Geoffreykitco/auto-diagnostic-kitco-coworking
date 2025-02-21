@@ -16,7 +16,7 @@ interface QuestionSectionProps {
   onNext: () => void;
   showPrevious: boolean;
   showNext: boolean;
-  answers: Record<number, Answer>;
+  answers: Record<string, Record<number, Answer>>;
 }
 
 const getScoreColor = (score: number): string => {
@@ -29,6 +29,12 @@ const getNiveau = (score: number): string => {
   if (score >= 80) return "Avancé";
   if (score >= 50) return "Intermédiaire";
   return "Débutant";
+};
+
+const calculateSectionScore = (answers: Record<number, Answer>): number => {
+  const totalPoints = Object.values(answers).reduce((sum, answer) => sum + answer.score, 0);
+  const maxPoints = Object.values(answers).length * 100; // Assuming max score per question is 100
+  return Math.round((totalPoints / maxPoints) * 100);
 };
 
 export const QuestionSection = ({
@@ -78,7 +84,15 @@ export const QuestionSection = ({
   );
 
   const renderResultsSection = () => {
-    const globalScore = calculateGlobalScore(answers);
+    // Transformer les réponses en scores par section
+    const sectionScores: Record<string, number> = {};
+    Object.entries(answers).forEach(([sectionKey, sectionAnswers]) => {
+      if (sectionKey !== 'informations' && sectionKey !== 'resultats') {
+        sectionScores[sectionKey] = calculateSectionScore(sectionAnswers);
+      }
+    });
+
+    const globalScore = calculateGlobalScore(sectionScores);
     const globalMessage = getGlobalMessage(globalScore);
 
     return (
@@ -98,23 +112,19 @@ export const QuestionSection = ({
 
         {/* Scores par section */}
         <div className="grid md:grid-cols-2 gap-6">
-          {Object.entries(answers).map(([sectionKey, sectionAnswers]) => {
-            if (sectionKey !== 'informations' && sectionKey !== 'resultats') {
-              const sectionTitle = steps.find(s => s.id === sectionKey)?.label || '';
-              const score = calculateGlobalScore({ [sectionKey]: sectionAnswers });
-              const message = resultatsSection.recommendations.sections[sectionKey][score >= 80 ? 'advanced' : score >= 50 ? 'intermediate' : 'beginner'];
-              
-              return (
-                <div key={sectionKey}>
-                  {renderScoreCard(
-                    `${sectionTitle} - ${steps.find(s => s.id === sectionKey)?.label}`,
-                    score,
-                    message
-                  )}
-                </div>
-              );
-            }
-            return null;
+          {Object.entries(sectionScores).map(([sectionKey, score]) => {
+            const sectionTitle = steps.find(s => s.id === sectionKey)?.label || '';
+            const message = resultatsSection.recommendations.sections[sectionKey][score >= 80 ? 'advanced' : score >= 50 ? 'intermediate' : 'beginner'];
+            
+            return (
+              <div key={sectionKey}>
+                {renderScoreCard(
+                  sectionTitle,
+                  score,
+                  message
+                )}
+              </div>
+            );
           })}
         </div>
 
@@ -168,7 +178,7 @@ export const QuestionSection = ({
                 question={question}
                 questionIndex={index}
                 onSelect={(value) => onOptionSelect(index, value)}
-                selectedValue={answers[index]?.value}
+                selectedValue={answers[currentSection]?.[index]?.value}
               />
             ))}
           </div>
