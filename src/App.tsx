@@ -29,8 +29,7 @@ export default function App() {
                 onNext={diagnostic.handleNext}
                 showPrevious={diagnostic.currentSection !== 'informations'}
                 showNext={true}
-                answers={diagnostic.answers}
-                currentSection={diagnostic.currentSection}
+                answers={diagnostic.answers[diagnostic.currentSection] || {}}
               />
             }
           />
