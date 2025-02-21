@@ -130,9 +130,7 @@ export const ResultsAnalysis = ({
           </div>
         </div>
 
-        <div className="col-span-2">
-          <CTACard globalScore={globalScore} />
-        </div>
+        <CTACard />
       </div>
     </div>;
 };
