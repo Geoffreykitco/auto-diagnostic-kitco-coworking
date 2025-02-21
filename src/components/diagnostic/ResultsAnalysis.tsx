@@ -105,7 +105,7 @@ export const ResultsAnalysis = ({
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
-      <div className="space-y-8 max-w-5xl mx-auto">
+      <div className="space-y-8 max-w-5xl mx-auto text-left">
         <GlobalScoreCard
           score={globalScore}
           getLevelColor={getLevelColor}

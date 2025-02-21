@@ -60,7 +60,7 @@ export const SectionCard = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200"
+      className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
     >
       <div className="flex items-center gap-3 mb-4">
         <Icon className="w-5 h-5" />
