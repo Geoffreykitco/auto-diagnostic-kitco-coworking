@@ -6,12 +6,6 @@ export const activationSection = {
   description: "Cette section évalue votre capacité à convertir les visiteurs intéressés en membres actifs de votre espace.",
   questions: [
     {
-      question: "Quel est votre taux de remplissage actuel ?",
-      tooltip: "Le pourcentage d'occupation de votre espace par rapport à sa capacité totale.",
-      type: "text" as const,
-      options: []
-    },
-    {
       question: "Mettez-vous en place un système d'onboarding pour les nouveaux membres (visite des locaux, présentation des équipes, etc.) ?",
       tooltip: "Un processus structuré pour accueillir et intégrer les nouveaux membres dans votre espace.",
       type: "single" as const,
