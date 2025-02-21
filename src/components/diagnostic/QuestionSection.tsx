@@ -53,19 +53,17 @@ export const QuestionSection = ({
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
         <p className="text-gray-600 mb-8">{section.description}</p>
 
-        {!section.isResultSection && (
-          <div className="space-y-8">
-            {section.questions.map((question, index) => (
-              <QuestionItem
-                key={index}
-                question={question}
-                questionIndex={index}
-                onSelect={(value) => onOptionSelect(index, value)}
-                selectedValue={answers[index]?.value}
-              />
-            ))}
-          </div>
-        )}
+        <div className="space-y-8">
+          {section.questions.map((question, index) => (
+            <QuestionItem
+              key={index}
+              question={question}
+              questionIndex={index}
+              onSelect={(value) => onOptionSelect(index, value)}
+              selectedValue={answers[index]?.value}
+            />
+          ))}
+        </div>
 
         <div className="flex justify-between mt-12">
           {showPrevious ? (
@@ -86,7 +84,7 @@ export const QuestionSection = ({
               onClick={onNext}
               className="flex items-center gap-2 bg-primary hover:bg-primary-hover"
             >
-              {section.isResultSection ? "Terminer" : "Suivant"}
+              Suivant
               <ArrowRightIcon size={16} />
             </Button>
           )}
