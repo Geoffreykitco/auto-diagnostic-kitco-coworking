@@ -49,20 +49,24 @@ export const ResultsSection = ({ answers, steps }: ResultsSectionProps) => {
           })}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg p-8 border border-gray-200 shadow text-center space-y-4">
-            <h2 className="text-2xl font-bold">Envie d'augmenter le taux de remplissage de votre coworking ?</h2>
-            <p className="text-gray-600">
-              Vous avez maintenant une vision claire de la performance de votre espace de coworking. 
-              Transformez ces insights en résultats concrets.
+        <div className="grid md:grid-cols-2 gap-6 items-start">
+          <div className="bg-white rounded-lg p-8 border border-gray-200 shadow">
+            <div className="mb-4">
+              <div className="flex gap-2 items-center mb-2">
+                <span className="text-sm text-gray-600">Score recommandation :</span>
+                <span className="text-red-600 font-medium">80%</span>
+              </div>
+              <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-green-500"
+                  style={{ width: '80%', transition: 'width 0.5s ease-out' }}
+                />
+              </div>
+            </div>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Votre espace de coworking bénéficie d'une excellente réputation auprès de vos membres. 
+              Continuez à encourager les recommandations et à fidéliser votre communauté.
             </p>
-            <Button
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-md text-lg mt-4"
-              onClick={() => {/* Ajoutez ici la logique pour rediriger vers le formulaire d'audit */}}
-            >
-              Recevoir mon audit et mon plan d'action
-            </Button>
-            <p className="text-sm text-gray-500 italic">Réponse garantie sous 24h ouvrées</p>
           </div>
 
           <div className="bg-white rounded-lg overflow-hidden shadow-lg aspect-video">
@@ -73,6 +77,21 @@ export const ResultsSection = ({ answers, steps }: ResultsSectionProps) => {
               className="w-full h-full"
             />
           </div>
+        </div>
+
+        <div className="bg-white rounded-lg p-8 border border-gray-200 shadow text-center space-y-4">
+          <h2 className="text-2xl font-bold">Envie d'augmenter le taux de remplissage de votre coworking ?</h2>
+          <p className="text-gray-600">
+            Vous avez maintenant une vision claire de la performance de votre espace de coworking. 
+            Transformez ces insights en résultats concrets.
+          </p>
+          <Button
+            className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-md text-lg mt-4"
+            onClick={() => {/* Ajoutez ici la logique pour rediriger vers le formulaire d'audit */}}
+          >
+            Recevoir mon audit et mon plan d'action
+          </Button>
+          <p className="text-sm text-gray-500 italic">Réponse garantie sous 24h ouvrées</p>
         </div>
       </div>
 
