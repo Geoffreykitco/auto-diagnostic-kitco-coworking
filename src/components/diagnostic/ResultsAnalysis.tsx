@@ -6,9 +6,11 @@ import { calculateSectionScore, getMaxSectionScore, calculateGlobalScore, getGlo
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
+
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
 }
+
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
@@ -118,11 +120,13 @@ export const ResultsAnalysis = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg px-0 py-0">
-            
-            <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-              <iframe src="https://www.loom.com/embed/2dd969ae22194fb79aa5663002143c26" frameBorder="0" allowFullScreen className="w-full h-full rounded-lg"></iframe>
-            </div>
+          <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden">
+            <iframe 
+              src="https://www.loom.com/embed/2dd969ae22194fb79aa5663002143c26" 
+              frameBorder="0" 
+              allowFullScreen 
+              className="w-full aspect-video"
+            ></iframe>
           </div>
         </div>
 
