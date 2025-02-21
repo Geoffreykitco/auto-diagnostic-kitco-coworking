@@ -28,12 +28,15 @@ export const ResultsAnalysis = ({
     
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
       if (section !== 'informations') {
+        // Conversion des réponses en score selon une échelle de 0 à 10
         const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-          acc[Number(key)] = { value: value, score: value };
+          // Conversion de la valeur (0-2) en score (0-10)
+          const score = value * 5; // 0 -> 0, 1 -> 5, 2 -> 10
+          acc[Number(key)] = { value: value, score: score };
           return acc;
         }, {} as Record<number, { value: number; score: number }>);
 
-        const maxScore = Object.keys(sectionAnswers).length * 3;
+        const maxScore = Object.keys(sectionAnswers).length * 10; // Score maximum possible (10 points par question)
         const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
         sectionScores[section] = sectionScore.score;
       }
