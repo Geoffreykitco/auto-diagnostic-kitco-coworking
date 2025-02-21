@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
-import { motion } from "framer-motion";
 import { sections } from "@/data/sections";
 import { calculateSectionScore, getMaxSectionScore, calculateGlobalScore, getGlobalMessage } from "@/utils/scoreCalculator";
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
-import { CTACard } from "./results/CTACard";
+import { AuditHeader } from "./sections/audit/AuditHeader";
+
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
 }
+
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
@@ -118,17 +119,7 @@ export const ResultsAnalysis = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full">
-            <div className="space-y-6">
-              <div>
-                
-              </div>
-              <div className="bg-gray-50 rounded-lg p-4">
-                
-                <CTACard globalScore={globalScore} />
-              </div>
-            </div>
-          </div>
+          <AuditHeader globalScore={globalScore} />
         </div>
       </div>
     </div>;
