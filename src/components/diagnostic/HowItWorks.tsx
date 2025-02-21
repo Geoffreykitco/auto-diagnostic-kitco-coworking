@@ -31,10 +31,10 @@ export const HowItWorks = () => {
           
           <div className="relative">
             {/* Ligne horizontale de la timeline visible uniquement sur desktop */}
-            <div className="hidden md:block absolute left-0 right-0 top-8 h-0.5 bg-gradient-to-r from-primary/5 via-primary/20 to-primary/5"></div>
+            <div className="hidden md:block absolute left-0 right-0 top-16 h-0.5 bg-gradient-to-r from-primary/5 via-primary/20 to-primary/5"></div>
             
             {/* Ligne verticale de la timeline visible uniquement sur mobile */}
-            <div className="md:hidden absolute left-[21px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5"></div>
+            <div className="md:hidden absolute left-[28px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5"></div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
               {[
@@ -58,17 +58,19 @@ export const HowItWorks = () => {
                   transition={{ delay: index * 0.2 + 0.5 }}
                   className="relative md:pt-12"
                 >
-                  {/* Point de la timeline avec pulsation */}
-                  <div className={`absolute ${isMobile ? 'left-[21px] -translate-x-1/2' : 'left-1/2 -translate-x-1/2 top-0'}`}>
-                    <div className="w-2.5 h-2.5 rounded-full bg-primary">
-                      <div className="absolute w-5 h-5 rounded-full bg-primary/20 -m-1.25 animate-pulse"></div>
+                  {/* Numéro de l'étape */}
+                  <div className={`absolute ${isMobile ? 'left-7 -translate-x-1/2' : 'left-1/2 -translate-x-1/2 top-0'}`}>
+                    <div className="flex items-center justify-center w-14 h-14 bg-primary/5 rounded-lg">
+                      <span className="text-primary text-2xl font-bold">
+                        {index + 1}
+                      </span>
                     </div>
                   </div>
                   
                   {/* Contenu de l'étape */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className={`glass-morphism p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-12' : ''}`}
+                    className={`glass-morphism p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-20' : ''}`}
                   >
                     <span className="text-xs md:text-sm font-medium text-primary/60 mb-1 block">
                       Étape {index + 1}
