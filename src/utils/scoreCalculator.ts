@@ -17,7 +17,7 @@ interface SectionWeight {
 
 const SCORE_THRESHOLDS = {
   INTERMEDIATE: 50,
-  ADVANCED: 75
+  ADVANCED: 80 // Modifié de 75 à 80 pour correspondre aux nouveaux seuils
 };
 
 const SECTION_WEIGHTS: SectionWeight = {
@@ -28,12 +28,10 @@ const SECTION_WEIGHTS: SectionWeight = {
   recommandation: 0.15
 };
 
-export const calculateSectionLevel = (score: number, maxScore: number): ScoreLevel => {
-  const percentage = (score / maxScore) * 100;
-  
-  if (percentage >= SCORE_THRESHOLDS.ADVANCED) {
+export const calculateSectionLevel = (score: number): ScoreLevel => {
+  if (score >= SCORE_THRESHOLDS.ADVANCED) {
     return 'avancé';
-  } else if (percentage >= SCORE_THRESHOLDS.INTERMEDIATE) {
+  } else if (score >= SCORE_THRESHOLDS.INTERMEDIATE) {
     return 'intermédiaire';
   }
   return 'débutant';
@@ -76,11 +74,17 @@ export const calculateSectionScore = (
   sectionAnswers: Record<number, { value: string | number | number[] | null; score: number }>,
   maxPossibleScore: number
 ): SectionScore => {
+  // Calcul du score total obtenu
   const totalScore = Object.values(sectionAnswers).reduce((sum, answer) => sum + answer.score, 0);
-  const level = calculateSectionLevel(totalScore, maxPossibleScore);
-
+  
+  // Normalisation du score sur 100
+  const normalizedScore = Math.min(Math.round((totalScore / maxPossibleScore) * 100), 100);
+  
+  // Détermination du niveau basé sur le score normalisé
+  const level = calculateSectionLevel(normalizedScore);
+  
   return {
-    score: totalScore,
+    score: normalizedScore,
     level,
     message: getSectionMessage(sectionAnswers.toString(), level)
   };
@@ -90,37 +94,29 @@ export const getMaxSectionScore = (options: readonly { points: number }[]): numb
   return options.reduce((sum, option) => sum + option.points, 0);
 };
 
-export const calculateGlobalScore = (sectionScores: Record<string, number>, sectionMaxScores: Record<string, number>): number => {
+export const calculateGlobalScore = (sectionScores: Record<string, number>): number => {
   let weightedScore = 0;
 
-  Object.entries(sectionScores).forEach(([section, score]) => {
-    const maxScore = sectionMaxScores[section];
-    if (maxScore && maxScore > 0) {
-      const sectionPercentage = (score / maxScore) * 100;
-      const weight = SECTION_WEIGHTS[section as keyof SectionWeight] || 0;
-      weightedScore += sectionPercentage * weight;
-    }
+  Object.entries(SECTION_WEIGHTS).forEach(([section, weight]) => {
+    const sectionScore = sectionScores[section] || 0;
+    weightedScore += sectionScore * weight;
   });
 
-  return Math.round(weightedScore);
+  // Arrondir et s'assurer que le score ne dépasse pas 100
+  return Math.min(Math.round(weightedScore), 100);
 };
 
 export const getGlobalScoreLevel = (globalScore: number): ScoreLevel => {
-  if (globalScore >= SCORE_THRESHOLDS.ADVANCED) {
-    return 'avancé';
-  } else if (globalScore >= SCORE_THRESHOLDS.INTERMEDIATE) {
-    return 'intermédiaire';
-  }
-  return 'débutant';
+  return calculateSectionLevel(globalScore);
 };
 
 export const getGlobalMessage = (globalScore: number): string => {
   const level = getGlobalScoreLevel(globalScore);
   
   const messages = {
-    débutant: "Votre espace de coworking a besoin d'amélioration dans plusieurs domaines clés. Concentrez-vous d'abord sur l'acquisition et l'activation de nouveaux membres.",
-    intermédiaire: "Votre espace de coworking est sur la bonne voie. Continuez à optimiser vos processus et à développer votre communauté.",
-    avancé: "Félicitations ! Votre espace de coworking est très performant. Maintenez ce niveau d'excellence et innovez continuellement."
+    débutant: "Votre espace de coworking a besoin d'améliorations significatives pour assurer sa croissance. Priorisez Acquisition et Activation.",
+    intermédiaire: "Votre coworking est sur une bonne dynamique. Optimisez vos stratégies pour passer à un niveau supérieur.",
+    avancé: "Votre coworking fonctionne très bien, mais des marges de progression existent pour aller encore plus loin."
   };
 
   return messages[level];
