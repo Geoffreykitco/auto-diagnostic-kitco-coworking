@@ -1,8 +1,8 @@
-
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
 import { Answer, Question } from '@/components/diagnostic/question/types';
+import { calculateSectionScore, getMaxSectionScore, ScoreLevel } from '@/utils/scoreCalculator';
 
 type SectionType = 'informations' | 'acquisition' | 'activation' | 'retention' | 'revenus' | 'recommandation' | 'resultats';
 
@@ -15,21 +15,19 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [started, setStarted] = useState(false);
   const [currentSection, setCurrentSection] = useState<SectionType>('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, Answer>>>({});
+  const [sectionScores, setSectionScores] = useState<Record<string, { level: ScoreLevel; message: string; score: number }>>({});
 
   const calculateScore = (question: Question, value: string | number | number[] | null): number => {
     if (question.isInformative) return 0;
     
     if (question.type === 'text') {
-      // Pour les questions de type texte, pas de points
       return 0;
     } else if (question.type === 'single') {
-      // Pour les questions à choix unique, retourner les points de l'option sélectionnée
       if (typeof value === 'number') {
         return question.options[value]?.points || 0;
       }
       return 0;
     } else if (question.type === 'multiple') {
-      // Pour les questions à choix multiples, sommer les points des options sélectionnées
       if (Array.isArray(value)) {
         return value.reduce((total, optionIndex) => {
           return total + (question.options[optionIndex]?.points || 0);
@@ -52,6 +50,27 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     }, 0);
     
     return (answeredQuestions / totalQuestions) * 100;
+  }, []);
+
+  const updateSectionScores = useCallback((newAnswers: Record<string, Record<number, Answer>>) => {
+    const newSectionScores: Record<string, { level: ScoreLevel; message: string; score: number }> = {};
+    
+    Object.entries(newAnswers).forEach(([sectionKey, sectionAnswers]) => {
+      if (sectionKey !== 'informations' && sectionKey !== 'resultats') {
+        const section = sections[sectionKey as keyof typeof sections];
+        const maxScore = section.questions.reduce((sum, question) => {
+          if (question.type === 'multiple') {
+            return sum + getMaxSectionScore(question.options);
+          }
+          return sum + Math.max(...question.options.map(opt => opt.points));
+        }, 0);
+        
+        const sectionScore = calculateSectionScore(sectionAnswers, maxScore);
+        newSectionScores[sectionKey] = sectionScore;
+      }
+    });
+
+    setSectionScores(newSectionScores);
   }, []);
 
   const handleStart = useCallback(() => {
@@ -83,6 +102,8 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       const newProgress = calculateProgress(newAnswers);
       setProgress(newProgress);
       
+      updateSectionScores(newAnswers);
+      
       return newAnswers;
     });
     
@@ -91,7 +112,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       variant: "default",
       duration: 1200,
     });
-  }, [currentSection, calculateProgress, toast]);
+  }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
   const handlePrevious = useCallback(() => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
@@ -128,6 +149,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     started,
     currentSection,
     answers,
+    sectionScores,
     handleStart,
     handleOptionSelect,
     handlePrevious,
