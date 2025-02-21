@@ -63,14 +63,14 @@ export const SectionCard = ({
           />
         </div>
 
-        <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
+        <div className="bg-gray-50 rounded-lg">
           <div className="flex items-center gap-2">
             <span className="text-sm">Niveau : </span>
             <span className={`font-medium ${getLevelColor(score)}`}>
               {level.charAt(0).toUpperCase() + level.slice(1)}
             </span>
           </div>
-          <p className="text-sm text-gray-600">{message}</p>
+          <p className="text-sm text-gray-600 mt-2">{message}</p>
         </div>
       </div>
     </motion.div>
