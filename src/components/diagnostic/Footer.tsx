@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -45,26 +44,7 @@ export const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-lg">Liens rapides</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Tarifs
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Réserver une visite
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
+          
         </div>
 
         <Separator className="bg-white/10" />
