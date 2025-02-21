@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { Award } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 interface GlobalScoreCardProps {
@@ -25,7 +24,6 @@ export const GlobalScoreCard = ({
     >
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <Award className="w-8 h-8 text-primary" />
           <div>
             <h2 className="text-2xl font-bold">Score Global</h2>
             <p className="text-gray-600">Progression du diagnostic de votre espace</p>
