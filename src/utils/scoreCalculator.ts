@@ -17,7 +17,7 @@ interface SectionWeight {
 
 const SCORE_THRESHOLDS = {
   INTERMEDIATE: 50,
-  ADVANCED: 80 // Modifié de 75 à 80 pour correspondre aux nouveaux seuils
+  ADVANCED: 80
 };
 
 const SECTION_WEIGHTS: SectionWeight = {
@@ -70,28 +70,31 @@ export const getSectionMessage = (section: string, level: ScoreLevel): string =>
     "Continuez à améliorer cette dimension de votre espace.";
 };
 
+interface Answer {
+  value: number;
+  score: number;
+}
+
 export const calculateSectionScore = (
-  sectionAnswers: Record<number, { value: string | number | number[] | null; score: number }>,
+  answers: Record<number, Answer>,
   maxPossibleScore: number
 ): SectionScore => {
-  // Calcul du score total obtenu
-  const totalScore = Object.values(sectionAnswers).reduce((sum, answer) => sum + answer.score, 0);
-  
-  // Normalisation du score sur 100
+  const totalScore = Object.values(answers).reduce((sum, answer) => sum + answer.score, 0);
   const normalizedScore = Math.min(Math.round((totalScore / maxPossibleScore) * 100), 100);
-  
-  // Détermination du niveau basé sur le score normalisé
   const level = calculateSectionLevel(normalizedScore);
   
   return {
     score: normalizedScore,
     level,
-    message: getSectionMessage(sectionAnswers.toString(), level)
+    message: "Message personnalisé basé sur votre score"
   };
 };
 
-export const getMaxSectionScore = (options: readonly { points: number }[]): number => {
-  return options.reduce((sum, option) => sum + option.points, 0);
+export const getMaxSectionScore = (questions: readonly { options: readonly { points: number }[] }[]): number => {
+  return questions.reduce((sum, question) => {
+    const maxPoints = Math.max(...question.options.map(option => option.points));
+    return sum + maxPoints;
+  }, 0);
 };
 
 export const calculateGlobalScore = (sectionScores: Record<string, number>): number => {
@@ -102,16 +105,11 @@ export const calculateGlobalScore = (sectionScores: Record<string, number>): num
     weightedScore += sectionScore * weight;
   });
 
-  // Arrondir et s'assurer que le score ne dépasse pas 100
   return Math.min(Math.round(weightedScore), 100);
 };
 
-export const getGlobalScoreLevel = (globalScore: number): ScoreLevel => {
-  return calculateSectionLevel(globalScore);
-};
-
 export const getGlobalMessage = (globalScore: number): string => {
-  const level = getGlobalScoreLevel(globalScore);
+  const level = calculateSectionLevel(globalScore);
   
   const messages = {
     débutant: "Votre espace de coworking a besoin d'améliorations significatives pour assurer sa croissance. Priorisez Acquisition et Activation.",
