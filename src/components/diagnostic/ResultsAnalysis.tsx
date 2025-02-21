@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -11,7 +10,6 @@ import {
 } from "@/utils/scoreCalculator";
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
-import { CTACard } from "./results/CTACard";
 import { AuditHeader } from "./sections/audit/AuditHeader";
 
 interface ResultsAnalysisProps {
@@ -127,8 +125,7 @@ export const ResultsAnalysis = ({
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
           <div className="rounded-lg h-full">
-            <AuditHeader />
-            <CTACard globalScore={globalScore} />
+            <AuditHeader globalScore={globalScore} />
           </div>
         </div>
       </div>
