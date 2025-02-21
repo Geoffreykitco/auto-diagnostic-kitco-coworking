@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Layout } from "@/components/layout/Layout";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
+import { ResultsPreview } from "@/pages/ResultsPreview";
 import "./App.css";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/results-preview" element={<ResultsPreview />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
