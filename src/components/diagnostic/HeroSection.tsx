@@ -31,16 +31,16 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
             Auto-diagnostic de votre espace de coworking
           </h1>
           
-          <p className="text-lg text-gray-600 mb-8">
-            Évaluez l'efficacité de votre espace selon la méthodologie AARRR
-          </p>
-          
           <button
             onClick={onStart}
-            className="bg-white/95 px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)]"
+            className="bg-white/95 px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)] mb-6"
           >
             Commencer l'évaluation
           </button>
+          
+          <p className="text-lg text-gray-600">
+            Évaluez l'efficacité de votre espace selon la méthodologie AARRR
+          </p>
         </div>
       </div>
     </section>
