@@ -40,37 +40,37 @@ export const SectionCard = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg p-4 border border-gray-200 shadow-lg h-full"
+      className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full"
     >
       <div className="space-y-6">
         <div>
-          <h4 className="text-lg font-semibold mb-1">
+          <h4 className="text-lg font-semibold mb-2 text-left">
             {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
           </h4>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex justify-between items-center text-sm">
-            <span className="text-gray-600">Score</span>
-            <span className={`font-medium ${getLevelColor(score)}`}>
+            <span className="text-gray-600 font-medium">Score</span>
+            <span className={`font-semibold text-base ${getLevelColor(score)}`}>
               {score}%
             </span>
           </div>
           <Progress 
             value={score} 
-            className="h-3"
+            className="h-2.5"
             indicatorClassName={getProgressColor(score)}
           />
         </div>
 
-        <div className="bg-gray-50 rounded-lg">
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Niveau : </span>
-            <span className={`font-medium ${getLevelColor(score)}`}>
+        <div className="bg-gray-50 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-sm text-gray-600 font-medium">Niveau :</span>
+            <span className={`font-semibold ${getLevelColor(score)}`}>
               {level.charAt(0).toUpperCase() + level.slice(1)}
             </span>
           </div>
-          <p className="text-sm text-gray-600 mt-2">{message}</p>
+          <p className="text-sm text-gray-600 text-left leading-relaxed">{message}</p>
         </div>
       </div>
     </motion.div>
