@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -38,6 +39,7 @@ export const ResultsAnalysis = ({
     label: 'Résultats'
   }];
   const currentStep = steps[steps.length - 1];
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -45,6 +47,7 @@ export const ResultsAnalysis = ({
     });
     calculateResults();
   }, [answers]);
+
   const calculateResults = () => {
     const sectionScores: Record<string, number> = {};
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
@@ -73,16 +76,19 @@ export const ResultsAnalysis = ({
       sectionScores
     };
   };
+
   const getLevelColor = (score: number): string => {
     if (score >= 80) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
     return "text-red-600";
   };
+
   const getProgressColor = (score: number): string => {
     if (score >= 80) return "bg-green-500";
     if (score >= 50) return "bg-yellow-500";
     return "bg-red-500";
   };
+
   const renderSectionCard = (section: string, sectionAnswers: Record<number, number>) => {
     const currentSection = sections[section as keyof typeof sections];
     if (!currentSection) return null;
@@ -100,6 +106,7 @@ export const ResultsAnalysis = ({
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
     return <SectionCard section={section} score={sectionScore.score} level={sectionScore.level} message={sectionScore.message} getLevelColor={getLevelColor} getProgressColor={getProgressColor} />;
   };
+
   return <div className="max-w-5xl mx-auto px-4">
       <div className="mt-16 mb-8">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
@@ -122,7 +129,7 @@ export const ResultsAnalysis = ({
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
           <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden h-full">
             <iframe 
-              src="https://www.loom.com/embed/2dd969ae22194fb79aa5663002143c26" 
+              src="https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa" 
               frameBorder="0" 
               allowFullScreen 
               className="w-full h-full"
