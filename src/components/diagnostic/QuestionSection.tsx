@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { QuestionItem } from "./QuestionItem";
@@ -17,6 +16,7 @@ interface QuestionSectionProps {
   showPrevious: boolean;
   showNext: boolean;
   answers: Record<string, Record<number, Answer>>;
+  currentSection: string;
 }
 
 const getScoreColor = (score: number): string => {
@@ -44,7 +44,8 @@ export const QuestionSection = ({
   onNext,
   showPrevious,
   showNext,
-  answers
+  answers,
+  currentSection
 }: QuestionSectionProps) => {
   const steps = [
     { id: 'informations', label: 'Démarrage' },
@@ -84,7 +85,6 @@ export const QuestionSection = ({
   );
 
   const renderResultsSection = () => {
-    // Transformer les réponses en scores par section
     const sectionScores: Record<string, number> = {};
     Object.entries(answers).forEach(([sectionKey, sectionAnswers]) => {
       if (sectionKey !== 'informations' && sectionKey !== 'resultats') {
@@ -97,7 +97,6 @@ export const QuestionSection = ({
 
     return (
       <div className="space-y-8">
-        {/* Vidéo de présentation */}
         <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden aspect-video mb-8">
           <iframe 
             src="https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa"
@@ -107,10 +106,8 @@ export const QuestionSection = ({
           />
         </div>
 
-        {/* Score Global */}
         {renderScoreCard("Score Global", globalScore, globalMessage)}
 
-        {/* Scores par section */}
         <div className="grid md:grid-cols-2 gap-6">
           {Object.entries(sectionScores).map(([sectionKey, score]) => {
             const sectionTitle = steps.find(s => s.id === sectionKey)?.label || '';
@@ -128,7 +125,6 @@ export const QuestionSection = ({
           })}
         </div>
 
-        {/* Call to Action */}
         <div className="bg-white rounded-lg p-8 border border-gray-200 shadow text-center space-y-4">
           <h2 className="text-2xl font-bold">Envie d'augmenter le taux de remplissage de votre coworking ?</h2>
           <p className="text-gray-600">
@@ -144,7 +140,6 @@ export const QuestionSection = ({
           <p className="text-sm text-gray-500 italic">Réponse garantie sous 24h ouvrées</p>
         </div>
 
-        {/* Footer */}
         <div className="text-center text-sm text-gray-500 space-y-2">
           <p>Outil de diagnostic développé par la société Kitco</p>
           <p>© 2025 KITCO. Tous droits réservés.</p>
