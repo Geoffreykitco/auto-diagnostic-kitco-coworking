@@ -5,6 +5,7 @@ import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { AuditForm } from "./sections/AuditForm";
 import { Award, ChartBar, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { sections } from "@/data/sections";
 import { 
   calculateSectionScore, 
   getMaxSectionScore,
@@ -28,15 +29,35 @@ export const ResultsAnalysis = ({
     
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
       if (section !== 'informations') {
-        // Conversion des réponses en score selon une échelle de 0 à 10
         const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-          // Conversion de la valeur (0-2) en score (0-10)
-          const score = value * 5; // 0 -> 0, 1 -> 5, 2 -> 10
+          const currentSection = sections[section as keyof typeof sections];
+          const question = currentSection.questions[Number(key)];
+          
+          let score = 0;
+          if (question.type === 'single') {
+            // Pour les questions à choix unique, prendre les points de l'option sélectionnée
+            score = question.options[value]?.points || 0;
+          } else if (question.type === 'multiple' && Array.isArray(value)) {
+            // Pour les questions à choix multiple, additionner les points de toutes les options sélectionnées
+            score = value.reduce((sum, optionIndex) => {
+              return sum + (question.options[optionIndex]?.points || 0);
+            }, 0);
+          }
+
           acc[Number(key)] = { value: value, score: score };
           return acc;
         }, {} as Record<number, { value: number; score: number }>);
 
-        const maxScore = Object.keys(sectionAnswers).length * 10; // Score maximum possible (10 points par question)
+        const maxScore = Object.entries(sections[section as keyof typeof sections].questions).reduce((total, [_, question]) => {
+          if (question.type === 'multiple') {
+            // Pour les questions à choix multiple, le score maximum est la somme des points de toutes les options
+            return total + question.options.reduce((sum, option) => sum + option.points, 0);
+          } else {
+            // Pour les questions à choix unique, le score maximum est le plus haut score possible
+            return total + Math.max(...question.options.map(opt => opt.points));
+          }
+        }, 0);
+
         const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
         sectionScores[section] = sectionScore.score;
       }
@@ -66,11 +87,30 @@ export const ResultsAnalysis = ({
 
   const renderSectionCard = (section: string, sectionAnswers: Record<number, number>) => {
     const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-      acc[Number(key)] = { value: value, score: value };
+      const currentSection = sections[section as keyof typeof sections];
+      const question = currentSection.questions[Number(key)];
+      
+      let score = 0;
+      if (question.type === 'single') {
+        score = question.options[value]?.points || 0;
+      } else if (question.type === 'multiple' && Array.isArray(value)) {
+        score = value.reduce((sum, optionIndex) => {
+          return sum + (question.options[optionIndex]?.points || 0);
+        }, 0);
+      }
+
+      acc[Number(key)] = { value: value, score: score };
       return acc;
     }, {} as Record<number, { value: number; score: number }>);
 
-    const maxScore = Object.keys(sectionAnswers).length * 3;
+    const maxScore = Object.entries(sections[section as keyof typeof sections].questions).reduce((total, [_, question]) => {
+      if (question.type === 'multiple') {
+        return total + question.options.reduce((sum, option) => sum + option.points, 0);
+      } else {
+        return total + Math.max(...question.options.map(opt => opt.points));
+      }
+    }, 0);
+
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
 
     return (
