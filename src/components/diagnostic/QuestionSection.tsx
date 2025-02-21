@@ -53,8 +53,8 @@ export const QuestionSection = ({
         transition={{ duration: 0.5 }}
         className="max-w-4xl mx-auto"
       >
-        <h1 className="text-3xl font-bold text-left text-gray-900 mb-4">{section.title}</h1>
-        <p className="text-left text-gray-600 mb-8">{section.description}</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
+        <p className="text-gray-600 mb-8">{section.description}</p>
 
         {section.isResultSection ? (
           <ResultsSection answers={answers} steps={steps} />
