@@ -121,7 +121,7 @@ export const ResultsAnalysis = ({
           <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full">
             <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-bold mb-2 text-left">Augmentez le taux de nremplissage de votre espace de coworking</h3>
+                <h3 className="text-2xl font-bold mb-2 text-left">Augmentez le taux de remplissage de votre espace de coworking</h3>
               </div>
               <div className="bg-gray-50 rounded-lg p-4">
                 <p className="text-sm text-gray-600 text-left leading-relaxed mb-4">
