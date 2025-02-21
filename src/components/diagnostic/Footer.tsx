@@ -18,7 +18,7 @@ export const Footer = () => {
 
         {/* Copyright */}
         <div className="text-center text-sm text-white/60">
-          <p>Outil de diagnostic développé par la société Kitco</p>
+          <p className="text-gray-600">Outil de diagnostic développé par la société Kitco</p>
           <p className="mt-2">&copy; {currentYear} KITCO. Tous droits réservés.</p>
         </div>
       </div>
