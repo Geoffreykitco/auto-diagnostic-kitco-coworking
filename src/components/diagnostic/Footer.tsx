@@ -1,7 +1,8 @@
 
 import { motion } from 'framer-motion';
 import { Separator } from "@/components/ui/separator";
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Heart, ShieldCheck, Clock } from 'lucide-react';
+
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   return <motion.footer initial={{
@@ -12,46 +13,54 @@ export const Footer = () => {
     duration: 0.5
   }} className="w-full bg-primary text-white mt-20">
       <div className="container mx-auto py-12 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-          {/* Logo & Description */}
-          <div className="space-y-4">
-            <div className="w-[600px] h-[240px] relative">
-              <img src="/lovable-uploads/1165c716-f19c-40b7-b8bc-6ce7bde6fa37.png" alt="KITCO" className="w-full h-full object-contain" />
-            </div>
+        {/* Trust Indicators */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="flex flex-col items-center text-center space-y-3">
+            <ShieldCheck className="w-8 h-8 text-white/90" />
+            <h3 className="font-medium text-lg">Sécurisé & Confidentiel</h3>
+            <p className="text-white/70 text-sm">
+              Vos données sont traitées de manière confidentielle et sécurisée
+            </p>
+          </div>
+          
+          <div className="flex flex-col items-center text-center space-y-3">
+            <Clock className="w-8 h-8 text-white/90" />
+            <h3 className="font-medium text-lg">Diagnostic Rapide</h3>
+            <p className="text-white/70 text-sm">
+              Obtenez une analyse détaillée en moins de 10 minutes
+            </p>
           </div>
 
-          {/* Contact */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-lg">Contactez-nous</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-3 text-white/70">
-                <Mail className="w-4 h-4" />
-                <a href="mailto:geoffrey@kitco-coworking.fr" className="hover:text-white transition-colors">
-                  geoffrey@kitco-coworking.fr
-                </a>
-              </li>
-              <li className="flex items-center space-x-3 text-white/70">
-                <Phone className="w-4 h-4" />
-                <a href="tel:+33789877479" className="hover:text-white transition-colors">
-                  +33 7 89 87 74 79
-                </a>
-              </li>
-              <li className="flex items-center space-x-3 text-white/70">
-                <MapPin className="w-4 h-4" />
-                <span>75008 Paris, France</span>
-              </li>
-            </ul>
+          <div className="flex flex-col items-center text-center space-y-3">
+            <Heart className="w-8 h-8 text-white/90" />
+            <h3 className="font-medium text-lg">Support Personnalisé</h3>
+            <p className="text-white/70 text-sm">
+              Un accompagnement sur-mesure pour améliorer votre espace
+            </p>
           </div>
         </div>
 
-        <Separator className="bg-white/10" />
+        <Separator className="bg-white/10 mb-8" />
 
-        {/* Bottom Section */}
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-sm text-white/60">
-          <p className="text-slate-50">&copy; {currentYear} KITCO. Tous droits réservés.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
-            <a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a>
+        {/* Contact and Copyright */}
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="flex items-center space-x-6 mb-6 md:mb-0">
+            <a href="mailto:geoffrey@kitco-coworking.fr" 
+               className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors">
+              <Mail className="w-4 h-4" />
+              <span>Contact</span>
+            </a>
+            <a href="tel:+33789877479" 
+               className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors">
+              <Phone className="w-4 h-4" />
+              <span>Support</span>
+            </a>
+          </div>
+          
+          <div className="flex items-center space-x-2 text-sm text-white/60">
+            <span>Made with</span>
+            <Heart className="w-4 h-4 text-red-400 fill-current" />
+            <span>in Paris</span>
           </div>
         </div>
       </div>
