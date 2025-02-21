@@ -125,7 +125,21 @@ export const ResultsAnalysis = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <CTACard globalScore={globalScore} />
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg h-full">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-bold mb-2 text-left">
+                  Plan d'action personnalisé
+                </h3>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-600 text-left leading-relaxed mb-4">
+                  Découvrez comment optimiser votre stratégie et augmenter votre taux de remplissage grâce à un plan d'action sur mesure.
+                </p>
+                <CTACard globalScore={globalScore} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
