@@ -53,16 +53,7 @@ export const QuestionSection = ({
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
         <p className="text-gray-600 mb-8">{section.description}</p>
 
-        {section.isResultSection ? (
-          <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden aspect-video mb-8">
-            <iframe 
-              src={(section as typeof resultatsSection).videoUrl}
-              frameBorder="0"
-              allowFullScreen
-              className="w-full h-full"
-            />
-          </div>
-        ) : (
+        {!section.isResultSection && (
           <div className="space-y-8">
             {section.questions.map((question, index) => (
               <QuestionItem
