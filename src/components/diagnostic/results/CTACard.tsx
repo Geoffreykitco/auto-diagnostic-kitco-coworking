@@ -83,7 +83,7 @@ export const CTACard = ({
       duration: 0.5,
       delay: 0.2
     }} className="mt-8 relative w-full max-w-none">
-        <div className="absolute top-4 left-0 right-0 h-0.5 bg-primary/20"></div>
+        
         
       </motion.div>
     </>;

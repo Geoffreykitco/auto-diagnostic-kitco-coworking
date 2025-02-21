@@ -126,7 +126,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       const currentSectionQuestions = sections[currentSection].questions;
       const currentSectionAnswers = answers[currentSection] || {};
       
-      if (Object.keys(currentSectionAnswers).length < currentSectionQuestions.length) {
+      if (currentSectionQuestions.length > 0 && Object.keys(currentSectionAnswers).length < currentSectionQuestions.length) {
         toast({
           title: "⚠️ Action requise",
           description: "Veuillez répondre à toutes les questions avant de continuer.",
@@ -134,6 +134,22 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
           duration: 3000,
         });
         return;
+      }
+      
+      if (sectionOrder[currentIndex + 1] === 'resultats') {
+        const hasAnswers = sectionOrder.slice(1, -1).some(section => 
+          Object.keys(answers[section] || {}).length > 0
+        );
+        
+        if (!hasAnswers) {
+          toast({
+            title: "⚠️ Action requise",
+            description: "Veuillez compléter au moins une section du diagnostic avant d'accéder aux résultats.",
+            variant: "destructive",
+            duration: 3000,
+          });
+          return;
+        }
       }
       
       setCurrentSection(sectionOrder[currentIndex + 1]);
