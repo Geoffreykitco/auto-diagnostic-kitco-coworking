@@ -20,20 +20,6 @@ export const acquisitionSection = {
       ]
     },
     {
-      question: "Quel canal vous apporte le plus de nouveaux membres ?",
-      tooltip: "Identifier votre canal le plus performant permet d'optimiser vos efforts d'acquisition.",
-      type: "single" as const,
-      options: [
-        { label: "Site internet optimisé", points: 0 },
-        { label: "Réseaux sociaux", points: 0 },
-        { label: "Google Maps et annuaires", points: 0 },
-        { label: "Événements et partenariats", points: 0 },
-        { label: "Campagnes publicitaires", points: 0 },
-        { label: "Bouche-à-oreille", points: 0 }
-      ],
-      isInformative: true
-    },
-    {
       question: "À quelle fréquence faites-vous des actions pour attirer de nouveaux membres ?",
       tooltip: "La régularité des actions d'acquisition est essentielle pour maintenir un flux constant de nouveaux membres.",
       type: "single" as const,
