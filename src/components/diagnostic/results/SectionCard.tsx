@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { ChartBar, Users, Zap, Heart, CircleDollarSign, Share2, LucideIcon } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { ScoreLevel } from "@/utils/scoreCalculator";
 
@@ -12,23 +11,6 @@ interface SectionCardProps {
   getLevelColor: (score: number) => string;
   getProgressColor: (score: number) => string;
 }
-
-const getSectionIcon = (section: string) => {
-  switch (section) {
-    case 'acquisition':
-      return Users;
-    case 'activation':
-      return Zap;
-    case 'retention':
-      return Heart;
-    case 'revenus':
-      return CircleDollarSign;
-    case 'recommandation':
-      return Share2;
-    default:
-      return ChartBar;
-  }
-};
 
 const getSectionTitle = (section: string) => {
   switch (section) {
@@ -53,8 +35,6 @@ export const SectionCard = ({
   getLevelColor,
   getProgressColor,
 }: SectionCardProps) => {
-  const Icon = getSectionIcon(section);
-
   return (
     <motion.div 
       initial={{ opacity: 0, x: -20 }}
@@ -62,8 +42,7 @@ export const SectionCard = ({
       transition={{ duration: 0.3 }}
       className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <Icon className="w-5 h-5" />
+      <div className="mb-4">
         <h4 className="text-lg font-semibold">
           {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
         </h4>
