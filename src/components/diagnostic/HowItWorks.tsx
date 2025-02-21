@@ -36,19 +36,23 @@ export const HowItWorks = () => {
             {/* Ligne verticale de la timeline visible uniquement sur mobile */}
             <div className="md:hidden absolute left-[28px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5"></div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
               {[
                 {
-                  title: "Répondez aux questions",
-                  description: "Pour BIEN comprendre le contexte business de votre coworking."
+                  title: "Diagnostic & Insights",
+                  description: "J'analyse mes performances"
                 },
                 {
-                  title: "Obtenez votre score",
-                  description: "Recevez un diagnostic de performance de votre coworking."
+                  title: "Planification",
+                  description: "Je structure mon plan d'action"
                 },
                 {
-                  title: "Plan d'action",
-                  description: "Des recommandations personnalisées pour progresser."
+                  title: "Mise en œuvre",
+                  description: "J'active les leviers de croissance"
+                },
+                {
+                  title: "Optimisation continue",
+                  description: "Je pérennise et scale mon coworking"
                 }
               ].map((step, index) => (
                 <motion.div
@@ -58,25 +62,28 @@ export const HowItWorks = () => {
                   transition={{ delay: index * 0.2 + 0.5 }}
                   className="relative md:pt-12"
                 >
-                  {/* Carré avec numéro */}
+                  {/* Étape numérotée */}
                   <div className={`absolute ${isMobile ? 'left-7 -translate-x-1/2' : 'left-1/2 -translate-x-1/2 top-0'}`}>
-                    <div className="flex items-center justify-center w-[40px] h-[40px] bg-primary/20 rounded-lg shadow-md">
-                      <span className="text-primary text-xl font-bold">
-                        {index + 1}
-                      </span>
+                    <div className="relative">
+                      <div className="flex items-center justify-center w-[48px] h-[48px] bg-primary text-white rounded-xl shadow-lg">
+                        <span className="text-lg font-bold">
+                          {(index + 1).toString().padStart(2, '0')}
+                        </span>
+                      </div>
+                      {/* Ligne de connexion entre les étapes (visible uniquement en desktop) */}
+                      {index < 3 && (
+                        <div className="hidden md:block absolute top-1/2 left-full w-full h-[2px] bg-primary/20"></div>
+                      )}
                     </div>
                   </div>
                   
                   {/* Contenu de l'étape */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className={`glass-morphism p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-16' : 'mt-8'}`}
+                    className={`glass-morphism p-4 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${isMobile ? 'ml-16' : 'mt-8'}`}
                   >
-                    <span className="text-xs md:text-sm font-medium text-primary/60 mb-1 block">
-                      Étape {index + 1}
-                    </span>
-                    <h3 className="font-semibold mb-1 md:mb-2 text-sm md:text-base">{step.title}</h3>
-                    <p className="text-gray-600 text-xs md:text-sm">{step.description}</p>
+                    <h3 className="font-semibold mb-2 text-sm md:text-base text-gray-900">{step.title}</h3>
+                    <p className="text-gray-600 text-xs md:text-sm italic">{step.description}</p>
                   </motion.div>
                 </motion.div>
               ))}
