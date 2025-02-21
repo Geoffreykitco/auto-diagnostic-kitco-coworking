@@ -7,9 +7,25 @@ interface SectionScore {
   score: number;
 }
 
+interface SectionWeight {
+  acquisition: 0.25;
+  activation: 0.25;
+  retention: 0.20;
+  revenus: 0.15;
+  recommandation: 0.15;
+}
+
 const SCORE_THRESHOLDS = {
   INTERMEDIATE: 50,
   ADVANCED: 75
+};
+
+const SECTION_WEIGHTS: SectionWeight = {
+  acquisition: 0.25,
+  activation: 0.25,
+  retention: 0.20,
+  revenus: 0.15,
+  recommandation: 0.15
 };
 
 export const calculateSectionLevel = (score: number, maxScore: number): ScoreLevel => {
@@ -72,4 +88,40 @@ export const calculateSectionScore = (
 
 export const getMaxSectionScore = (options: readonly { points: number }[]): number => {
   return options.reduce((sum, option) => sum + option.points, 0);
+};
+
+export const calculateGlobalScore = (sectionScores: Record<string, number>, sectionMaxScores: Record<string, number>): number => {
+  let weightedScore = 0;
+
+  Object.entries(sectionScores).forEach(([section, score]) => {
+    const maxScore = sectionMaxScores[section];
+    if (maxScore && maxScore > 0) {
+      const sectionPercentage = (score / maxScore) * 100;
+      const weight = SECTION_WEIGHTS[section as keyof SectionWeight] || 0;
+      weightedScore += sectionPercentage * weight;
+    }
+  });
+
+  return Math.round(weightedScore);
+};
+
+export const getGlobalScoreLevel = (globalScore: number): ScoreLevel => {
+  if (globalScore >= SCORE_THRESHOLDS.ADVANCED) {
+    return 'avancé';
+  } else if (globalScore >= SCORE_THRESHOLDS.INTERMEDIATE) {
+    return 'intermédiaire';
+  }
+  return 'débutant';
+};
+
+export const getGlobalMessage = (globalScore: number): string => {
+  const level = getGlobalScoreLevel(globalScore);
+  
+  const messages = {
+    débutant: "Votre espace de coworking a besoin d'amélioration dans plusieurs domaines clés. Concentrez-vous d'abord sur l'acquisition et l'activation de nouveaux membres.",
+    intermédiaire: "Votre espace de coworking est sur la bonne voie. Continuez à optimiser vos processus et à développer votre communauté.",
+    avancé: "Félicitations ! Votre espace de coworking est très performant. Maintenez ce niveau d'excellence et innovez continuellement."
+  };
+
+  return messages[level];
 };
