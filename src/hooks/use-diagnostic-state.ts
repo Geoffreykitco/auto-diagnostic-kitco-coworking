@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
@@ -59,16 +58,14 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     Object.entries(newAnswers).forEach(([sectionKey, sectionAnswers]) => {
       if (sectionKey !== 'informations' && sectionKey !== 'resultats') {
         const section = sections[sectionKey as keyof typeof sections];
-        const maxScore = section.questions.reduce((sum, question) => {
-          return sum + Math.max(...question.options.map(opt => opt.points));
-        }, 0);
+        const maxScore = getMaxSectionScore(section.questions);
         
         const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
           acc[Number(key)] = { value: value.value, score: value.score };
           return acc;
         }, {} as Record<number, Answer>);
         
-        const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
+        const sectionScore = calculateSectionScore(formattedAnswers, maxScore, sectionKey);
         newSectionScores[sectionKey] = sectionScore;
       }
     });

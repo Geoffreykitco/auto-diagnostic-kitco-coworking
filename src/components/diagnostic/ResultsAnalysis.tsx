@@ -52,7 +52,7 @@ export const ResultsAnalysis = ({
           }, {} as Record<number, { value: number; score: number }>);
 
           const maxScore = getMaxSectionScore(currentSection.questions);
-          const sectionScore = calculateSectionScore(formattedAnswers, maxScore);
+          const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
           sectionScores[section] = sectionScore.score;
         }
       }
