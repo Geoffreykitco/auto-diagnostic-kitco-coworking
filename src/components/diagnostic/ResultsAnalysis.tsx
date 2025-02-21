@@ -120,12 +120,12 @@ export const ResultsAnalysis = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden h-full">
             <iframe 
               src="https://www.loom.com/embed/2dd969ae22194fb79aa5663002143c26" 
               frameBorder="0" 
               allowFullScreen 
-              className="w-full aspect-video"
+              className="w-full h-full"
             ></iframe>
           </div>
         </div>
