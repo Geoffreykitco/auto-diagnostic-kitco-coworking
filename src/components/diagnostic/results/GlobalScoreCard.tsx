@@ -24,7 +24,7 @@ export const GlobalScoreCard = ({
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <div className="w-full">
-            <h2 className="text-2xl font-bold text-left">Score Global</h2>
+            <h2 className="font-bold text-left text-2xl">Score Global</h2>
             
           </div>
           <span className={`shrink-0 text-3xl font-bold ${getLevelColor(score)}`}>
