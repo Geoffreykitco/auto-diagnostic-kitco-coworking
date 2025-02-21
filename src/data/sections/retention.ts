@@ -1,20 +1,10 @@
+
 import { Question } from "@/components/diagnostic/question/types";
 
 export const retentionSection = {
   title: "Rétention - Fidéliser vos membres",
   description: "Cette section évalue votre capacité à maintenir vos membres engagés et satisfaits sur le long terme.",
   questions: [
-    {
-      question: "Quelle est la durée moyenne d'abonnement de vos membres ?",
-      tooltip: "La durée moyenne pendant laquelle les membres restent abonnés à votre espace.",
-      type: "single" as const,
-      options: [
-        { label: "Moins de 3 mois", points: 0 },
-        { label: "3 à 6 mois", points: 1 },
-        { label: "6 mois à 1 an", points: 2 },
-        { label: "Plus d'1 an", points: 3 }
-      ]
-    },
     {
       question: "Vos membres reviennent-ils régulièrement ?",
       tooltip: "La régularité de fréquentation est un indicateur clé de la satisfaction des membres.",

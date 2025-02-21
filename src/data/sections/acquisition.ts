@@ -1,20 +1,10 @@
+
 import { Question } from "@/components/diagnostic/question/types";
 
 export const acquisitionSection = {
   title: "Acquisition - Attirer les coworkers",
   description: "Cette section évalue votre capacité à attirer de nouveaux membres potentiels et à générer des visites de votre espace.",
   questions: [
-    {
-      question: "Quel est votre taux de conversion des visites en inscriptions ?",
-      tooltip: "Le pourcentage de visiteurs qui deviennent effectivement membres après avoir visité votre espace.",
-      type: "single" as const,
-      options: [
-        { label: "Moins de 20%", points: 0 },
-        { label: "Entre 20% et 40%", points: 1 },
-        { label: "Entre 40% et 60%", points: 2 },
-        { label: "Plus de 60%", points: 3 }
-      ]
-    },
     {
       question: "Quels canaux utilisez-vous pour attirer de nouveaux membres ?",
       tooltip: "Une stratégie d'acquisition efficace repose sur la diversité des canaux utilisés pour toucher différentes audiences.",
@@ -30,9 +20,23 @@ export const acquisitionSection = {
       ]
     },
     {
+      question: "Quel canal vous apporte le plus de nouveaux membres ?",
+      tooltip: "Identifier votre canal le plus performant permet d'optimiser vos efforts d'acquisition.",
+      type: "single" as const,
+      options: [
+        { label: "Site internet optimisé", points: 0 },
+        { label: "Réseaux sociaux", points: 0 },
+        { label: "Google Maps et annuaires", points: 0 },
+        { label: "Événements et partenariats", points: 0 },
+        { label: "Campagnes publicitaires", points: 0 },
+        { label: "Bouche-à-oreille", points: 0 }
+      ],
+      isInformative: true
+    },
+    {
       question: "À quelle fréquence faites-vous des actions pour attirer de nouveaux membres ?",
       tooltip: "La régularité des actions d'acquisition est essentielle pour maintenir un flux constant de nouveaux membres.",
-      type: "single",
+      type: "single" as const,
       options: [
         { label: "Tous les jours", points: 10 },
         { label: "Quelques fois par semaine", points: 7 },
