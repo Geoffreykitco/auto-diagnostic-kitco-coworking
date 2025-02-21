@@ -20,9 +20,11 @@ export const Footer = () => {
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="text-2xl md:text-3xl font-bold"
+              className="w-[200px] h-[70px] relative"
             >
-              KITCO
+              <div className="w-full h-full flex items-center justify-center bg-white/10 rounded-lg border-2 border-white/20">
+                <span className="text-xl md:text-2xl font-bold text-white">KITCO</span>
+              </div>
             </motion.div>
             <p className="text-white/80 text-sm text-center md:text-left">
               Des coworkings bien pensés pour votre entreprise

@@ -22,8 +22,10 @@ export const HeroSection = ({ onStart }: HeroSectionProps) => {
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-8 px-4"
         >
-          <div className="text-4xl md:text-5xl font-bold text-primary">
-            KITCO
+          <div className="w-[289px] md:w-[408px] h-[97px] md:h-[136px] relative">
+            <div className="w-full h-full flex items-center justify-center bg-white/90 rounded-lg border-2 border-primary/20">
+              <span className="text-xl md:text-2xl font-bold text-primary">KITCO</span>
+            </div>
           </div>
         </motion.div>
 
