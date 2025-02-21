@@ -6,12 +6,6 @@ export const revenusSection = {
   description: "Cette section évalue votre capacité à générer et optimiser vos revenus.",
   questions: [
     {
-      question: "Quel est votre taux d'occupation moyen ?",
-      tooltip: "Le pourcentage moyen d'occupation de votre espace sur les derniers mois.",
-      type: "text" as const,
-      options: []
-    },
-    {
       question: "Quelle est votre principale source de revenus ?",
       tooltip: "Un espace de coworking peut maximiser sa rentabilité en diversifiant ses sources de revenus.",
       type: "multiple",
@@ -52,6 +46,16 @@ export const revenusSection = {
         { label: "Oui, avec des actions bien définies (offres spéciales, suivi des leads, relances automatisées)", points: 10 },
         { label: "Oui, mais sans process structuré", points: 5 },
         { label: "Non, nous laissons les prospects décider seuls", points: 0 }
+      ]
+    },
+    {
+      question: "Cherchez-vous à développer de nouvelles sources de revenus ?",
+      tooltip: "La diversification des revenus permet d'assurer la stabilité financière et de limiter la dépendance à un seul modèle.",
+      type: "single",
+      options: [
+        { label: "Oui, nous testons régulièrement de nouvelles offres", points: 10 },
+        { label: "Oui, mais sans véritable plan structuré", points: 5 },
+        { label: "Non, nous restons sur notre modèle actuel", points: 0 }
       ]
     }
   ]
