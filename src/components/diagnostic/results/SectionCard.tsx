@@ -44,9 +44,9 @@ export const SectionCard = ({
     >
       <div className="space-y-6">
         <div>
-          <h4 className="text-lg font-semibold mb-2 text-left">
+          <h2 className="text-2xl font-bold mb-2 text-left">
             {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
-          </h4>
+          </h2>
         </div>
         
         <div className="space-y-3">
