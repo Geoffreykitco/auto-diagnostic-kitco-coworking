@@ -85,25 +85,7 @@ export const CTACard = ({
     }} className="mt-8 relative w-full max-w-none">
         <div className="absolute top-4 left-0 right-0 h-0.5 bg-primary/20"></div>
         <div className="grid grid-cols-4 gap-8 px-4">
-          {["J'identifie mes axes d'améliorations", "Je réalise un plan d'action", "Je passe à l'action", "Je développe mon coworking"].map((step, index) => <motion.div key={index} initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          delay: index * 0.1 + 0.3
-        }} className="relative flex flex-col items-center text-center">
-              <div className="relative z-10 mb-4">
-                <div className="w-8 h-8 rounded-full bg-white border-2 border-primary flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-primary"></div>
-                </div>
-                <div className="absolute -inset-2 rounded-full bg-primary/5 animate-pulse"></div>
-              </div>
-              <p className="text-sm text-gray-700 font-medium px-2">
-                {step}
-              </p>
-            </motion.div>)}
+          {["J'identifie mes axes d'améliorations", "Je réalise un plan d'action", "Je passe à l'action", "Je développe mon coworking"].map((step, index) => {})}
         </div>
       </motion.div>
     </>;
