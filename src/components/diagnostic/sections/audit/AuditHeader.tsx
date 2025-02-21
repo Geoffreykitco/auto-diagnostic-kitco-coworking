@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const AuditHeader = () => {
   return (
-    <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg">
+    <div className="bg-white rounded-lg p-6">
       <div className="text-center space-y-4">
         <h2 className="text-xl md:text-2xl font-semibold">
           Augmentez le taux de remplissage de votre espace de coworking
