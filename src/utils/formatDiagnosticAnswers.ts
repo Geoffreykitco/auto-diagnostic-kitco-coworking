@@ -26,13 +26,10 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.rec_creation_contenu = sectionAnswers[4]?.value;
     } 
     else if (section === 'acquisition') {
-      // Forçons la conversion en tableau et assurons-nous que null est géré
-      const canaux = sectionAnswers[0]?.value;
-      formattedAnswers.acq_canaux_utilises = 
-        Array.isArray(canaux) ? canaux :
-        canaux === null ? [] :
-        typeof canaux === 'number' ? [canaux] : 
-        [];
+      // Pour la question à choix multiples, on s'assure d'avoir un tableau
+      formattedAnswers.acq_canaux_utilises = Array.isArray(sectionAnswers[0]?.value) 
+        ? sectionAnswers[0].value 
+        : [];
         
       formattedAnswers.acq_frequence_actions = sectionAnswers[1]?.value;
       formattedAnswers.acq_offre_decouverte = sectionAnswers[2]?.value;
@@ -54,13 +51,10 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.ret_amelioration_experience = sectionAnswers[4]?.value;
     }
     else if (section === 'revenus') {
-      // Forçons la conversion en tableau et assurons-nous que null est géré
-      const sources = sectionAnswers[0]?.value;
-      formattedAnswers.rev_source_revenus = 
-        Array.isArray(sources) ? sources :
-        sources === null ? [] :
-        typeof sources === 'number' ? [sources] : 
-        [];
+      // Pour la question à choix multiples, on s'assure d'avoir un tableau
+      formattedAnswers.rev_source_revenus = Array.isArray(sectionAnswers[0]?.value) 
+        ? sectionAnswers[0].value 
+        : [];
 
       formattedAnswers.rev_rentabilite_offres = sectionAnswers[1]?.value;
       formattedAnswers.rev_utilisation_crm = sectionAnswers[2]?.value;
