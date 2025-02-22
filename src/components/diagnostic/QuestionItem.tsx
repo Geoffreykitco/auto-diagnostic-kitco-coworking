@@ -70,7 +70,7 @@ export const QuestionItem = ({
           onChange={handleTextChange}
           placeholder={
             question.question.toLowerCase().includes("remplissage")
-              ? "en %"
+              ? "Votre réponse (en %)"
               : question.question.toLowerCase().includes("pourcentage")
               ? "Votre réponse (en %)"
               : "Votre réponse..."
