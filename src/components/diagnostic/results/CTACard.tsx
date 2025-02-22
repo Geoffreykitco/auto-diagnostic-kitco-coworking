@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { Award } from "lucide-react";
 import { AuditForm } from "../sections/AuditForm";
 import { useToast } from "@/hooks/use-toast";
 
@@ -16,13 +15,29 @@ export const CTACard = ({ globalScore }: CTACardProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#0B1A17] text-white"
+      className="bg-white"
     >
       <div className="max-w-5xl mx-auto px-4 py-12">
-        <div className="flex items-center space-x-2 mb-4">
-          <h3 className="font-medium text-lg">Recevoir mon audit et passer à l'action</h3>
+        <div className="text-center space-y-4">
+          <h2 className="text-2xl font-medium text-gray-900">
+            Envie d'augmenter le taux de remplissage de votre coworking ?
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Vous avez maintenant une vision claire de la performance de votre espace de coworking. Transformez ces insights en résultats concrets.
+          </p>
+          
+          <button onClick={() => document.querySelector<HTMLButtonElement>('[data-audit-form-trigger]')?.click()} className="mt-6 bg-[#0B1A17] text-white px-8 py-3 rounded-lg hover:bg-[#132721] transition-colors duration-200">
+            Recevoir mon audit et mon plan d'action
+          </button>
+          
+          <p className="text-sm text-gray-500 italic mt-4">
+            Réponse garantie sous 24h ouvrées
+          </p>
         </div>
-        
+      </div>
+      
+      {/* Le formulaire reste invisible jusqu'à ce qu'il soit déclenché */}
+      <div className="hidden">
         <AuditForm onSubmit={async (formData) => {
           try {
             const diagnosticData = {
