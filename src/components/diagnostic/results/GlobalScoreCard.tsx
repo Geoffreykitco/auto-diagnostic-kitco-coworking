@@ -52,24 +52,45 @@ export const GlobalScoreCard = ({
 
       <Progress value={score} className="h-3" indicatorClassName={getProgressColor(score)} />
 
-      <div className="h-[300px] w-full mt-6">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-            <PolarGrid stroke="#e5e7eb" />
-            <PolarAngleAxis 
-              dataKey="subject" 
-              tick={{ fill: '#6B7280', fontSize: 12 }}
-            />
-            <PolarRadiusAxis angle={30} domain={[0, 100]} />
-            <Radar
-              name="Score"
-              dataKey="A"
-              stroke={score >= 80 ? "#16A34A" : score >= 50 ? "#CA8A04" : "#DC2626"}
-              fill={score >= 80 ? "#16A34A" : score >= 50 ? "#CA8A04" : "#DC2626"}
-              fillOpacity={0.2}
-            />
-          </RadarChart>
-        </ResponsiveContainer>
+      <div className="flex flex-col items-center mt-8">
+        <h3 className="text-lg font-semibold mb-4">Répartition des scores par dimension</h3>
+        <div className="h-[350px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart cx="50%" cy="50%" outerRadius="65%" data={data}>
+              <PolarGrid 
+                stroke="#e5e7eb" 
+                strokeWidth={0.5}
+              />
+              <PolarAngleAxis 
+                dataKey="subject" 
+                tick={{ 
+                  fill: '#374151', 
+                  fontSize: 13,
+                  fontWeight: 500 
+                }}
+                stroke="#9CA3AF"
+                tickLine={false}
+              />
+              <PolarRadiusAxis 
+                angle={30} 
+                domain={[0, 100]} 
+                tick={{ 
+                  fill: '#6B7280', 
+                  fontSize: 11 
+                }}
+                stroke="#E5E7EB"
+                tickCount={5}
+              />
+              <Radar
+                name="Score"
+                dataKey="A"
+                stroke={score >= 80 ? "#16A34A" : score >= 50 ? "#CA8A04" : "#DC2626"}
+                fill={score >= 80 ? "#16A34A" : score >= 50 ? "#CA8A04" : "#DC2626"}
+                fillOpacity={0.2}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
