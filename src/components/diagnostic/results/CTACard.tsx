@@ -87,7 +87,7 @@ export const CTACard = ({
   }} className="bg-white">
       <div className={`max-w-5xl mx-auto px-4 ${isMobile ? 'py-4' : 'py-8'}`}>
         <div className="text-center space-y-2">
-          <h2 className={`text-2xl font-medium text-gray-900 ${isMobile ? 'mb-2' : ''}`}>
+          <h2 className="text-xl">
             {isMobile ? "Augmentez votre taux de remplissage" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
           </h2>
           {!isMobile && <p className="text-gray-600 max-w-2xl mx-auto">
