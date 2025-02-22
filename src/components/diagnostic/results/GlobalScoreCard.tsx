@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
-
 interface GlobalScoreCardProps {
   score: number;
   getLevelColor: (score: number) => string;
   getProgressColor: (score: number) => string;
   getGlobalMessage: (score: number) => string;
 }
-
 export const GlobalScoreCard = ({
   score,
   getLevelColor,
@@ -36,7 +34,6 @@ export const GlobalScoreCard = ({
     A: score,
     fullMark: 100
   }];
-  
   return <motion.div initial={{
     opacity: 0,
     y: 20
@@ -52,7 +49,7 @@ export const GlobalScoreCard = ({
         <div className="flex items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold text-left">Score Global</h2>
-            <p className="text-gray-600">Progression du diagnostic de votre espace</p>
+            
           </div>
           <span className={`ml-auto text-3xl font-bold ${getLevelColor(score)}`}>
             {score}%
@@ -75,7 +72,7 @@ export const GlobalScoreCard = ({
 
       {/* Graphique Radar - Colonne de droite */}
       <div className="flex flex-col">
-        <h3 className="text-lg font-semibold mb-2">Répartition des scores par dimension</h3>
+        <h3 className="text-lg font-semibold mb-2">Répartition des scores par partie</h3>
         <div className="flex-1 min-h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
