@@ -17,7 +17,7 @@ export interface Question {
 export interface QuestionItemProps {
   question: Question;
   questionIndex: number;
-  onSelect: (value: string | number | number[] | null) => void;
+  onSelect: (value: string | number | number[] | null, showToast?: boolean) => void;
   selectedValue?: string | number | number[] | null;
 }
 
