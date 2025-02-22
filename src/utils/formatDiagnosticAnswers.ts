@@ -11,6 +11,13 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
   const formattedAnswers: Record<string, any> = {};
 
   Object.entries(answers).forEach(([section, sectionAnswers]) => {
+    // Ajout de logs pour debugger
+    if (section === 'acquisition' || section === 'revenus') {
+      console.log(`Section ${section}:`, sectionAnswers);
+      console.log(`Type de valeur pour ${section}[0]:`, typeof sectionAnswers[0]?.value);
+      console.log(`Valeur brute pour ${section}[0]:`, sectionAnswers[0]?.value);
+    }
+
     if (section === 'recommandation') {
       formattedAnswers.rec_recommandation_spontanee = sectionAnswers[0]?.value;
       formattedAnswers.rec_programme_parrainage = sectionAnswers[1]?.value;
@@ -19,10 +26,14 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.rec_creation_contenu = sectionAnswers[4]?.value;
     } 
     else if (section === 'acquisition') {
-      // Assurons-nous que les réponses à choix multiples sont bien des tableaux
-      formattedAnswers.acq_canaux_utilises = Array.isArray(sectionAnswers[0]?.value) 
-        ? sectionAnswers[0].value 
-        : [sectionAnswers[0]?.value].filter(v => v != null);
+      // Forçons la conversion en tableau et assurons-nous que null est géré
+      const canaux = sectionAnswers[0]?.value;
+      formattedAnswers.acq_canaux_utilises = 
+        Array.isArray(canaux) ? canaux :
+        canaux === null ? [] :
+        typeof canaux === 'number' ? [canaux] : 
+        [];
+        
       formattedAnswers.acq_frequence_actions = sectionAnswers[1]?.value;
       formattedAnswers.acq_offre_decouverte = sectionAnswers[2]?.value;
       formattedAnswers.acq_suivi_prospects = sectionAnswers[3]?.value;
@@ -43,10 +54,14 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.ret_amelioration_experience = sectionAnswers[4]?.value;
     }
     else if (section === 'revenus') {
-      // Assurons-nous que les réponses à choix multiples sont bien des tableaux
-      formattedAnswers.rev_source_revenus = Array.isArray(sectionAnswers[0]?.value) 
-        ? sectionAnswers[0].value 
-        : [sectionAnswers[0]?.value].filter(v => v != null);
+      // Forçons la conversion en tableau et assurons-nous que null est géré
+      const sources = sectionAnswers[0]?.value;
+      formattedAnswers.rev_source_revenus = 
+        Array.isArray(sources) ? sources :
+        sources === null ? [] :
+        typeof sources === 'number' ? [sources] : 
+        [];
+
       formattedAnswers.rev_rentabilite_offres = sectionAnswers[1]?.value;
       formattedAnswers.rev_utilisation_crm = sectionAnswers[2]?.value;
       formattedAnswers.rev_optimisation_conversion = sectionAnswers[3]?.value;
@@ -68,6 +83,7 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
     }
   });
 
-  console.log('Réponses formatées:', formattedAnswers);
+  // Log final pour voir exactement ce qui est envoyé
+  console.log('Données formatées finales:', JSON.stringify(formattedAnswers, null, 2));
   return formattedAnswers;
 };
