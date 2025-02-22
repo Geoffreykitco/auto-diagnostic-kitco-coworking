@@ -19,7 +19,10 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.rec_creation_contenu = sectionAnswers[4]?.value;
     } 
     else if (section === 'acquisition') {
-      formattedAnswers.acq_canaux_utilises = sectionAnswers[0]?.value;
+      // Assurons-nous que les réponses à choix multiples sont bien des tableaux
+      formattedAnswers.acq_canaux_utilises = Array.isArray(sectionAnswers[0]?.value) 
+        ? sectionAnswers[0].value 
+        : [sectionAnswers[0]?.value].filter(v => v != null);
       formattedAnswers.acq_frequence_actions = sectionAnswers[1]?.value;
       formattedAnswers.acq_offre_decouverte = sectionAnswers[2]?.value;
       formattedAnswers.acq_suivi_prospects = sectionAnswers[3]?.value;
@@ -40,7 +43,10 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.ret_amelioration_experience = sectionAnswers[4]?.value;
     }
     else if (section === 'revenus') {
-      formattedAnswers.rev_source_revenus = sectionAnswers[0]?.value;
+      // Assurons-nous que les réponses à choix multiples sont bien des tableaux
+      formattedAnswers.rev_source_revenus = Array.isArray(sectionAnswers[0]?.value) 
+        ? sectionAnswers[0].value 
+        : [sectionAnswers[0]?.value].filter(v => v != null);
       formattedAnswers.rev_rentabilite_offres = sectionAnswers[1]?.value;
       formattedAnswers.rev_utilisation_crm = sectionAnswers[2]?.value;
       formattedAnswers.rev_optimisation_conversion = sectionAnswers[3]?.value;
