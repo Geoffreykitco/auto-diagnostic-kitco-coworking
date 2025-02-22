@@ -8,6 +8,7 @@ import {
   getMaxSectionScore,
   calculateGlobalScore,
   getGlobalMessage,
+  Answer
 } from "@/utils/scoreCalculator";
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
