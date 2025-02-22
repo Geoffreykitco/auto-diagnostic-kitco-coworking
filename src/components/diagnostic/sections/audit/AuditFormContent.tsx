@@ -48,7 +48,7 @@ export const AuditFormContent = ({
             disabled={isSubmitting}
             aria-label="Prénom et nom"
             aria-required="true"
-            placeholder="John Doe"
+            placeholder="Pour faire connaissance :)"
           />
         </div>
 
@@ -70,7 +70,7 @@ export const AuditFormContent = ({
             disabled={isSubmitting}
             aria-label="Nom du coworking"
             aria-required="true"
-            placeholder="MonCoworking"
+            placeholder="Pour en savoir plus sur votre espace"
           />
         </div>
 
@@ -92,7 +92,7 @@ export const AuditFormContent = ({
             disabled={isSubmitting}
             aria-label="Adresse email"
             aria-required="true"
-            placeholder="john@moncoworking.com"
+            placeholder="Pour vous envoyer le rapport"
           />
         </div>
       </div>
