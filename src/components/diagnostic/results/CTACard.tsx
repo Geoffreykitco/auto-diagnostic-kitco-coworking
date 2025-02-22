@@ -64,7 +64,7 @@ export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
       const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token xqPtH7BlwDujEpikYwtSj-gAhYcNm3skIARBax3kLH0',
+          'Authorization': 'Token gM-2Yz7m9cyD0AkLbMwD91cJcj0EnzpL',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(diagnosticData)
