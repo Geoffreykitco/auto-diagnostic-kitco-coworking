@@ -49,7 +49,7 @@ export const DesktopForm = ({
             <input
               type="text"
               value={fullName}
-              onChange={e => setFullName(e.target.value)}
+              onChange={(e) => setFullName(e.target.value)}
               placeholder="Pour faire connaissance :)"
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
               required
@@ -63,7 +63,7 @@ export const DesktopForm = ({
             <input
               type="text"
               value={coworkingName}
-              onChange={e => setCoworkingName(e.target.value)}
+              onChange={(e) => setCoworkingName(e.target.value)}
               placeholder="Pour en savoir plus sur votre espace"
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
               required
@@ -77,7 +77,7 @@ export const DesktopForm = ({
             <input
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Pour vous envoyer le rapport"
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
               required
