@@ -1,4 +1,3 @@
-
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 
 const corsHeaders = {
@@ -17,6 +16,7 @@ serve(async (req) => {
 
     const baserowToken = Deno.env.get('BASEROW_TOKEN')
     if (!baserowToken) {
+      console.error('Missing BASEROW_TOKEN')
       throw new Error('Baserow token not configured')
     }
 
@@ -97,9 +97,10 @@ serve(async (req) => {
       "info_services_proposes": data.answers?.informations?.[11]?.value
     }
 
+    console.log('Sending to Baserow with token:', baserowToken.substring(0, 5) + '...')
     console.log('Sending to Baserow:', baserowData)
 
-    const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true', {
+    const baserowResponse = await fetch('https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true', {
       method: 'POST',
       headers: {
         'Authorization': `Token ${baserowToken}`,
@@ -108,12 +109,13 @@ serve(async (req) => {
       body: JSON.stringify(baserowData)
     })
 
-    const responseData = await response.json()
-    console.log('Baserow response:', responseData)
+    const responseData = await baserowResponse.json()
+    console.log('Baserow response status:', baserowResponse.status)
+    console.log('Baserow full response:', responseData)
 
-    if (!response.ok) {
-      console.error('Baserow error:', responseData)
-      throw new Error('Failed to save diagnostic data')
+    if (!baserowResponse.ok) {
+      console.error('Baserow error details:', responseData)
+      throw new Error(`Failed to save diagnostic data: ${JSON.stringify(responseData)}`)
     }
 
     return new Response(
@@ -122,9 +124,12 @@ serve(async (req) => {
     )
 
   } catch (error) {
-    console.error('Error:', error.message)
+    console.error('Full error details:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        details: error.toString()
+      }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }
