@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -102,7 +103,7 @@ export const CTACard = ({
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <button className={`mt-4 bg-[#0B1A17] text-white px-8 py-3 rounded-lg hover:bg-[#132721] transition-colors duration-200 text-sm md:text-base my-[20px] ${!isMobile && 'hover:scale-[1.02] transform'}`}>
+              <button className={`mt-4 bg-[#0B1A17] text-white px-8 py-3 rounded-lg text-sm md:text-base my-[20px] ${!isMobile && 'hover:bg-[#132721] hover:scale-[1.02] transform transition-colors duration-200'}`}>
                 Recevoir mon audit et mon plan d'action
               </button>
             </DialogTrigger>
