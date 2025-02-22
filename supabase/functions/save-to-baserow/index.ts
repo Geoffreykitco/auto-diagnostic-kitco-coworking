@@ -7,7 +7,6 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -16,7 +15,6 @@ serve(async (req) => {
     const data = await req.json();
     console.log('Received data:', data);
 
-    // Formatage des données pour Baserow
     const baserowData = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -42,60 +40,58 @@ serve(async (req) => {
       recommandation_level: data.recommandation_level,
       recommandation_recommendation: data.recommandation_recommendation,
       
-      // Ajout des réponses aux questions
-      // Informations générales
-      duree_ouverture: formatAnswer(data.answers?.informations?.[0]),
-      types_bureaux: formatMultipleAnswer(data.answers?.informations?.[1]),
-      types_abonnements: formatMultipleAnswer(data.answers?.informations?.[2]),
-      statut_espace: formatAnswer(data.answers?.informations?.[3]),
-      superficie: formatAnswer(data.answers?.informations?.[4]),
-      concurrence: formatAnswer(data.answers?.informations?.[5]),
-      capacite: formatAnswer(data.answers?.informations?.[6]),
-      ville: formatAnswer(data.answers?.informations?.[7]),
-      horaires: formatAnswer(data.answers?.informations?.[8]),
-      taux_remplissage: formatAnswer(data.answers?.informations?.[9]),
-      type_clientele: formatMultipleAnswer(data.answers?.informations?.[10]),
-      services: formatMultipleAnswer(data.answers?.informations?.[11]),
+      // Adaptation des noms des champs pour correspondre exactement à Baserow
+      info_anciennete: getOptionLabel(data.answers?.informations?.[0]),
+      info_type_bureaux: getMultipleOptionLabels(data.answers?.informations?.[1]),
+      info_types_abonnements: getMultipleOptionLabels(data.answers?.informations?.[2]),
+      info_statut: getOptionLabel(data.answers?.informations?.[3]),
+      info_superficie: getOptionLabel(data.answers?.informations?.[4]),
+      info_concurrence: getOptionLabel(data.answers?.informations?.[5]),
+      info_capacite: getOptionLabel(data.answers?.informations?.[6]),
+      info_ville: formatAnswer(data.answers?.informations?.[7]),
+      info_horaires: getOptionLabel(data.answers?.informations?.[8]),
+      info_taux_remplissage: formatAnswer(data.answers?.informations?.[9]),
+      info_type_clientele: getMultipleOptionLabels(data.answers?.informations?.[10]),
+      info_services: getMultipleOptionLabels(data.answers?.informations?.[11]),
 
       // Acquisition
-      canaux_acquisition: formatMultipleAnswer(data.answers?.acquisition?.[0]),
-      frequence_actions: formatAnswer(data.answers?.acquisition?.[1]),
-      offre_decouverte: formatAnswer(data.answers?.acquisition?.[2]),
-      suivi_prospects: formatAnswer(data.answers?.acquisition?.[3]),
-      avis_clients: formatAnswer(data.answers?.acquisition?.[4]),
+      acq_canaux: getMultipleOptionLabels(data.answers?.acquisition?.[0]),
+      acq_frequence: getOptionLabel(data.answers?.acquisition?.[1]),
+      acq_offre_decouverte: getOptionLabel(data.answers?.acquisition?.[2]),
+      acq_suivi_prospects: getOptionLabel(data.answers?.acquisition?.[3]),
+      acq_avis_clients: getOptionLabel(data.answers?.acquisition?.[4]),
 
       // Activation
-      decouverte_espace: formatAnswer(data.answers?.activation?.[0]),
-      processus_onboarding: formatAnswer(data.answers?.activation?.[1]),
-      clarte_offres: formatAnswer(data.answers?.activation?.[2]),
-      relance_prospects: formatAnswer(data.answers?.activation?.[3]),
-      facilitation_decision: formatAnswer(data.answers?.activation?.[4]),
+      act_decouverte: getOptionLabel(data.answers?.activation?.[0]),
+      act_onboarding: getOptionLabel(data.answers?.activation?.[1]),
+      act_offres: getOptionLabel(data.answers?.activation?.[2]),
+      act_relance: getOptionLabel(data.answers?.activation?.[3]),
+      act_facilitation: getOptionLabel(data.answers?.activation?.[4]),
 
       // Rétention
-      retour_regulier: formatAnswer(data.answers?.retention?.[0]),
-      programme_fidelite: formatAnswer(data.answers?.retention?.[1]),
-      organisation_evenements: formatAnswer(data.answers?.retention?.[2]),
-      collecte_avis: formatAnswer(data.answers?.retention?.[3]),
-      amelioration_experience: formatAnswer(data.answers?.retention?.[4]),
+      ret_frequentation: getOptionLabel(data.answers?.retention?.[0]),
+      ret_fidelite: getOptionLabel(data.answers?.retention?.[1]),
+      ret_evenements: getOptionLabel(data.answers?.retention?.[2]),
+      ret_avis: getOptionLabel(data.answers?.retention?.[3]),
+      ret_amelioration: getOptionLabel(data.answers?.retention?.[4]),
 
       // Revenus
-      sources_revenus: formatMultipleAnswer(data.answers?.revenus?.[0]),
-      suivi_rentabilite: formatAnswer(data.answers?.revenus?.[1]),
-      utilisation_crm: formatAnswer(data.answers?.revenus?.[2]),
-      optimisation_conversion: formatAnswer(data.answers?.revenus?.[3]),
-      developpement_revenus: formatAnswer(data.answers?.revenus?.[4]),
+      rev_sources: getMultipleOptionLabels(data.answers?.revenus?.[0]),
+      rev_rentabilite: getOptionLabel(data.answers?.revenus?.[1]),
+      rev_crm: getOptionLabel(data.answers?.revenus?.[2]),
+      rev_conversion: getOptionLabel(data.answers?.revenus?.[3]),
+      rev_developpement: getOptionLabel(data.answers?.revenus?.[4]),
 
       // Recommandation
-      recommandation_spontanee: formatAnswer(data.answers?.recommandation?.[0]),
-      programme_parrainage: formatAnswer(data.answers?.recommandation?.[1]),
-      utilisation_avis: formatAnswer(data.answers?.recommandation?.[2]),
-      participation_communication: formatAnswer(data.answers?.recommandation?.[3]),
-      incitation_contenu: formatAnswer(data.answers?.recommandation?.[4])
+      rec_spontanee: getOptionLabel(data.answers?.recommandation?.[0]),
+      rec_parrainage: getOptionLabel(data.answers?.recommandation?.[1]),
+      rec_avis: getOptionLabel(data.answers?.recommandation?.[2]),
+      rec_communication: getOptionLabel(data.answers?.recommandation?.[3]),
+      rec_contenu: getOptionLabel(data.answers?.recommandation?.[4])
     };
 
     console.log('Formatted data for Baserow:', baserowData);
 
-    // Envoi à Baserow avec l'ID correct de la table
     const baserowResponse = await fetch(
       'https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true',
       {
@@ -142,12 +138,22 @@ serve(async (req) => {
   }
 });
 
-function formatMultipleAnswer(answer: any): string {
+function getOptionLabel(answer: any): string {
   if (!answer?.value) return '';
-  if (Array.isArray(answer.value)) {
-    return answer.value.join(', ');
+  // Si la valeur est un index numérique, on récupère le label correspondant
+  if (typeof answer.value === 'number' && answer.options) {
+    return answer.options[answer.value]?.label || '';
   }
   return answer.value.toString();
+}
+
+function getMultipleOptionLabels(answer: any): string {
+  if (!answer?.value || !Array.isArray(answer.value)) return '';
+  // Pour les réponses multiples, on récupère les labels des options sélectionnées
+  return answer.value
+    .map(index => answer.options?.[index]?.label || '')
+    .filter(Boolean)
+    .join(', ');
 }
 
 function formatAnswer(answer: any): string {
