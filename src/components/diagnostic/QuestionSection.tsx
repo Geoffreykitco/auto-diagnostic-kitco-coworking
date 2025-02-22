@@ -40,7 +40,7 @@ export const QuestionSection = ({
 
   return (
     <div className="container max-w-4xl mx-auto px-4">
-      <div className="mt-16 mb-8">
+      <div className="mt-12 mb-8">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
@@ -48,10 +48,10 @@ export const QuestionSection = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-left"
+        className="text-left mb-16"
       >
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
-        <p className="text-gray-600 mb-8">{section.description}</p>
+        <h1 className="text-3xl font-bold text-[#132720] mb-4">{section.title}</h1>
+        <p className="text-gray-600 mb-8 text-lg">{section.description}</p>
 
         <div className="space-y-8">
           {section.questions.map((question, index) => (
@@ -70,7 +70,7 @@ export const QuestionSection = ({
             <Button
               variant="outline"
               onClick={onPrevious}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 hover:bg-gray-50 hover:text-[#132720] transition-colors"
             >
               <ArrowLeftIcon size={16} />
               Précédent
@@ -82,7 +82,7 @@ export const QuestionSection = ({
           {showNext && (
             <Button
               onClick={onNext}
-              className="flex items-center gap-2 bg-primary hover:bg-primary-hover"
+              className="flex items-center gap-2 bg-[#132720] hover:bg-[#1d312a] text-white transition-colors"
             >
               Suivant
               <ArrowRightIcon size={16} />

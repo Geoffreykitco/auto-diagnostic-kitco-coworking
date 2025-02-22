@@ -19,7 +19,7 @@ export const QuestionTitle = ({ question, tooltip }: QuestionTitleProps) => {
 
   return (
     <div className="flex gap-2.5 items-start mb-6">
-      <h3 className="text-lg font-medium flex-grow text-gray-900">
+      <h3 className="text-lg font-medium flex-grow text-[#132720]">
         {question}
       </h3>
       <HoverCard open={isMobile ? isOpen : undefined}>
@@ -33,7 +33,7 @@ export const QuestionTitle = ({ question, tooltip }: QuestionTitleProps) => {
           </button>
         </HoverCardTrigger>
         <HoverCardContent 
-          className="w-80 bg-white" 
+          className="w-80 bg-white shadow-lg border border-gray-100" 
           align={isMobile ? "center" : "end"}
           side={isMobile ? "bottom" : "right"}
         >

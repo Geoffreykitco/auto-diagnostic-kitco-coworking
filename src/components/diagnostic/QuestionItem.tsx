@@ -18,7 +18,6 @@ export const QuestionItem = ({
     const value = e.target.value;
     if (question.question.toLowerCase().includes("pourcentage") || 
         question.question.toLowerCase().includes("remplissage")) {
-      // Pour les champs numériques (pourcentages)
       const numericValue = value.replace(/[^0-9]/g, '');
       let number = parseInt(numericValue);
       if (isNaN(number)) number = 0;
@@ -26,11 +25,9 @@ export const QuestionItem = ({
       setLocalValue(number ? `${number}%` : '');
       onSelect(number, false);
     } else if (question.question.toLowerCase().includes("ville")) {
-      // Pour le champ ville, on met à jour la valeur locale sans toast
       setLocalValue(value);
       onSelect(value, false);
     } else {
-      // Pour les autres champs texte
       setLocalValue(value);
       onSelect(value);
     }
@@ -64,7 +61,7 @@ export const QuestionItem = ({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.1 * questionIndex }}
-      className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm"
+      className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
     >
       <QuestionTitle 
         question={question.question} 

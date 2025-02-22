@@ -14,8 +14,8 @@ export const OptionButton = ({ label, isSelected, onClick }: OptionButtonProps) 
       onClick={onClick}
       className={
         isSelected
-          ? "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-white border-2 border-[#12271F] text-gray-900 shadow-sm font-medium"
-          : "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#12271F]/20 hover:shadow-sm"
+          ? "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-white border-2 border-[#132720] text-[#132720] shadow-sm font-medium"
+          : "relative w-full p-4 text-left rounded-lg transition-all duration-200 flex items-center justify-between gap-3 text-sm md:text-base border bg-gray-50/80 hover:bg-gray-50 text-gray-700 border-gray-100 hover:border-[#132720]/20 hover:shadow-sm"
       }
       whileHover={{ scale: 1.005 }}
       whileTap={{ scale: 0.995 }}
@@ -30,7 +30,7 @@ export const OptionButton = ({ label, isSelected, onClick }: OptionButtonProps) 
             stiffness: 400,
             damping: 10
           }}
-          className="rounded-full p-1 bg-[#12271F]"
+          className="rounded-full p-1 bg-[#132720]"
         >
           <Check className="h-4 w-4 text-white" />
         </motion.div>
