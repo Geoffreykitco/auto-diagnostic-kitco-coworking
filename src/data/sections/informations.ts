@@ -43,7 +43,7 @@ export const informationsSection = {
     {
       question: "Quel est le statut de votre espace de coworking ?",
       tooltip: "Le statut de propriété influe sur vos coûts fixes et votre capacité d'investissement à long terme.",
-      type: "single",
+      type: "multiple",  // Changé de "single" à "multiple"
       isInformative: true,
       options: [
         { label: "Propriétaire", points: 0 },

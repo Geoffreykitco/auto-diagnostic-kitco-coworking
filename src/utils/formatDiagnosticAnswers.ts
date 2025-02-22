@@ -12,7 +12,7 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
 
   Object.entries(answers).forEach(([section, sectionAnswers]) => {
     // Ajout de logs pour debugger
-    if (section === 'acquisition' || section === 'revenus') {
+    if (section === 'acquisition' || section === 'revenus' || section === 'informations') {
       console.log(`Section ${section}:`, sectionAnswers);
       console.log(`Type de valeur pour ${section}[0]:`, typeof sectionAnswers[0]?.value);
       console.log(`Valeur brute pour ${section}[0]:`, sectionAnswers[0]?.value);
@@ -63,17 +63,27 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
     }
     else if (section === 'informations') {
       formattedAnswers.info_anciennete = sectionAnswers[0]?.value;
-      formattedAnswers.info_type_bureaux = sectionAnswers[1]?.value;
-      formattedAnswers.info_type_abonnement = sectionAnswers[2]?.value;
-      formattedAnswers.info_statut = sectionAnswers[3]?.value;
+      formattedAnswers.info_type_bureaux = Array.isArray(sectionAnswers[1]?.value)
+        ? sectionAnswers[1].value
+        : [];
+      formattedAnswers.info_type_abonnement = Array.isArray(sectionAnswers[2]?.value)
+        ? sectionAnswers[2].value
+        : [];
+      formattedAnswers.info_statut = Array.isArray(sectionAnswers[3]?.value)
+        ? sectionAnswers[3].value
+        : [];
       formattedAnswers.info_superficie = sectionAnswers[4]?.value;
       formattedAnswers.info_concurrence = sectionAnswers[5]?.value;
       formattedAnswers.info_capacite = sectionAnswers[6]?.value;
       formattedAnswers.info_ville = sectionAnswers[7]?.value;
       formattedAnswers.info_horaires = sectionAnswers[8]?.value;
       formattedAnswers.info_remplissage = sectionAnswers[9]?.value;
-      formattedAnswers.info_type_clientele = sectionAnswers[10]?.value;
-      formattedAnswers.info_services = sectionAnswers[11]?.value;
+      formattedAnswers.info_type_clientele = Array.isArray(sectionAnswers[10]?.value)
+        ? sectionAnswers[10].value
+        : [];
+      formattedAnswers.info_services = Array.isArray(sectionAnswers[11]?.value)
+        ? sectionAnswers[11].value
+        : [];
     }
   });
 
