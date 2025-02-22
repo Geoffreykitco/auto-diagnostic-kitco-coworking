@@ -22,7 +22,7 @@ export const recommandationSection = {
       options: [
         { label: "Oui, et il est actif", points: 10 },
         { label: "Oui, mais il est peu utilisé", points: 5 },
-        { label: "Non, aucun programme de parrainage", points: 0 }
+        { label: "Non, aucun programme", points: 0 }
       ]
     },
     {
@@ -30,9 +30,9 @@ export const recommandationSection = {
       tooltip: "Les avis en ligne (Google, Trustpilot, etc.) influencent fortement les prospects.",
       type: "single",
       options: [
-        { label: "Oui, nous les collectons et les mettons en avant", points: 10 },
-        { label: "Oui, mais sans les exploiter pleinement", points: 5 },
-        { label: "Non, nous ne faisons pas de suivi des avis", points: 0 }
+        { label: "Oui, nous les collectons", points: 10 },
+        { label: "Oui, mais sans les exploiter", points: 5 },
+        { label: "Non, nous ne faisons pas", points: 0 }
       ]
     },
     {
@@ -40,9 +40,9 @@ export const recommandationSection = {
       tooltip: "Une communauté engagée partage naturellement son expérience et attire de nouveaux membres.",
       type: "single",
       options: [
-        { label: "Oui, ils partagent régulièrement sur les réseaux sociaux et via le bouche-à-oreille", points: 10 },
-        { label: "Oui, mais seulement une minorité le fait", points: 5 },
-        { label: "Non, nous n'avons pas de communauté active sur ce point", points: 0 }
+        { label: "Oui, ils partagent régulièrement", points: 10 },
+        { label: "Oui, mais seulement une minorité", points: 5 },
+        { label: "Non, nous n'avons pas de communauté", points: 0 }
       ]
     },
     {
@@ -50,9 +50,9 @@ export const recommandationSection = {
       tooltip: "Le contenu généré par les membres (témoignages, publications, vidéos) augmente la visibilité du coworking.",
       type: "single",
       options: [
-        { label: "Oui, avec des incitations claires (réductions, événements VIP, mise en avant)", points: 10 },
+        { label: "Oui, avec des incitations", points: 10 },
         { label: "Oui, mais sans cadre précis", points: 5 },
-        { label: "Non, nous n'avons pas d'actions spécifiques pour encourager cela", points: 0 }
+        { label: "Non, nous n'avons pas d'actions", points: 0 }
       ]
     }
   ]
