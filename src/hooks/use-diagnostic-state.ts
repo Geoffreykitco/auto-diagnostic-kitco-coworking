@@ -108,12 +108,21 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       return newAnswers;
     });
     
+    // On vérifie si on doit afficher le toast
     if (showToast) {
-      toast({
-        title: "Réponse enregistrée 🎉",
-        variant: "default",
-        duration: 1200,
-      });
+      const currentQuestion = sections[currentSection].questions[questionIndex];
+      const questionText = currentQuestion.question.toLowerCase();
+      const skipToastForQuestion = questionText.includes('ville') || 
+                                 questionText.includes('remplissage') ||
+                                 questionText.includes('pourcentage');
+      
+      if (!skipToastForQuestion) {
+        toast({
+          title: "Réponse enregistrée 🎉",
+          variant: "default",
+          duration: 1200,
+        });
+      }
     }
   }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
