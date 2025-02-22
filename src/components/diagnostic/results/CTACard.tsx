@@ -5,18 +5,17 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { AuditFormContent } from "../sections/audit/AuditFormContent";
 import { useAuditForm } from "@/hooks/use-audit-form";
-
 interface CTACardProps {
   globalScore: number;
 }
-
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
-
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -58,7 +57,6 @@ export const CTACard = ({
       });
     }
   };
-
   const {
     fullName,
     setFullName,
@@ -71,7 +69,6 @@ export const CTACard = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await handleFormSubmit(e);
@@ -79,14 +76,15 @@ export const CTACard = ({
       setOpen(false);
     }
   };
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }} 
-      animate={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.5 }} 
-      className="bg-white"
-    >
+  return <motion.div initial={{
+    opacity: 0,
+    y: 20
+  }} animate={{
+    opacity: 1,
+    y: 0
+  }} transition={{
+    duration: 0.5
+  }} className="bg-white">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="text-center space-y-4">
           <h2 className="text-2xl font-medium text-gray-900">
@@ -105,16 +103,9 @@ export const CTACard = ({
 
             <DialogContent className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}>
               <div className="flex flex-col md:flex-row w-full h-full">
-                {!isMobile && (
-                  <div className="w-full md:w-1/2 relative">
-                    <img 
-                      src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png" 
-                      alt="Espace de coworking" 
-                      className="w-full h-full object-cover rounded-l-lg absolute inset-0" 
-                      loading="lazy" 
-                    />
-                  </div>
-                )}
+                {!isMobile && <div className="w-full md:w-1/2 relative">
+                    <img src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png" alt="Espace de coworking" className="w-full h-full object-cover rounded-l-lg absolute inset-0" loading="lazy" />
+                  </div>}
                 <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
                   <div className="mb-6">
                     <h3 className="text-lg md:text-xl font-semibold text-[#0B1A17] mb-2">
@@ -125,26 +116,14 @@ export const CTACard = ({
                     </p>
                   </div>
 
-                  <AuditFormContent 
-                    fullName={fullName} 
-                    coworkingName={coworkingName} 
-                    email={email} 
-                    isSubmitting={isSubmitting} 
-                    onFullNameChange={setFullName} 
-                    onCoworkingNameChange={setCoworkingName} 
-                    onEmailChange={setEmail} 
-                    onSubmit={handleSubmitForm} 
-                  />
+                  <AuditFormContent fullName={fullName} coworkingName={coworkingName} email={email} isSubmitting={isSubmitting} onFullNameChange={setFullName} onCoworkingNameChange={setCoworkingName} onEmailChange={setEmail} onSubmit={handleSubmitForm} />
                 </div>
               </div>
             </DialogContent>
           </Dialog>
 
-          <p className="text-base font-medium text-[#0B1A17]/80 mt-4">
-            Réponse garantie sous 24h ouvrées
-          </p>
+          <p className="font-medium mt-4 text-gray-500 text-xs">Nous garantissons la confidentialité de vos données.</p>
         </div>
       </div>
-    </motion.div>
-  );
+    </motion.div>;
 };
