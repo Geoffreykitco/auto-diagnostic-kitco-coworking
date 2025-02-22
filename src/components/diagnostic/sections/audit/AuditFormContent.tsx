@@ -29,7 +29,11 @@ export const AuditFormContent = ({
       className="space-y-4 flex-1 flex flex-col"
       aria-label="Formulaire de demande d'audit"
     >
-      <div className="flex-1 space-y-4" role="group" aria-label="Informations personnelles">
+      <div 
+        className="flex-1 space-y-4" 
+        role="group" 
+        aria-label="Informations personnelles"
+      >
         <div>
           <label 
             htmlFor="fullName" 
