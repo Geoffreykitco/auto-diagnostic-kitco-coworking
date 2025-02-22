@@ -1,7 +1,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { useAuditForm } from "@/hooks/use-audit-form";
@@ -95,6 +95,7 @@ export const CTACard = ({
               </button>
             </DialogTrigger>
             <DialogContent className="bg-white p-0 overflow-hidden sm:max-w-[900px] rounded-lg">
+              <DialogTitle className="sr-only">Formulaire d'audit coworking</DialogTitle>
               <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/2">
                   <img
