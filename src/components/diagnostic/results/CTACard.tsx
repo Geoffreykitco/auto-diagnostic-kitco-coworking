@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
 
@@ -12,7 +13,7 @@ export const CTACard = ({
   globalScore
 }: CTACardProps) => {
   const isMobile = useIsMobile();
-  const [showForm, setShowForm] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -43,7 +44,7 @@ export const CTACard = ({
         throw new Error('Failed to save form results');
       }
 
-      setShowForm(false);
+      setOpen(false);
     } catch (error) {
       console.error('Error saving form results:', error);
     }
@@ -73,15 +74,13 @@ export const CTACard = ({
         </p>
 
         <div>
-          {!showForm ? (
-            <button 
-              onClick={() => setShowForm(true)}
-              className="mt-2 bg-[#0B1A17] text-white px-6 py-2.5 rounded-lg text-sm md:text-base hover:bg-[#132721] hover:scale-[1.02] transform transition-colors duration-200"
-            >
-              Recevoir mon audit et mon plan d'action
-            </button>
-          ) : (
-            <div className="mt-8 max-w-2xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <button className="mt-2 bg-[#0B1A17] text-white px-6 py-2.5 rounded-lg text-sm md:text-base hover:bg-[#132721] hover:scale-[1.02] transform transition-colors duration-200">
+                Recevoir mon audit et mon plan d'action
+              </button>
+            </DialogTrigger>
+            <DialogContent className="p-0 bg-white overflow-hidden rounded-2xl max-w-4xl">
               <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/2 h-64 md:h-auto">
                   <img
@@ -144,22 +143,13 @@ export const CTACard = ({
                       />
                     </div>
 
-                    <div className="flex gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setShowForm(false)}
-                        className="w-1/3 bg-gray-100 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
-                      >
-                        Annuler
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-2/3 bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50"
-                      >
-                        {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
-                      </button>
-                    </div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4"
+                    >
+                      {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
+                    </button>
 
                     <p className="text-xs text-center text-gray-500 mt-4">
                       En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
@@ -167,8 +157,8 @@ export const CTACard = ({
                   </form>
                 </div>
               </div>
-            </div>
-          )}
+            </DialogContent>
+          </Dialog>
 
           <p className="font-medium mt-1 text-gray-500 text-xs">
             Nous garantissons la confidentialité de vos données.
