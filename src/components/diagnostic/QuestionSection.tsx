@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Section } from "@/data/sections";
 import { Answer } from "./question/types";
-
 interface QuestionSectionProps {
   section: Section;
   onOptionSelect: (questionIndex: number, value: string | number | number[] | null) => void;
@@ -15,7 +14,6 @@ interface QuestionSectionProps {
   showNext: boolean;
   answers: Record<number, Answer>;
 }
-
 export const QuestionSection = ({
   section,
   onOptionSelect,
@@ -47,61 +45,39 @@ export const QuestionSection = ({
     id: 'resultats',
     label: 'Résultat diagnostique'
   }];
-
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
-
-  return (
-    <div className="container max-w-4xl mx-auto px-4">
+  return <div className="container max-w-4xl mx-auto px-4">
       <div className="mt-12 mb-8">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
       
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-left"
-      >
+      <motion.div initial={{
+      opacity: 0,
+      y: 20
+    }} animate={{
+      opacity: 1,
+      y: 0
+    }} transition={{
+      duration: 0.5
+    }} className="text-left">
         <h1 className="text-3xl font-bold text-[#132720] mb-4">{section.title}</h1>
-        <p className="text-gray-600 mb-8 text-lg">{section.description}</p>
+        <p className="text-gray-600 mb-8 text-sm">{section.description}</p>
 
         <div className="space-y-8">
-          {section.questions.map((question, index) => (
-            <QuestionItem
-              key={index}
-              question={question}
-              questionIndex={index}
-              onSelect={(value) => onOptionSelect(index, value)}
-              selectedValue={answers[index]?.value}
-            />
-          ))}
+          {section.questions.map((question, index) => <QuestionItem key={index} question={question} questionIndex={index} onSelect={value => onOptionSelect(index, value)} selectedValue={answers[index]?.value} />)}
         </div>
 
         <div className="flex justify-between mt-8 mb-4">
-          {showPrevious ? (
-            <Button
-              variant="outline"
-              onClick={onPrevious}
-              className="flex items-center gap-2 hover:bg-gray-50 hover:text-[#132720] transition-colors"
-            >
+          {showPrevious ? <Button variant="outline" onClick={onPrevious} className="flex items-center gap-2 hover:bg-gray-50 hover:text-[#132720] transition-colors">
               <ArrowLeftIcon size={16} />
               Précédent
-            </Button>
-          ) : (
-            <div />
-          )}
+            </Button> : <div />}
           
-          {showNext && (
-            <Button
-              onClick={onNext}
-              className="flex items-center gap-2 bg-[#132720] hover:bg-[#1d312a] text-white transition-colors"
-            >
+          {showNext && <Button onClick={onNext} className="flex items-center gap-2 bg-[#132720] hover:bg-[#1d312a] text-white transition-colors">
               Suivant
               <ArrowRightIcon size={16} />
-            </Button>
-          )}
+            </Button>}
         </div>
       </motion.div>
-    </div>
-  );
+    </div>;
 };
