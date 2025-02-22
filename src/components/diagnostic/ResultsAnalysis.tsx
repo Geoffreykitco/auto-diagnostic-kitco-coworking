@@ -90,6 +90,8 @@ export const ResultsAnalysis = ({
     return "bg-red-500";
   };
 
+  const formattedAnswers = formatAnswersForGlobalCard(answers);
+
   const renderSectionCard = (section: string, sectionAnswers: Record<number, number>) => {
     const currentSection = sections[section as keyof typeof sections];
     if (!currentSection) return null;
@@ -127,7 +129,7 @@ export const ResultsAnalysis = ({
             getLevelColor={getLevelColor}
             getProgressColor={getProgressColor}
             getGlobalMessage={getGlobalMessage}
-            answers={formatAnswersForGlobalCard(answers)}
+            answers={formattedAnswers}
           />
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -155,7 +157,11 @@ export const ResultsAnalysis = ({
       </div>
       
       <div className="w-full mt-10">
-        <CTACard globalScore={globalScore} sectionScores={sectionScores} />
+        <CTACard 
+          globalScore={globalScore} 
+          sectionScores={sectionScores} 
+          answers={formattedAnswers}
+        />
       </div>
     </div>
   );
