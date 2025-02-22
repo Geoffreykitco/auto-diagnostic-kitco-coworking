@@ -6,7 +6,7 @@ export const recommandationSection = {
   description: "Cette section évalue votre capacité à générer des recommandations et à développer votre communauté.",
   questions: [
     {
-      question: "Vos membres recommandent-ils spontanément votre espace ?",
+      question: "Les membres recommandent-ils spontanément votre espace ?",
       tooltip: "Le bouche-à-oreille est un indicateur clé de satisfaction et de fidélisation.",
       type: "single",
       options: [
@@ -16,7 +16,7 @@ export const recommandationSection = {
       ]
     },
     {
-      question: "Avez-vous mis en place un programme de parrainage ou de fidélité ?",
+      question: "Avez-vous un programme de parrainage ?",
       tooltip: "Un programme structuré incite les membres à recommander activement l'espace à leur entourage.",
       type: "single",
       options: [
@@ -26,7 +26,7 @@ export const recommandationSection = {
       ]
     },
     {
-      question: "Utilisez-vous les avis clients pour renforcer votre crédibilité ?",
+      question: "Utilisez-vous les avis clients ?",
       tooltip: "Les avis en ligne (Google, Trustpilot, etc.) influencent fortement les prospects.",
       type: "single",
       options: [
@@ -36,7 +36,7 @@ export const recommandationSection = {
       ]
     },
     {
-      question: "Vos membres participent-ils activement à la communication et promotion de votre espace ?",
+      question: "Vos membres participent-ils à la communication ?",
       tooltip: "Une communauté engagée partage naturellement son expérience et attire de nouveaux membres.",
       type: "single",
       options: [
@@ -46,7 +46,7 @@ export const recommandationSection = {
       ]
     },
     {
-      question: "Incitez-vous vos membres à créer du contenu ou à partager leur expérience ?",
+      question: "Incitez-vous la création de contenu ?",
       tooltip: "Le contenu généré par les membres (témoignages, publications, vidéos) augmente la visibilité du coworking.",
       type: "single",
       options: [
@@ -57,3 +57,4 @@ export const recommandationSection = {
     }
   ]
 } as const;
+
