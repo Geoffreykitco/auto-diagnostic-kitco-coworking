@@ -6,14 +6,14 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-const getInformationAnswer = (data: any, questionIndex: number) => {
-  const answer = data.answers?.informations?.[questionIndex]
+const getSectionAnswer = (data: any, section: string, questionIndex: number) => {
+  const answer = data.answers?.[section]?.[questionIndex]
   if (!answer) return null
   
   if (Array.isArray(answer.value)) {
-    return answer.value.map(index => data.sections.informations.questions[questionIndex].options[index].label).join(', ')
+    return answer.value.map(index => data.sections[section].questions[questionIndex].options[index].label).join(', ')
   } else if (typeof answer.value === 'number') {
-    return data.sections.informations.questions[questionIndex].options[answer.value].label
+    return data.sections[section].questions[questionIndex].options[answer.value].label
   }
   return answer.value
 }
@@ -35,18 +35,53 @@ serve(async (req) => {
     }
 
     // Récupération des réponses de la section informations
-    const ouverture = getInformationAnswer(data, 0)
-    const typesBureaux = getInformationAnswer(data, 1)
-    const typesAbonnements = getInformationAnswer(data, 2)
-    const statut = getInformationAnswer(data, 3)
-    const superficie = getInformationAnswer(data, 4)
-    const concurrence = getInformationAnswer(data, 5)
-    const capacite = getInformationAnswer(data, 6)
-    const ville = getInformationAnswer(data, 7)
-    const horaires = getInformationAnswer(data, 8)
-    const tauxRemplissage = getInformationAnswer(data, 9)
-    const typeClientele = getInformationAnswer(data, 10)
-    const services = getInformationAnswer(data, 11)
+    const ouverture = getSectionAnswer(data, 'informations', 0)
+    const typesBureaux = getSectionAnswer(data, 'informations', 1)
+    const typesAbonnements = getSectionAnswer(data, 'informations', 2)
+    const statut = getSectionAnswer(data, 'informations', 3)
+    const superficie = getSectionAnswer(data, 'informations', 4)
+    const concurrence = getSectionAnswer(data, 'informations', 5)
+    const capacite = getSectionAnswer(data, 'informations', 6)
+    const ville = getSectionAnswer(data, 'informations', 7)
+    const horaires = getSectionAnswer(data, 'informations', 8)
+    const tauxRemplissage = getSectionAnswer(data, 'informations', 9)
+    const typeClientele = getSectionAnswer(data, 'informations', 10)
+    const services = getSectionAnswer(data, 'informations', 11)
+
+    // Acquisition
+    const acq_canaux = getSectionAnswer(data, 'acquisition', 0)
+    const acq_frequence = getSectionAnswer(data, 'acquisition', 1)
+    const acq_offre_decouverte = getSectionAnswer(data, 'acquisition', 2)
+    const acq_suivi_prospects = getSectionAnswer(data, 'acquisition', 3)
+    const acq_avis_clients = getSectionAnswer(data, 'acquisition', 4)
+
+    // Activation
+    const act_visite = getSectionAnswer(data, 'activation', 0)
+    const act_onboarding = getSectionAnswer(data, 'activation', 1)
+    const act_offres = getSectionAnswer(data, 'activation', 2)
+    const act_relance = getSectionAnswer(data, 'activation', 3)
+    const act_conversion = getSectionAnswer(data, 'activation', 4)
+
+    // Rétention
+    const ret_regularite = getSectionAnswer(data, 'retention', 0)
+    const ret_fidelite = getSectionAnswer(data, 'retention', 1)
+    const ret_evenements = getSectionAnswer(data, 'retention', 2)
+    const ret_feedback = getSectionAnswer(data, 'retention', 3)
+    const ret_experience = getSectionAnswer(data, 'retention', 4)
+
+    // Revenus
+    const rev_sources = getSectionAnswer(data, 'revenus', 0)
+    const rev_rentabilite = getSectionAnswer(data, 'revenus', 1)
+    const rev_crm = getSectionAnswer(data, 'revenus', 2)
+    const rev_conversion = getSectionAnswer(data, 'revenus', 3)
+    const rev_nouveaux = getSectionAnswer(data, 'revenus', 4)
+
+    // Recommandation
+    const rec_spontane = getSectionAnswer(data, 'recommandation', 0)
+    const rec_parrainage = getSectionAnswer(data, 'recommandation', 1)
+    const rec_avis = getSectionAnswer(data, 'recommandation', 2)
+    const rec_communication = getSectionAnswer(data, 'recommandation', 3)
+    const rec_contenu = getSectionAnswer(data, 'recommandation', 4)
 
     const baserowData = {
       "fullName": `${data.first_name} ${data.last_name}`,
@@ -67,30 +102,60 @@ serve(async (req) => {
       "type_clientele": typeClientele,
       "services": services,
       
-      // Scores et recommandations
+      // Scores et recommandations globales
       "global_score": data.global_score,
       "global_level": data.global_level,
       "global_recommendation": data.global_recommendation,
       
+      // Acquisition
       "acquisition_score": data.acquisition_score,
       "acquisition_level": data.acquisition_level,
       "acquisition_recommendation": data.acquisition_recommendation,
+      "acq_canaux": acq_canaux,
+      "acq_frequence": acq_frequence,
+      "acq_offre_decouverte": acq_offre_decouverte,
+      "acq_suivi_prospects": acq_suivi_prospects,
+      "acq_avis_clients": acq_avis_clients,
       
+      // Activation
       "activation_score": data.activation_score,
       "activation_level": data.activation_level,
       "activation_recommendation": data.activation_recommendation,
+      "act_visite": act_visite,
+      "act_onboarding": act_onboarding,
+      "act_offres": act_offres,
+      "act_relance": act_relance,
+      "act_conversion": act_conversion,
       
+      // Rétention
       "retention_score": data.retention_score,
       "retention_level": data.retention_level,
       "retention_recommendation": data.retention_recommendation,
+      "ret_regularite": ret_regularite,
+      "ret_fidelite": ret_fidelite,
+      "ret_evenements": ret_evenements,
+      "ret_feedback": ret_feedback,
+      "ret_experience": ret_experience,
       
+      // Revenus
       "revenus_score": data.revenus_score,
       "revenus_level": data.revenus_level,
       "revenus_recommendation": data.revenus_recommendation,
+      "rev_sources": rev_sources,
+      "rev_rentabilite": rev_rentabilite,
+      "rev_crm": rev_crm,
+      "rev_conversion": rev_conversion,
+      "rev_nouveaux": rev_nouveaux,
       
+      // Recommandation
       "recommandation_score": data.recommandation_score,
       "recommandation_level": data.recommandation_level,
       "recommandation_recommendation": data.recommandation_recommendation,
+      "rec_spontane": rec_spontane,
+      "rec_parrainage": rec_parrainage,
+      "rec_avis": rec_avis,
+      "rec_communication": rec_communication,
+      "rec_contenu": rec_contenu,
     }
 
     console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2))
