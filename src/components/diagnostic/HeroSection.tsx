@@ -21,7 +21,6 @@ export const HeroSection = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Logo */}
           <div className="w-[250px] md:w-[320px] transition-all duration-300">
             <img 
               src="/lovable-uploads/0719f9d2-282c-4729-ad17-b0baa338ef95.png" 
@@ -30,7 +29,6 @@ export const HeroSection = ({
             />
           </div>
 
-          {/* Content */}
           <div className="text-center max-w-2xl mx-auto">
             <motion.h1 
               className="text-4xl md:text-5xl font-bold text-primary mb-8"
@@ -41,17 +39,12 @@ export const HeroSection = ({
               Auto-diagnostic de votre espace de coworking
             </motion.h1>
             
-            <motion.button 
+            <button 
               onClick={onStart} 
-              className="bg-white/95 px-8 py-4 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)] hover:shadow-[0_8px_16px_rgba(19,39,32,0.3)] hover:transform hover:scale-105 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="bg-white/95 px-8 py-4 border-2 border-primary text-primary rounded-md font-semibold shadow-[0_4px_12px_rgba(19,39,32,0.2)]"
             >
               Commencer l'évaluation
-            </motion.button>
+            </button>
 
             <motion.p 
               className="text-lg text-gray-600 mt-6"
