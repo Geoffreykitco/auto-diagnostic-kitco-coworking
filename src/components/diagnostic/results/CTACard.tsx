@@ -85,12 +85,13 @@ export const CTACard = ({
 
   return <motion.div initial={{
     opacity: 0,
-    y: 20
+    y: isMobile ? 10 : 20
   }} animate={{
     opacity: 1,
     y: 0
   }} transition={{
-    duration: 0.5
+    duration: isMobile ? 0.3 : 0.5,
+    delay: isMobile ? 0.1 : 0
   }} className="bg-white">
       <div className={`max-w-5xl mx-auto px-4 ${isMobile ? 'py-4' : 'py-8'}`}>
         <div className="text-center space-y-2">
