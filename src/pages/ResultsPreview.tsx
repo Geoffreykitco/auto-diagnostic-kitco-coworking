@@ -1,56 +1,57 @@
 
 import { ResultsAnalysis } from "@/components/diagnostic/ResultsAnalysis";
 import { sections } from "@/data/sections";
+import { Answer } from "@/components/diagnostic/question/types";
 
-const mockAnswers = {
+const mockAnswers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>> = {
   informations: {
-    0: 2,
-    1: [0, 1],
-    2: [0, 1],
-    3: 1,
-    4: 2,
-    5: 1,
-    6: 2,
-    7: "Paris",
-    8: "9h-19h",
-    9: 75,
-    10: [0, 1],
-    11: [0, 1, 2]
+    0: { value: 2, score: 0 },
+    1: { value: [0, 1], score: 0 },
+    2: { value: [0, 1], score: 0 },
+    3: { value: 1, score: 0 },
+    4: { value: 2, score: 0 },
+    5: { value: 1, score: 0 },
+    6: { value: 2, score: 0 },
+    7: { value: "Paris", score: 0 },
+    8: { value: "9h-19h", score: 0 },
+    9: { value: 75, score: 0 },
+    10: { value: [0, 1], score: 0 },
+    11: { value: [0, 1, 2], score: 0 }
   },
   acquisition: {
-    0: 4,
-    1: 3,
-    2: 2,
-    3: 4,
-    4: 3
+    0: { value: 4, score: 10 },
+    1: { value: 3, score: 7 },
+    2: { value: 2, score: 5 },
+    3: { value: 4, score: 10 },
+    4: { value: 3, score: 7 }
   },
   activation: {
-    0: 2,
-    1: 3,
-    2: 4,
-    3: 3,
-    4: 2
+    0: { value: 2, score: 5 },
+    1: { value: 3, score: 7 },
+    2: { value: 4, score: 10 },
+    3: { value: 3, score: 7 },
+    4: { value: 2, score: 5 }
   },
   retention: {
-    0: 4,
-    1: 4,
-    2: 3,
-    3: 2,
-    4: 3
+    0: { value: 4, score: 10 },
+    1: { value: 4, score: 10 },
+    2: { value: 3, score: 7 },
+    3: { value: 2, score: 5 },
+    4: { value: 3, score: 7 }
   },
   revenus: {
-    0: 3,
-    1: 2,
-    2: 4,
-    3: 3,
-    4: 2
+    0: { value: 3, score: 7 },
+    1: { value: 2, score: 5 },
+    2: { value: 4, score: 10 },
+    3: { value: 3, score: 7 },
+    4: { value: 2, score: 5 }
   },
   recommandation: {
-    0: 4,
-    1: 3,
-    2: 2,
-    3: 4,
-    4: 3
+    0: { value: 4, score: 10 },
+    1: { value: 3, score: 7 },
+    2: { value: 2, score: 5 },
+    3: { value: 4, score: 10 },
+    4: { value: 3, score: 7 }
   }
 };
 

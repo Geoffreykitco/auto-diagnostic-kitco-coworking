@@ -12,9 +12,11 @@ import {
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
+import { Question } from "./question/types";
 
 interface ResultsAnalysisProps {
-  answers: Record<string, Record<number, number>>;
+  answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>;
+  formData?: any;
 }
 
 export const ResultsAnalysis = ({
