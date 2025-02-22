@@ -6,6 +6,7 @@ import { useAuditForm } from "@/hooks/use-audit-form";
 import { MainContent } from "./content/MainContent";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface CTACardProps {
   globalScore: number;
@@ -59,25 +60,18 @@ export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
         recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0))
       };
 
-      console.log('Données envoyées à Baserow:', diagnosticData);
+      console.log('Envoi des données au serveur:', diagnosticData);
 
-      const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Token gM-2Yz7m9cyD0AkLbMwD91cJcj0EnzpL',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(diagnosticData)
+      const { data, error } = await supabase.functions.invoke('save-diagnostic', {
+        body: diagnosticData
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Erreur Baserow:', errorData);
+      if (error) {
+        console.error('Erreur lors de l\'envoi:', error);
         throw new Error('Failed to save form results');
       }
 
-      const responseData = await response.json();
-      console.log('Réponse Baserow:', responseData);
+      console.log('Réponse du serveur:', data);
 
       setOpen(false);
       toast({
