@@ -87,20 +87,10 @@ export const useAuditForm = ({ onSubmit }: UseAuditFormProps) => {
         email
       });
       
-      toast({
-        title: "Merci !",
-        description: "Votre demande a été envoyée avec succès.",
-        duration: 3000,
-      });
-      
       resetForm();
       return true;
     } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi du formulaire.",
-        duration: 3000,
-      });
+      console.error('Error submitting form:', error);
       return false;
     } finally {
       setIsSubmitting(false);
