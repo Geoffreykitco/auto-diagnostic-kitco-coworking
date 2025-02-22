@@ -1,3 +1,4 @@
+
 export type ScoreLevel = 'débutant' | 'intermédiaire' | 'avancé';
 
 interface SectionScore {

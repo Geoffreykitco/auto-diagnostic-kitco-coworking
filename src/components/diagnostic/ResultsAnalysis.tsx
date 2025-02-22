@@ -51,9 +51,9 @@ export const ResultsAnalysis = ({
         const currentSection = sections[section as keyof typeof sections];
         if (currentSection) {
           const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-            acc[Number(key)] = value.score;
+            acc[Number(key)] = { value: value.value, score: value.score };
             return acc;
-          }, {} as Record<number, number>);
+          }, {} as Record<number, Answer>);
 
           const maxScore = getMaxSectionScore(currentSection.questions);
           const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
@@ -81,9 +81,9 @@ export const ResultsAnalysis = ({
 
   const formatAnswersForCards = (section: string, sectionAnswers: Record<number, { value: string | number | number[] | null; score: number }>) => {
     return Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-      acc[Number(key)] = value.score;
+      acc[Number(key)] = { value: value.value, score: value.score };
       return acc;
-    }, {} as Record<number, number>);
+    }, {} as Record<number, Answer>);
   };
 
   const renderSectionCard = (section: string, sectionAnswers: Record<number, { value: string | number | number[] | null; score: number }>) => {
