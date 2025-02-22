@@ -59,17 +59,27 @@ Deno.serve(async (req) => {
       
       // Réponses de la section Informations
       Ancienneté: payload.answers.info_anciennete,
-      "Type de bureaux": payload.answers.info_type_bureaux,
-      "Type d'abonnement": payload.answers.info_type_abonnement,
-      Statut: payload.answers.info_statut,
+      "Type de bureaux": Array.isArray(payload.answers.info_type_bureaux) 
+        ? payload.answers.info_type_bureaux.join(', ')
+        : payload.answers.info_type_bureaux || '',
+      "Type d'abonnement": Array.isArray(payload.answers.info_type_abonnement)
+        ? payload.answers.info_type_abonnement.join(', ')
+        : payload.answers.info_type_abonnement || '',
+      Statut: Array.isArray(payload.answers.info_statut)
+        ? payload.answers.info_statut.join(', ')
+        : payload.answers.info_statut || '',
       Superficie: payload.answers.info_superficie,
       Concurrence: payload.answers.info_concurrence,
       Capacité: payload.answers.info_capacite,
       Ville: payload.answers.info_ville,
       Horaires: payload.answers.info_horaires,
       "Taux de remplissage": payload.answers.info_remplissage,
-      "Type de clientèle": payload.answers.info_type_clientele,
-      Services: payload.answers.info_services,
+      "Type de clientèle": Array.isArray(payload.answers.info_type_clientele)
+        ? payload.answers.info_type_clientele.join(', ')
+        : payload.answers.info_type_clientele || '',
+      Services: Array.isArray(payload.answers.info_services)
+        ? payload.answers.info_services.join(', ')
+        : payload.answers.info_services || '',
       
       // Réponses de la section Recommandation
       "Recommandation spontanée": payload.answers.rec_recommandation_spontanee,
@@ -79,7 +89,9 @@ Deno.serve(async (req) => {
       "Création de contenu": payload.answers.rec_creation_contenu,
       
       // Réponses de la section Acquisition
-      "Canaux utilisés": payload.answers.acq_canaux_utilises,
+      "Canaux utilisés": Array.isArray(payload.answers.acq_canaux_utilises)
+        ? payload.answers.acq_canaux_utilises.join(', ')
+        : payload.answers.acq_canaux_utilises || '',
       "Fréquence des actions": payload.answers.acq_frequence_actions,
       "Offre découverte": payload.answers.acq_offre_decouverte,
       "Suivi prospects": payload.answers.acq_suivi_prospects,
@@ -100,7 +112,9 @@ Deno.serve(async (req) => {
       "Amélioration expérience": payload.answers.ret_amelioration_experience,
       
       // Réponses de la section Revenus
-      "Sources de revenus": payload.answers.rev_source_revenus,
+      "Sources de revenus": Array.isArray(payload.answers.rev_source_revenus)
+        ? payload.answers.rev_source_revenus.join(', ')
+        : payload.answers.rev_source_revenus || '',
       "Rentabilité offres": payload.answers.rev_rentabilite_offres,
       "Utilisation CRM": payload.answers.rev_utilisation_crm,
       "Optimisation conversion": payload.answers.rev_optimisation_conversion,
