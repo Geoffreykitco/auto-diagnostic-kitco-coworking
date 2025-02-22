@@ -6,21 +6,25 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
 
   try {
+    // Parse and validate input data
     const data = await req.json()
-    console.log('Received diagnostic data:', data)
+    console.log('Received diagnostic data:', JSON.stringify(data, null, 2))
 
+    // Verify token exists
     const baserowToken = Deno.env.get('BASEROW_TOKEN')
+    console.log('Baserow token present:', !!baserowToken)
+    
     if (!baserowToken) {
-      console.error('Missing BASEROW_TOKEN')
-      throw new Error('Baserow token not configured')
+      throw new Error('BASEROW_TOKEN is not configured in environment variables')
     }
 
-    // Map data to Baserow field names with detailed questions
+    // Map data to Baserow fields
     const baserowData = {
       // Informations générales
       "Name": `${data.first_name} ${data.last_name}`,
@@ -97,40 +101,66 @@ serve(async (req) => {
       "info_services_proposes": data.answers?.informations?.[11]?.value
     }
 
-    console.log('Sending to Baserow with token:', baserowToken.substring(0, 5) + '...')
-    console.log('Sending to Baserow:', baserowData)
+    console.log('Attempting Baserow API call...')
 
-    const baserowResponse = await fetch('https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${baserowToken}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(baserowData)
-    })
+    // Make request to Baserow
+    const baserowResponse = await fetch(
+      'https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${baserowToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(baserowData)
+      }
+    )
 
+    // Parse response
     const responseData = await baserowResponse.json()
-    console.log('Baserow response status:', baserowResponse.status)
-    console.log('Baserow full response:', responseData)
+    console.log(`Baserow API response (${baserowResponse.status}):`, JSON.stringify(responseData, null, 2))
 
+    // Check for errors
     if (!baserowResponse.ok) {
-      console.error('Baserow error details:', responseData)
-      throw new Error(`Failed to save diagnostic data: ${JSON.stringify(responseData)}`)
+      throw new Error(`Baserow API error (${baserowResponse.status}): ${JSON.stringify(responseData)}`)
     }
 
+    // Return success response
     return new Response(
-      JSON.stringify({ success: true, data: responseData }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      JSON.stringify({ 
+        success: true, 
+        data: responseData 
+      }),
+      { 
+        headers: { 
+          ...corsHeaders, 
+          'Content-Type': 'application/json' 
+        } 
+      }
     )
 
   } catch (error) {
-    console.error('Full error details:', error)
+    // Log detailed error information
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      cause: error.cause
+    })
+
+    // Return error response
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
+        success: false,
         error: error.message,
         details: error.toString()
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
+      { 
+        headers: { 
+          ...corsHeaders, 
+          'Content-Type': 'application/json' 
+        }, 
+        status: 500 
+      }
     )
   }
 })
