@@ -27,34 +27,34 @@ serve(async (req) => {
 
     // Formater les données pour Baserow en respectant exactement les noms des colonnes
     const baserowData = {
-      "Name": `${data.first_name} ${data.last_name}`,
-      "Email": data.email,
-      "Nom coworking": data.coworking_name,
+      "fullName": `${data.first_name} ${data.last_name}`,
+      "email": data.email,
+      "coworking_name": data.coworking_name,
       
       // Scores et recommandations
-      "Note Acquisition": data.acquisition_score,
-      "Niveau Acquisition": data.acquisition_level,
-      "Texte Acquisition": data.acquisition_recommendation,
+      "global_score": data.global_score,
+      "global_level": data.global_level,
+      "global_recommendation": data.global_recommendation,
       
-      "Note Activation": data.activation_score,
-      "Niveau Activation": data.activation_level,
-      "Texte Activation": data.activation_recommendation,
+      "acquisition_score": data.acquisition_score,
+      "acquisition_level": data.acquisition_level,
+      "acquisition_recommendation": data.acquisition_recommendation,
       
-      "Note Rétention": data.retention_score,
-      "Niveau Rétention": data.retention_level,
-      "Texte Rétention": data.retention_recommendation,
+      "activation_score": data.activation_score,
+      "activation_level": data.activation_level,
+      "activation_recommendation": data.activation_recommendation,
       
-      "Note Revenus": data.revenus_score,
-      "Niveau Revenus": data.revenus_level,
-      "Texte Revenus": data.revenus_recommendation,
+      "retention_score": data.retention_score,
+      "retention_level": data.retention_level,
+      "retention_recommendation": data.retention_recommendation,
       
-      "Note Recommandation": data.recommandation_score,
-      "Niveau Recommandation": data.recommandation_level,
-      "Texte Recommandation": data.recommandation_recommendation,
+      "revenus_score": data.revenus_score,
+      "revenus_level": data.revenus_level,
+      "revenus_recommendation": data.revenus_recommendation,
       
-      "Notre score global": data.global_score,
-      "Niveau score global": data.global_level,
-      "Texte score global": data.global_recommendation,
+      "recommandation_score": data.recommandation_score,
+      "recommandation_level": data.recommandation_level,
+      "recommandation_recommendation": data.recommandation_recommendation,
     }
 
     console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2))
@@ -73,12 +73,21 @@ serve(async (req) => {
     )
 
     // Parse response
-    const responseData = await baserowResponse.json()
-    console.log(`Baserow API response (${baserowResponse.status}):`, JSON.stringify(responseData, null, 2))
+    const responseText = await baserowResponse.text()
+    console.log('Raw Baserow response:', responseText)
+    
+    // Try to parse the response as JSON if possible
+    let responseData
+    try {
+      responseData = JSON.parse(responseText)
+      console.log(`Baserow API response (${baserowResponse.status}):`, JSON.stringify(responseData, null, 2))
+    } catch (e) {
+      console.log('Response is not JSON:', responseText)
+    }
 
     // Check for errors
     if (!baserowResponse.ok) {
-      throw new Error(`Baserow API error (${baserowResponse.status}): ${JSON.stringify(responseData)}`)
+      throw new Error(`Baserow API error (${baserowResponse.status}): ${responseText}`)
     }
 
     // Return success response
