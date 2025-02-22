@@ -61,9 +61,9 @@ export const SectionCard = ({
   }} className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center gap-3 mb-4">
         
-        <h4 className="text-lg font-semibold text-left">
+        <h3 className="text-lg font-semibold text-left">
           {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
-        </h4>
+        </h3>
       </div>
       
       <div className="space-y-4">
