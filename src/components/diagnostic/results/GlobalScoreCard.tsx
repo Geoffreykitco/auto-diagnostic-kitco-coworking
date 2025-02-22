@@ -41,34 +41,26 @@ export const GlobalScoreCard = ({
   >
     <div className="grid md:grid-cols-2 gap-6">
       {/* Score Global - Colonne de gauche */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-4">
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold text-left">Score Global</h2>
-            <p className="text-gray-600">Progression du diagnostic</p>
+            <p className="text-gray-600">Progression du diagnostic de votre espace</p>
           </div>
-
-          <div className="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg">
-            <span className={`text-5xl font-bold mb-2 ${getLevelColor(score)}`}>
-              {score}%
-            </span>
-            <Progress value={score} className="h-3 w-full" indicatorClassName={getProgressColor(score)} />
-            <div className="mt-2 text-sm">
-              Niveau : <span className={`font-medium ${getLevelColor(score)}`}>
-                {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
-              </span>
-            </div>
-          </div>
+          <span className={`ml-auto text-3xl font-bold ${getLevelColor(score)}`}>
+            {score}%
+          </span>
         </div>
 
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-lg font-semibold">Message personnalisé</h3>
-            <p className="text-gray-600">État de votre espace</p>
+        <Progress value={score} className="h-3" indicatorClassName={getProgressColor(score)} />
+
+        <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
+          <div className="text-sm">
+            Niveau : <span className={`font-medium ${getLevelColor(score)}`}>
+              {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
+            </span>
           </div>
-          <div className="bg-gray-50 p-4 rounded-lg h-[calc(100%-4rem)]">
-            <p className="text-gray-600 text-left">{getGlobalMessage(score)}</p>
-          </div>
+          <p className="text-gray-600 text-left">{getGlobalMessage(score)}</p>
         </div>
       </div>
 
