@@ -6,10 +6,9 @@ import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/ut
 import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 
 interface FormData {
-  firstName: string;
-  lastName: string;
-  coworkingName: string;
+  fullName: string;
   email: string;
+  coworkingName: string;
 }
 
 interface DiagnosticData {
@@ -33,12 +32,14 @@ export const useDiagnosticSubmission = () => {
 
       const formattedAnswers = formatAnswersForSubmission(answers);
 
+      // Séparer le nom complet en prénom et nom
+      const [firstName = '', lastName = ''] = formData.fullName.split(' ');
+
       const payload = {
-        created_at: new Date().toISOString(),
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        coworking_name: formData.coworkingName,
+        first_name: firstName,
+        last_name: lastName,
         email: formData.email,
+        coworking_name: formData.coworkingName,
         answers: formattedAnswers,
         global_score: globalScore,
         global_level: globalLevel,
