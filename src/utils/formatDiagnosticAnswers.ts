@@ -11,11 +11,19 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
   const formattedAnswers: Record<string, any> = {};
 
   Object.entries(answers).forEach(([section, sectionAnswers]) => {
-    // Ajout de logs pour debugger
-    if (section === 'acquisition' || section === 'revenus' || section === 'informations') {
-      console.log(`Section ${section}:`, sectionAnswers);
-      console.log(`Type de valeur pour ${section}[0]:`, typeof sectionAnswers[0]?.value);
-      console.log(`Valeur brute pour ${section}[0]:`, sectionAnswers[0]?.value);
+    // Logs plus détaillés pour chaque section
+    console.log(`Traitement de la section ${section}`);
+    console.log(`Contenu complet de la section:`, JSON.stringify(sectionAnswers, null, 2));
+
+    if (section === 'informations') {
+      // Logs détaillés pour chaque champ de la section informations
+      Object.entries(sectionAnswers).forEach(([key, value]) => {
+        console.log(`Champ ${key}:`, {
+          valeur: value.value,
+          type: typeof value.value,
+          estTableau: Array.isArray(value.value)
+        });
+      });
     }
 
     if (section === 'recommandation') {
@@ -26,7 +34,6 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.rec_creation_contenu = sectionAnswers[4]?.value;
     } 
     else if (section === 'acquisition') {
-      // Pour la question à choix multiples, on s'assure d'avoir un tableau
       formattedAnswers.acq_canaux_utilises = Array.isArray(sectionAnswers[0]?.value) 
         ? sectionAnswers[0].value 
         : [];
@@ -51,7 +58,6 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.ret_amelioration_experience = sectionAnswers[4]?.value;
     }
     else if (section === 'revenus') {
-      // Pour la question à choix multiples, on s'assure d'avoir un tableau
       formattedAnswers.rev_source_revenus = Array.isArray(sectionAnswers[0]?.value) 
         ? sectionAnswers[0].value 
         : [];
@@ -62,7 +68,20 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
       formattedAnswers.rev_nouvelles_sources = sectionAnswers[4]?.value;
     }
     else if (section === 'informations') {
+      console.log('Traitement détaillé de la section informations:');
+      
       formattedAnswers.info_anciennete = sectionAnswers[0]?.value;
+      
+      // Log pour chaque champ à choix multiple
+      ['info_type_bureaux', 'info_type_abonnement', 'info_statut', 'info_type_clientele', 'info_services'].forEach((field, index) => {
+        const mappingIndex = [1, 2, 3, 10, 11][index];
+        const value = sectionAnswers[mappingIndex]?.value;
+        console.log(`Traitement de ${field}:`, {
+          valeurBrute: value,
+          estTableau: Array.isArray(value)
+        });
+      });
+
       formattedAnswers.info_type_bureaux = Array.isArray(sectionAnswers[1]?.value)
         ? sectionAnswers[1].value
         : [];
@@ -87,7 +106,8 @@ export const formatAnswersForSubmission = (answers: AllAnswers) => {
     }
   });
 
-  // Log final pour voir exactement ce qui est envoyé
+  // Log final des données formatées
   console.log('Données formatées finales:', JSON.stringify(formattedAnswers, null, 2));
   return formattedAnswers;
 };
+
