@@ -38,7 +38,6 @@ export const AuditForm = ({
 
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen && (fullName || coworkingName || email)) {
-      // Attendre la confirmation avant de fermer
       const shouldClose = window.confirm("Voulez-vous vraiment fermer ? Vos données seront perdues.");
       if (shouldClose) {
         resetForm();
@@ -49,11 +48,15 @@ export const AuditForm = ({
     }
   };
 
-  const handleSubmitForm = async (e: React.FormEvent) => {
+  const handleSubmitForm = async (e: React.FormEvent): Promise<boolean> => {
     e.preventDefault();
-    const success = await handleSubmit(e);
-    if (success) {
+    try {
+      await handleSubmit(e);
       setOpen(false);
+      return true;
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      return false;
     }
   };
 
