@@ -19,6 +19,19 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
+  const formatAnswersForSubmission = (answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>) => {
+    const formattedAnswers: Record<string, Record<number, any>> = {};
+    
+    for (const section in answers) {
+      formattedAnswers[section] = {};
+      for (const questionIndex in answers[section]) {
+        formattedAnswers[section][questionIndex] = answers[section][questionIndex].value;
+      }
+    }
+    
+    return formattedAnswers;
+  };
+
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -26,8 +39,12 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     email: string;
   }) => {
     try {
+      console.log('Début de la soumission du formulaire');
+      
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
+
+      const formattedAnswers = formatAnswersForSubmission(answers);
 
       const diagnosticData = {
         created_at: new Date().toISOString(),
@@ -35,7 +52,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         last_name: formData.lastName,
         coworking_name: formData.coworkingName,
         email: formData.email,
-        answers,
+        answers: formattedAnswers,
         global_score: globalScore,
         global_level: globalLevel,
         global_recommendation: globalRecommendation,
