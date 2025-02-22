@@ -39,7 +39,7 @@ export const QuestionSection = ({
   const currentStep = steps.find(step => section.title.includes(step.label.split('-')[0].trim()));
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container max-w-4xl mx-auto px-4">
       <div className="mt-16 mb-8">
         <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
       </div>
@@ -48,7 +48,7 @@ export const QuestionSection = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-4xl mx-auto text-left"
+        className="text-left"
       >
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{section.title}</h1>
         <p className="text-gray-600 mb-8">{section.description}</p>
