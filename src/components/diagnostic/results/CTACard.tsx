@@ -75,14 +75,6 @@ export const CTACard = ({
     onSubmit: handleSubmit
   });
 
-  const handleSubmitForm = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const success = await handleFormSubmit(e);
-    if (success) {
-      setOpen(false);
-    }
-  };
-
   const Content = () => (
     <div className={`max-w-5xl mx-auto px-4 ${isMobile ? 'py-3' : 'py-8'}`}>
       <div className="text-center space-y-2">

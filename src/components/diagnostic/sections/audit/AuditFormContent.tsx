@@ -10,7 +10,7 @@ interface AuditFormContentProps {
   onFullNameChange: (value: string) => void;
   onCoworkingNameChange: (value: string) => void;
   onEmailChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent) => Promise<void>;
+  onSubmit: (e: React.FormEvent) => Promise<boolean>;
 }
 
 export const AuditFormContent = ({
