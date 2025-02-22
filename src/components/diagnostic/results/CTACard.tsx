@@ -66,7 +66,7 @@ export const CTACard = ({
   const FormContent = () => {
     if (isMobile) {
       return (
-        <div className="p-6">
+        <div className="w-full max-w-full overflow-x-hidden p-4">
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">Augmentez le taux de remplissage de votre espace de coworking</h3>
             <p className="text-gray-600">Ne laissez pas des opportunités de développement inexplorées. Passez à l'action dès maintenant.</p>
@@ -157,7 +157,7 @@ export const CTACard = ({
   };
 
   const Content = () => (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className={`${isMobile ? 'w-full max-w-full overflow-x-hidden' : 'max-w-5xl'} mx-auto px-4 py-8`}>
       <div className="text-center space-y-2">
         <h2 className="font-semibold text-gray-900 text-xl">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
@@ -173,7 +173,7 @@ export const CTACard = ({
                 Recevoir mon audit et mon plan d'action
               </button>
             </DialogTrigger>
-            <DialogContent className="p-0 bg-white overflow-hidden rounded-2xl max-w-4xl">
+            <DialogContent className={`p-0 bg-white overflow-hidden rounded-2xl ${isMobile ? 'w-full max-w-full mx-4' : 'max-w-4xl'}`}>
               <FormContent />
             </DialogContent>
           </Dialog>
@@ -188,7 +188,7 @@ export const CTACard = ({
 
   if (isMobile) {
     return (
-      <div className="bg-white">
+      <div className="bg-white w-full max-w-full overflow-x-hidden">
         <Content />
       </div>
     );
