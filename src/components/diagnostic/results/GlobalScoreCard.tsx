@@ -39,20 +39,33 @@ export const GlobalScoreCard = ({
     }} 
     className="bg-white rounded-lg p-8 border border-gray-200 shadow-lg"
   >
-    <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <div>
-          <h2 className="text-2xl font-bold text-left">Score Global</h2>
-          <p className="text-gray-600">Progression du diagnostic de votre espace</p>
+    <div className="grid md:grid-cols-2 gap-8">
+      {/* Score Global - Colonne de gauche */}
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <div>
+            <h2 className="text-2xl font-bold text-left">Score Global</h2>
+            <p className="text-gray-600">Progression du diagnostic de votre espace</p>
+          </div>
+          <span className={`ml-auto text-3xl font-bold ${getLevelColor(score)}`}>
+            {score}%
+          </span>
         </div>
-        <span className={`ml-auto text-3xl font-bold ${getLevelColor(score)}`}>
-          {score}%
-        </span>
+
+        <Progress value={score} className="h-3" indicatorClassName={getProgressColor(score)} />
+
+        <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
+          <div className="text-sm">
+            Niveau : <span className={`font-medium ${getLevelColor(score)}`}>
+              {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
+            </span>
+          </div>
+          <p className="text-gray-600 text-left">{getGlobalMessage(score)}</p>
+        </div>
       </div>
 
-      <Progress value={score} className="h-3" indicatorClassName={getProgressColor(score)} />
-
-      <div className="flex flex-col items-center mt-8">
+      {/* Graphique Radar - Colonne de droite */}
+      <div className="flex flex-col items-center">
         <h3 className="text-lg font-semibold mb-4">Répartition des scores par dimension</h3>
         <div className="h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -91,15 +104,6 @@ export const GlobalScoreCard = ({
             </RadarChart>
           </ResponsiveContainer>
         </div>
-      </div>
-
-      <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
-        <div className="text-sm">
-          Niveau : <span className={`font-medium ${getLevelColor(score)}`}>
-            {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
-          </span>
-        </div>
-        <p className="text-gray-600 text-left">{getGlobalMessage(score)}</p>
       </div>
     </div>
   </motion.div>;
