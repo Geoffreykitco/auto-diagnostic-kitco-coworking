@@ -38,15 +38,16 @@ const Index = () => {
   const isFirstSection = currentSectionIndex === 0;
   const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
-  const convertedAnswers: Record<string, Record<number, number>> = {};
-  Object.entries(answers).forEach(([section, sectionAnswers]) => {
-    convertedAnswers[section] = {};
-    Object.entries(sectionAnswers).forEach(([questionIndex, answer]) => {
-      if (answer.score !== undefined) {
-        convertedAnswers[section][Number(questionIndex)] = answer.score;
-      }
-    });
-  });
+  const formattedAnswers = Object.entries(answers).reduce((acc, [section, sectionAnswers]) => {
+    acc[section] = Object.entries(sectionAnswers).reduce((innerAcc, [questionIndex, answer]) => {
+      innerAcc[Number(questionIndex)] = {
+        value: answer.value,
+        score: answer.score
+      };
+      return innerAcc;
+    }, {} as Record<number, { value: string | number | number[] | null; score: number }>);
+    return acc;
+  }, {} as Record<string, Record<number, { value: string | number | number[] | null; score: number }>>);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
@@ -60,7 +61,7 @@ const Index = () => {
           </div>
         ) : currentSection === 'resultats' ? (
           <div className="container mx-auto px-4 py-8 animate-fade-in">
-            <ResultsAnalysis answers={convertedAnswers} />
+            <ResultsAnalysis answers={formattedAnswers} />
           </div>
         ) : (
           <div className="animate-fade-in">

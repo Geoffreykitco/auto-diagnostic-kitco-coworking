@@ -51,9 +51,9 @@ export const ResultsAnalysis = ({
         const currentSection = sections[section as keyof typeof sections];
         if (currentSection) {
           const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-            acc[Number(key)] = { value, score: value };
+            acc[Number(key)] = value.score;
             return acc;
-          }, {} as Record<number, { value: number; score: number }>);
+          }, {} as Record<number, number>);
 
           const maxScore = getMaxSectionScore(currentSection.questions);
           const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
@@ -65,19 +65,6 @@ export const ResultsAnalysis = ({
     const calculatedGlobalScore = calculateGlobalScore(sectionScores);
     setGlobalScore(calculatedGlobalScore);
     return { sectionScores };
-  };
-
-  const formatAnswersForGlobalCard = (rawAnswers: Record<string, Record<number, number>>) => {
-    const formattedAnswers: Record<string, Record<number, { value: any; score: number }>> = {};
-    
-    Object.entries(rawAnswers).forEach(([section, sectionAnswers]) => {
-      formattedAnswers[section] = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-        acc[Number(key)] = { value, score: value };
-        return acc;
-      }, {} as Record<number, { value: any; score: number }>);
-    });
-    
-    return formattedAnswers;
   };
 
   const getLevelColor = (score: number): string => {
@@ -92,17 +79,18 @@ export const ResultsAnalysis = ({
     return "bg-red-500";
   };
 
-  const formattedAnswers = formatAnswersForGlobalCard(answers);
+  const formatAnswersForCards = (section: string, sectionAnswers: Record<number, { value: string | number | number[] | null; score: number }>) => {
+    return Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
+      acc[Number(key)] = value.score;
+      return acc;
+    }, {} as Record<number, number>);
+  };
 
-  const renderSectionCard = (section: string, sectionAnswers: Record<number, number>) => {
+  const renderSectionCard = (section: string, sectionAnswers: Record<number, { value: string | number | number[] | null; score: number }>) => {
     const currentSection = sections[section as keyof typeof sections];
     if (!currentSection) return null;
 
-    const formattedAnswers = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
-      acc[Number(key)] = { value, score: value };
-      return acc;
-    }, {} as Record<number, { value: number; score: number }>);
-
+    const formattedAnswers = formatAnswersForCards(section, sectionAnswers);
     const maxScore = getMaxSectionScore(currentSection.questions);
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
 
@@ -131,7 +119,7 @@ export const ResultsAnalysis = ({
             getLevelColor={getLevelColor}
             getProgressColor={getProgressColor}
             getGlobalMessage={getGlobalMessage}
-            answers={formattedAnswers}
+            answers={answers}
           />
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -162,7 +150,7 @@ export const ResultsAnalysis = ({
         <CTACard 
           globalScore={globalScore} 
           sectionScores={sectionScores} 
-          answers={formattedAnswers}
+          answers={answers}
         />
       </div>
     </div>
