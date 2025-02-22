@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
@@ -108,7 +107,6 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       return newAnswers;
     });
     
-    // On vérifie si on doit afficher le toast
     if (showToast) {
       const currentQuestion = sections[currentSection].questions[questionIndex];
       const questionText = currentQuestion.question.toLowerCase();
@@ -126,9 +124,13 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     }
   }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+      left: 0
+    });
+  }, []);
 
   const handleNext = useCallback(() => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
@@ -148,19 +150,25 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
         return;
       }
       
-      setCurrentSection(sectionOrder[currentIndex + 1]);
       scrollToTop();
+      
+      setTimeout(() => {
+        setCurrentSection(sectionOrder[currentIndex + 1]);
+      }, 100);
     }
-  }, [currentSection, answers, toast]);
+  }, [currentSection, answers, toast, scrollToTop]);
 
   const handlePrevious = useCallback(() => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
     if (currentIndex > 0) {
-      setCurrentSection(sectionOrder[currentIndex - 1]);
       scrollToTop();
+      
+      setTimeout(() => {
+        setCurrentSection(sectionOrder[currentIndex - 1]);
+      }, 100);
     }
-  }, [currentSection]);
+  }, [currentSection, scrollToTop]);
 
   return {
     progress,
