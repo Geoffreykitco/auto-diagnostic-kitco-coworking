@@ -102,11 +102,8 @@ export const CTACard = ({
 
           <DialogContent className={`${isMobile ? 'h-[95vh] w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}>
             <div className="flex flex-col md:flex-row w-full h-full">
-              {!isMobile && <div className="w-full md:w-1/2 relative">
-                  <img src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png" alt="Espace de coworking" className="w-full h-full object-cover rounded-l-lg absolute inset-0" loading="lazy" />
-                </div>}
-              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
-                <div className="mb-4">
+              <div className={`w-full ${isMobile ? 'h-full overflow-y-auto' : 'md:w-1/2'} flex flex-col`}>
+                <div className="p-4">
                   <h3 className="text-lg md:text-xl font-semibold text-[#0B1A17] mb-2">
                     Optimisez le taux de remplissage de votre coworking
                   </h3>
@@ -115,17 +112,41 @@ export const CTACard = ({
                   </p>
                 </div>
 
-                <AuditFormContent 
-                  fullName={fullName} 
-                  coworkingName={coworkingName} 
-                  email={email} 
-                  isSubmitting={isSubmitting} 
-                  onFullNameChange={setFullName} 
-                  onCoworkingNameChange={setCoworkingName} 
-                  onEmailChange={setEmail} 
-                  onSubmit={handleSubmitForm} 
-                />
+                <div className="px-4 flex-1">
+                  <AuditFormContent 
+                    fullName={fullName} 
+                    coworkingName={coworkingName} 
+                    email={email} 
+                    isSubmitting={isSubmitting} 
+                    onFullNameChange={setFullName} 
+                    onCoworkingNameChange={setCoworkingName} 
+                    onEmailChange={setEmail} 
+                    onSubmit={handleFormSubmit} 
+                  />
+                </div>
+
+                {isMobile && (
+                  <div className="w-full h-48 relative mt-4">
+                    <img 
+                      src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png" 
+                      alt="Espace de coworking" 
+                      className="w-full h-full object-cover"
+                      loading="lazy" 
+                    />
+                  </div>
+                )}
               </div>
+              
+              {!isMobile && (
+                <div className="w-full md:w-1/2 relative">
+                  <img 
+                    src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png" 
+                    alt="Espace de coworking" 
+                    className="w-full h-full object-cover rounded-l-lg absolute inset-0" 
+                    loading="lazy" 
+                  />
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>
