@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
@@ -83,7 +84,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     setStarted(true);
   }, [toast]);
 
-  const handleOptionSelect = useCallback((questionIndex: number, value: string | number | number[] | null) => {
+  const handleOptionSelect = useCallback((questionIndex: number, value: string | number | number[] | null, showToast: boolean = true) => {
     setAnswers(prev => {
       const question = sections[currentSection].questions[questionIndex];
       const score = calculateScore(question, value);
@@ -107,11 +108,13 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
       return newAnswers;
     });
     
-    toast({
-      title: "Réponse enregistrée 🎉",
-      variant: "default",
-      duration: 1200,
-    });
+    if (showToast) {
+      toast({
+        title: "Réponse enregistrée 🎉",
+        variant: "default",
+        duration: 1200,
+      });
+    }
   }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
   const scrollToTop = () => {

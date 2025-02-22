@@ -24,11 +24,11 @@ export const QuestionItem = ({
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
       setLocalValue(number ? `${number}%` : '');
-      onSelect(number);
+      onSelect(number, false); // On passe false pour ne pas déclencher le toast
     } else if (question.question.toLowerCase().includes("ville")) {
       // Pour le champ ville, on met à jour la valeur locale sans toast
       setLocalValue(value);
-      onSelect(value);
+      onSelect(value, false); // On passe false pour ne pas déclencher le toast
     } else {
       // Pour les autres champs texte
       setLocalValue(value);
