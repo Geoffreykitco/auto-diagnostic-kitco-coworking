@@ -9,7 +9,6 @@ import { Footer } from "@/components/diagnostic/Footer";
 import { sections } from "@/data/sections";
 import { ResultsAnalysis } from '@/components/diagnostic/ResultsAnalysis';
 import { useDiagnosticState } from '@/hooks/use-diagnostic-state';
-import { Answer } from '@/components/diagnostic/question/types';
 
 type SectionType = 'informations' | 'acquisition' | 'activation' | 'retention' | 'revenus' | 'recommandation' | 'resultats';
 
@@ -40,7 +39,6 @@ const Index = () => {
   const isFirstSection = currentSectionIndex === 0;
   const isLastSection = currentSectionIndex === sectionOrder.length - 1;
 
-  // Convertir les réponses pour le composant ResultsAnalysis
   const convertedAnswers: Record<string, Record<number, number>> = {};
   Object.entries(answers).forEach(([section, sectionAnswers]) => {
     convertedAnswers[section] = {};
@@ -52,29 +50,31 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
       <ProgressBar progress={progress} />
       
       <div className="flex-grow">
         {!started ? (
-          <>
+          <div className="animate-fade-in">
             <HeroSection onStart={handleStart} />
             <HowItWorks />
-          </>
+          </div>
         ) : currentSection === 'resultats' ? (
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 py-8 animate-fade-in">
             <ResultsAnalysis answers={convertedAnswers} />
           </div>
         ) : (
-          <QuestionSection 
-            section={sections[currentSection]}
-            onOptionSelect={handleOptionSelect}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            showPrevious={!isFirstSection}
-            showNext={!isLastSection}
-            answers={answers[currentSection] || {}}
-          />
+          <div className="animate-fade-in">
+            <QuestionSection 
+              section={sections[currentSection]}
+              onOptionSelect={handleOptionSelect}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              showPrevious={!isFirstSection}
+              showNext={!isLastSection}
+              answers={answers[currentSection] || {}}
+            />
+          </div>
         )}
       </div>
 

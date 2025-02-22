@@ -41,6 +41,7 @@
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight text-primary;
+    letter-spacing: -0.02em;
   }
   
   h1 {
@@ -78,6 +79,21 @@
   background-color: #ffffff;
   background-image: radial-gradient(rgb(19, 39, 32, 0.15) 2px, transparent 2px);
   background-size: 25px 25px;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes underline {
