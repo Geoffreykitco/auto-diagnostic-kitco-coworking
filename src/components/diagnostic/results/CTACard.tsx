@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useToast } from "@/hooks/use-toast";
 import { useAuditForm } from "@/hooks/use-audit-form";
 
 interface CTACardProps {
@@ -13,7 +12,6 @@ interface CTACardProps {
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
-  const { toast } = useToast();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
 
@@ -46,19 +44,9 @@ export const CTACard = ({
         throw new Error('Failed to save form results');
       }
 
-      toast({
-        title: "Formulaire envoyé !",
-        description: "Vous recevrez une réponse par email dans les plus brefs délais.",
-        duration: 3000
-      });
       setOpen(false);
     } catch (error) {
       console.error('Error saving form results:', error);
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi du formulaire.",
-        duration: 3000
-      });
     }
   };
 
