@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
 
 interface AuditFormData {
   firstName: string;
@@ -14,7 +13,6 @@ interface UseAuditFormProps {
 }
 
 export const useAuditForm = ({ onSubmit }: UseAuditFormProps) => {
-  const { toast } = useToast();
   const [fullName, setFullName] = useState('');
   const [coworkingName, setCoworkingName] = useState('');
   const [email, setEmail] = useState('');
@@ -46,40 +44,30 @@ export const useAuditForm = ({ onSubmit }: UseAuditFormProps) => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const validate = () => {
     if (!validateEmail(email)) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez entrer une adresse email valide.",
-        duration: 3000,
-      });
-      return;
+      throw new Error("Veuillez entrer une adresse email valide.");
     }
 
     const nameValidation = validateName(fullName);
     if (!nameValidation.isValid) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez entrer un nom valide.",
-        duration: 3000,
-      });
-      return;
+      throw new Error("Veuillez entrer un nom valide.");
     }
 
     if (!fullName || !coworkingName || !email) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs.",
-        duration: 3000,
-      });
-      return;
+      throw new Error("Veuillez remplir tous les champs.");
     }
 
-    setIsSubmitting(true);
+    return nameValidation;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     
     try {
+      setIsSubmitting(true);
+      const nameValidation = validate();
+      
       await onSubmit({
         firstName: nameValidation.firstName,
         lastName: nameValidation.lastName,
@@ -90,8 +78,7 @@ export const useAuditForm = ({ onSubmit }: UseAuditFormProps) => {
       resetForm();
       return true;
     } catch (error) {
-      console.error('Error submitting form:', error);
-      return false;
+      throw error;
     } finally {
       setIsSubmitting(false);
     }
