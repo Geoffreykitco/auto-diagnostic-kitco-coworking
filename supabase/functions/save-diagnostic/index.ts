@@ -1,34 +1,24 @@
-
 import { corsHeaders } from '../_shared/cors.ts'
 
 Deno.serve(async (req) => {
-  // Log de réception de la requête
-  console.log('Nouvelle requête reçue:', req.method);
-
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
-  }
+  console.log('=== DÉBUT DE LA FONCTION ===');
 
   try {
-    // Log avant la lecture du body
-    console.log('Tentative de lecture du body...');
-    
-    const payload = await req.json()
-    console.log('Données reçues:', JSON.stringify(payload, null, 2))
+    console.log('Méthode:', req.method);
 
-    // Validation basique des données requises
-    const requiredFields = ['first_name', 'last_name', 'email', 'coworking_name', 'answers']
-    for (const field of requiredFields) {
-      if (!payload[field]) {
-        console.error(`Champ manquant: ${field}`);
-        throw new Error(`Le champ ${field} est manquant`)
-      }
+    if (req.method === 'OPTIONS') {
+      return new Response('ok', { headers: corsHeaders })
     }
+
+    console.log('Lecture du body...');
+    const payload = await req.json();
+    console.log('Payload reçu:', JSON.stringify(payload, null, 2));
 
     // Configuration de la requête Baserow
     const baserowToken = Deno.env.get('BASEROW_TOKEN')
+    console.log('Token Baserow présent:', !!baserowToken);
+
     if (!baserowToken) {
-      console.error('Token Baserow manquant');
       throw new Error('Token Baserow manquant')
     }
 
@@ -123,8 +113,7 @@ Deno.serve(async (req) => {
 
     console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2));
 
-    // Envoi à Baserow
-    console.log('Tentative d\'envoi à Baserow...');
+    console.log('Envoi à Baserow...');
     const baserowResponse = await fetch(
       'https://api.baserow.io/api/database/rows/table/211223/?user_field_names=true',
       {
@@ -137,6 +126,8 @@ Deno.serve(async (req) => {
       }
     )
 
+    console.log('Status Baserow:', baserowResponse.status);
+
     if (!baserowResponse.ok) {
       const errorText = await baserowResponse.text();
       console.error('Erreur Baserow:', errorText);
@@ -144,7 +135,7 @@ Deno.serve(async (req) => {
     }
 
     const baserowResult = await baserowResponse.json()
-    console.log('Réponse Baserow:', JSON.stringify(baserowResult, null, 2))
+    console.log('Succès Baserow:', JSON.stringify(baserowResult, null, 2));
 
     return new Response(
       JSON.stringify({ success: true }),
@@ -157,7 +148,11 @@ Deno.serve(async (req) => {
     )
 
   } catch (error) {
-    console.error('Erreur complète:', error);
+    console.error('=== ERREUR ===');
+    console.error('Type:', error.name);
+    console.error('Message:', error.message);
+    console.error('Stack:', error.stack);
+    
     return new Response(
       JSON.stringify({ 
         success: false, 
