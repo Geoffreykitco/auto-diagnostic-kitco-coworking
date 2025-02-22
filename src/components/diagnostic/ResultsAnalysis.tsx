@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -21,6 +20,7 @@ export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
   const [globalScore, setGlobalScore] = useState<number>(0);
+  const [sectionScores, setSectionScores] = useState<Record<string, number>>({});
 
   const steps = [
     { id: 'informations', label: 'Informations' },
@@ -36,7 +36,8 @@ export const ResultsAnalysis = ({
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    calculateResults();
+    const results = calculateResults();
+    setSectionScores(results.sectionScores);
   }, [answers]);
 
   const calculateResults = () => {
