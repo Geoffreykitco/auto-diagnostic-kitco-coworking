@@ -20,15 +20,56 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
   const { toast } = useToast();
 
   const formatAnswersForSubmission = (answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>) => {
-    const formattedAnswers: Record<string, Record<number, any>> = {};
-    
-    for (const section in answers) {
-      formattedAnswers[section] = {};
-      for (const questionIndex in answers[section]) {
-        formattedAnswers[section][questionIndex] = answers[section][questionIndex].value;
+    // Création d'un objet pour stocker les réponses formatées
+    const formattedAnswers: Record<string, any> = {};
+
+    // Formatage spécifique pour chaque section
+    Object.entries(answers).forEach(([section, sectionAnswers]) => {
+      // Si c'est la section recommandation
+      if (section === 'recommandation') {
+        formattedAnswers.recommandation_q1 = sectionAnswers[0]?.value;
+        formattedAnswers.recommandation_q2 = sectionAnswers[1]?.value;
+        formattedAnswers.recommandation_q3 = sectionAnswers[2]?.value;
+        formattedAnswers.recommandation_q4 = sectionAnswers[3]?.value;
+        formattedAnswers.recommandation_q5 = sectionAnswers[4]?.value;
+      } 
+      // Même principe pour les autres sections
+      else if (section === 'acquisition') {
+        formattedAnswers.acquisition_q1 = sectionAnswers[0]?.value;
+        formattedAnswers.acquisition_q2 = sectionAnswers[1]?.value;
+        formattedAnswers.acquisition_q3 = sectionAnswers[2]?.value;
+        formattedAnswers.acquisition_q4 = sectionAnswers[3]?.value;
+        formattedAnswers.acquisition_q5 = sectionAnswers[4]?.value;
       }
-    }
-    
+      else if (section === 'activation') {
+        formattedAnswers.activation_q1 = sectionAnswers[0]?.value;
+        formattedAnswers.activation_q2 = sectionAnswers[1]?.value;
+        formattedAnswers.activation_q3 = sectionAnswers[2]?.value;
+        formattedAnswers.activation_q4 = sectionAnswers[3]?.value;
+        formattedAnswers.activation_q5 = sectionAnswers[4]?.value;
+      }
+      else if (section === 'retention') {
+        formattedAnswers.retention_q1 = sectionAnswers[0]?.value;
+        formattedAnswers.retention_q2 = sectionAnswers[1]?.value;
+        formattedAnswers.retention_q3 = sectionAnswers[2]?.value;
+        formattedAnswers.retention_q4 = sectionAnswers[3]?.value;
+        formattedAnswers.retention_q5 = sectionAnswers[4]?.value;
+      }
+      else if (section === 'revenus') {
+        formattedAnswers.revenus_q1 = sectionAnswers[0]?.value;
+        formattedAnswers.revenus_q2 = sectionAnswers[1]?.value;
+        formattedAnswers.revenus_q3 = sectionAnswers[2]?.value;
+        formattedAnswers.revenus_q4 = sectionAnswers[3]?.value;
+        formattedAnswers.revenus_q5 = sectionAnswers[4]?.value;
+      }
+      else if (section === 'informations') {
+        formattedAnswers.informations_ville = sectionAnswers[0]?.value;
+        formattedAnswers.informations_date = sectionAnswers[1]?.value;
+        formattedAnswers.informations_remplissage = sectionAnswers[2]?.value;
+      }
+    });
+
+    console.log('Réponses formatées:', formattedAnswers);
     return formattedAnswers;
   };
 
@@ -73,7 +114,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0))
       };
 
-      console.log('Envoi des données au serveur:', diagnosticData);
+      console.log('Données formatées pour envoi:', diagnosticData);
 
       const { data, error } = await supabase.functions.invoke('save-diagnostic', {
         body: diagnosticData
@@ -162,3 +203,4 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     </motion.div>
   );
 };
+
