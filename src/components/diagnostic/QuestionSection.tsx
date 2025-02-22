@@ -68,7 +68,7 @@ export const QuestionSection = ({
         </div>
 
         <div className="flex justify-between mt-8 mb-4">
-          {showPrevious ? <Button variant="outline" onClick={onPrevious} className="flex items-center gap-2 hover:bg-gray-50 hover:text-[#132720] transition-colors">
+          {showPrevious ? <Button variant="outline" onClick={onPrevious} className="flex items-center gap-2 hover:bg-gray-50 hover:text-[#132720] transition-colors mx-[20px]">
               <ArrowLeftIcon size={16} />
               Précédent
             </Button> : <div />}
