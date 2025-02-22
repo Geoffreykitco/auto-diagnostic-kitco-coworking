@@ -5,7 +5,6 @@ import { ProgressBar } from "@/components/diagnostic/ProgressBar";
 import { HeroSection } from "@/components/diagnostic/HeroSection";
 import { HowItWorks } from "@/components/diagnostic/HowItWorks";
 import { QuestionSection } from "@/components/diagnostic/QuestionSection";
-import { Footer } from "@/components/diagnostic/Footer";
 import { sections } from "@/data/sections";
 import { ResultsAnalysis } from '@/components/diagnostic/ResultsAnalysis';
 import { useDiagnosticState } from '@/hooks/use-diagnostic-state';
@@ -77,8 +76,6 @@ const Index = () => {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 };
