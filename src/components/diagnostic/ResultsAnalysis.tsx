@@ -122,7 +122,7 @@ export const ResultsAnalysis = ({
           <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
         </div>
         
-        <div className="space-y-8">
+        <div className="space-y-8 md:space-y-12">
           <GlobalScoreCard
             score={globalScore}
             getLevelColor={getLevelColor}
@@ -131,17 +131,17 @@ export const ResultsAnalysis = ({
             answers={formatAnswersForGlobalCard(answers)}
           />
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
             {answers.activation && renderSectionCard('activation', answers.activation)}
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {answers.retention && renderSectionCard('retention', answers.retention)}
             {answers.revenus && renderSectionCard('revenus', answers.revenus)}
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
             <div className="aspect-video rounded-lg overflow-hidden">
               <iframe
@@ -155,7 +155,7 @@ export const ResultsAnalysis = ({
         </div>
       </div>
       
-      <div className="w-full mt-12">
+      <div className="w-full mt-10">
         <CTACard globalScore={globalScore} />
       </div>
 
