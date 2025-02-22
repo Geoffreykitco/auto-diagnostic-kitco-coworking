@@ -1,225 +1,152 @@
 
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { corsHeaders } from '../_shared/cors.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
-
-const getSectionAnswer = (data: any, section: string, questionIndex: number) => {
-  const answer = data.answers?.[section]?.[questionIndex]
-  if (!answer) return null
-  
-  if (Array.isArray(answer.value)) {
-    return answer.value.map(index => data.sections[section].questions[questionIndex].options[index].label).join(', ')
-  } else if (typeof answer.value === 'number') {
-    return data.sections[section].questions[questionIndex].options[answer.value].label
-  }
-  return answer.value
-}
-
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders })
+    return new Response('ok', { headers: corsHeaders })
   }
 
   try {
-    const data = await req.json()
-    console.log('Received diagnostic data:', JSON.stringify(data, null, 2))
+    const payload = await req.json()
+    console.log('Données reçues:', JSON.stringify(payload, null, 2))
 
-    const baserowToken = Deno.env.get('BASEROW_TOKEN')
-    console.log('Baserow token present:', !!baserowToken)
-    
-    if (!baserowToken) {
-      throw new Error('BASEROW_TOKEN is not configured in environment variables')
+    // Validation basique des données requises
+    const requiredFields = ['first_name', 'last_name', 'email', 'coworking_name', 'answers']
+    for (const field of requiredFields) {
+      if (!payload[field]) {
+        throw new Error(`Le champ ${field} est manquant`)
+      }
     }
 
-    // Récupération des réponses de la section informations
-    const ouverture = getSectionAnswer(data, 'informations', 0)
-    const typesBureaux = getSectionAnswer(data, 'informations', 1)
-    const typesAbonnements = getSectionAnswer(data, 'informations', 2)
-    const statut = getSectionAnswer(data, 'informations', 3)
-    const superficie = getSectionAnswer(data, 'informations', 4)
-    const concurrence = getSectionAnswer(data, 'informations', 5)
-    const capacite = getSectionAnswer(data, 'informations', 6)
-    const ville = getSectionAnswer(data, 'informations', 7)
-    const horaires = getSectionAnswer(data, 'informations', 8)
-    const tauxRemplissage = getSectionAnswer(data, 'informations', 9)
-    const typeClientele = getSectionAnswer(data, 'informations', 10)
-    const services = getSectionAnswer(data, 'informations', 11)
-
-    // Acquisition
-    const acq_canaux = getSectionAnswer(data, 'acquisition', 0)
-    const acq_frequence = getSectionAnswer(data, 'acquisition', 1)
-    const acq_offre_decouverte = getSectionAnswer(data, 'acquisition', 2)
-    const acq_suivi_prospects = getSectionAnswer(data, 'acquisition', 3)
-    const acq_avis_clients = getSectionAnswer(data, 'acquisition', 4)
-
-    // Activation
-    const act_visite = getSectionAnswer(data, 'activation', 0)
-    const act_onboarding = getSectionAnswer(data, 'activation', 1)
-    const act_offres = getSectionAnswer(data, 'activation', 2)
-    const act_relance = getSectionAnswer(data, 'activation', 3)
-    const act_conversion = getSectionAnswer(data, 'activation', 4)
-
-    // Rétention
-    const ret_regularite = getSectionAnswer(data, 'retention', 0)
-    const ret_fidelite = getSectionAnswer(data, 'retention', 1)
-    const ret_evenements = getSectionAnswer(data, 'retention', 2)
-    const ret_feedback = getSectionAnswer(data, 'retention', 3)
-    const ret_experience = getSectionAnswer(data, 'retention', 4)
-
-    // Revenus
-    const rev_sources = getSectionAnswer(data, 'revenus', 0)
-    const rev_rentabilite = getSectionAnswer(data, 'revenus', 1)
-    const rev_crm = getSectionAnswer(data, 'revenus', 2)
-    const rev_conversion = getSectionAnswer(data, 'revenus', 3)
-    const rev_nouveaux = getSectionAnswer(data, 'revenus', 4)
-
-    // Recommandation
-    const rec_spontane = getSectionAnswer(data, 'recommandation', 0)
-    const rec_parrainage = getSectionAnswer(data, 'recommandation', 1)
-    const rec_avis = getSectionAnswer(data, 'recommandation', 2)
-    const rec_communication = getSectionAnswer(data, 'recommandation', 3)
-    const rec_contenu = getSectionAnswer(data, 'recommandation', 4)
+    // Configuration de la requête Baserow
+    const baserowToken = Deno.env.get('BASEROW_TOKEN')
+    if (!baserowToken) {
+      throw new Error('Token Baserow manquant')
+    }
 
     const baserowData = {
-      "fullName": `${data.first_name} ${data.last_name}`,
-      "email": data.email,
-      "coworking_name": data.coworking_name,
+      Prénom: payload.first_name,
+      Nom: payload.last_name,
+      Email: payload.email,
+      "Nom du coworking": payload.coworking_name,
+      "Score global": payload.global_score,
+      "Niveau global": payload.global_level,
+      "Recommandation globale": payload.global_recommendation,
       
-      // Informations générales
-      "info_anciennete": ouverture,
-      "info_types_bureaux": typesBureaux,
-      "info_types_abonnements": typesAbonnements,
-      "info_statut": statut,
-      "info_superficie": superficie,
-      "info_concurrence": concurrence,
-      "info_capacite": capacite,
-      "info_ville": ville,
-      "info_horaires": horaires,
-      "info_taux_remplissage": tauxRemplissage,
-      "info_type_clientele": typeClientele,
-      "info_services": services,
+      // Scores par section
+      "Score Acquisition": payload.acquisition_score,
+      "Score Activation": payload.activation_score,
+      "Score Rétention": payload.retention_score,
+      "Score Revenus": payload.revenus_score,
+      "Score Recommandation": payload.recommandation_score,
       
-      // Scores et recommandations globales
-      "global_score": data.global_score,
-      "global_level": data.global_level,
-      "global_recommendation": data.global_recommendation,
+      // Niveaux par section
+      "Niveau Acquisition": payload.acquisition_level,
+      "Niveau Activation": payload.activation_level,
+      "Niveau Rétention": payload.retention_level,
+      "Niveau Revenus": payload.revenus_level,
+      "Niveau Recommandation": payload.recommandation_level,
       
-      // Acquisition
-      "acquisition_score": data.acquisition_score,
-      "acquisition_level": data.acquisition_level,
-      "acquisition_recommendation": data.acquisition_recommendation,
-      "acq_canaux": acq_canaux,
-      "acq_frequence": acq_frequence,
-      "acq_offre_decouverte": acq_offre_decouverte,
-      "acq_suivi_prospects": acq_suivi_prospects,
-      "acq_avis_clients": acq_avis_clients,
+      // Réponses de la section Informations
+      Ancienneté: payload.answers.info_anciennete,
+      "Type de bureaux": payload.answers.info_type_bureaux?.join(', ') || '',
+      "Type d'abonnement": payload.answers.info_type_abonnement?.join(', ') || '',
+      Statut: payload.answers.info_statut?.join(', ') || '',
+      Superficie: payload.answers.info_superficie,
+      Concurrence: payload.answers.info_concurrence,
+      Capacité: payload.answers.info_capacite,
+      Ville: payload.answers.info_ville,
+      Horaires: payload.answers.info_horaires,
+      "Taux de remplissage": payload.answers.info_remplissage,
+      "Type de clientèle": payload.answers.info_type_clientele?.join(', ') || '',
+      Services: payload.answers.info_services?.join(', ') || '',
       
-      // Activation
-      "activation_score": data.activation_score,
-      "activation_level": data.activation_level,
-      "activation_recommendation": data.activation_recommendation,
-      "act_visite": act_visite,
-      "act_onboarding": act_onboarding,
-      "act_offres": act_offres,
-      "act_relance": act_relance,
-      "act_conversion": act_conversion,
+      // Réponses de la section Recommandation
+      "Recommandation spontanée": payload.answers.rec_recommandation_spontanee,
+      "Programme de parrainage": payload.answers.rec_programme_parrainage,
+      "Utilisation des avis": payload.answers.rec_utilisation_avis,
+      "Participation communication": payload.answers.rec_participation_communication,
+      "Création de contenu": payload.answers.rec_creation_contenu,
       
-      // Rétention
-      "retention_score": data.retention_score,
-      "retention_level": data.retention_level,
-      "retention_recommendation": data.retention_recommendation,
-      "ret_regularite": ret_regularite,
-      "ret_fidelite": ret_fidelite,
-      "ret_evenements": ret_evenements,
-      "ret_feedback": ret_feedback,
-      "ret_experience": ret_experience,
+      // Réponses de la section Acquisition
+      "Canaux utilisés": payload.answers.acq_canaux_utilises?.join(', ') || '',
+      "Fréquence des actions": payload.answers.acq_frequence_actions,
+      "Offre découverte": payload.answers.acq_offre_decouverte,
+      "Suivi prospects": payload.answers.acq_suivi_prospects,
+      "Avis clients": payload.answers.acq_avis_clients,
       
-      // Revenus
-      "revenus_score": data.revenus_score,
-      "revenus_level": data.revenus_level,
-      "revenus_recommendation": data.revenus_recommendation,
-      "rev_sources": rev_sources,
-      "rev_rentabilite": rev_rentabilite,
-      "rev_crm": rev_crm,
-      "rev_conversion": rev_conversion,
-      "rev_nouveaux": rev_nouveaux,
+      // Réponses de la section Activation
+      "Découverte espace": payload.answers.act_decouverte_espace,
+      "Processus onboarding": payload.answers.act_processus_onboarding,
+      "Clarté des offres": payload.answers.act_clartes_offres,
+      "Relance prospects": payload.answers.act_relance_prospects,
+      "Action décision": payload.answers.act_action_decision,
       
-      // Recommandation
-      "recommandation_score": data.recommandation_score,
-      "recommandation_level": data.recommandation_level,
-      "recommandation_recommendation": data.recommandation_recommendation,
-      "rec_spontane": rec_spontane,
-      "rec_parrainage": rec_parrainage,
-      "rec_avis": rec_avis,
-      "rec_communication": rec_communication,
-      "rec_contenu": rec_contenu,
+      // Réponses de la section Rétention
+      "Fréquentation régulière": payload.answers.ret_frequentation_reguliere,
+      "Programme fidélité": payload.answers.ret_programme_fidelite,
+      "Organisation événements": payload.answers.ret_organisation_evenements,
+      "Retours membres": payload.answers.ret_retours_membres,
+      "Amélioration expérience": payload.answers.ret_amelioration_experience,
+      
+      // Réponses de la section Revenus
+      "Sources de revenus": payload.answers.rev_source_revenus?.join(', ') || '',
+      "Rentabilité offres": payload.answers.rev_rentabilite_offres,
+      "Utilisation CRM": payload.answers.rev_utilisation_crm,
+      "Optimisation conversion": payload.answers.rev_optimisation_conversion,
+      "Nouvelles sources": payload.answers.rev_nouvelles_sources
     }
 
     console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2))
 
+    // Envoi à Baserow
     const baserowResponse = await fetch(
-      'https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true',
+      'https://api.baserow.io/api/database/rows/table/211223/?user_field_names=true',
       {
         method: 'POST',
         headers: {
           'Authorization': `Token ${baserowToken}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(baserowData)
       }
     )
 
-    const responseText = await baserowResponse.text()
-    console.log('Raw Baserow response:', responseText)
-    
-    let responseData
-    try {
-      responseData = JSON.parse(responseText)
-      console.log(`Baserow API response (${baserowResponse.status}):`, JSON.stringify(responseData, null, 2))
-    } catch (e) {
-      console.log('Response is not JSON:', responseText)
+    if (!baserowResponse.ok) {
+      const errorText = await baserowResponse.text()
+      console.error('Erreur Baserow:', errorText)
+      throw new Error(`Erreur Baserow: ${baserowResponse.status} ${errorText}`)
     }
 
-    if (!baserowResponse.ok) {
-      throw new Error(`Baserow API error (${baserowResponse.status}): ${responseText}`)
-    }
+    const baserowResult = await baserowResponse.json()
+    console.log('Réponse Baserow:', JSON.stringify(baserowResult, null, 2))
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        data: responseData 
-      }),
+      JSON.stringify({ success: true }),
       { 
         headers: { 
-          ...corsHeaders, 
-          'Content-Type': 'application/json' 
-        } 
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
       }
     )
 
   } catch (error) {
-    console.error('Error details:', {
-      message: error.message,
-      stack: error.stack,
-      cause: error.cause
-    })
-
+    console.error('Erreur complète:', error)
     return new Response(
-      JSON.stringify({
-        success: false,
-        error: error.message,
-        details: error.toString()
+      JSON.stringify({ 
+        success: false, 
+        error: error.message 
       }),
       { 
+        status: 400,
         headers: { 
-          ...corsHeaders, 
-          'Content-Type': 'application/json' 
-        }, 
-        status: 500 
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
       }
     )
   }
 })
+
