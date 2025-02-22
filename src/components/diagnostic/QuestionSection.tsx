@@ -60,7 +60,7 @@ export const QuestionSection = ({
     }} transition={{
       duration: 0.5
     }} className="text-left">
-        <h1 className="text-3xl font-bold text-[#132720] mb-4">{section.title}</h1>
+        <h1 className="font-bold text-[#132720] mb-4 text-2xl">{section.title}</h1>
         <p className="text-gray-600 mb-8 text-sm">{section.description}</p>
 
         <div className="space-y-8">
