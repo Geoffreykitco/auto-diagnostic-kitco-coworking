@@ -73,7 +73,7 @@ export const QuestionSection = ({
               Précédent
             </Button> : <div />}
           
-          {showNext && <Button onClick={onNext} className="flex items-center gap-2 bg-[#132720] hover:bg-[#1d312a] text-white transition-colors">
+          {showNext && <Button onClick={onNext} className="flex items-center gap-2 bg-[#132720] hover:bg-[#1d312a] text-white transition-colors py-0 my-0 mx-[20px]">
               Suivant
               <ArrowRightIcon size={16} />
             </Button>}
