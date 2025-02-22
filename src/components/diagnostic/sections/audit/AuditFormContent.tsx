@@ -26,14 +26,14 @@ export const AuditFormContent = ({
   return (
     <form 
       onSubmit={onSubmit} 
-      className="flex flex-col flex-1 gap-3"
+      className="flex flex-col flex-1 gap-6"
       aria-label="Formulaire de demande d'audit"
     >
       <div role="group" aria-label="Informations personnelles">
         <div>
           <label 
             htmlFor="fullName" 
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-base font-medium text-gray-700 mb-2"
           >
             Prénom et nom
           </label>
@@ -43,7 +43,7 @@ export const AuditFormContent = ({
             type="text"
             value={fullName}
             onChange={(e) => onFullNameChange(e.target.value)}
-            className="text-sm h-11"
+            className="text-base h-12 rounded-xl"
             required
             disabled={isSubmitting}
             aria-label="Prénom et nom"
@@ -52,10 +52,10 @@ export const AuditFormContent = ({
           />
         </div>
 
-        <div className="mt-3">
+        <div className="mt-6">
           <label 
             htmlFor="coworkingName" 
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-base font-medium text-gray-700 mb-2"
           >
             Nom du coworking
           </label>
@@ -65,7 +65,7 @@ export const AuditFormContent = ({
             type="text"
             value={coworkingName}
             onChange={(e) => onCoworkingNameChange(e.target.value)}
-            className="text-sm h-11"
+            className="text-base h-12 rounded-xl"
             required
             disabled={isSubmitting}
             aria-label="Nom du coworking"
@@ -74,10 +74,10 @@ export const AuditFormContent = ({
           />
         </div>
 
-        <div className="mt-3">
+        <div className="mt-6">
           <label 
             htmlFor="email" 
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-base font-medium text-gray-700 mb-2"
           >
             Email
           </label>
@@ -87,7 +87,7 @@ export const AuditFormContent = ({
             type="email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
-            className="text-sm h-11"
+            className="text-base h-12 rounded-xl"
             required
             disabled={isSubmitting}
             aria-label="Adresse email"
@@ -102,7 +102,7 @@ export const AuditFormContent = ({
         whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
         transition={{ duration: 0.2 }}
         type="submit"
-        className="w-full bg-[#0B1A17] hover:bg-[#132721] text-white font-semibold py-3 px-6 rounded-lg shadow-sm transition-all duration-200 text-base disabled:opacity-50 disabled:cursor-not-allowed mt-3"
+        className="w-full bg-[#0B1A17] hover:bg-[#132721] text-white font-semibold py-4 rounded-xl shadow-sm transition-all duration-200 text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
       >

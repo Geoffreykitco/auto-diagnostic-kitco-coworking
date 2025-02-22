@@ -87,15 +87,25 @@ export const AuditForm = ({
           </DialogTrigger>
 
           <DialogContent 
-            className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}
+            className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px] overflow-hidden'}`}
           >
-            <div className={`flex ${isMobile ? 'flex-col' : 'flex-row-reverse'} w-full h-full`}>
-              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
-                <div className="mb-6">
-                  <h3 className="text-lg md:text-xl font-semibold text-[#0B1A17] mb-2">
+            <div className="flex flex-col md:flex-row w-full h-full">
+              {!isMobile && (
+                <div className="w-full md:w-1/2 h-full">
+                  <img
+                    src="/lovable-uploads/c6f25897-c1f1-44a7-b3cc-49493e48f1b1.png"
+                    alt="Personnes travaillant dans un espace de coworking"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div className={`w-full md:w-1/2 p-4 md:p-8 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold text-[#0B1A17] mb-2">
                     Optimisez le taux de remplissage de votre coworking
                   </h3>
-                  <p className="text-gray-600 text-sm md:text-base">
+                  <p className="text-gray-600 text-base">
                     Vous avez maintenant une vision claire de la performance de votre espace de coworking.
                   </p>
                 </div>
@@ -111,16 +121,6 @@ export const AuditForm = ({
                   onSubmit={handleSubmitForm}
                 />
               </div>
-              {!isMobile && (
-                <div className="w-full md:w-1/2">
-                  <img
-                    src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
-                    alt="Espace de coworking"
-                    className="w-full h-full object-cover rounded-l-lg"
-                    loading="lazy"
-                  />
-                </div>
-              )}
             </div>
           </DialogContent>
         </Dialog>
