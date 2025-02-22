@@ -42,7 +42,7 @@ export const GlobalScoreCard = ({
               {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
             </span>
           </div>
-          <p className="text-gray-600">{getGlobalMessage(score)}</p>
+          <p className="text-gray-600 text-left">{getGlobalMessage(score)}</p>
         </div>
       </div>
     </motion.div>;
