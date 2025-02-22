@@ -44,6 +44,14 @@ export const AuditDialog = ({
 
       <DialogContent className="sm:max-w-[900px] p-0 gap-0">
         <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/2 h-full md:min-h-[600px]">
+            <img
+              src="/lovable-uploads/c6f25897-c1f1-44a7-b3cc-49493e48f1b1.png"
+              alt="Personnes travaillant dans un espace de coworking"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
           <div className="w-full md:w-1/2 p-6 md:p-8">
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-[#0B1A17] mb-2">
@@ -63,14 +71,6 @@ export const AuditDialog = ({
               onCoworkingNameChange={onCoworkingNameChange}
               onEmailChange={onEmailChange}
               onSubmit={onSubmit}
-            />
-          </div>
-
-          <div className="w-full md:w-1/2 h-full md:min-h-[600px]">
-            <img
-              src="/lovable-uploads/c6f25897-c1f1-44a7-b3cc-49493e48f1b1.png"
-              alt="Personnes travaillant dans un espace de coworking"
-              className="w-full h-full object-cover"
             />
           </div>
         </div>
