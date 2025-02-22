@@ -31,40 +31,6 @@ serve(async (req) => {
       "Email": data.email,
       "Nom coworking": data.coworking_name,
       
-      // Informations
-      "info_anciennete": Array.isArray(data.answers?.informations?.[0]?.value) 
-        ? data.answers.informations[0].value[0] 
-        : data.answers?.informations?.[0]?.value,
-      "info_type_bureaux": Array.isArray(data.answers?.informations?.[1]?.value) 
-        ? data.answers.informations[1].value 
-        : [],
-      "info_type_abonnements": Array.isArray(data.answers?.informations?.[2]?.value) 
-        ? data.answers.informations[2].value 
-        : [],
-      "info_statut_espace": Array.isArray(data.answers?.informations?.[3]?.value) 
-        ? data.answers.informations[3].value[0] 
-        : data.answers?.informations?.[3]?.value,
-      "info_superficie": Array.isArray(data.answers?.informations?.[4]?.value) 
-        ? data.answers.informations[4].value[0] 
-        : data.answers?.informations?.[4]?.value,
-      "info_concurrence": Array.isArray(data.answers?.informations?.[5]?.value) 
-        ? data.answers.informations[5].value[0] 
-        : data.answers?.informations?.[5]?.value,
-      "info_capacite": Array.isArray(data.answers?.informations?.[6]?.value) 
-        ? data.answers.informations[6].value[0] 
-        : data.answers?.informations?.[6]?.value,
-      "info_ville": data.answers?.informations?.[7]?.value,
-      "info_horaires": Array.isArray(data.answers?.informations?.[8]?.value) 
-        ? data.answers.informations[8].value[0] 
-        : data.answers?.informations?.[8]?.value,
-      "info_remplissage": data.answers?.informations?.[9]?.value,
-      "info_type_clientele": Array.isArray(data.answers?.informations?.[10]?.value) 
-        ? data.answers.informations[10].value 
-        : [],
-      "info_services_proposes": Array.isArray(data.answers?.informations?.[11]?.value) 
-        ? data.answers.informations[11].value 
-        : [],
-
       // Scores et recommandations
       "Note Acquisition": data.acquisition_score,
       "Niveau Acquisition": data.acquisition_level,
