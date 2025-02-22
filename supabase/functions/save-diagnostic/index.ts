@@ -7,7 +7,6 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
@@ -23,7 +22,7 @@ serve(async (req) => {
 
     // Map data to Baserow field names
     const baserowData = {
-      "Name": `${data.first_name} ${data.last_name}`,
+      "Name": data.fullName,
       "Email": data.email,
       "Nom coworking": data.coworking_name,
       "Notre score global": data.global_score,
