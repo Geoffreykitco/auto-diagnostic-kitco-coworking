@@ -89,17 +89,7 @@ export const AuditForm = ({
           <DialogContent 
             className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'}`}
           >
-            <div className="flex flex-col-reverse md:flex-row w-full h-full">
-              {!isMobile && (
-                <div className="w-full md:w-1/2">
-                  <img
-                    src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
-                    alt="Espace de coworking"
-                    className="w-full h-full object-cover rounded-l-lg"
-                    loading="lazy"
-                  />
-                </div>
-              )}
+            <div className={`flex ${isMobile ? 'flex-col' : 'flex-row-reverse'} w-full h-full`}>
               <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
                 <div className="mb-6">
                   <h3 className="text-lg md:text-xl font-semibold text-[#0B1A17] mb-2">
@@ -121,6 +111,16 @@ export const AuditForm = ({
                   onSubmit={handleSubmitForm}
                 />
               </div>
+              {!isMobile && (
+                <div className="w-full md:w-1/2">
+                  <img
+                    src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
+                    alt="Espace de coworking"
+                    className="w-full h-full object-cover rounded-l-lg"
+                    loading="lazy"
+                  />
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>
