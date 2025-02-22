@@ -11,9 +11,10 @@ import { supabase } from "@/integrations/supabase/client";
 interface CTACardProps {
   globalScore: number;
   sectionScores: Record<string, number>;
+  answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>;
 }
 
-export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
+export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
@@ -34,6 +35,7 @@ export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
         last_name: formData.lastName,
         coworking_name: formData.coworkingName,
         email: formData.email,
+        answers, // Include all detailed answers
 
         global_score: globalScore,
         global_level: globalLevel,

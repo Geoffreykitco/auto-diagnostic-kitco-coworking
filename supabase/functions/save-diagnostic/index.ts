@@ -20,29 +20,67 @@ serve(async (req) => {
       throw new Error('Baserow token not configured')
     }
 
-    // Map data to Baserow field names
+    // Map data to Baserow field names with detailed questions
     const baserowData = {
-      "Name": data.fullName,
+      // Informations générales
+      "Name": `${data.first_name} ${data.last_name}`,
       "Email": data.email,
       "Nom coworking": data.coworking_name,
+
+      // Scores globaux
       "Notre score global": data.global_score,
       "Niveau score global": data.global_level,
       "Texte score global": data.global_recommendation,
+
+      // Section Acquisition
       "Note Acquisition": data.acquisition_score,
       "Niveau Acquisition": data.acquisition_level,
       "Texte Acquisition": data.acquisition_recommendation,
+      "acq_canaux_utilisés": data.answers?.acquisition?.[0]?.value,
+      "acq_frequence_actions": data.answers?.acquisition?.[1]?.value,
+      "acq_offre_decouverte": data.answers?.acquisition?.[2]?.value,
+      "acq_suivi_prospects": data.answers?.acquisition?.[3]?.value,
+      "acq_avis_clients": data.answers?.acquisition?.[4]?.value,
+
+      // Section Activation
       "Note Activation": data.activation_score,
       "Niveau Activation": data.activation_level,
       "Texte Activation": data.activation_recommendation,
+      "act_decouverte_espace": data.answers?.activation?.[0]?.value,
+      "act_onboarding": data.answers?.activation?.[1]?.value,
+      "act_offres_tarifs": data.answers?.activation?.[2]?.value,
+      "act_relance_prospects": data.answers?.activation?.[3]?.value,
+      "act_facilitation_decision": data.answers?.activation?.[4]?.value,
+
+      // Section Rétention
       "Note Rétention": data.retention_score,
       "Niveau Rétention": data.retention_level,
       "Texte Rétention": data.retention_recommendation,
+      "ret_regularite": data.answers?.retention?.[0]?.value,
+      "ret_programme_fidelite": data.answers?.retention?.[1]?.value,
+      "ret_evenements": data.answers?.retention?.[2]?.value,
+      "ret_retours_membres": data.answers?.retention?.[3]?.value,
+      "ret_experience": data.answers?.retention?.[4]?.value,
+
+      // Section Revenus
       "Note Revenus": data.revenus_score,
       "Niveau Revenus": data.revenus_level,
       "Texte Revenus": data.revenus_recommendation,
+      "rev_sources": data.answers?.revenus?.[0]?.value,
+      "rev_suivi_rentabilite": data.answers?.revenus?.[1]?.value,
+      "rev_crm": data.answers?.revenus?.[2]?.value,
+      "rev_conversion": data.answers?.revenus?.[3]?.value,
+      "rev_nouvelles_sources": data.answers?.revenus?.[4]?.value,
+
+      // Section Recommandation
       "Note Recommandation": data.recommandation_score,
       "Niveau Recommandation": data.recommandation_level,
-      "Texte Recommandation": data.recommandation_recommendation
+      "Texte Recommandation": data.recommandation_recommendation,
+      "rec_recommandation": data.answers?.recommandation?.[0]?.value,
+      "rec_parrainage": data.answers?.recommandation?.[1]?.value,
+      "rec_avis": data.answers?.recommandation?.[2]?.value,
+      "rec_participation": data.answers?.recommandation?.[3]?.value,
+      "rec_contenu": data.answers?.recommandation?.[4]?.value,
     }
 
     console.log('Sending to Baserow:', baserowData)
