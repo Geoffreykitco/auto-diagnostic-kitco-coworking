@@ -67,12 +67,13 @@ export const GlobalScoreCard = ({
       {/* Graphique Radar - Colonne de droite */}
       <div className="flex flex-col">
         <h3 className="text-lg font-semibold mb-2">Répartition des scores par dimension</h3>
-        <div className="flex-1">
-          <ResponsiveContainer width="100%" height={300}>
-            <RadarChart cx="50%" cy="50%" outerRadius="65%" data={data}>
+        <div className="flex-1 min-h-[400px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
               <PolarGrid 
                 stroke="#e5e7eb" 
                 strokeWidth={0.5}
+                gridType="circle"
               />
               <PolarAngleAxis 
                 dataKey="subject" 
@@ -92,7 +93,7 @@ export const GlobalScoreCard = ({
                   fontSize: 11 
                 }}
                 stroke="#E5E7EB"
-                tickCount={5}
+                tickCount={10}
               />
               <Radar
                 name="Score"
