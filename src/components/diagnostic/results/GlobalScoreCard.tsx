@@ -37,11 +37,11 @@ export const GlobalScoreCard = ({
     transition={{
       duration: 0.5
     }} 
-    className="bg-white rounded-lg p-8 border border-gray-200 shadow-lg"
+    className="bg-white rounded-lg p-6 border border-gray-200 shadow-lg"
   >
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-2 gap-6">
       {/* Score Global - Colonne de gauche */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div className="flex items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold text-left">Score Global</h2>
@@ -65,10 +65,10 @@ export const GlobalScoreCard = ({
       </div>
 
       {/* Graphique Radar - Colonne de droite */}
-      <div className="flex flex-col items-center">
-        <h3 className="text-lg font-semibold mb-4">Répartition des scores par dimension</h3>
-        <div className="h-[350px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
+      <div className="flex flex-col">
+        <h3 className="text-lg font-semibold mb-2">Répartition des scores par dimension</h3>
+        <div className="flex-1">
+          <ResponsiveContainer width="100%" height={300}>
             <RadarChart cx="50%" cy="50%" outerRadius="65%" data={data}>
               <PolarGrid 
                 stroke="#e5e7eb" 
