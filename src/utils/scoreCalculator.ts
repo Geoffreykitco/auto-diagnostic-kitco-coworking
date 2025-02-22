@@ -113,9 +113,36 @@ export const getGlobalMessage = (globalScore: number): string => {
   const level = calculateSectionLevel(globalScore);
   
   const messages = {
-    débutant: "Votre espace de coworking a besoin d'améliorations significatives pour assurer sa croissance. Priorisez Acquisition et Activation.",
-    intermédiaire: "Votre coworking est sur une bonne dynamique. Optimisez vos stratégies pour passer à un niveau supérieur.",
-    avancé: "Votre coworking fonctionne très bien, mais des marges de progression existent pour aller encore plus loin."
+    débutant: `Votre espace de coworking a besoin d'améliorations significatives pour assurer sa croissance.
+
+📌 Priorités clés :
+✅ Acquisition → Augmentez la visibilité de votre espace avec du marketing digital et des offres attractives.
+✅ Activation → Améliorez l'expérience des nouveaux membres dès leur arrivée (onboarding, avantages immédiats).
+
+📈 Actions recommandées :
+🔹 Améliorer la prospection et la conversion (offres d'essai, partenariats locaux).
+🔹 Mettre en place des campagnes de réengagement pour les prospects inactifs.
+🔹 Offrir des événements ou services exclusifs pour attirer de nouveaux membres.`,
+    intermédiaire: `Votre coworking est sur une bonne dynamique. Optimisez vos stratégies pour passer à un niveau supérieur.
+
+📌 Priorités clés :
+✅ Rétention → Renforcez l'engagement des membres pour éviter le churn.
+✅ Revenus → Diversifiez vos sources de revenus pour maximiser la rentabilité.
+
+📈 Actions recommandées :
+🔹 Mettre en place un programme de fidélité ou des offres pour les membres récurrents.
+🔹 Optimiser l'expérience client avec des services complémentaires (bureaux privés, networking).
+🔹 Tester des hausses de prix ou des offres premium sans impacter la satisfaction client.`,
+    avancé: `Votre coworking fonctionne très bien, mais des marges de progression existent pour aller encore plus loin.
+
+📌 Priorités clés :
+✅ Expansion & Scalabilité → Développez votre offre pour toucher de nouveaux segments.
+✅ Optimisation continue → Automatisez vos processus et mesurez vos performances.
+
+📈 Actions recommandées :
+🔹 Lancer des campagnes de recommandation pour que vos membres actuels attirent de nouveaux clients.
+🔹 Automatiser le suivi des leads et le nurturing pour maximiser la conversion.
+🔹 Évaluer de nouvelles opportunités : expansion géographique, franchises, nouveaux services.`
   };
 
   return messages[level];
