@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -101,33 +102,47 @@ export const ResultsAnalysis = ({
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4">
-      <div className="mt-16 mb-8">
-        <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
+    <div className="flex flex-col min-h-screen">
+      <div className="max-w-5xl mx-auto px-4 flex-grow">
+        <div className="mt-16 mb-8">
+          <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
+        </div>
+        
+        <div className="space-y-8">
+          <GlobalScoreCard
+            score={globalScore}
+            getLevelColor={getLevelColor}
+            getProgressColor={getProgressColor}
+            getGlobalMessage={getGlobalMessage}
+          />
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
+            {answers.activation && renderSectionCard('activation', answers.activation)}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {answers.retention && renderSectionCard('retention', answers.retention)}
+            {answers.revenus && renderSectionCard('revenus', answers.revenus)}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa?sid=a8bb8032-40ab-498f-9a88-c9393477eca5"
+                frameBorder="0"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+        </div>
       </div>
       
-      <div className="space-y-8">
-        <GlobalScoreCard
-          score={globalScore}
-          getLevelColor={getLevelColor}
-          getProgressColor={getProgressColor}
-          getGlobalMessage={getGlobalMessage}
-        />
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
-          {answers.activation && renderSectionCard('activation', answers.activation)}
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {answers.retention && renderSectionCard('retention', answers.retention)}
-          {answers.revenus && renderSectionCard('revenus', answers.revenus)}
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
-          <CTACard globalScore={globalScore} />
-        </div>
+      {/* CTA Section en pleine largeur */}
+      <div className="w-full mt-12">
+        <CTACard globalScore={globalScore} />
       </div>
     </div>
   );

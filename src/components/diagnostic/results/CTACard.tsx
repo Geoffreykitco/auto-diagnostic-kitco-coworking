@@ -16,52 +16,54 @@ export const CTACard = ({ globalScore }: CTACardProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#0B1A17] text-left text-white rounded-lg p-6 shadow-lg"
+      className="bg-[#0B1A17] text-white"
     >
-      <div className="flex items-center space-x-2 mb-4">
-        <h3 className="font-medium">Recevoir mon audit et passer à l'action</h3>
-      </div>
-      
-      <AuditForm onSubmit={async (formData) => {
-        try {
-          const diagnosticData = {
-            created_at: new Date().toISOString(),
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            coworking_name: formData.coworkingName,
-            email: formData.email,
-            global_score: globalScore
-          };
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        <div className="flex items-center space-x-2 mb-4">
+          <h3 className="font-medium text-lg">Recevoir mon audit et passer à l'action</h3>
+        </div>
+        
+        <AuditForm onSubmit={async (formData) => {
+          try {
+            const diagnosticData = {
+              created_at: new Date().toISOString(),
+              first_name: formData.firstName,
+              last_name: formData.lastName,
+              coworking_name: formData.coworkingName,
+              email: formData.email,
+              global_score: globalScore
+            };
 
-          const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
-            method: 'POST',
-            headers: {
-              'Authorization': 'Token 185511',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(diagnosticData)
-          });
+            const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
+              method: 'POST',
+              headers: {
+                'Authorization': 'Token 185511',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(diagnosticData)
+            });
 
-          if (!response.ok) {
-            throw new Error('Failed to save form results');
+            if (!response.ok) {
+              throw new Error('Failed to save form results');
+            }
+
+            toast({
+              title: "Formulaire envoyé !",
+              description: "Vous recevrez une réponse par email dans les plus brefs délais.",
+              duration: 3000,
+            });
+
+            console.log('Form results saved successfully');
+          } catch (error) {
+            console.error('Error saving form results:', error);
+            toast({
+              title: "Erreur",
+              description: "Une erreur est survenue lors de l'envoi du formulaire.",
+              duration: 3000,
+            });
           }
-
-          toast({
-            title: "Formulaire envoyé !",
-            description: "Vous recevrez une réponse par email dans les plus brefs délais.",
-            duration: 3000,
-          });
-
-          console.log('Form results saved successfully');
-        } catch (error) {
-          console.error('Error saving form results:', error);
-          toast({
-            title: "Erreur",
-            description: "Une erreur est survenue lors de l'envoi du formulaire.",
-            duration: 3000,
-          });
-        }
-      }} />
+        }} />
+      </div>
     </motion.div>
   );
 };
