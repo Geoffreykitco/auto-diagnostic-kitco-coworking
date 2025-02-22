@@ -5,6 +5,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
 import { MainContent } from "./content/MainContent";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
+import { useToast } from "@/hooks/use-toast";
 
 interface CTACardProps {
   globalScore: number;
@@ -14,6 +15,7 @@ interface CTACardProps {
 export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -78,8 +80,18 @@ export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
       console.log('Réponse Baserow:', responseData);
 
       setOpen(false);
+      toast({
+        title: "Envoi réussi !",
+        description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`,
+      });
+
     } catch (error) {
       console.error('Error saving form results:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi du formulaire. Veuillez réessayer.",
+        variant: "destructive",
+      });
     }
   };
 
