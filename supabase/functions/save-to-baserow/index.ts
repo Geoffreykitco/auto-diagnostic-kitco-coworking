@@ -1,73 +1,96 @@
 
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import { corsHeaders } from '../_shared/cors.ts';
+import { serve } from 'https://deno.fresh.run/std@v9.6.1/http/server.ts';
 
-interface DiagnosticData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  coworkingName: string;
-  answers: {
-    informations: Record<number, { value: string | number | number[] | null; score: number }>;
-    acquisition: Record<number, { value: string | number | number[] | null; score: number }>;
-    activation: Record<number, { value: string | number | number[] | null; score: number }>;
-    retention: Record<number, { value: string | number | number[] | null; score: number }>;
-    revenus: Record<number, { value: string | number | number[] | null; score: number }>;
-    recommandation: Record<number, { value: string | number | number[] | null; score: number }>;
-  };
-  globalScore: number;
-  sectionScores: {
-    acquisition: number;
-    activation: number;
-    retention: number;
-    revenus: number;
-    recommandation: number;
-  };
-}
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
-Deno.serve(async (req) => {
+serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+    return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const BASEROW_TOKEN = Deno.env.get('BASEROW_TOKEN');
-    if (!BASEROW_TOKEN) {
-      throw new Error('BASEROW_TOKEN is not set');
-    }
-
-    const { data } = await req.json() as { data: DiagnosticData };
-    console.log('Received diagnostic data:', data);
+    const data = await req.json();
+    console.log('Received data:', data);
 
     // Formatage des données pour Baserow
     const baserowData = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      coworking_name: data.coworking_name,
+      email: data.email,
+      global_score: data.global_score,
+      global_level: data.global_level,
+      global_recommendation: data.global_recommendation,
+      // Scores par section
+      acquisition_score: data.acquisition_score,
+      acquisition_level: data.acquisition_level,
+      acquisition_recommendation: data.acquisition_recommendation,
+      activation_score: data.activation_score,
+      activation_level: data.activation_level,
+      activation_recommendation: data.activation_recommendation,
+      retention_score: data.retention_score,
+      retention_level: data.retention_level,
+      retention_recommendation: data.retention_recommendation,
+      revenus_score: data.revenus_score,
+      revenus_level: data.revenus_level,
+      revenus_recommendation: data.revenus_recommendation,
+      recommandation_score: data.recommandation_score,
+      recommandation_level: data.recommandation_level,
+      recommandation_recommendation: data.recommandation_recommendation,
+      
+      // Ajout des réponses aux questions
       // Informations générales
-      "prenom": data.firstName,
-      "nom": data.lastName,
-      "email": data.email,
-      "nom_espace": data.coworkingName,
-      "date_diagnostic": new Date().toISOString(),
-      
-      // Scores globaux
-      "score_global": data.globalScore,
-      "score_acquisition": data.sectionScores.acquisition,
-      "score_activation": data.sectionScores.activation,
-      "score_retention": data.sectionScores.retention,
-      "score_revenus": data.sectionScores.revenus,
-      "score_recommandation": data.sectionScores.recommandation,
+      duree_ouverture: formatAnswer(data.answers?.informations?.[0]),
+      types_bureaux: formatMultipleAnswer(data.answers?.informations?.[1]),
+      types_abonnements: formatMultipleAnswer(data.answers?.informations?.[2]),
+      statut_espace: formatAnswer(data.answers?.informations?.[3]),
+      superficie: formatAnswer(data.answers?.informations?.[4]),
+      concurrence: formatAnswer(data.answers?.informations?.[5]),
+      capacite: formatAnswer(data.answers?.informations?.[6]),
+      ville: formatAnswer(data.answers?.informations?.[7]),
+      horaires: formatAnswer(data.answers?.informations?.[8]),
+      taux_remplissage: formatAnswer(data.answers?.informations?.[9]),
+      type_clientele: formatMultipleAnswer(data.answers?.informations?.[10]),
+      services: formatMultipleAnswer(data.answers?.informations?.[11]),
 
-      // Réponses aux questions d'information
-      "info_anciennete": getInformationValue(data.answers.informations[0]),
-      "info_surface": getInformationValue(data.answers.informations[4]),
-      "info_capacite": getInformationValue(data.answers.informations[5]),
-      "info_occupation": getInformationValue(data.answers.informations[9]),
-      
-      // Scores détaillés
-      "detail_acquisition": JSON.stringify(data.answers.acquisition),
-      "detail_activation": JSON.stringify(data.answers.activation),
-      "detail_retention": JSON.stringify(data.answers.retention),
-      "detail_revenus": JSON.stringify(data.answers.revenus),
-      "detail_recommandation": JSON.stringify(data.answers.recommandation),
+      // Acquisition
+      canaux_acquisition: formatMultipleAnswer(data.answers?.acquisition?.[0]),
+      frequence_actions: formatAnswer(data.answers?.acquisition?.[1]),
+      offre_decouverte: formatAnswer(data.answers?.acquisition?.[2]),
+      suivi_prospects: formatAnswer(data.answers?.acquisition?.[3]),
+      avis_clients: formatAnswer(data.answers?.acquisition?.[4]),
+
+      // Activation
+      decouverte_espace: formatAnswer(data.answers?.activation?.[0]),
+      processus_onboarding: formatAnswer(data.answers?.activation?.[1]),
+      clarte_offres: formatAnswer(data.answers?.activation?.[2]),
+      relance_prospects: formatAnswer(data.answers?.activation?.[3]),
+      facilitation_decision: formatAnswer(data.answers?.activation?.[4]),
+
+      // Rétention
+      retour_regulier: formatAnswer(data.answers?.retention?.[0]),
+      programme_fidelite: formatAnswer(data.answers?.retention?.[1]),
+      organisation_evenements: formatAnswer(data.answers?.retention?.[2]),
+      collecte_avis: formatAnswer(data.answers?.retention?.[3]),
+      amelioration_experience: formatAnswer(data.answers?.retention?.[4]),
+
+      // Revenus
+      sources_revenus: formatMultipleAnswer(data.answers?.revenus?.[0]),
+      suivi_rentabilite: formatAnswer(data.answers?.revenus?.[1]),
+      utilisation_crm: formatAnswer(data.answers?.revenus?.[2]),
+      optimisation_conversion: formatAnswer(data.answers?.revenus?.[3]),
+      developpement_revenus: formatAnswer(data.answers?.revenus?.[4]),
+
+      // Recommandation
+      recommandation_spontanee: formatAnswer(data.answers?.recommandation?.[0]),
+      programme_parrainage: formatAnswer(data.answers?.recommandation?.[1]),
+      utilisation_avis: formatAnswer(data.answers?.recommandation?.[2]),
+      participation_communication: formatAnswer(data.answers?.recommandation?.[3]),
+      incitation_contenu: formatAnswer(data.answers?.recommandation?.[4])
     };
 
     console.log('Formatted data for Baserow:', baserowData);
@@ -78,7 +101,7 @@ Deno.serve(async (req) => {
       {
         method: 'POST',
         headers: {
-          'Authorization': `Token ${BASEROW_TOKEN}`,
+          'Authorization': `Token ${Deno.env.get('BASEROW_TOKEN')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(baserowData),
@@ -86,19 +109,21 @@ Deno.serve(async (req) => {
     );
 
     if (!baserowResponse.ok) {
-      const errorData = await baserowResponse.text();
-      console.error('Baserow Error:', errorData);
-      throw new Error(`Baserow request failed: ${baserowResponse.statusText}`);
+      const errorText = await baserowResponse.text();
+      console.error('Baserow error response:', errorText);
+      throw new Error(`Failed to save to Baserow: ${baserowResponse.status} ${errorText}`);
     }
 
     const responseData = await baserowResponse.json();
     console.log('Baserow response:', responseData);
 
     return new Response(
-      JSON.stringify({ success: true, message: "Diagnostic data saved successfully" }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
+      JSON.stringify({ success: true, data: responseData }),
+      { 
+        headers: { 
+          ...corsHeaders,
+          'Content-Type': 'application/json' 
+        } 
       }
     );
 
@@ -106,17 +131,26 @@ Deno.serve(async (req) => {
     console.error('Error:', error);
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 500,
+      { 
+        headers: { 
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        },
+        status: 500
       }
     );
   }
 });
 
-// Fonction utilitaire pour obtenir la valeur des questions informatives
-function getInformationValue(answer: { value: string | number | number[] | null; score: number } | undefined): string {
-  if (!answer || answer.value === null) return '';
-  if (Array.isArray(answer.value)) return answer.value.join(', ');
+function formatMultipleAnswer(answer: any): string {
+  if (!answer?.value) return '';
+  if (Array.isArray(answer.value)) {
+    return answer.value.join(', ');
+  }
+  return answer.value.toString();
+}
+
+function formatAnswer(answer: any): string {
+  if (!answer?.value) return '';
   return answer.value.toString();
 }
