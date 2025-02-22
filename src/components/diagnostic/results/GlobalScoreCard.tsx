@@ -92,7 +92,7 @@ export const GlobalScoreCard = ({
           <h3 className="text-lg font-semibold mb-2">Répartition des scores par partie</h3>
           <div className="flex-1 min-h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="85%" data={data}>
+              <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
                 <PolarGrid stroke="#e5e7eb" strokeWidth={0.5} />
                 <PolarAngleAxis 
                   dataKey="subject" 
@@ -106,7 +106,7 @@ export const GlobalScoreCard = ({
                   style={{
                     textAnchor: 'middle'
                   }}
-                  dy={12}
+                  dy={6}
                 />
                 <PolarRadiusAxis 
                   angle={30} 
