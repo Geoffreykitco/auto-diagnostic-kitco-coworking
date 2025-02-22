@@ -66,6 +66,19 @@ export const ResultsAnalysis = ({
     return { sectionScores };
   };
 
+  const formatAnswersForGlobalCard = (rawAnswers: Record<string, Record<number, number>>) => {
+    const formattedAnswers: Record<string, Record<number, { value: any; score: number }>> = {};
+    
+    Object.entries(rawAnswers).forEach(([section, sectionAnswers]) => {
+      formattedAnswers[section] = Object.entries(sectionAnswers).reduce((acc, [key, value]) => {
+        acc[Number(key)] = { value, score: value };
+        return acc;
+      }, {} as Record<number, { value: any; score: number }>);
+    });
+    
+    return formattedAnswers;
+  };
+
   const getLevelColor = (score: number): string => {
     if (score >= 80) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
@@ -115,7 +128,7 @@ export const ResultsAnalysis = ({
             getLevelColor={getLevelColor}
             getProgressColor={getProgressColor}
             getGlobalMessage={getGlobalMessage}
-            answers={answers}
+            answers={formatAnswersForGlobalCard(answers)}
           />
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -142,7 +155,6 @@ export const ResultsAnalysis = ({
         </div>
       </div>
       
-      {/* CTA Section en pleine largeur */}
       <div className="w-full mt-12">
         <CTACard globalScore={globalScore} />
       </div>
