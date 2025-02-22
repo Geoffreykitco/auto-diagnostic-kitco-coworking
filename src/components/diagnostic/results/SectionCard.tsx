@@ -1,9 +1,7 @@
-
 import { motion } from "framer-motion";
 import { ChartBar, Users, Zap, Heart, CircleDollarSign, Share2, LucideIcon } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { ScoreLevel } from "@/utils/scoreCalculator";
-
 interface SectionCardProps {
   section: string;
   score: number;
@@ -12,7 +10,6 @@ interface SectionCardProps {
   getLevelColor: (score: number) => string;
   getProgressColor: (score: number) => string;
 }
-
 const getSectionIcon = (section: string) => {
   switch (section) {
     case 'acquisition':
@@ -29,7 +26,6 @@ const getSectionIcon = (section: string) => {
       return ChartBar;
   }
 };
-
 const getSectionTitle = (section: string) => {
   switch (section) {
     case 'acquisition':
@@ -44,26 +40,26 @@ const getSectionTitle = (section: string) => {
       return "Clients à ambassadeurs";
   }
 };
-
 export const SectionCard = ({
   section,
   score,
   level,
   message,
   getLevelColor,
-  getProgressColor,
+  getProgressColor
 }: SectionCardProps) => {
   const Icon = getSectionIcon(section);
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200"
-    >
+  return <motion.div initial={{
+    opacity: 0,
+    x: -20
+  }} animate={{
+    opacity: 1,
+    x: 0
+  }} transition={{
+    duration: 0.3
+  }} className="bg-white rounded-lg p-6 border border-gray-200 h-full shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center gap-3 mb-4">
-        <Icon className="w-5 h-5" />
+        
         <h4 className="text-lg font-semibold">
           {section === 'revenus' ? 'Revenus' : section.charAt(0).toUpperCase() + section.slice(1)} - {getSectionTitle(section)}
         </h4>
@@ -76,11 +72,7 @@ export const SectionCard = ({
             {score}%
           </span>
         </div>
-        <Progress 
-          value={score} 
-          className="h-2"
-          indicatorClassName={getProgressColor(score)}
-        />
+        <Progress value={score} className="h-2" indicatorClassName={getProgressColor(score)} />
       </div>
 
       <div className="mt-4 space-y-2">
@@ -90,8 +82,7 @@ export const SectionCard = ({
             {level.charAt(0).toUpperCase() + level.slice(1)}
           </span>
         </div>
-        <p className="text-sm text-gray-600">{message}</p>
+        <p className="text-sm text-gray-600 text-left">{message}</p>
       </div>
-    </motion.div>
-  );
+    </motion.div>;
 };
