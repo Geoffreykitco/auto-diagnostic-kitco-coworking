@@ -2,39 +2,55 @@
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
+import { calculateSectionScore, getMaxSectionScore } from "@/utils/scoreCalculator";
+import { sections } from "@/data/sections";
 
 interface GlobalScoreCardProps {
   score: number;
   getLevelColor: (score: number) => string;
   getProgressColor: (score: number) => string;
   getGlobalMessage: (score: number) => string;
+  answers: Record<string, Record<number, { value: any; score: number }>>;
 }
 
 export const GlobalScoreCard = ({
   score,
   getLevelColor,
   getProgressColor,
-  getGlobalMessage
+  getGlobalMessage,
+  answers
 }: GlobalScoreCardProps) => {
+  // Calculer les scores pour chaque section
+  const getSectionScore = (sectionKey: string) => {
+    if (!answers[sectionKey]) return 0;
+    
+    const section = sections[sectionKey];
+    if (!section) return 0;
+    
+    const maxScore = getMaxSectionScore(section.questions);
+    const sectionScore = calculateSectionScore(answers[sectionKey], maxScore, sectionKey);
+    return sectionScore.score;
+  };
+
   const data = [{
     subject: 'Acquisition',
-    A: score,
+    A: getSectionScore('acquisition'),
     fullMark: 100
   }, {
     subject: 'Activation',
-    A: score,
+    A: getSectionScore('activation'),
     fullMark: 100
   }, {
     subject: 'Rétention',
-    A: score,
+    A: getSectionScore('retention'),
     fullMark: 100
   }, {
     subject: 'Revenus',
-    A: score,
+    A: getSectionScore('revenus'),
     fullMark: 100
   }, {
     subject: 'Recommandation',
-    A: score,
+    A: getSectionScore('recommandation'),
     fullMark: 100
   }];
 

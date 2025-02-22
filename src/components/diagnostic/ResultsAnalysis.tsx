@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -114,6 +115,7 @@ export const ResultsAnalysis = ({
             getLevelColor={getLevelColor}
             getProgressColor={getProgressColor}
             getGlobalMessage={getGlobalMessage}
+            answers={answers}
           />
 
           <div className="grid md:grid-cols-2 gap-6">
