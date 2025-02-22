@@ -48,9 +48,29 @@ export const CTACard = ({ globalScore }: CTACardProps) => {
     }
   };
 
-  const formProps = useAuditForm({
+  const {
+    fullName,
+    setFullName,
+    coworkingName,
+    setCoworkingName,
+    email,
+    setEmail,
+    isSubmitting,
+    handleFormSubmit
+  } = useAuditForm({
     onSubmit: handleSubmit
   });
+
+  const formProps = {
+    fullName,
+    setFullName,
+    coworkingName,
+    setCoworkingName,
+    email,
+    setEmail,
+    isSubmitting,
+    handleFormSubmit
+  };
 
   if (isMobile) {
     return (

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 interface AuditFormData {
   firstName: string;
@@ -24,7 +24,7 @@ export const useAuditForm = ({ onSubmit }: UseAuditFormProps) => {
     setEmail('');
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     
     try {
@@ -52,7 +52,7 @@ export const useAuditForm = ({ onSubmit }: UseAuditFormProps) => {
     email,
     setEmail,
     isSubmitting,
-    handleSubmit,
+    handleFormSubmit,
     resetForm
   };
 };
