@@ -1,13 +1,18 @@
 
 import { corsHeaders } from '../_shared/cors.ts'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 Deno.serve(async (req) => {
+  // Log de réception de la requête
+  console.log('Nouvelle requête reçue:', req.method);
+
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 
   try {
+    // Log avant la lecture du body
+    console.log('Tentative de lecture du body...');
+    
     const payload = await req.json()
     console.log('Données reçues:', JSON.stringify(payload, null, 2))
 
@@ -15,6 +20,7 @@ Deno.serve(async (req) => {
     const requiredFields = ['first_name', 'last_name', 'email', 'coworking_name', 'answers']
     for (const field of requiredFields) {
       if (!payload[field]) {
+        console.error(`Champ manquant: ${field}`);
         throw new Error(`Le champ ${field} est manquant`)
       }
     }
@@ -22,8 +28,11 @@ Deno.serve(async (req) => {
     // Configuration de la requête Baserow
     const baserowToken = Deno.env.get('BASEROW_TOKEN')
     if (!baserowToken) {
+      console.error('Token Baserow manquant');
       throw new Error('Token Baserow manquant')
     }
+
+    console.log('Préparation des données pour Baserow...');
 
     const baserowData = {
       Prénom: payload.first_name,
@@ -50,17 +59,17 @@ Deno.serve(async (req) => {
       
       // Réponses de la section Informations
       Ancienneté: payload.answers.info_anciennete,
-      "Type de bureaux": payload.answers.info_type_bureaux?.join(', ') || '',
-      "Type d'abonnement": payload.answers.info_type_abonnement?.join(', ') || '',
-      Statut: payload.answers.info_statut?.join(', ') || '',
+      "Type de bureaux": payload.answers.info_type_bureaux,
+      "Type d'abonnement": payload.answers.info_type_abonnement,
+      Statut: payload.answers.info_statut,
       Superficie: payload.answers.info_superficie,
       Concurrence: payload.answers.info_concurrence,
       Capacité: payload.answers.info_capacite,
       Ville: payload.answers.info_ville,
       Horaires: payload.answers.info_horaires,
       "Taux de remplissage": payload.answers.info_remplissage,
-      "Type de clientèle": payload.answers.info_type_clientele?.join(', ') || '',
-      Services: payload.answers.info_services?.join(', ') || '',
+      "Type de clientèle": payload.answers.info_type_clientele,
+      Services: payload.answers.info_services,
       
       // Réponses de la section Recommandation
       "Recommandation spontanée": payload.answers.rec_recommandation_spontanee,
@@ -70,7 +79,7 @@ Deno.serve(async (req) => {
       "Création de contenu": payload.answers.rec_creation_contenu,
       
       // Réponses de la section Acquisition
-      "Canaux utilisés": payload.answers.acq_canaux_utilises?.join(', ') || '',
+      "Canaux utilisés": payload.answers.acq_canaux_utilises,
       "Fréquence des actions": payload.answers.acq_frequence_actions,
       "Offre découverte": payload.answers.acq_offre_decouverte,
       "Suivi prospects": payload.answers.acq_suivi_prospects,
@@ -91,16 +100,17 @@ Deno.serve(async (req) => {
       "Amélioration expérience": payload.answers.ret_amelioration_experience,
       
       // Réponses de la section Revenus
-      "Sources de revenus": payload.answers.rev_source_revenus?.join(', ') || '',
+      "Sources de revenus": payload.answers.rev_source_revenus,
       "Rentabilité offres": payload.answers.rev_rentabilite_offres,
       "Utilisation CRM": payload.answers.rev_utilisation_crm,
       "Optimisation conversion": payload.answers.rev_optimisation_conversion,
       "Nouvelles sources": payload.answers.rev_nouvelles_sources
     }
 
-    console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2))
+    console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2));
 
     // Envoi à Baserow
+    console.log('Tentative d\'envoi à Baserow...');
     const baserowResponse = await fetch(
       'https://api.baserow.io/api/database/rows/table/211223/?user_field_names=true',
       {
@@ -114,9 +124,9 @@ Deno.serve(async (req) => {
     )
 
     if (!baserowResponse.ok) {
-      const errorText = await baserowResponse.text()
-      console.error('Erreur Baserow:', errorText)
-      throw new Error(`Erreur Baserow: ${baserowResponse.status} ${errorText}`)
+      const errorText = await baserowResponse.text();
+      console.error('Erreur Baserow:', errorText);
+      throw new Error(`Erreur Baserow: ${baserowResponse.status} ${errorText}`);
     }
 
     const baserowResult = await baserowResponse.json()
@@ -133,7 +143,7 @@ Deno.serve(async (req) => {
     )
 
   } catch (error) {
-    console.error('Erreur complète:', error)
+    console.error('Erreur complète:', error);
     return new Response(
       JSON.stringify({ 
         success: false, 
@@ -149,4 +159,3 @@ Deno.serve(async (req) => {
     )
   }
 })
-
