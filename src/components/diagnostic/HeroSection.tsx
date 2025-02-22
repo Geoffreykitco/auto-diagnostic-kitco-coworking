@@ -7,21 +7,11 @@ export const HeroSection = ({
   onStart
 }: HeroSectionProps) => {
   return <section className="hero-pattern relative min-h-[80vh] flex items-center justify-center py-16 px-4 overflow-hidden">
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-b from-white/50 to-transparent" 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-transparent" />
       
       <div className="container mx-auto max-w-4xl relative">
-        <motion.div 
-          className="flex flex-col items-center space-y-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="w-[250px] md:w-[320px] transition-all duration-300">
+        <div className="flex flex-col items-center space-y-12">
+          <div className="w-[250px] md:w-[320px]">
             <img 
               src="/lovable-uploads/0719f9d2-282c-4729-ad17-b0baa338ef95.png" 
               alt="KITCO - Des coworkings bien pensés" 
@@ -30,14 +20,9 @@ export const HeroSection = ({
           </div>
 
           <div className="text-center max-w-2xl mx-auto">
-            <motion.h1 
-              className="text-4xl md:text-5xl font-bold text-primary mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-8">
               Auto-diagnostic de votre espace de coworking
-            </motion.h1>
+            </h1>
             
             <button 
               onClick={onStart} 
@@ -46,16 +31,11 @@ export const HeroSection = ({
               Commencer l'évaluation
             </button>
 
-            <motion.p 
-              className="text-lg text-gray-600 mt-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
+            <p className="text-lg text-gray-600 mt-6">
               Évaluez l'efficacité de votre espace selon la méthodologie AARRR
-            </motion.p>
+            </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>;
 };
