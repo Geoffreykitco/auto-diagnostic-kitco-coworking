@@ -90,14 +90,6 @@ export const AuditForm = ({
             className={`${isMobile ? 'h-screen w-screen !m-0 !p-0 !inset-0 !translate-x-0 !translate-y-0 !max-w-none !w-full' : 'sm:max-w-[900px]'} bg-transparent`}
           >
             <div className="flex flex-col md:flex-row w-full h-full bg-white overflow-hidden rounded-lg">
-              <div className="w-full md:w-1/2 h-full">
-                <img
-                  src="/lovable-uploads/c6f25897-c1f1-44a7-b3cc-49493e48f1b1.png"
-                  alt="Personnes travaillant dans un espace de coworking"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
               <div className={`w-full md:w-1/2 p-4 md:p-8 flex flex-col ${isMobile ? 'h-full overflow-y-auto' : ''}`}>
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold text-[#0B1A17] mb-2">
@@ -117,6 +109,14 @@ export const AuditForm = ({
                   onCoworkingNameChange={setCoworkingName}
                   onEmailChange={setEmail}
                   onSubmit={handleSubmitForm}
+                />
+              </div>
+              <div className="w-full md:w-1/2 h-full">
+                <img
+                  src="/lovable-uploads/c6f25897-c1f1-44a7-b3cc-49493e48f1b1.png"
+                  alt="Personnes travaillant dans un espace de coworking"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
