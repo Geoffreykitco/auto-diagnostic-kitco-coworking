@@ -5,7 +5,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
 import { MainContent } from "./content/MainContent";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
-import { sections } from "@/data/sections";
 
 interface CTACardProps {
   globalScore: number;
@@ -26,21 +25,17 @@ export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
-      // Construire les données de diagnostic enrichies
       const diagnosticData = {
-        // Informations de base
         created_at: new Date().toISOString(),
         first_name: formData.firstName,
         last_name: formData.lastName,
         coworking_name: formData.coworkingName,
         email: formData.email,
 
-        // Scores globaux
         global_score: globalScore,
         global_level: globalLevel,
         global_recommendation: globalRecommendation,
 
-        // Données par section
         acquisition_score: sectionScores.acquisition || 0,
         acquisition_level: calculateSectionLevel(sectionScores.acquisition || 0),
         acquisition_recommendation: getSectionMessage('acquisition', calculateSectionLevel(sectionScores.acquisition || 0)),
@@ -64,18 +59,23 @@ export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
 
       console.log('Données envoyées à Baserow:', diagnosticData);
 
-      const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
+      const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true', {
         method: 'POST',
         headers: {
-          'Authorization': 'Token 185511',
+          'Authorization': 'Token xqPtH7BlwDujEpikYwtSj-gAhYcNm3skIARBax3kLH0',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(diagnosticData)
       });
 
       if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Erreur Baserow:', errorData);
         throw new Error('Failed to save form results');
       }
+
+      const responseData = await response.json();
+      console.log('Réponse Baserow:', responseData);
 
       setOpen(false);
     } catch (error) {
