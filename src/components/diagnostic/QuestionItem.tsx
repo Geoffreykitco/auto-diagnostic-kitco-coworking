@@ -26,8 +26,10 @@ export const QuestionItem = ({
       setLocalValue(number ? `${number}%` : '');
       onSelect(number, false);
     } else if (question.question.toLowerCase().includes("ville")) {
-      setLocalValue(value);
-      onSelect(value, false);
+      // On ne garde que les lettres, espaces, tirets et apostrophes
+      const sanitizedValue = value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, '');
+      setLocalValue(sanitizedValue);
+      onSelect(sanitizedValue, false);
     } else {
       setLocalValue(value);
       onSelect(value);
@@ -80,6 +82,7 @@ export const QuestionItem = ({
               ? "Votre réponse (en %)"
               : "Votre réponse..."
           }
+          type={question.question.toLowerCase().includes("ville") ? "text" : undefined}
         />
       ) : (
         <div className="space-y-2.5">

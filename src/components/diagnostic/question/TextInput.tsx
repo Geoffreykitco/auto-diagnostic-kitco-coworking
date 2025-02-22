@@ -3,13 +3,14 @@ interface TextInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
+  type?: string;
 }
 
-export const TextInput = ({ value, onChange, placeholder }: TextInputProps) => {
+export const TextInput = ({ value, onChange, placeholder, type }: TextInputProps) => {
   return (
     <div className="w-full">
       <input
-        type="text"
+        type={type || "text"}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
