@@ -97,7 +97,7 @@ export const CTACard = ({
                   </p>
                 </div>
 
-                <div className="px-4 flex-1">
+                <div className="px-4 flex-1 py-[20px]">
                   <AuditFormContent fullName={fullName} coworkingName={coworkingName} email={email} isSubmitting={isSubmitting} onFullNameChange={setFullName} onCoworkingNameChange={setCoworkingName} onEmailChange={setEmail} onSubmit={handleFormSubmit} />
                 </div>
 
