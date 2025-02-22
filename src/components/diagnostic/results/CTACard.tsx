@@ -80,83 +80,71 @@ export const CTACard = ({
                 Recevoir mon audit et mon plan d'action
               </button>
             </DialogTrigger>
-            <DialogContent className="p-0 bg-white overflow-hidden rounded-2xl max-w-4xl">
-              <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/2 h-64 md:h-auto">
-                  <img
-                    src="/lovable-uploads/0b00eed1-89bc-4729-b0a4-9ec9c7c0f30a.png"
-                    alt="Personnes collaborant dans un espace de coworking"
-                    className="w-full h-full object-cover"
+            <DialogContent className="p-6 bg-white overflow-hidden rounded-2xl max-w-xl">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">
+                  Recevez votre diagnostic personnalisé
+                </h3>
+                <p className="text-gray-600">
+                  Nos experts analyseront votre situation et vous proposeront des solutions concrètes pour optimiser votre taux de remplissage.
+                </p>
+              </div>
+
+              <form onSubmit={(e) => handleFormSubmit(e)} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Prénom et nom
+                  </label>
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Pour faire connaissance :)"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
+                    required
                   />
                 </div>
-                
-                <div className="w-full md:w-1/2 p-8">
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">
-                      Recevez votre diagnostic personnalisé
-                    </h3>
-                    <p className="text-gray-600">
-                      Nos experts analyseront votre situation et vous proposeront des solutions concrètes pour optimiser votre taux de remplissage.
-                    </p>
-                  </div>
 
-                  <form onSubmit={(e) => handleFormSubmit(e)} className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Prénom et nom
-                      </label>
-                      <input
-                        type="text"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Pour faire connaissance :)"
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Nom du coworking
-                      </label>
-                      <input
-                        type="text"
-                        value={coworkingName}
-                        onChange={(e) => setCoworkingName(e.target.value)}
-                        placeholder="Pour en savoir plus sur votre espace"
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Pour vous envoyer le rapport"
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
-                        required
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4"
-                    >
-                      {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
-                    </button>
-
-                    <p className="text-xs text-center text-gray-500 mt-4">
-                      En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
-                    </p>
-                  </form>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Nom du coworking
+                  </label>
+                  <input
+                    type="text"
+                    value={coworkingName}
+                    onChange={(e) => setCoworkingName(e.target.value)}
+                    placeholder="Pour en savoir plus sur votre espace"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
+                    required
+                  />
                 </div>
-              </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Pour vous envoyer le rapport"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4"
+                >
+                  {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
+                </button>
+
+                <p className="text-xs text-center text-gray-500 mt-4">
+                  En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
+                </p>
+              </form>
             </DialogContent>
           </Dialog>
 
