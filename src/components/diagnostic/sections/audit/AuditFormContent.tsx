@@ -48,7 +48,6 @@ export const AuditFormContent = ({
             disabled={isSubmitting}
             aria-label="Prénom et nom"
             aria-required="true"
-            aria-invalid={fullName.length === 0 ? "true" : "false"}
             placeholder="John Doe"
           />
         </div>
@@ -71,7 +70,6 @@ export const AuditFormContent = ({
             disabled={isSubmitting}
             aria-label="Nom du coworking"
             aria-required="true"
-            aria-invalid={coworkingName.length === 0 ? "true" : "false"}
             placeholder="MonCoworking"
           />
         </div>
@@ -89,13 +87,11 @@ export const AuditFormContent = ({
             type="email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             className="text-sm md:text-base"
             required
             disabled={isSubmitting}
             aria-label="Adresse email"
             aria-required="true"
-            aria-invalid={!email.includes('@') ? "true" : "false"}
             placeholder="john@moncoworking.com"
           />
         </div>
@@ -106,11 +102,11 @@ export const AuditFormContent = ({
         whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
         transition={{ duration: 0.2 }}
         type="submit"
-        className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+        className="w-full bg-[#0B1A17] hover:bg-[#132721] text-white font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-lg shadow-md transition-all duration-200 text-sm md:text-base disabled:opacity-50 disabled:cursor-not-allowed mt-4"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
       >
-        {isSubmitting ? "Envoi en cours..." : "Recevoir mon audit"}
+        {isSubmitting ? "Envoi en cours..." : "Finaliser"}
       </motion.button>
     </form>
   );
