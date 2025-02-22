@@ -1,17 +1,15 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
+import { MainContent } from "./content/MainContent";
 
 interface CTACardProps {
   globalScore: number;
 }
 
-export const CTACard = ({
-  globalScore
-}: CTACardProps) => {
+export const CTACard = ({ globalScore }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
 
@@ -50,146 +48,18 @@ export const CTACard = ({
     }
   };
 
-  const {
-    fullName,
-    setFullName,
-    coworkingName,
-    setCoworkingName,
-    email,
-    setEmail,
-    isSubmitting,
-    handleSubmit: handleFormSubmit
-  } = useAuditForm({
+  const formProps = useAuditForm({
     onSubmit: handleSubmit
   });
-
-  const FormContent = () => {
-    if (isMobile) {
-      return (
-        <div className="w-full max-w-full overflow-x-hidden p-4">
-          <div className="mb-6">
-            <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">Augmentez le taux de remplissage de votre espace de coworking</h3>
-            <p className="text-gray-600">Ne laissez pas des opportunités de développement inexplorées. Passez à l'action dès maintenant.</p>
-          </div>
-
-          <form onSubmit={e => handleFormSubmit(e)} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Prénom et nom
-              </label>
-              <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nom du coworking
-              </label>
-              <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
-            </div>
-
-            <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4">
-              {isSubmitting ? "Envoi en cours..." : "Finaliser"}
-            </button>
-
-            <p className="text-xs text-center text-gray-500 mt-4">
-              En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
-            </p>
-          </form>
-        </div>
-      );
-    }
-
-    return (
-      <div className="flex">
-        <div className="w-1/2 h-[600px]">
-          <img
-            src="/lovable-uploads/442250e4-5e03-4d0c-b99b-16747479b95f.png"
-            alt="Collaboration dans un espace de coworking"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="w-1/2 p-8">
-          <div className="mb-6">
-            <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">Augmentez le taux de remplissage de votre espace de coworking</h3>
-            <p className="text-gray-600">Ne laissez pas des opportunités de développement inexplorées. Passez à l'action dès maintenant.</p>
-          </div>
-
-          <form onSubmit={e => handleFormSubmit(e)} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Prénom et nom
-              </label>
-              <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nom du coworking
-              </label>
-              <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
-            </div>
-
-            <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4">
-              {isSubmitting ? "Envoi en cours..." : "Finaliser"}
-            </button>
-
-            <p className="text-xs text-center text-gray-500 mt-4">
-              En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
-            </p>
-          </form>
-        </div>
-      </div>
-    );
-  };
-
-  const Content = () => (
-    <div className={`${isMobile ? 'w-full max-w-full overflow-x-hidden' : 'max-w-5xl'} mx-auto px-4 py-8`}>
-      <div className="text-center space-y-2">
-        <h2 className="font-semibold text-gray-900 text-xl">
-          {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto md:text-base text-sm">
-          Vous avez maintenant une vision claire de la performance de votre espace de coworking.
-        </p>
-
-        <div>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <button className="mt-2 bg-[#0B1A17] text-white px-6 py-2.5 rounded-lg text-sm md:text-base hover:bg-[#132721] hover:scale-[1.02] transform transition-colors duration-200">
-                Recevoir mon audit et mon plan d'action
-              </button>
-            </DialogTrigger>
-            <DialogContent className={`p-0 bg-white overflow-hidden rounded-2xl ${isMobile ? 'w-full max-w-full mx-4' : 'max-w-4xl'}`}>
-              <FormContent />
-            </DialogContent>
-          </Dialog>
-
-          <p className="font-medium mt-1 text-gray-500 text-xs">
-            Nous garantissons la confidentialité de vos données.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
 
   if (isMobile) {
     return (
       <div className="bg-white w-full max-w-full overflow-x-hidden">
-        <Content />
+        <MainContent
+          open={open}
+          setOpen={setOpen}
+          formProps={formProps}
+        />
       </div>
     );
   }
@@ -201,7 +71,11 @@ export const CTACard = ({
       transition={{ duration: 0.5 }}
       className="bg-white"
     >
-      <Content />
+      <MainContent
+        open={open}
+        setOpen={setOpen}
+        formProps={formProps}
+      />
     </motion.div>
   );
 };
