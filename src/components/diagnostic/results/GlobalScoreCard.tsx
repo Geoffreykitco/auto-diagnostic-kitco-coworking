@@ -92,24 +92,21 @@ export const GlobalScoreCard = ({
           <h3 className="text-lg font-semibold mb-2">Répartition des scores par partie</h3>
           <div className="flex-1 min-h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
+              <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
                 <PolarGrid stroke="#e5e7eb" strokeWidth={0.5} />
                 <PolarAngleAxis 
                   dataKey="subject" 
                   tick={{
                     fill: '#374151',
-                    fontSize: 12
+                    fontSize: 13,
+                    fontWeight: 500
                   }} 
-                  stroke="#9CA3AF"
+                  stroke="#9CA3AF" 
                   tickLine={false}
-                  dy={4}
                   style={{
-                    fontWeight: 500,
+                    textAnchor: 'middle'
                   }}
-                  tickFormatter={(value) => {
-                    const words = value.split(' ');
-                    return [value]; // Retourne le texte en une seule ligne
-                  }}
+                  dy={6}
                 />
                 <PolarRadiusAxis 
                   angle={30} 
