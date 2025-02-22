@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
@@ -63,12 +62,12 @@ export const GlobalScoreCard = ({
         <Progress value={score} className="h-3" indicatorClassName={getProgressColor(score)} />
 
         <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
-          <div className="text-sm">
+          <div className="text-sm text-left">
             Niveau : <span className={`font-medium ${getLevelColor(score)}`}>
               {score >= 80 ? "Avancé" : score >= 50 ? "Intermédiaire" : "Débutant"}
             </span>
           </div>
-          <div className="text-gray-600 text-left text-sm whitespace-pre-line">
+          <div className="text-gray-600 text-left text-sm whitespace-pre-line prose prose-sm">
             {getGlobalMessage(score)}
           </div>
         </div>
