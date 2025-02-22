@@ -92,7 +92,7 @@ export const AuditForm = ({
           >
             <div className="flex flex-col md:flex-row w-full h-full">
               {!isMobile && (
-                <div className="w-full md:w-1/2 relative">
+                <div className="w-full md:w-1/2 relative order-first">
                   <img
                     src="/lovable-uploads/22e7f2d0-f84d-4adc-a5cb-21d985f09ac0.png"
                     alt="Espace de coworking"
@@ -101,7 +101,7 @@ export const AuditForm = ({
                   />
                 </div>
               )}
-              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col`}>
+              <div className={`w-full md:w-1/2 p-4 md:p-6 ${isMobile ? 'h-full overflow-y-auto' : ''} flex flex-col order-last`}>
                 <div className="mb-6">
                   <h3 className="text-lg md:text-xl font-semibold text-[#0B1A17] mb-2">
                     Optimisez le taux de remplissage de votre coworking
