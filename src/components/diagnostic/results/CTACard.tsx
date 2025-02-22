@@ -1,20 +1,16 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
-
 interface CTACardProps {
   globalScore: number;
 }
-
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
-
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -30,7 +26,6 @@ export const CTACard = ({
         email: formData.email,
         global_score: globalScore
       };
-
       const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
         method: 'POST',
         headers: {
@@ -39,17 +34,14 @@ export const CTACard = ({
         },
         body: JSON.stringify(diagnosticData)
       });
-
       if (!response.ok) {
         throw new Error('Failed to save form results');
       }
-
       setOpen(false);
     } catch (error) {
       console.error('Error saving form results:', error);
     }
   };
-
   const {
     fullName,
     setFullName,
@@ -62,9 +54,7 @@ export const CTACard = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-
-  const Content = () => (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+  const Content = () => <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="text-center space-y-2">
         <h2 className="font-semibold text-gray-900 text-xl">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
@@ -82,62 +72,35 @@ export const CTACard = ({
             </DialogTrigger>
             <DialogContent className="p-6 bg-white overflow-hidden rounded-2xl max-w-xl">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">
-                  Recevez votre diagnostic personnalisé
-                </h3>
+                <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">Augmentez le taux de remplissage de votre espace de coworking</h3>
                 <p className="text-gray-600">
                   Nos experts analyseront votre situation et vous proposeront des solutions concrètes pour optimiser votre taux de remplissage.
                 </p>
               </div>
 
-              <form onSubmit={(e) => handleFormSubmit(e)} className="space-y-4">
+              <form onSubmit={e => handleFormSubmit(e)} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Prénom et nom
                   </label>
-                  <input
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Pour faire connaissance :)"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
-                    required
-                  />
+                  <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Nom du coworking
                   </label>
-                  <input
-                    type="text"
-                    value={coworkingName}
-                    onChange={(e) => setCoworkingName(e.target.value)}
-                    placeholder="Pour en savoir plus sur votre espace"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
-                    required
-                  />
+                  <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Email
                   </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Pour vous envoyer le rapport"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
-                    required
-                  />
+                  <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4"
-                >
+                <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4">
                   {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
                 </button>
 
@@ -153,25 +116,21 @@ export const CTACard = ({
           </p>
         </div>
       </div>
-    </div>
-  );
-
+    </div>;
   if (isMobile) {
-    return (
-      <div className="bg-white">
+    return <div className="bg-white">
         <Content />
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white"
-    >
+  return <motion.div initial={{
+    opacity: 0,
+    y: 20
+  }} animate={{
+    opacity: 1,
+    y: 0
+  }} transition={{
+    duration: 0.5
+  }} className="bg-white">
       <Content />
-    </motion.div>
-  );
+    </motion.div>;
 };
