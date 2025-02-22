@@ -9,9 +9,10 @@ import { sections } from "@/data/sections";
 
 interface CTACardProps {
   globalScore: number;
+  sectionScores: Record<string, number>;
 }
 
-export const CTACard = ({ globalScore }: CTACardProps) => {
+export const CTACard = ({ globalScore, sectionScores }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
 

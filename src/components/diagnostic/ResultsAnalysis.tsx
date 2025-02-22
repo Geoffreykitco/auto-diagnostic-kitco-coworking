@@ -155,7 +155,7 @@ export const ResultsAnalysis = ({
       </div>
       
       <div className="w-full mt-10">
-        <CTACard globalScore={globalScore} />
+        <CTACard globalScore={globalScore} sectionScores={sectionScores} />
       </div>
     </div>
   );
