@@ -72,9 +72,9 @@ Deno.serve(async (req) => {
 
     console.log('Formatted data for Baserow:', baserowData);
 
-    // Envoi à Baserow
+    // Envoi à Baserow avec l'ID correct de la table
     const baserowResponse = await fetch(
-      'https://api.baserow.io/api/database/rows/table/[TABLE_ID]/?user_field_names=true',
+      'https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true',
       {
         method: 'POST',
         headers: {
@@ -120,4 +120,3 @@ function getInformationValue(answer: { value: string | number | number[] | null;
   if (Array.isArray(answer.value)) return answer.value.join(', ');
   return answer.value.toString();
 }
-
