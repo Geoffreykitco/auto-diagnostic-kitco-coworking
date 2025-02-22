@@ -1,3 +1,4 @@
+
 import { Question } from "@/components/diagnostic/question/types";
 
 export const informationsSection = {
@@ -106,7 +107,7 @@ export const informationsSection = {
       ]
     },
     {
-      question: "Quel est votre pourcentage moyen de remplissage ? (en %)",
+      question: "Quel est votre pourcentage moyen de remplissage ?",
       tooltip: "Le taux d'occupation est un indicateur clé de la performance et de l'attractivité de votre espace.",
       type: "text",
       isInformative: true,

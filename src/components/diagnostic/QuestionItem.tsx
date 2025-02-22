@@ -4,6 +4,7 @@ import { QuestionTitle } from "./question/QuestionTitle";
 import { TextInput } from "./question/TextInput";
 import { OptionButton } from "./question/OptionButton";
 import type { QuestionItemProps } from "./question/types";
+import { useState } from "react";
 
 export const QuestionItem = ({
   question,
@@ -11,6 +12,8 @@ export const QuestionItem = ({
   onSelect,
   selectedValue,
 }: QuestionItemProps) => {
+  const [localValue, setLocalValue] = useState(selectedValue?.toString() || '');
+
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (question.question.toLowerCase().includes("pourcentage") || 
@@ -20,16 +23,21 @@ export const QuestionItem = ({
       let number = parseInt(numericValue);
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
+      setLocalValue(number ? `${number}%` : '');
       onSelect(number);
+    } else if (question.question.toLowerCase().includes("ville")) {
+      // Pour le champ ville, on met à jour la valeur locale sans toast
+      setLocalValue(value);
+      onSelect(value);
     } else {
-      // Pour les champs texte
+      // Pour les autres champs texte
+      setLocalValue(value);
       onSelect(value);
     }
   };
 
   const handleOptionSelect = (optionIndex: number) => {
     if (question.type === 'multiple') {
-      // Pour les questions à choix multiples, on peut sélectionner/désélectionner
       const newSelection = typeof selectedValue === 'object' ? [...selectedValue] : [];
       const index = newSelection.indexOf(optionIndex);
       if (index === -1) {
@@ -39,7 +47,6 @@ export const QuestionItem = ({
       }
       onSelect(newSelection);
     } else {
-      // Pour les questions à choix unique, on sélectionne/désélectionne
       onSelect(selectedValue === optionIndex ? null : optionIndex);
     }
   };
@@ -66,7 +73,7 @@ export const QuestionItem = ({
 
       {question.type === 'text' ? (
         <TextInput
-          value={selectedValue?.toString() || ''}
+          value={localValue}
           onChange={handleTextChange}
           placeholder={
             question.question.toLowerCase().includes("remplissage")
