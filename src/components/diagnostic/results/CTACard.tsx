@@ -5,9 +5,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { AuditFormContent } from "../sections/audit/AuditFormContent";
 import { useAuditForm } from "@/hooks/use-audit-form";
+
 interface CTACardProps {
   globalScore: number;
 }
+
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
@@ -16,6 +18,7 @@ export const CTACard = ({
   } = useToast();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
+
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -57,6 +60,7 @@ export const CTACard = ({
       });
     }
   };
+
   const {
     fullName,
     setFullName,
@@ -69,6 +73,7 @@ export const CTACard = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
+
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await handleFormSubmit(e);
@@ -76,6 +81,7 @@ export const CTACard = ({
       setOpen(false);
     }
   };
+
   return <motion.div initial={{
     opacity: 0,
     y: 20
@@ -96,7 +102,7 @@ export const CTACard = ({
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <button className="mt-4 bg-[#0B1A17] text-white px-8 py-3 rounded-lg hover:bg-[#132721] transition-colors duration-200 hover:scale-[1.02] transform text-sm md:text-base my-[20px]">
+              <button className={`mt-4 bg-[#0B1A17] text-white px-8 py-3 rounded-lg hover:bg-[#132721] transition-colors duration-200 text-sm md:text-base my-[20px] ${!isMobile && 'hover:scale-[1.02] transform'}`}>
                 Recevoir mon audit et mon plan d'action
               </button>
             </DialogTrigger>
