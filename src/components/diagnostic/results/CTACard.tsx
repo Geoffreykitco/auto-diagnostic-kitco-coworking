@@ -23,7 +23,11 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     coworkingName: string;
     email: string;
   }) => {
-    const success = await submitDiagnostic(formData, {
+    const success = await submitDiagnostic({
+      fullName: `${formData.firstName} ${formData.lastName}`,
+      coworkingName: formData.coworkingName,
+      email: formData.email
+    }, {
       globalScore,
       sectionScores,
       answers
