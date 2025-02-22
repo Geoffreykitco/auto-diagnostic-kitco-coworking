@@ -5,11 +5,9 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { AuditFormContent } from "../sections/audit/AuditFormContent";
 import { useAuditForm } from "@/hooks/use-audit-form";
-
 interface CTACardProps {
   globalScore: number;
 }
-
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
@@ -18,7 +16,6 @@ export const CTACard = ({
   } = useToast();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
-
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -60,7 +57,6 @@ export const CTACard = ({
       });
     }
   };
-
   const {
     fullName,
     setFullName,
@@ -73,7 +69,6 @@ export const CTACard = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await handleFormSubmit(e);
@@ -81,13 +76,15 @@ export const CTACard = ({
       setOpen(false);
     }
   };
-
-  return <motion.div 
-    initial={{ opacity: 0, y: 20 }} 
-    animate={{ opacity: 1, y: 0 }} 
-    transition={{ duration: 0.5 }} 
-    className="bg-white"
-  >
+  return <motion.div initial={{
+    opacity: 0,
+    y: 20
+  }} animate={{
+    opacity: 1,
+    y: 0
+  }} transition={{
+    duration: 0.5
+  }} className="bg-white">
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="text-center space-y-4">
         <h2 className="text-2xl font-medium text-gray-900">
@@ -117,24 +114,13 @@ export const CTACard = ({
                   <p className="text-gray-600 text-sm md:text-base">Recevez lees résultats détaillés du dignostic et passez à l'action.</p>
                 </div>
 
-                <AuditFormContent 
-                  fullName={fullName} 
-                  coworkingName={coworkingName} 
-                  email={email} 
-                  isSubmitting={isSubmitting} 
-                  onFullNameChange={setFullName} 
-                  onCoworkingNameChange={setCoworkingName} 
-                  onEmailChange={setEmail} 
-                  onSubmit={handleSubmitForm} 
-                />
+                <AuditFormContent fullName={fullName} coworkingName={coworkingName} email={email} isSubmitting={isSubmitting} onFullNameChange={setFullName} onCoworkingNameChange={setCoworkingName} onEmailChange={setEmail} onSubmit={handleSubmitForm} />
               </div>
             </div>
           </DialogContent>
         </Dialog>
 
-        <p className="text-sm text-gray-500 italic mt-4">
-          Réponse garantie sous 24h ouvrées
-        </p>
+        <p className="text-gray-500 italic mt-4 text-xs">Nous garantissons la confidentialité de vos données.</p>
       </div>
     </div>
   </motion.div>;
