@@ -73,9 +73,7 @@ export const CTACard = ({
             <DialogContent className="p-6 bg-white overflow-hidden rounded-2xl max-w-xl">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">Augmentez le taux de remplissage de votre espace de coworking</h3>
-                <p className="text-gray-600">
-                  Nos experts analyseront votre situation et vous proposeront des solutions concrètes pour optimiser votre taux de remplissage.
-                </p>
+                <p className="text-gray-600">Ne laissez pas des opportunités de développement inexplorées. Passez à l'action dès maintenant.</p>
               </div>
 
               <form onSubmit={e => handleFormSubmit(e)} className="space-y-4">
