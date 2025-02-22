@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -12,6 +11,7 @@ import {
 import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
+import { Footer } from "./Footer";
 
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, number>>;
@@ -144,6 +144,8 @@ export const ResultsAnalysis = ({
       <div className="w-full mt-12">
         <CTACard globalScore={globalScore} />
       </div>
+
+      <Footer />
     </div>
   );
 };
