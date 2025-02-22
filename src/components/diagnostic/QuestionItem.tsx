@@ -16,6 +16,9 @@ export const QuestionItem = ({
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const shouldShowToast = !question.question.toLowerCase().includes("ville") && 
+                          !question.question.toLowerCase().includes("remplissage");
+
     if (question.question.toLowerCase().includes("pourcentage") || 
         question.question.toLowerCase().includes("remplissage")) {
       const numericValue = value.replace(/[^0-9]/g, '');
@@ -23,10 +26,10 @@ export const QuestionItem = ({
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
       setLocalValue(number ? `${number}%` : '');
-      onSelect(number, false);
+      onSelect(number, shouldShowToast);
     } else if (question.question.toLowerCase().includes("ville")) {
       setLocalValue(value);
-      onSelect(value, false);
+      onSelect(value, shouldShowToast);
     } else {
       setLocalValue(value);
       onSelect(value);
