@@ -1,16 +1,20 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
+
 interface CTACardProps {
   globalScore: number;
 }
+
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
+
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -26,6 +30,7 @@ export const CTACard = ({
         email: formData.email,
         global_score: globalScore
       };
+
       const response = await fetch('https://api.baserow.io/api/database/rows/table/451692/', {
         method: 'POST',
         headers: {
@@ -34,14 +39,17 @@ export const CTACard = ({
         },
         body: JSON.stringify(diagnosticData)
       });
+
       if (!response.ok) {
         throw new Error('Failed to save form results');
       }
+
       setOpen(false);
     } catch (error) {
       console.error('Error saving form results:', error);
     }
   };
+
   const {
     fullName,
     setFullName,
@@ -54,7 +62,9 @@ export const CTACard = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-  const Content = () => <div className="max-w-5xl mx-auto px-4 py-8">
+
+  const Content = () => (
+    <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="text-center space-y-2">
         <h2 className="font-semibold text-gray-900 text-xl">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
@@ -99,7 +109,7 @@ export const CTACard = ({
                 </div>
 
                 <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4">
-                  {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
+                  {isSubmitting ? "Envoi en cours..." : "Finaliser"}
                 </button>
 
                 <p className="text-xs text-center text-gray-500 mt-4">
@@ -114,21 +124,25 @@ export const CTACard = ({
           </p>
         </div>
       </div>
-    </div>;
+    </div>
+  );
+
   if (isMobile) {
-    return <div className="bg-white">
+    return (
+      <div className="bg-white">
         <Content />
-      </div>;
+      </div>
+    );
   }
-  return <motion.div initial={{
-    opacity: 0,
-    y: 20
-  }} animate={{
-    opacity: 1,
-    y: 0
-  }} transition={{
-    duration: 0.5
-  }} className="bg-white">
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white"
+    >
       <Content />
-    </motion.div>;
+    </motion.div>
+  );
 };
