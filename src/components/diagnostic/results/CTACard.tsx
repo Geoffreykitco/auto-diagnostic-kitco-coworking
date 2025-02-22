@@ -5,11 +5,9 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { AuditFormContent } from "../sections/audit/AuditFormContent";
 import { useAuditForm } from "@/hooks/use-audit-form";
-
 interface CTACardProps {
   globalScore: number;
 }
-
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
@@ -18,7 +16,6 @@ export const CTACard = ({
   } = useToast();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
-
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -60,7 +57,6 @@ export const CTACard = ({
       });
     }
   };
-
   const {
     fullName,
     setFullName,
@@ -73,7 +69,6 @@ export const CTACard = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await handleFormSubmit(e);
@@ -81,16 +76,12 @@ export const CTACard = ({
       setOpen(false);
     }
   };
-
-  const Content = () => (
-    <div className={`max-w-5xl mx-auto px-4 ${isMobile ? 'py-4' : 'py-8'}`}>
+  const Content = () => <div className={`max-w-5xl mx-auto px-4 ${isMobile ? 'py-4' : 'py-8'}`}>
       <div className="text-center space-y-2">
         <h2 className="font-semibold text-gray-900 text-xl">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
-          Vous avez maintenant une vision claire de la performance de votre espace de coworking. Transformez ces insights en résultats concrets.
-        </p>
+        <p className="text-gray-600 max-w-2xl mx-auto md:text-base text-sm">Vous avez maintenant une vision claire de la performance de votre espace de coworking. </p>
 
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -124,31 +115,21 @@ export const CTACard = ({
           Nous garantissons la confidentialité de vos données.
         </p>
       </div>
-    </div>
-  );
-
+    </div>;
   if (isMobile) {
     return <div className="bg-white">
       <Content />
     </div>;
   }
-
-  return (
-    <motion.div 
-      initial={{
-        opacity: 0,
-        y: 20
-      }} 
-      animate={{
-        opacity: 1,
-        y: 0
-      }} 
-      transition={{
-        duration: 0.5
-      }} 
-      className="bg-white"
-    >
+  return <motion.div initial={{
+    opacity: 0,
+    y: 20
+  }} animate={{
+    opacity: 1,
+    y: 0
+  }} transition={{
+    duration: 0.5
+  }} className="bg-white">
       <Content />
-    </motion.div>
-  );
+    </motion.div>;
 };
