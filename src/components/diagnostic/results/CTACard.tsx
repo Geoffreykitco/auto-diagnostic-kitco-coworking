@@ -1,7 +1,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 import { useAuditForm } from "@/hooks/use-audit-form";
@@ -13,9 +13,7 @@ interface CTACardProps {
 export const CTACard = ({
   globalScore
 }: CTACardProps) => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
 
@@ -94,10 +92,9 @@ export const CTACard = ({
                 Recevoir mon audit et mon plan d'action
               </button>
             </DialogTrigger>
-            <DialogContent className="bg-white p-0 overflow-hidden sm:max-w-[900px] rounded-lg">
-              <DialogTitle className="sr-only">Formulaire d'audit coworking</DialogTitle>
+            <DialogContent className="p-0 bg-white overflow-hidden rounded-2xl max-w-4xl">
               <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 h-64 md:h-auto">
                   <img
                     src="/lovable-uploads/0b00eed1-89bc-4729-b0a4-9ec9c7c0f30a.png"
                     alt="Personnes collaborant dans un espace de coworking"
@@ -106,60 +103,70 @@ export const CTACard = ({
                 </div>
                 
                 <div className="w-full md:w-1/2 p-8">
-                  <div>
-                    <h2 className="text-2xl font-medium mb-2">
-                      Optimisez le taux de remplissage de votre coworking
-                    </h2>
-                    <p className="text-gray-600 mb-8">
-                      Vous avez maintenant une vision claire de la performance de votre espace de coworking.
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold text-[#0B1A17] mb-2">
+                      Recevez votre diagnostic personnalisé
+                    </h3>
+                    <p className="text-gray-600">
+                      Nos experts analyseront votre situation et vous proposeront des solutions concrètes pour optimiser votre taux de remplissage.
                     </p>
                   </div>
 
-                  <div className="space-y-6">
+                  <form onSubmit={(e) => handleFormSubmit(e)} className="space-y-4">
                     <div>
-                      <label className="block mb-2">Prénom et nom</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Prénom et nom
+                      </label>
                       <input
                         type="text"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="Pour faire connaissance :)"
-                        className="w-full p-3 border border-gray-300 rounded-lg"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block mb-2">Nom du coworking</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Nom du coworking
+                      </label>
                       <input
                         type="text"
                         value={coworkingName}
                         onChange={(e) => setCoworkingName(e.target.value)}
                         placeholder="Pour en savoir plus sur votre espace"
-                        className="w-full p-3 border border-gray-300 rounded-lg"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block mb-2">Email</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Email
+                      </label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Pour vous envoyer le rapport"
-                        className="w-full p-3 border border-gray-300 rounded-lg"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent"
                         required
                       />
                     </div>
 
                     <button
-                      onClick={(e) => handleFormSubmit(e)}
+                      type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#0B1A17] text-white py-4 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50"
+                      className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4"
                     >
-                      {isSubmitting ? "Envoi en cours..." : "Finaliser"}
+                      {isSubmitting ? "Envoi en cours..." : "Obtenir mon diagnostic personnalisé"}
                     </button>
-                  </div>
+
+                    <p className="text-xs text-center text-gray-500 mt-4">
+                      En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
+                    </p>
+                  </form>
                 </div>
               </div>
             </DialogContent>
