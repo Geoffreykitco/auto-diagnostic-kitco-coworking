@@ -1,3 +1,4 @@
+
 import { FormEventHandler } from "react";
 interface MobileFormProps {
   fullName: string;
@@ -30,7 +31,7 @@ export const MobileForm = ({
           </p>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="space-y-6">
+        <form onSubmit={handleFormSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Prénom et nom
@@ -54,12 +55,12 @@ export const MobileForm = ({
         </form>
       </div>
 
-      <div className="px-6 py-6 bg-white border-t border-gray-200">
+      <div className="px-6 py-4 bg-white border-t border-gray-200">
         <button type="submit" form="mobile-form" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-4 rounded-xl font-medium hover:bg-[#132721] active:transform active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-base">
           {isSubmitting ? "Envoi en cours..." : "Finaliser"}
         </button>
 
-        <p className="text-center text-gray-600 mt-4 px-2 leading-relaxed text-xs">
+        <p className="text-center text-gray-600 mt-3 px-2 leading-relaxed text-xs">
           En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
         </p>
       </div>
