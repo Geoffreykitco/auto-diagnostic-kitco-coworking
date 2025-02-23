@@ -18,16 +18,16 @@ serve(async (req) => {
     console.log('Token Baserow présent:', !!Deno.env.get('BASEROW_TOKEN'));
     
     const baserowData = {
-      "Prénom": diagnosticData.first_name,
+      "Prenom": diagnosticData.first_name,
       "Nom": diagnosticData.last_name,
       "Nom du coworking": diagnosticData.coworking_name,
       "Email": diagnosticData.email,
-      "Date de création": diagnosticData.created_at,
+      "Date": diagnosticData.created_at,
       "Score global": diagnosticData.global_score,
       "Niveau global": diagnosticData.global_level,
       "Score acquisition": Number(diagnosticData.acquisition_score) || 0,
       "Score activation": Number(diagnosticData.activation_score) || 0,
-      "Score rétention": Number(diagnosticData.retention_score) || 0,
+      "Score retention": Number(diagnosticData.retention_score) || 0,
       "Score revenus": Number(diagnosticData.revenus_score) || 0,
       "Score recommandation": Number(diagnosticData.recommandation_score) || 0
     };
@@ -53,12 +53,21 @@ serve(async (req) => {
       body: JSON.stringify(baserowData)
     });
 
+    console.log('=== Détails de la réponse ===');
+    console.log('Status:', baserowResponse.status);
+    console.log('Headers:', JSON.stringify(Object.fromEntries(baserowResponse.headers.entries()), null, 2));
+
     if (!baserowResponse.ok) {
       const errorText = await baserowResponse.text();
       console.error('=== Erreur détaillée Baserow ===');
-      console.error('Status:', baserowResponse.status);
-      console.error('Headers:', JSON.stringify(Object.fromEntries(baserowResponse.headers.entries()), null, 2));
-      console.error('Réponse:', errorText);
+      console.error('Réponse brute:', errorText);
+      
+      try {
+        const errorJson = JSON.parse(errorText);
+        console.error('Erreur JSON:', JSON.stringify(errorJson, null, 2));
+      } catch (e) {
+        console.error('La réponse n\'est pas du JSON valide');
+      }
       
       throw new Error(`Erreur Baserow: ${baserowResponse.status} - ${errorText}`);
     }
