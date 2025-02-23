@@ -24,16 +24,21 @@ export const useDiagnosticSubmission = () => {
   const handleSubmit = async (formData: FormData, diagnosticData: DiagnosticData) => {
     try {
       setIsSubmitting(true);
-      console.log('Début de la soumission du formulaire');
+      console.log('=== DÉBUT SOUMISSION DIAGNOSTIC ===');
+      console.log('FormData reçue:', formData);
+      console.log('DiagnosticData reçue:', diagnosticData);
       
       const { globalScore, sectionScores, answers } = diagnosticData;
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
+      console.log('Formatage des réponses...');
       const formattedAnswers = formatAnswersForSubmission(answers);
+      console.log('Réponses formatées:', formattedAnswers);
 
       // Séparer le nom complet en prénom et nom
       const [firstName = '', lastName = ''] = formData.fullName.split(' ');
+      console.log('Nom séparé:', { firstName, lastName });
 
       const payload = {
         first_name: firstName,
@@ -41,39 +46,42 @@ export const useDiagnosticSubmission = () => {
         email: formData.email,
         coworking_name: formData.coworkingName,
         answers: formattedAnswers,
-        global_score: globalScore,
+        global_score: globalScore.toString(), // Conversion en string pour Baserow
         global_level: globalLevel,
         global_recommendation: globalRecommendation,
-        acquisition_score: sectionScores.acquisition || 0,
+        acquisition_score: sectionScores.acquisition?.toString() || "0",
         acquisition_level: calculateSectionLevel(sectionScores.acquisition || 0),
         acquisition_recommendation: getSectionMessage('acquisition', calculateSectionLevel(sectionScores.acquisition || 0)),
-        activation_score: sectionScores.activation || 0,
+        activation_score: sectionScores.activation?.toString() || "0",
         activation_level: calculateSectionLevel(sectionScores.activation || 0),
         activation_recommendation: getSectionMessage('activation', calculateSectionLevel(sectionScores.activation || 0)),
-        retention_score: sectionScores.retention || 0,
+        retention_score: sectionScores.retention?.toString() || "0",
         retention_level: calculateSectionLevel(sectionScores.retention || 0),
         retention_recommendation: getSectionMessage('retention', calculateSectionLevel(sectionScores.retention || 0)),
-        revenus_score: sectionScores.revenus || 0,
+        revenus_score: sectionScores.revenus?.toString() || "0",
         revenus_level: calculateSectionLevel(sectionScores.revenus || 0),
         revenus_recommendation: getSectionMessage('revenus', calculateSectionLevel(sectionScores.revenus || 0)),
-        recommandation_score: sectionScores.recommandation || 0,
+        recommandation_score: sectionScores.recommandation?.toString() || "0",
         recommandation_level: calculateSectionLevel(sectionScores.recommandation || 0),
         recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0))
       };
 
-      console.log('Données formatées pour envoi:', payload);
+      console.log('=== ENVOI DU PAYLOAD À LA FONCTION EDGE ===');
+      console.log(JSON.stringify(payload, null, 2));
 
       const { data, error } = await supabase.functions.invoke('save-diagnostic', {
         body: payload
       });
 
+      console.log('Réponse de la fonction Edge:', { data, error });
+
       if (error) {
-        console.error('Erreur lors de l\'envoi:', error);
+        console.error('Erreur détaillée lors de l\'envoi:', error);
         throw new Error(error.message || 'Une erreur est survenue lors de l\'envoi');
       }
 
       if (!data?.success) {
-        console.error('Erreur de réponse:', data);
+        console.error('Erreur détaillée de la réponse:', data);
         throw new Error(data?.error || 'Échec de l\'enregistrement des résultats');
       }
 
@@ -84,7 +92,8 @@ export const useDiagnosticSubmission = () => {
 
       return true;
     } catch (error) {
-      console.error('Error saving form results:', error);
+      console.error('=== ERREUR DÉTAILLÉE ===');
+      console.error(error);
       toast({
         title: "Erreur",
         description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
@@ -92,6 +101,7 @@ export const useDiagnosticSubmission = () => {
       });
       return false;
     } finally {
+      console.log('=== FIN SOUMISSION DIAGNOSTIC ===');
       setIsSubmitting(false);
     }
   };
