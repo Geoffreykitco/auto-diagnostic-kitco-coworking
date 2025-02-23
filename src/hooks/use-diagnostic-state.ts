@@ -16,6 +16,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [currentSection, setCurrentSection] = useState<SectionType>('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, Answer>>>({});
   const [sectionScores, setSectionScores] = useState<Record<string, { level: ScoreLevel; message: string; score: number }>>({});
+  const sectionChangeTimeoutRef = useRef<number>();
 
   const calculateScore = (question: Question, value: string | number | number[] | null): number => {
     if (question.isInformative) return 0;
@@ -124,6 +125,14 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     }
   }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+      left: 0
+    });
+  }, []);
+
   const handleNext = useCallback(() => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
@@ -142,23 +151,43 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
         return;
       }
 
-      window.scrollTo({ top: 0 });
+      if (sectionChangeTimeoutRef.current) {
+        clearTimeout(sectionChangeTimeoutRef.current);
+      }
+
       setCurrentSection(sectionOrder[currentIndex + 1]);
+      
+      requestAnimationFrame(() => {
+        sectionChangeTimeoutRef.current = window.setTimeout(() => {
+          scrollToTop();
+        }, 150);
+      });
     }
-  }, [currentSection, answers, toast]);
+  }, [currentSection, answers, toast, scrollToTop]);
 
   const handlePrevious = useCallback(() => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
     if (currentIndex > 0) {
-      window.scrollTo({ top: 0 });
+      if (sectionChangeTimeoutRef.current) {
+        clearTimeout(sectionChangeTimeoutRef.current);
+      }
+
       setCurrentSection(sectionOrder[currentIndex - 1]);
+      
+      requestAnimationFrame(() => {
+        sectionChangeTimeoutRef.current = window.setTimeout(() => {
+          scrollToTop();
+        }, 150);
+      });
     }
-  }, [currentSection]);
+  }, [currentSection, scrollToTop]);
 
   useEffect(() => {
     return () => {
-      // No need for sectionChangeTimeoutRef.current here
+      if (sectionChangeTimeoutRef.current) {
+        clearTimeout(sectionChangeTimeoutRef.current);
+      }
     };
   }, []);
 
