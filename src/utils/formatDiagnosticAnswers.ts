@@ -5,15 +5,21 @@ export const formatAnswersForSubmission = (answers: Record<string, Record<number
   // Formatage des réponses par section
   Object.entries(answers).forEach(([sectionKey, sectionAnswers]) => {
     if (sectionKey === 'informations') {
+      // Pour la section informations, on utilise le préfixe info_
       Object.entries(sectionAnswers).forEach(([questionIndex, answer]) => {
-        const prefix = 'info_';
-        formattedAnswers[`${prefix}${questionIndex}`] = answer.value?.toString() || '';
+        const value = Array.isArray(answer.value) 
+          ? answer.value.join(', ') // Si c'est un tableau, on le joint avec des virgules
+          : answer.value?.toString() || ''; // Sinon on convertit en string
+        formattedAnswers[`info_${questionIndex}`] = value;
       });
-    } else {
+    } else if (sectionKey !== 'resultats') { // On ignore la section résultats
       // Pour les autres sections (acquisition, activation, etc.)
       const prefix = sectionKey.substring(0, 3) + '_';
       Object.entries(sectionAnswers).forEach(([questionIndex, answer]) => {
-        formattedAnswers[`${prefix}${questionIndex}`] = answer.value?.toString() || '';
+        const value = Array.isArray(answer.value) 
+          ? answer.value.join(', ') // Si c'est un tableau, on le joint avec des virgules
+          : answer.value?.toString() || ''; // Sinon on convertit en string
+        formattedAnswers[`${prefix}${questionIndex}`] = value;
       });
     }
   });
