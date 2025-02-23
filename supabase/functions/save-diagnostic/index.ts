@@ -15,71 +15,84 @@ Deno.serve(async (req) => {
     // Récupération du token Baserow depuis les variables d'environnement
     const BASEROW_TOKEN = Deno.env.get('BASEROW_TOKEN');
     if (!BASEROW_TOKEN) {
-      throw new Error('Token Baserow non configuré');
+      console.error('Token Baserow manquant');
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: 'Configuration error: Token Baserow manquant' 
+        }),
+        { 
+          status: 200,
+          headers: { 
+            ...corsHeaders,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
     }
 
     console.log('Préparation de la requête Baserow...');
 
-    // Préparation des données pour Baserow
+    // Préparation des données pour Baserow - on s'assure que toutes les valeurs sont des strings
     const baserowData = {
-      fullName: payload.first_name + ' ' + payload.last_name,
-      email: payload.email,
-      coworking_name: payload.coworking_name,
-      info_anciennete: payload.answers.info_anciennete,
-      info_type_bureaux: payload.answers.info_type_bureaux,
-      info_type_abonnement: payload.answers.info_type_abonnement,
-      info_statut: payload.answers.info_statut,
-      info_superficie: payload.answers.info_superficie,
-      info_concurrence: payload.answers.info_concurrence,
-      info_capacite: payload.answers.info_capacite,
-      info_ville: payload.answers.info_ville,
-      info_horaires: payload.answers.info_horaires,
-      info_remplissage: payload.answers.info_remplissage,
-      info_type_clientele: payload.answers.info_type_clientele,
-      info_services: payload.answers.info_services,
-      acq_canaux_utilises: payload.answers.acq_canaux_utilises,
-      acq_frequence_actions: payload.answers.acq_frequence_actions,
-      acq_offre_decouverte: payload.answers.acq_offre_decouverte,
-      acq_suivi_prospects: payload.answers.acq_suivi_prospects,
-      acq_avis_clients: payload.answers.acq_avis_clients,
-      act_decouverte_espace: payload.answers.act_decouverte_espace,
-      act_processus_onboarding: payload.answers.act_processus_onboarding,
-      act_clartes_offres: payload.answers.act_clartes_offres,
-      act_relance_prospects: payload.answers.act_relance_prospects,
-      act_action_decision: payload.answers.act_action_decision,
-      ret_frequentation_reguliere: payload.answers.ret_frequentation_reguliere,
-      ret_programme_fidelite: payload.answers.ret_programme_fidelite,
-      ret_organisation_evenements: payload.answers.ret_organisation_evenements,
-      ret_retours_membres: payload.answers.ret_retours_membres,
-      ret_amelioration_experience: payload.answers.ret_amelioration_experience,
-      rev_source_revenus: payload.answers.rev_source_revenus,
-      rev_rentabilite_offres: payload.answers.rev_rentabilite_offres,
-      rev_utilisation_crm: payload.answers.rev_utilisation_crm,
-      rev_optimisation_conversion: payload.answers.rev_optimisation_conversion,
-      rev_nouvelles_sources: payload.answers.rev_nouvelles_sources,
-      rec_recommandation_spontanee: payload.answers.rec_recommandation_spontanee,
-      rec_programme_parrainage: payload.answers.rec_programme_parrainage,
-      rec_utilisation_avis: payload.answers.rec_utilisation_avis,
-      rec_participation_communication: payload.answers.rec_participation_communication,
-      rec_creation_contenu: payload.answers.rec_creation_contenu,
-      global_score: payload.global_score,
-      global_level: payload.global_level,
-      global_recommendation: payload.global_recommendation,
-      acquisition_score: payload.acquisition_score,
-      acquisition_level: payload.acquisition_level,
-      acquisition_recommendation: payload.acquisition_recommendation,
-      activation_score: payload.activation_score,
-      activation_level: payload.activation_level,
-      activation_recommendation: payload.activation_recommendation,
-      retention_score: payload.retention_score,
-      retention_level: payload.retention_level,
-      retention_recommendation: payload.retention_recommendation,
-      revenus_score: payload.revenus_score,
-      revenus_level: payload.revenus_level,
-      revenus_recommendation: payload.revenus_recommendation,
-      recommandation_score: payload.recommandation_score,
-      recommandation_level: payload.recommandation_level,
-      recommandation_recommendation: payload.recommandation_recommendation
+      fullName: `${payload.first_name} ${payload.last_name}`.trim(),
+      email: String(payload.email),
+      coworking_name: String(payload.coworking_name),
+      info_anciennete: String(payload.answers.info_anciennete || ''),
+      info_type_bureaux: String(payload.answers.info_type_bureaux || ''),
+      info_type_abonnement: String(payload.answers.info_type_abonnement || ''),
+      info_statut: String(payload.answers.info_statut || ''),
+      info_superficie: String(payload.answers.info_superficie || ''),
+      info_concurrence: String(payload.answers.info_concurrence || ''),
+      info_capacite: String(payload.answers.info_capacite || ''),
+      info_ville: String(payload.answers.info_ville || ''),
+      info_horaires: String(payload.answers.info_horaires || ''),
+      info_remplissage: String(payload.answers.info_remplissage || ''),
+      info_type_clientele: String(payload.answers.info_type_clientele || ''),
+      info_services: String(payload.answers.info_services || ''),
+      acq_canaux_utilises: String(payload.answers.acq_canaux_utilises || ''),
+      acq_frequence_actions: String(payload.answers.acq_frequence_actions || ''),
+      acq_offre_decouverte: String(payload.answers.acq_offre_decouverte || ''),
+      acq_suivi_prospects: String(payload.answers.acq_suivi_prospects || ''),
+      acq_avis_clients: String(payload.answers.acq_avis_clients || ''),
+      act_decouverte_espace: String(payload.answers.act_decouverte_espace || ''),
+      act_processus_onboarding: String(payload.answers.act_processus_onboarding || ''),
+      act_clartes_offres: String(payload.answers.act_clartes_offres || ''),
+      act_relance_prospects: String(payload.answers.act_relance_prospects || ''),
+      act_action_decision: String(payload.answers.act_action_decision || ''),
+      ret_frequentation_reguliere: String(payload.answers.ret_frequentation_reguliere || ''),
+      ret_programme_fidelite: String(payload.answers.ret_programme_fidelite || ''),
+      ret_organisation_evenements: String(payload.answers.ret_organisation_evenements || ''),
+      ret_retours_membres: String(payload.answers.ret_retours_membres || ''),
+      ret_amelioration_experience: String(payload.answers.ret_amelioration_experience || ''),
+      rev_source_revenus: String(payload.answers.rev_source_revenus || ''),
+      rev_rentabilite_offres: String(payload.answers.rev_rentabilite_offres || ''),
+      rev_utilisation_crm: String(payload.answers.rev_utilisation_crm || ''),
+      rev_optimisation_conversion: String(payload.answers.rev_optimisation_conversion || ''),
+      rev_nouvelles_sources: String(payload.answers.rev_nouvelles_sources || ''),
+      rec_recommandation_spontanee: String(payload.answers.rec_recommandation_spontanee || ''),
+      rec_programme_parrainage: String(payload.answers.rec_programme_parrainage || ''),
+      rec_utilisation_avis: String(payload.answers.rec_utilisation_avis || ''),
+      rec_participation_communication: String(payload.answers.rec_participation_communication || ''),
+      rec_creation_contenu: String(payload.answers.rec_creation_contenu || ''),
+      global_score: String(payload.global_score || '0'),
+      global_level: String(payload.global_level || ''),
+      global_recommendation: String(payload.global_recommendation || ''),
+      acquisition_score: String(payload.acquisition_score || '0'),
+      acquisition_level: String(payload.acquisition_level || ''),
+      acquisition_recommendation: String(payload.acquisition_recommendation || ''),
+      activation_score: String(payload.activation_score || '0'),
+      activation_level: String(payload.activation_level || ''),
+      activation_recommendation: String(payload.activation_recommendation || ''),
+      retention_score: String(payload.retention_score || '0'),
+      retention_level: String(payload.retention_level || ''),
+      retention_recommendation: String(payload.retention_recommendation || ''),
+      revenus_score: String(payload.revenus_score || '0'),
+      revenus_level: String(payload.revenus_level || ''),
+      revenus_recommendation: String(payload.revenus_recommendation || ''),
+      recommandation_score: String(payload.recommandation_score || '0'),
+      recommandation_level: String(payload.recommandation_level || ''),
+      recommandation_recommendation: String(payload.recommandation_recommendation || '')
     };
 
     console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2));
@@ -103,7 +116,20 @@ Deno.serve(async (req) => {
     console.log('Réponse Baserow:', JSON.stringify(responseData, null, 2));
 
     if (!baserowResponse.ok) {
-      throw new Error(`Erreur Baserow: ${await baserowResponse.text()}`);
+      console.error('Erreur Baserow:', responseData);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: `Erreur Baserow: ${JSON.stringify(responseData)}` 
+        }),
+        { 
+          status: 200, // On renvoie 200 même en cas d'erreur Baserow
+          headers: { 
+            ...corsHeaders,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
     }
 
     return new Response(
@@ -125,10 +151,10 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: error.message 
+        error: `Erreur serveur: ${error.message}` 
       }),
       { 
-        status: 400,
+        status: 200, // On renvoie 200 même en cas d'erreur
         headers: { 
           ...corsHeaders,
           'Content-Type': 'application/json'
