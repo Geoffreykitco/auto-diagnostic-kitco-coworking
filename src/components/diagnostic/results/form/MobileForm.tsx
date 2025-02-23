@@ -1,3 +1,4 @@
+
 import { FormEventHandler } from "react";
 interface MobileFormProps {
   fullName: string;
@@ -54,7 +55,7 @@ export const MobileForm = ({
         </form>
       </div>
 
-      <div className="px-6 py-4 border-t border-gray-200 bg-transparent">
+      <div className="px-6 py-4 bg-transparent">
         <button type="submit" form="mobile-form" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3.5 rounded-xl font-medium hover:bg-[#132721] active:transform active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-base">
           {isSubmitting ? "Envoi en cours..." : "Finaliser"}
         </button>
