@@ -67,7 +67,7 @@ export const useDiagnosticSubmission = () => {
       };
 
       console.log('=== ENVOI DU PAYLOAD À LA FONCTION EDGE ===');
-      console.log(JSON.stringify(payload, null, 2));
+      console.log('Payload complet:', JSON.stringify(payload, null, 2));
 
       const { data, error } = await supabase.functions.invoke('save-diagnostic', {
         body: payload
@@ -93,7 +93,10 @@ export const useDiagnosticSubmission = () => {
       return true;
     } catch (error) {
       console.error('=== ERREUR DÉTAILLÉE ===');
-      console.error(error);
+      console.error('Type d\'erreur:', error instanceof Error ? 'Error' : typeof error);
+      console.error('Message d\'erreur:', error instanceof Error ? error.message : error);
+      console.error('Stack trace:', error instanceof Error ? error.stack : 'Non disponible');
+      
       toast({
         title: "Erreur",
         description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
