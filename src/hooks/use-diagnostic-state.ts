@@ -1,5 +1,4 @@
-
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
 import { Answer, Question } from '@/components/diagnostic/question/types';
@@ -17,6 +16,7 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   const [currentSection, setCurrentSection] = useState<SectionType>('informations');
   const [answers, setAnswers] = useState<Record<string, Record<number, Answer>>>({});
   const [sectionScores, setSectionScores] = useState<Record<string, { level: ScoreLevel; message: string; score: number }>>({});
+  const sectionChangeTimeoutRef = useRef<number>();
 
   const calculateScore = (question: Question, value: string | number | number[] | null): number => {
     if (question.isInformative) return 0;
@@ -151,13 +151,16 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
         return;
       }
 
+      if (sectionChangeTimeoutRef.current) {
+        clearTimeout(sectionChangeTimeoutRef.current);
+      }
+
       setCurrentSection(sectionOrder[currentIndex + 1]);
       
-      // Delay the scroll to ensure the new section is rendered
       requestAnimationFrame(() => {
-        setTimeout(() => {
+        sectionChangeTimeoutRef.current = window.setTimeout(() => {
           scrollToTop();
-        }, 100);
+        }, 150);
       });
     }
   }, [currentSection, answers, toast, scrollToTop]);
@@ -166,16 +169,27 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
     if (currentIndex > 0) {
+      if (sectionChangeTimeoutRef.current) {
+        clearTimeout(sectionChangeTimeoutRef.current);
+      }
+
       setCurrentSection(sectionOrder[currentIndex - 1]);
       
-      // Delay the scroll to ensure the new section is rendered
       requestAnimationFrame(() => {
-        setTimeout(() => {
+        sectionChangeTimeoutRef.current = window.setTimeout(() => {
           scrollToTop();
-        }, 100);
+        }, 150);
       });
     }
   }, [currentSection, scrollToTop]);
+
+  useEffect(() => {
+    return () => {
+      if (sectionChangeTimeoutRef.current) {
+        clearTimeout(sectionChangeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return {
     progress,
