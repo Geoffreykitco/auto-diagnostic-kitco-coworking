@@ -25,28 +25,20 @@ export const useDiagnosticSubmission = () => {
     try {
       setIsSubmitting(true);
       console.log('=== DÉBUT SOUMISSION DIAGNOSTIC ===');
-      console.log('FormData reçue:', formData);
-      console.log('DiagnosticData reçue:', diagnosticData);
       
       const { globalScore, sectionScores, answers } = diagnosticData;
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
-      console.log('Formatage des réponses...');
-      const formattedAnswers = formatAnswersForSubmission(answers);
-      console.log('Réponses formatées:', formattedAnswers);
-
       // Séparer le nom complet en prénom et nom
       const [firstName = '', lastName = ''] = formData.fullName.split(' ');
-      console.log('Nom séparé:', { firstName, lastName });
 
       const payload = {
         first_name: firstName,
         last_name: lastName,
         email: formData.email,
         coworking_name: formData.coworkingName,
-        answers: formattedAnswers,
-        global_score: globalScore.toString(), // Conversion en string pour Baserow
+        global_score: globalScore.toString(),
         global_level: globalLevel,
         global_recommendation: globalRecommendation,
         acquisition_score: sectionScores.acquisition?.toString() || "0",
@@ -67,7 +59,7 @@ export const useDiagnosticSubmission = () => {
       };
 
       console.log('=== ENVOI DU PAYLOAD À LA FONCTION EDGE ===');
-      console.log('Payload complet:', JSON.stringify(payload, null, 2));
+      console.log('Payload:', payload);
 
       const { data, error } = await supabase.functions.invoke('save-diagnostic', {
         body: payload
@@ -76,13 +68,11 @@ export const useDiagnosticSubmission = () => {
       console.log('Réponse de la fonction Edge:', { data, error });
 
       if (error) {
-        console.error('Erreur détaillée lors de l\'envoi:', error);
         throw new Error(error.message || 'Une erreur est survenue lors de l\'envoi');
       }
 
       if (!data?.success) {
-        console.error('Erreur détaillée de la réponse:', data);
-        throw new Error(data?.error || 'Échec de l\'enregistrement des résultats');
+        throw new Error('Échec de l\'enregistrement des résultats');
       }
 
       toast({
@@ -95,16 +85,14 @@ export const useDiagnosticSubmission = () => {
       console.error('=== ERREUR DÉTAILLÉE ===');
       console.error('Type d\'erreur:', error instanceof Error ? 'Error' : typeof error);
       console.error('Message d\'erreur:', error instanceof Error ? error.message : error);
-      console.error('Stack trace:', error instanceof Error ? error.stack : 'Non disponible');
       
       toast({
         title: "Erreur",
-        description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
+        description: "Une erreur est survenue lors de l'envoi du formulaire",
         variant: "destructive",
       });
       return false;
     } finally {
-      console.log('=== FIN SOUMISSION DIAGNOSTIC ===');
       setIsSubmitting(false);
     }
   };
