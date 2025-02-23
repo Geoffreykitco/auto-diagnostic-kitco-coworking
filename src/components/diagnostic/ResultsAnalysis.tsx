@@ -39,7 +39,6 @@ export const ResultsAnalysis = ({
   const currentStep = steps[steps.length - 1];
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
     const results = calculateResults();
     setSectionScores(results.sectionScores);
   }, [answers]);
@@ -108,7 +107,12 @@ export const ResultsAnalysis = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col min-h-screen"
+    >
       <div className="max-w-5xl mx-auto px-4 flex-grow">
         <div className="mt-16 mb-8">
           <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
@@ -154,6 +158,6 @@ export const ResultsAnalysis = ({
           answers={answers}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
