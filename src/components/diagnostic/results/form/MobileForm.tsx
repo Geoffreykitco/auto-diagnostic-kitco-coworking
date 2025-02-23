@@ -63,6 +63,14 @@ export const MobileForm = ({
         <p className="text-center text-gray-600 mt-3 px-2 leading-relaxed text-xs">
           En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
         </p>
+
+        <div className="mt-6 -mx-6">
+          <img 
+            src="/lovable-uploads/60eaf2a9-50a2-49ed-9925-72e3f39b3ba3.png"
+            alt="Coworkers collaborating"
+            className="w-full h-48 object-cover"
+          />
+        </div>
       </div>
     </div>;
 };
