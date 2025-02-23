@@ -31,11 +31,11 @@ Deno.serve(async (req) => {
       );
     }
 
-    console.log('Préparation de la requête Baserow...');
+    console.log('Token Baserow présent:', !!BASEROW_TOKEN);
 
-    // Préparation des données pour Baserow - on s'assure que toutes les valeurs sont des strings
+    // Préparation des données pour Baserow
     const baserowData = {
-      fullName: `${payload.first_name} ${payload.last_name}`.trim(),
+      full_name: `${payload.first_name} ${payload.last_name}`.trim(),
       email: String(payload.email),
       coworking_name: String(payload.coworking_name),
       info_anciennete: String(payload.answers.info_anciennete || ''),
@@ -95,10 +95,15 @@ Deno.serve(async (req) => {
       recommandation_recommendation: String(payload.recommandation_recommendation || '')
     };
 
-    console.log('Données formatées pour Baserow:', JSON.stringify(baserowData, null, 2));
+    console.log('=== ENVOI À BASEROW ===');
+    console.log('URL:', 'https://api.baserow.io/api/database/rows/table/138039/?user_field_names=true');
+    console.log('Méthode:', 'POST');
+    console.log('Headers:', {
+      'Authorization': 'Token [MASQUÉ]',
+      'Content-Type': 'application/json'
+    });
+    console.log('Données:', JSON.stringify(baserowData, null, 2));
 
-    // Envoi à Baserow
-    console.log('Envoi à Baserow...');
     const baserowResponse = await fetch(
       'https://api.baserow.io/api/database/rows/table/138039/?user_field_names=true',
       {
@@ -116,14 +121,33 @@ Deno.serve(async (req) => {
     console.log('Réponse Baserow:', JSON.stringify(responseData, null, 2));
 
     if (!baserowResponse.ok) {
-      console.error('Erreur Baserow:', responseData);
+      const errorMessage = responseData.error || 'Erreur inconnue';
+      const detailMessage = responseData.detail || '';
+      console.error('Erreur Baserow:', { error: errorMessage, detail: detailMessage });
+      
+      if (errorMessage === 'ERROR_NO_PERMISSION_TO_TABLE') {
+        return new Response(
+          JSON.stringify({ 
+            success: false, 
+            error: 'Le token Baserow n\'a pas les permissions nécessaires pour accéder à la table. Veuillez vérifier les droits du token.' 
+          }),
+          { 
+            status: 200,
+            headers: { 
+              ...corsHeaders,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+      }
+      
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: `Erreur Baserow: ${JSON.stringify(responseData)}` 
+          error: `Erreur Baserow: ${errorMessage}. ${detailMessage}` 
         }),
         { 
-          status: 200, // On renvoie 200 même en cas d'erreur Baserow
+          status: 200,
           headers: { 
             ...corsHeaders,
             'Content-Type': 'application/json'
@@ -154,7 +178,7 @@ Deno.serve(async (req) => {
         error: `Erreur serveur: ${error.message}` 
       }),
       { 
-        status: 200, // On renvoie 200 même en cas d'erreur
+        status: 200,
         headers: { 
           ...corsHeaders,
           'Content-Type': 'application/json'
