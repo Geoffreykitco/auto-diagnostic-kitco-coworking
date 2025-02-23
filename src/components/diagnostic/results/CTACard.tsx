@@ -20,9 +20,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
-  // Mettre en place l'écoute des changements sur la table diagnostics
   useEffect(() => {
-    // S'abonner aux insertions dans la table leads_auto_diag_coworking
     const channel = supabase
       .channel('db-changes')
       .on(
@@ -36,7 +34,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
           console.log('Nouvelle ligne détectée dans Supabase:', payload);
           
           try {
-            // Envoyer les données vers Baserow
             const { error: baserowError } = await supabase.functions.invoke('save-to-baserow', {
               body: payload.new
             });
@@ -58,7 +55,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       )
       .subscribe();
 
-    // Nettoyer l'abonnement quand le composant est démonté
     return () => {
       supabase.removeChannel(channel);
     };
@@ -188,4 +184,3 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     </motion.div>
   );
 };
-
