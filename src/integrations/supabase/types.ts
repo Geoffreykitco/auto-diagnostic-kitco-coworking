@@ -40,7 +40,7 @@ export type Database = {
           info_capacite: string | null
           info_concurrence: string | null
           info_horaires: string | null
-          info_remplissage: string | null
+          info_remplissage: number | null
           info_services: string | null
           info_statut: string | null
           info_superficie: string | null
@@ -104,7 +104,7 @@ export type Database = {
           info_capacite?: string | null
           info_concurrence?: string | null
           info_horaires?: string | null
-          info_remplissage?: string | null
+          info_remplissage?: number | null
           info_services?: string | null
           info_statut?: string | null
           info_superficie?: string | null
@@ -168,7 +168,7 @@ export type Database = {
           info_capacite?: string | null
           info_concurrence?: string | null
           info_horaires?: string | null
-          info_remplissage?: string | null
+          info_remplissage?: number | null
           info_services?: string | null
           info_statut?: string | null
           info_superficie?: string | null
