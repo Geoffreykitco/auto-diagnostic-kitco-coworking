@@ -31,12 +31,11 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
-
       const formattedAnswers = formatAnswersForSubmission(answers);
+
       console.log('Réponses formatées:', formattedAnswers);
 
       const diagnosticData = {
-        created_at: new Date().toISOString(),
         first_name: formData.firstName,
         last_name: formData.lastName,
         coworking_name: formData.coworkingName,
@@ -64,6 +63,8 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       };
 
       console.log('=== Envoi des données à Supabase ===');
+      console.log('Données à insérer:', diagnosticData);
+
       const { error } = await supabase
         .from('diagnostics')
         .insert(diagnosticData);
