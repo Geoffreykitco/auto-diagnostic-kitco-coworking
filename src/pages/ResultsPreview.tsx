@@ -117,8 +117,16 @@ export const ResultsPreview = () => {
   }, []);
 
   if (!mockData) {
-    return <div className="flex items-center justify-center min-h-screen">Chargement de la preview...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Chargement de la preview...
+      </div>
+    );
   }
 
-  return <ResultsAnalysis answers={mockData.answers} formData={mockData} />;
+  return (
+    <div className="min-h-screen bg-white w-full">
+      <ResultsAnalysis answers={mockData.answers} formData={mockData} />
+    </div>
+  );
 };
