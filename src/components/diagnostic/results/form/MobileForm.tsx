@@ -1,4 +1,3 @@
-
 import { FormEventHandler } from "react";
 interface MobileFormProps {
   fullName: string;
@@ -55,7 +54,7 @@ export const MobileForm = ({
         </form>
       </div>
 
-      <div className="px-6 py-4 bg-white border-t border-gray-200">
+      <div className="px-6 py-4 border-t border-gray-200 bg-transparent">
         <button type="submit" form="mobile-form" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3.5 rounded-xl font-medium hover:bg-[#132721] active:transform active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-base">
           {isSubmitting ? "Envoi en cours..." : "Finaliser"}
         </button>
@@ -65,11 +64,7 @@ export const MobileForm = ({
         </p>
 
         <div className="mt-4 -mx-6">
-          <img 
-            src="/lovable-uploads/60eaf2a9-50a2-49ed-9925-72e3f39b3ba3.png"
-            alt="Coworkers collaborating"
-            className="w-full h-48 object-cover"
-          />
+          <img src="/lovable-uploads/60eaf2a9-50a2-49ed-9925-72e3f39b3ba3.png" alt="Coworkers collaborating" className="w-full h-48 object-cover" />
         </div>
       </div>
     </div>;
