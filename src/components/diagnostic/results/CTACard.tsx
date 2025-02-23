@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -62,35 +63,14 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         ...formattedAnswers
       };
 
-      console.log('=== Données préparées pour envoi ===');
+      console.log('=== Envoi des données à Supabase ===');
+      const { error } = await supabase
+        .from('diagnostics')
+        .insert(diagnosticData);
 
-      const [saveResponse, baserowResponse] = await Promise.all([
-        supabase.functions.invoke('save-diagnostic', {
-          body: diagnosticData
-        }),
-        supabase.functions.invoke('save-to-baserow', {
-          body: diagnosticData
-        })
-      ]);
-
-      console.log('=== Réponses des API ===');
-      console.log('Réponse save-diagnostic:', saveResponse);
-      console.log('Réponse save-to-baserow:', baserowResponse);
-
-      // Vérification des erreurs de save-diagnostic
-      if (saveResponse.error) {
-        console.error('Erreur lors de la sauvegarde:', saveResponse.error);
-        throw new Error(saveResponse.error.message || 'Erreur lors de la sauvegarde');
-      }
-
-      if (!saveResponse.data?.success) {
-        console.error('Erreur de réponse:', saveResponse.data);
-        throw new Error(saveResponse.data?.error || 'Échec de l\'enregistrement des résultats');
-      }
-
-      // Si Baserow a échoué mais que c'est une erreur gérée
-      if (baserowResponse.data?.baserowError) {
-        console.warn('Avertissement Baserow:', baserowResponse.data.message);
+      if (error) {
+        console.error('Erreur Supabase:', error);
+        throw new Error(error.message);
       }
 
       console.log('=== Soumission terminée avec succès ===');
