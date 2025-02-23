@@ -1,3 +1,5 @@
 
 project_id = "xaonhudtcoxgbyqrhqex"
 
+[functions.save-diagnostic]
+verify_jwt = false
