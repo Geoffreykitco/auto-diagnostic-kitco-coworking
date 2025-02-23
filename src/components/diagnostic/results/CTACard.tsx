@@ -27,13 +27,14 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     email: string;
   }) => {
     try {
-      console.log('Début de la soumission du formulaire');
+      console.log('=== Début de la soumission du formulaire ===');
       
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
       // Utilisation du formatter complet pour formater les réponses
       const formattedAnswers = formatAnswersForSubmission(answers);
+      console.log('Réponses formatées:', formattedAnswers);
 
       const diagnosticData = {
         created_at: new Date().toISOString(),
@@ -60,11 +61,16 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         recommandation_score: sectionScores.recommandation || 0,
         recommandation_level: calculateSectionLevel(sectionScores.recommandation || 0),
         recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0)),
-        ...formattedAnswers // Ajout des réponses formatées
+        ...formattedAnswers
       };
 
-      console.log('Envoi des données au serveur:', diagnosticData);
+      console.log('=== Données préparées pour envoi ===');
+      console.log('Format des données:', {
+        ...diagnosticData,
+        answers: 'Masqué pour la lisibilité'
+      });
 
+      console.log('=== Début des appels API ===');
       // Appel des deux fonctions en parallèle
       const [saveResponse, baserowResponse] = await Promise.all([
         supabase.functions.invoke('save-diagnostic', {
@@ -75,6 +81,10 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         })
       ]);
 
+      console.log('=== Réponses des API ===');
+      console.log('Réponse save-diagnostic:', saveResponse);
+      console.log('Réponse save-to-baserow:', baserowResponse);
+
       // Vérification des erreurs
       if (saveResponse.error) {
         console.error('Erreur lors de la sauvegarde:', saveResponse.error);
@@ -82,15 +92,23 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       }
 
       if (baserowResponse.error) {
-        console.error('Erreur lors de l\'envoi à Baserow:', baserowResponse.error);
+        console.error('=== Erreur Baserow ===');
+        console.error('Détails:', baserowResponse.error);
+        console.error('Status:', baserowResponse.error?.status);
+        console.error('Message:', baserowResponse.error?.message);
         // On continue même si Baserow échoue
         console.warn('Continuer malgré l\'erreur Baserow');
+      } else {
+        console.log('=== Succès Baserow ===');
+        console.log('Données synchronisées avec succès vers Baserow');
       }
 
       if (!saveResponse.data?.success) {
         console.error('Erreur de réponse:', saveResponse.data);
         throw new Error(saveResponse.data?.error || 'Échec de l\'enregistrement des résultats');
       }
+
+      console.log('=== Soumission terminée avec succès ===');
 
       setOpen(false);
       toast({
@@ -99,7 +117,10 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       });
 
     } catch (error) {
-      console.error('Error saving form results:', error);
+      console.error('=== Erreur lors de la soumission ===');
+      console.error('Type:', error instanceof Error ? 'Error' : typeof error);
+      console.error('Details:', error);
+      
       toast({
         title: "Erreur",
         description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
