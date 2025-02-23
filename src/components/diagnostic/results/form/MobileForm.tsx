@@ -1,4 +1,3 @@
-
 import { FormEventHandler } from "react";
 interface MobileFormProps {
   fullName: string;
@@ -21,12 +20,12 @@ export const MobileForm = ({
   handleFormSubmit
 }: MobileFormProps) => {
   return <div className="min-h-[100dvh] flex flex-col bg-gray-50">
-      <div className="flex-1 px-6 py-6">
+      <div className="flex-1 px-6 py-[20px]">
         <div className="mb-6">
           <h3 className="font-semibold text-[#0B1A17] leading-snug text-xl">
             Augmentez le taux de remplissage de votre espace de coworking
           </h3>
-          <p className="text-gray-600 mt-2 text-sm">
+          <p className="text-gray-600 mt-2 text-xs">
             Ne laissez pas des opportunités de développement inexplorées. Passez à l'action dès maintenant.
           </p>
         </div>
@@ -60,9 +59,7 @@ export const MobileForm = ({
           {isSubmitting ? "Envoi en cours..." : "Finaliser"}
         </button>
 
-        <p className="text-center text-gray-600 mt-2.5 px-2 leading-relaxed text-xs">
-          En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
-        </p>
+        <p className="text-center text-gray-600 mt-2.5 leading-relaxed text-xs my-px px-[8px]">En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.</p>
 
         <div className="mt-4 -mx-6">
           <img src="/lovable-uploads/60eaf2a9-50a2-49ed-9925-72e3f39b3ba3.png" alt="Coworkers collaborating" className="w-full h-48 object-cover" />
