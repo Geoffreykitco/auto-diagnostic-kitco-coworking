@@ -12,8 +12,8 @@ export const formatAnswersForSubmission = (answers: Record<string, Record<number
           : answer.value?.toString() || ''; // Sinon on convertit en string
         formattedAnswers[`info_${questionIndex}`] = value;
       });
-    } else if (sectionKey !== 'resultats') { // On ignore la section résultats
-      // Pour les autres sections (acquisition, activation, etc.)
+    } else {
+      // Pour toutes les autres sections (acquisition, activation, resultats, etc.)
       const prefix = sectionKey.substring(0, 3) + '_';
       Object.entries(sectionAnswers).forEach(([questionIndex, answer]) => {
         const value = Array.isArray(answer.value) 
