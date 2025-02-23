@@ -44,7 +44,11 @@ export const MainContent = ({ open, setOpen, formProps }: MainContentProps) => {
           {open && (
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent 
-                className={`p-0 bg-white overflow-hidden rounded-2xl ${isMobile ? 'w-full max-w-full mx-4' : 'max-w-4xl'}`}
+                className={`${
+                  isMobile 
+                    ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' 
+                    : 'max-w-4xl rounded-2xl'
+                } p-0 bg-white overflow-hidden`}
                 onPointerDownOutside={(e) => e.preventDefault()}
                 onFocusOutside={(e) => e.preventDefault()}
               >
@@ -67,3 +71,4 @@ export const MainContent = ({ open, setOpen, formProps }: MainContentProps) => {
     </div>
   );
 };
+
