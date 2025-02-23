@@ -9,12 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      "auto-diagnostic": {
-        Row: {}
-        Insert: {}
-        Update: {}
-        Relationships: []
-      }
       diagnostics: {
         Row: {
           acq_avis_clients: string | null
