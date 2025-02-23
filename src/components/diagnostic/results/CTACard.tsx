@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -32,7 +31,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
-      // Utilisation du formatter complet pour formater les réponses
       const formattedAnswers = formatAnswersForSubmission(answers);
       console.log('Réponses formatées:', formattedAnswers);
 
@@ -65,13 +63,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       };
 
       console.log('=== Données préparées pour envoi ===');
-      console.log('Format des données:', {
-        ...diagnosticData,
-        answers: 'Masqué pour la lisibilité'
-      });
 
-      console.log('=== Début des appels API ===');
-      // Appel des deux fonctions en parallèle
       const [saveResponse, baserowResponse] = await Promise.all([
         supabase.functions.invoke('save-diagnostic', {
           body: diagnosticData
@@ -85,27 +77,20 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       console.log('Réponse save-diagnostic:', saveResponse);
       console.log('Réponse save-to-baserow:', baserowResponse);
 
-      // Vérification des erreurs
+      // Vérification des erreurs de save-diagnostic
       if (saveResponse.error) {
         console.error('Erreur lors de la sauvegarde:', saveResponse.error);
         throw new Error(saveResponse.error.message || 'Erreur lors de la sauvegarde');
       }
 
-      if (baserowResponse.error) {
-        console.error('=== Erreur Baserow ===');
-        console.error('Détails:', baserowResponse.error);
-        console.error('Status:', baserowResponse.error?.status);
-        console.error('Message:', baserowResponse.error?.message);
-        // On continue même si Baserow échoue
-        console.warn('Continuer malgré l\'erreur Baserow');
-      } else {
-        console.log('=== Succès Baserow ===');
-        console.log('Données synchronisées avec succès vers Baserow');
-      }
-
       if (!saveResponse.data?.success) {
         console.error('Erreur de réponse:', saveResponse.data);
         throw new Error(saveResponse.data?.error || 'Échec de l\'enregistrement des résultats');
+      }
+
+      // Si Baserow a échoué mais que c'est une erreur gérée
+      if (baserowResponse.data?.baserowError) {
+        console.warn('Avertissement Baserow:', baserowResponse.data.message);
       }
 
       console.log('=== Soumission terminée avec succès ===');

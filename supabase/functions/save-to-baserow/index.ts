@@ -7,6 +7,7 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Gérer les requêtes CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -15,35 +16,21 @@ serve(async (req) => {
     console.log('=== Début du traitement de la requête save-to-baserow ===');
     const diagnosticData = await req.json();
     
-    // Vérifions d'abord le token
+    // Vérification du token
     const BASEROW_TOKEN = Deno.env.get('BASEROW_TOKEN');
-    console.log('Token Baserow présent:', !!BASEROW_TOKEN);
-    console.log('Token Baserow (premiers caractères):', BASEROW_TOKEN?.substring(0, 5));
-    
     if (!BASEROW_TOKEN) {
-      throw new Error('BASEROW_TOKEN non défini');
+      console.error('Token Baserow manquant');
+      // Retourner une réponse 200 même en cas d'erreur Baserow
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Configuration Baserow manquante'
+      }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
-    // Faisons d'abord une requête GET pour voir la structure
-    const baserowUrl = 'https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true&size=1';
-    console.log('=== Vérification de la structure de la table ===');
-    const structureResponse = await fetch(baserowUrl, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Token ${BASEROW_TOKEN}`,
-      }
-    });
-
-    if (!structureResponse.ok) {
-      const errorText = await structureResponse.text();
-      console.error('Erreur lors de la vérification de la structure:', errorText);
-      throw new Error(`Impossible d'accéder à la table: ${structureResponse.status}`);
-    }
-
-    const structureData = await structureResponse.json();
-    console.log('Structure de la table:', JSON.stringify(structureData, null, 2));
-    
-    // Maintenant, créons les données en utilisant exactement les mêmes noms de colonnes
+    // Préparation des données
     const baserowData = {
       "first_name": diagnosticData.first_name,
       "last_name": diagnosticData.last_name,
@@ -59,10 +46,8 @@ serve(async (req) => {
       "recommendation_score": Number(diagnosticData.recommandation_score) || 0
     };
 
-    console.log('=== Données formatées pour Baserow ===');
-    console.log(JSON.stringify(baserowData, null, 2));
-
-    // Tentative d'envoi avec les nouveaux noms de colonnes
+    // Envoi à Baserow
+    const baserowUrl = 'https://api.baserow.io/api/database/rows/table/451692/?user_field_names=true';
     console.log('=== Tentative d\'envoi à Baserow ===');
     const baserowResponse = await fetch(baserowUrl, {
       method: 'POST',
@@ -73,46 +58,43 @@ serve(async (req) => {
       body: JSON.stringify(baserowData)
     });
 
-    // Logging détaillé de la réponse
-    console.log('=== Détails de la réponse ===');
-    console.log('Status:', baserowResponse.status);
-    console.log('Headers:', JSON.stringify(Object.fromEntries(baserowResponse.headers.entries()), null, 2));
-
+    // Lecture de la réponse
     const responseText = await baserowResponse.text();
-    console.log('Réponse brute:', responseText);
+    console.log('Status Baserow:', baserowResponse.status);
+    console.log('Réponse Baserow:', responseText);
 
+    // Même si Baserow échoue, on continue
     if (!baserowResponse.ok) {
-      console.error('=== Erreur détaillée Baserow ===');
-      try {
-        const errorJson = JSON.parse(responseText);
-        console.error('Erreur JSON:', JSON.stringify(errorJson, null, 2));
-      } catch (e) {
-        console.error('La réponse n\'est pas du JSON valide');
-      }
-      throw new Error(`Erreur Baserow: ${baserowResponse.status} - ${responseText}`);
+      console.warn('Erreur Baserow:', responseText);
+      // On retourne quand même un succès pour ne pas bloquer l'utilisateur
+      return new Response(JSON.stringify({ 
+        success: true,
+        baserowError: true,
+        message: 'Les données ont été sauvegardées mais n\'ont pas pu être synchronisées avec Baserow'
+      }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
-    const responseData = JSON.parse(responseText);
-    console.log('=== Succès ===');
-    console.log('Réponse Baserow:', JSON.stringify(responseData, null, 2));
-
-    return new Response(JSON.stringify({ success: true, data: responseData }), {
+    // Succès complet
+    return new Response(JSON.stringify({ 
+      success: true,
+      data: JSON.parse(responseText)
+    }), {
+      status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    console.error('=== Erreur générale ===');
-    console.error('Type:', error instanceof Error ? 'Error' : typeof error);
-    console.error('Message:', error instanceof Error ? error.message : String(error));
-    console.error('Stack:', error instanceof Error ? error.stack : 'No stack trace');
-    
+    console.error('Erreur:', error);
+    // On retourne toujours un status 200
     return new Response(JSON.stringify({ 
       success: false, 
-      error: error instanceof Error ? error.message : 'Erreur inconnue',
-      details: error instanceof Error ? error.stack : undefined
+      error: error instanceof Error ? error.message : 'Erreur inconnue'
     }), {
+      status: 200, // Important: toujours retourner 200
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 500,
     });
   }
 })
