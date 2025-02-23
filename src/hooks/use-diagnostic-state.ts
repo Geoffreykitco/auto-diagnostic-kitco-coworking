@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
@@ -149,12 +150,15 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
         });
         return;
       }
+
+      setCurrentSection(sectionOrder[currentIndex + 1]);
       
-      scrollToTop();
-      
-      setTimeout(() => {
-        setCurrentSection(sectionOrder[currentIndex + 1]);
-      }, 100);
+      // Delay the scroll to ensure the new section is rendered
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          scrollToTop();
+        }, 100);
+      });
     }
   }, [currentSection, answers, toast, scrollToTop]);
 
@@ -162,11 +166,14 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
     const sectionOrder: SectionType[] = ['informations', 'acquisition', 'activation', 'retention', 'revenus', 'recommandation', 'resultats'];
     const currentIndex = sectionOrder.indexOf(currentSection);
     if (currentIndex > 0) {
-      scrollToTop();
+      setCurrentSection(sectionOrder[currentIndex - 1]);
       
-      setTimeout(() => {
-        setCurrentSection(sectionOrder[currentIndex - 1]);
-      }, 100);
+      // Delay the scroll to ensure the new section is rendered
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          scrollToTop();
+        }, 100);
+      });
     }
   }, [currentSection, scrollToTop]);
 
