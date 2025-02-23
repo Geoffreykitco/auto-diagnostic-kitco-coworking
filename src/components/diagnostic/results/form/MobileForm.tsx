@@ -59,7 +59,7 @@ export const MobileForm = ({
           {isSubmitting ? "Envoi en cours..." : "Finaliser"}
         </button>
 
-        <p className="text-sm text-center text-gray-600 mt-4 px-2 leading-relaxed">
+        <p className="text-center text-gray-600 mt-4 px-2 leading-relaxed text-xs">
           En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
         </p>
       </div>
