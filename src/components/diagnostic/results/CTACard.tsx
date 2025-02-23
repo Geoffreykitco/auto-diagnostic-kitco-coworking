@@ -22,7 +22,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
 
   // Mettre en place l'écoute des changements sur la table diagnostics
   useEffect(() => {
-    // S'abonner aux insertions dans la table diagnostics
+    // S'abonner aux insertions dans la table leads_auto_diag_coworking
     const channel = supabase
       .channel('db-changes')
       .on(
@@ -30,7 +30,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         {
           event: 'INSERT',
           schema: 'public',
-          table: 'diagnostics'
+          table: 'leads_auto_diag_coworking'
         },
         async (payload) => {
           console.log('Nouvelle ligne détectée dans Supabase:', payload);
@@ -110,7 +110,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       console.log('Données à insérer:', diagnosticData);
 
       const { error } = await supabase
-        .from('diagnostics')
+        .from('leads_auto_diag_coworking')
         .insert(diagnosticData);
 
       if (error) {
@@ -188,3 +188,4 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     </motion.div>
   );
 };
+

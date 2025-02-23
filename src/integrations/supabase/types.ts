@@ -35,6 +35,7 @@ export type Database = {
           global_level: string
           global_recommendation: string | null
           global_score: number
+          id: number
           info_anciennete: string | null
           info_capacite: string | null
           info_concurrence: string | null
@@ -98,6 +99,7 @@ export type Database = {
           global_level: string
           global_recommendation?: string | null
           global_score: number
+          id?: number
           info_anciennete?: string | null
           info_capacite?: string | null
           info_concurrence?: string | null
@@ -161,6 +163,7 @@ export type Database = {
           global_level?: string
           global_recommendation?: string | null
           global_score?: number
+          id?: number
           info_anciennete?: string | null
           info_capacite?: string | null
           info_concurrence?: string | null
