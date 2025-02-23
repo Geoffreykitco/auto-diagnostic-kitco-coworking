@@ -9,7 +9,7 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      diagnostics: {
+      leads_auto_diag_coworking: {
         Row: {
           acq_avis_clients: string | null
           acq_canaux_utilises: string | null
@@ -35,7 +35,6 @@ export type Database = {
           global_level: string
           global_recommendation: string | null
           global_score: number
-          id: number
           info_anciennete: string | null
           info_capacite: string | null
           info_concurrence: string | null
@@ -99,7 +98,6 @@ export type Database = {
           global_level: string
           global_recommendation?: string | null
           global_score: number
-          id?: number
           info_anciennete?: string | null
           info_capacite?: string | null
           info_concurrence?: string | null
@@ -163,7 +161,6 @@ export type Database = {
           global_level?: string
           global_recommendation?: string | null
           global_score?: number
-          id?: number
           info_anciennete?: string | null
           info_capacite?: string | null
           info_concurrence?: string | null
