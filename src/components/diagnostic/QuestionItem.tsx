@@ -24,9 +24,8 @@ export const QuestionItem = ({
       if (isNaN(number)) number = 0;
       if (number > 100) number = 100;
       setLocalValue(number ? `${number}%` : '');
-      onSelect(number, false);
+      onSelect(number, false); // Envoie directement le nombre, pas la chaîne avec %
     } else if (question.question.toLowerCase().includes("ville")) {
-      // On ne garde que les lettres, espaces, tirets et apostrophes
       const sanitizedValue = value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, '');
       setLocalValue(sanitizedValue);
       onSelect(sanitizedValue, false);
@@ -99,3 +98,4 @@ export const QuestionItem = ({
     </motion.div>
   );
 };
+
