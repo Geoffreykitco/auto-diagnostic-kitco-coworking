@@ -31,7 +31,7 @@ export const MobileForm = ({
           </p>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="space-y-4">
+        <form id="mobile-form" onSubmit={handleFormSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Prénom et nom
