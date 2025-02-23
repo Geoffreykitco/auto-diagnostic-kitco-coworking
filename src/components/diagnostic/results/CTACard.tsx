@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -18,7 +19,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -27,7 +27,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     email: string;
   }) => {
     try {
-      setIsSubmitting(true);
       console.log('=== Début de la soumission du formulaire ===');
       
       const globalLevel = calculateSectionLevel(globalScore);
@@ -103,8 +102,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
         variant: "destructive",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
