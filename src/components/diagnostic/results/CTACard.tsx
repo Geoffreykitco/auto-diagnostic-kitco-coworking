@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
 import { MainContent } from "./content/MainContent";
@@ -19,6 +19,50 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+
+  // Mettre en place l'écoute des changements sur la table diagnostics
+  useEffect(() => {
+    // S'abonner aux insertions dans la table diagnostics
+    const channel = supabase
+      .channel('db-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'diagnostics'
+        },
+        async (payload) => {
+          console.log('Nouvelle ligne détectée dans Supabase:', payload);
+          
+          try {
+            // Envoyer les données vers Baserow
+            const { error: baserowError } = await supabase.functions.invoke('save-to-baserow', {
+              body: payload.new
+            });
+
+            if (baserowError) {
+              console.error('Erreur lors de la synchronisation vers Baserow:', baserowError);
+              toast({
+                title: "Erreur de synchronisation",
+                description: "Les données n'ont pas pu être synchronisées avec Baserow",
+                variant: "destructive",
+              });
+            } else {
+              console.log('Données synchronisées avec succès vers Baserow');
+            }
+          } catch (error) {
+            console.error('Erreur lors de la synchronisation:', error);
+          }
+        }
+      )
+      .subscribe();
+
+    // Nettoyer l'abonnement quand le composant est démonté
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [toast]);
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -73,18 +117,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         console.error('Erreur Supabase:', error);
         throw new Error(error.message);
       }
-
-      // Envoi des données vers Baserow via l'Edge Function
-      const { error: baserowError } = await supabase.functions.invoke('save-to-baserow', {
-        body: diagnosticData
-      });
-
-      if (baserowError) {
-        console.error('Erreur lors de l\'envoi vers Baserow:', baserowError);
-        throw new Error('Erreur lors de l\'envoi vers Baserow');
-      }
-
-      console.log('=== Soumission terminée avec succès ===');
 
       setOpen(false);
       toast({
