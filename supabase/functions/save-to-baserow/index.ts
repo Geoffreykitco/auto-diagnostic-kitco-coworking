@@ -40,54 +40,54 @@ serve(async (req) => {
       recommandation_level: data.recommandation_level,
       recommandation_recommendation: data.recommandation_recommendation,
       
-      // Section Informations
+      // Adaptation des noms des champs pour correspondre exactement à Baserow
       info_anciennete: getOptionLabel(data.answers?.informations?.[0]),
       info_type_bureaux: getMultipleOptionLabels(data.answers?.informations?.[1]),
-      info_type_abonnements: getMultipleOptionLabels(data.answers?.informations?.[2]),
+      info_types_abonnements: getMultipleOptionLabels(data.answers?.informations?.[2]),
       info_statut: getOptionLabel(data.answers?.informations?.[3]),
       info_superficie: getOptionLabel(data.answers?.informations?.[4]),
       info_concurrence: getOptionLabel(data.answers?.informations?.[5]),
       info_capacite: getOptionLabel(data.answers?.informations?.[6]),
       info_ville: formatAnswer(data.answers?.informations?.[7]),
       info_horaires: getOptionLabel(data.answers?.informations?.[8]),
-      info_remplissage: formatAnswer(data.answers?.informations?.[9]),
+      info_taux_remplissage: formatAnswer(data.answers?.informations?.[9]),
       info_type_clientele: getMultipleOptionLabels(data.answers?.informations?.[10]),
       info_services: getMultipleOptionLabels(data.answers?.informations?.[11]),
 
-      // Section Acquisition
-      acq_canaux_utilises: getMultipleOptionLabels(data.answers?.acquisition?.[0]),
-      acq_frequence_actions: getOptionLabel(data.answers?.acquisition?.[1]),
+      // Acquisition
+      acq_canaux: getMultipleOptionLabels(data.answers?.acquisition?.[0]),
+      acq_frequence: getOptionLabel(data.answers?.acquisition?.[1]),
       acq_offre_decouverte: getOptionLabel(data.answers?.acquisition?.[2]),
       acq_suivi_prospects: getOptionLabel(data.answers?.acquisition?.[3]),
       acq_avis_clients: getOptionLabel(data.answers?.acquisition?.[4]),
 
-      // Section Activation
-      act_decouverte_espace: getOptionLabel(data.answers?.activation?.[0]),
-      act_processus_onboarding: getOptionLabel(data.answers?.activation?.[1]),
-      act_clartes_offres: getOptionLabel(data.answers?.activation?.[2]),
-      act_relance_prospects: getOptionLabel(data.answers?.activation?.[3]),
-      act_action_decision: getOptionLabel(data.answers?.activation?.[4]),
+      // Activation
+      act_decouverte: getOptionLabel(data.answers?.activation?.[0]),
+      act_onboarding: getOptionLabel(data.answers?.activation?.[1]),
+      act_offres: getOptionLabel(data.answers?.activation?.[2]),
+      act_relance: getOptionLabel(data.answers?.activation?.[3]),
+      act_facilitation: getOptionLabel(data.answers?.activation?.[4]),
 
-      // Section Rétention
-      ret_frequentation_reguliere: getOptionLabel(data.answers?.retention?.[0]),
-      ret_programme_fidelite: getOptionLabel(data.answers?.retention?.[1]),
-      ret_organisation_evenements: getOptionLabel(data.answers?.retention?.[2]),
-      ret_retours_membres: getOptionLabel(data.answers?.retention?.[3]),
-      ret_amelioration_experience: getOptionLabel(data.answers?.retention?.[4]),
+      // Rétention
+      ret_frequentation: getOptionLabel(data.answers?.retention?.[0]),
+      ret_fidelite: getOptionLabel(data.answers?.retention?.[1]),
+      ret_evenements: getOptionLabel(data.answers?.retention?.[2]),
+      ret_avis: getOptionLabel(data.answers?.retention?.[3]),
+      ret_amelioration: getOptionLabel(data.answers?.retention?.[4]),
 
-      // Section Revenus
-      rev_source_revenus: getMultipleOptionLabels(data.answers?.revenus?.[0]),
-      rev_rentabilite_offres: getOptionLabel(data.answers?.revenus?.[1]),
-      rev_utilisation_crm: getOptionLabel(data.answers?.revenus?.[2]),
-      rev_optimisation_conversion: getOptionLabel(data.answers?.revenus?.[3]),
-      rev_nouvelles_sources: getOptionLabel(data.answers?.revenus?.[4]),
+      // Revenus
+      rev_sources: getMultipleOptionLabels(data.answers?.revenus?.[0]),
+      rev_rentabilite: getOptionLabel(data.answers?.revenus?.[1]),
+      rev_crm: getOptionLabel(data.answers?.revenus?.[2]),
+      rev_conversion: getOptionLabel(data.answers?.revenus?.[3]),
+      rev_developpement: getOptionLabel(data.answers?.revenus?.[4]),
 
-      // Section Recommandation
-      rec_recommandation_spontanee: getOptionLabel(data.answers?.recommandation?.[0]),
-      rec_programme_parrainage: getOptionLabel(data.answers?.recommandation?.[1]),
-      rec_utilisation_avis: getOptionLabel(data.answers?.recommandation?.[2]),
-      rec_participation_communication: getOptionLabel(data.answers?.recommandation?.[3]),
-      rec_creation_contenu: getOptionLabel(data.answers?.recommandation?.[4])
+      // Recommandation
+      rec_spontanee: getOptionLabel(data.answers?.recommandation?.[0]),
+      rec_parrainage: getOptionLabel(data.answers?.recommandation?.[1]),
+      rec_avis: getOptionLabel(data.answers?.recommandation?.[2]),
+      rec_communication: getOptionLabel(data.answers?.recommandation?.[3]),
+      rec_contenu: getOptionLabel(data.answers?.recommandation?.[4])
     };
 
     console.log('Formatted data for Baserow:', baserowData);

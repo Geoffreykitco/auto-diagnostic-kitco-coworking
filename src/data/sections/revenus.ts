@@ -14,7 +14,7 @@ export const revenusSection = {
         { label: "Pass journaliers / horaires", points: 5 },
         { label: "Locations de bureaux privés", points: 5 },
         { label: "Services annexes (café, impression, services professionnels, etc.)", points: 5 },
-        { label: "Organisation d'événements", points: 5 },
+        { label: "Organisation d'événements ou de formations", points: 5 },
         { label: "Aucun modèle économique clairement défini", points: 0 }
       ]
     },
@@ -23,7 +23,7 @@ export const revenusSection = {
       tooltip: "Mesurer la rentabilité des différentes offres permet d'optimiser les marges et d'adapter la stratégie commerciale.",
       type: "single",
       options: [
-        { label: "Oui, nous suivons précisément", points: 10 },
+        { label: "Oui, nous suivons précisément la rentabilité de chaque service", points: 10 },
         { label: "Oui, mais de façon approximative", points: 5 },
         { label: "Non, nous ne faisons pas d'analyse spécifique", points: 0 }
       ]
@@ -33,7 +33,7 @@ export const revenusSection = {
       tooltip: "Un CRM ou logiciel de gestion commerciale permet d'optimiser le suivi des membres, les relances et la gestion des abonnements.",
       type: "single",
       options: [
-        { label: "Oui, avec un outil structuré", points: 10 },
+        { label: "Oui, avec un outil structuré et bien utilisé", points: 10 },
         { label: "Oui, mais il est sous-exploité", points: 5 },
         { label: "Non, nous gérons tout manuellement", points: 0 }
       ]
@@ -43,7 +43,7 @@ export const revenusSection = {
       tooltip: "Une bonne gestion commerciale permet de maximiser le taux de conversion et d'augmenter le chiffre d'affaires.",
       type: "single",
       options: [
-        { label: "Oui, avec des actions bien définies", points: 10 },
+        { label: "Oui, avec des actions bien définies (offres spéciales, suivi des leads, relances automatisées)", points: 10 },
         { label: "Oui, mais sans process structuré", points: 5 },
         { label: "Non, nous laissons les prospects décider seuls", points: 0 }
       ]
@@ -53,8 +53,8 @@ export const revenusSection = {
       tooltip: "La diversification des revenus permet d'assurer la stabilité financière et de limiter la dépendance à un seul modèle.",
       type: "single",
       options: [
-        { label: "Oui, nous testons régulièrement", points: 10 },
-        { label: "Oui, mais sans véritable plan", points: 5 },
+        { label: "Oui, nous testons régulièrement de nouvelles offres", points: 10 },
+        { label: "Oui, mais sans véritable plan structuré", points: 5 },
         { label: "Non, nous restons sur notre modèle actuel", points: 0 }
       ]
     }

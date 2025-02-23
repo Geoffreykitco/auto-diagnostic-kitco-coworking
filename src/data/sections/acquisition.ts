@@ -27,7 +27,7 @@ export const acquisitionSection = {
         { label: "Tous les jours", points: 10 },
         { label: "Quelques fois par semaine", points: 7 },
         { label: "Quelques fois par mois", points: 5 },
-        { label: "Occasionnellement", points: 2 },
+        { label: "Occasionnellement / sans régularité", points: 2 },
         { label: "Aucune action spécifique", points: 0 }
       ]
     },

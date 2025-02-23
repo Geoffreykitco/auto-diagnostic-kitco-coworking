@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuditForm } from "@/hooks/use-audit-form";
 import { MainContent } from "./content/MainContent";
-import { useDiagnosticSubmission } from "@/hooks/use-diagnostic-submission";
+import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface CTACardProps {
   globalScore: number;
@@ -15,7 +17,20 @@ interface CTACardProps {
 export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
-  const { handleSubmit: submitDiagnostic, isSubmitting: isSubmittingDiagnostic } = useDiagnosticSubmission();
+  const { toast } = useToast();
+
+  const formatAnswersForSubmission = (answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>) => {
+    const formattedAnswers: Record<string, Record<number, any>> = {};
+    
+    for (const section in answers) {
+      formattedAnswers[section] = {};
+      for (const questionIndex in answers[section]) {
+        formattedAnswers[section][questionIndex] = answers[section][questionIndex].value;
+      }
+    }
+    
+    return formattedAnswers;
+  };
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -23,18 +38,76 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     coworkingName: string;
     email: string;
   }) => {
-    const success = await submitDiagnostic({
-      fullName: `${formData.firstName} ${formData.lastName}`,
-      coworkingName: formData.coworkingName,
-      email: formData.email
-    }, {
-      globalScore,
-      sectionScores,
-      answers
-    });
+    try {
+      console.log('Début de la soumission du formulaire');
+      
+      const globalLevel = calculateSectionLevel(globalScore);
+      const globalRecommendation = getGlobalMessage(globalScore);
 
-    if (success) {
+      const formattedAnswers = formatAnswersForSubmission(answers);
+
+      const diagnosticData = {
+        created_at: new Date().toISOString(),
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        coworking_name: formData.coworkingName,
+        email: formData.email,
+        answers: formattedAnswers,
+        global_score: globalScore,
+        global_level: globalLevel,
+        global_recommendation: globalRecommendation,
+        acquisition_score: sectionScores.acquisition || 0,
+        acquisition_level: calculateSectionLevel(sectionScores.acquisition || 0),
+        acquisition_recommendation: getSectionMessage('acquisition', calculateSectionLevel(sectionScores.acquisition || 0)),
+        activation_score: sectionScores.activation || 0,
+        activation_level: calculateSectionLevel(sectionScores.activation || 0),
+        activation_recommendation: getSectionMessage('activation', calculateSectionLevel(sectionScores.activation || 0)),
+        retention_score: sectionScores.retention || 0,
+        retention_level: calculateSectionLevel(sectionScores.retention || 0),
+        retention_recommendation: getSectionMessage('retention', calculateSectionLevel(sectionScores.retention || 0)),
+        revenus_score: sectionScores.revenus || 0,
+        revenus_level: calculateSectionLevel(sectionScores.revenus || 0),
+        revenus_recommendation: getSectionMessage('revenus', calculateSectionLevel(sectionScores.revenus || 0)),
+        recommandation_score: sectionScores.recommandation || 0,
+        recommandation_level: calculateSectionLevel(sectionScores.recommandation || 0),
+        recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0))
+      };
+
+      console.log('Envoi des données au serveur:', diagnosticData);
+
+      const { data, error } = await supabase.functions.invoke('save-diagnostic', {
+        body: diagnosticData
+      });
+
+      if (error) {
+        console.error('Erreur lors de l\'envoi:', error);
+        const errorMessage = error.message || 'Une erreur est survenue lors de l\'envoi';
+        toast({
+          title: "Erreur",
+          description: errorMessage,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (!data?.success) {
+        console.error('Erreur de réponse:', data);
+        throw new Error(data?.error || 'Échec de l\'enregistrement des résultats');
+      }
+
       setOpen(false);
+      toast({
+        title: "Envoi réussi !",
+        description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`,
+      });
+
+    } catch (error) {
+      console.error('Error saving form results:', error);
+      toast({
+        title: "Erreur",
+        description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
+        variant: "destructive",
+      });
     }
   };
 
@@ -58,7 +131,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     setCoworkingName,
     email,
     setEmail,
-    isSubmitting: isSubmitting || isSubmittingDiagnostic,
+    isSubmitting,
     handleFormSubmit
   };
 

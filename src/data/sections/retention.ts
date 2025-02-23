@@ -20,9 +20,9 @@ export const retentionSection = {
       tooltip: "Un programme de fidélisation (tarifs préférentiels, accès prioritaire, avantages exclusifs) favorise l'engagement sur le long terme.",
       type: "single",
       options: [
-        { label: "Oui, un programme structuré", points: 10 },
+        { label: "Oui, un programme structuré et actif", points: 10 },
         { label: "Oui, mais peu utilisé", points: 5 },
-        { label: "Non, aucun programme", points: 0 }
+        { label: "Non, aucun programme de fidélité", points: 0 }
       ]
     },
     {
@@ -41,7 +41,7 @@ export const retentionSection = {
       type: "single",
       options: [
         { label: "Oui, via des enquêtes ou échanges réguliers", points: 10 },
-        { label: "Oui, mais sans exploitation", points: 5 },
+        { label: "Oui, mais sans exploitation systématique", points: 5 },
         { label: "Non, aucun retour structuré", points: 0 }
       ]
     },
@@ -50,7 +50,7 @@ export const retentionSection = {
       tooltip: "Un cadre agréable et des services adaptés (aménagements, confort, services additionnels) favorisent la fidélisation.",
       type: "single",
       options: [
-        { label: "Oui, nous optimisons en continu", points: 10 },
+        { label: "Oui, nous optimisons en continu selon les besoins", points: 10 },
         { label: "Oui, mais de manière ponctuelle", points: 5 },
         { label: "Non, aucune action spécifique", points: 0 }
       ]

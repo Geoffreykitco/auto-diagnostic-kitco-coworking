@@ -51,7 +51,7 @@ export const activationSection = {
       tooltip: "Certaines initiatives permettent d'accélérer la conversion en réduisant les freins à l'engagement.",
       type: "single" as const,
       options: [
-        { label: "Oui, avec des offres limitées ou des incitations fortes", points: 10 },
+        { label: "Oui, avec des offres limitées ou des incitations fortes (ex. réduction premier mois)", points: 10 },
         { label: "Oui, mais sans plan structuré", points: 5 },
         { label: "Non, nous laissons les prospects décider seuls", points: 0 }
       ]
