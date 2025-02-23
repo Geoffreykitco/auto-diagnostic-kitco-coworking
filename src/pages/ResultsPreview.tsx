@@ -1,87 +1,124 @@
 
 import { ResultsAnalysis } from "@/components/diagnostic/ResultsAnalysis";
 import { sections } from "@/data/sections";
+import { useEffect, useState } from "react";
 
-const mockAnswers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>> = {
-  informations: {
-    0: { value: 1, score: 0 },
-    1: { value: [1, 2], score: 0 },
-    2: { value: [2, 3], score: 0 },
-    3: { value: 2, score: 0 },
-    4: { value: 1, score: 0 },
-    5: { value: 2, score: 0 },
-    6: { value: 1, score: 0 },
-    7: { value: "Lyon", score: 0 },
-    8: { value: "8h-20h", score: 0 },
-    9: { value: 85, score: 0 },
-    10: { value: [1, 2], score: 0 },
-    11: { value: [0, 2, 3], score: 0 }
-  },
-  acquisition: {
-    0: { value: 5, score: 12 },
-    1: { value: 4, score: 10 },
-    2: { value: 3, score: 7 },
-    3: { value: 5, score: 12 },
-    4: { value: 4, score: 10 }
-  },
-  activation: {
-    0: { value: 3, score: 7 },
-    1: { value: 4, score: 10 },
-    2: { value: 5, score: 12 },
-    3: { value: 4, score: 10 },
-    4: { value: 3, score: 7 }
-  },
-  retention: {
-    0: { value: 5, score: 12 },
-    1: { value: 5, score: 12 },
-    2: { value: 4, score: 10 },
-    3: { value: 3, score: 7 },
-    4: { value: 4, score: 10 }
-  },
-  revenus: {
-    0: { value: 4, score: 10 },
-    1: { value: 3, score: 7 },
-    2: { value: 5, score: 12 },
-    3: { value: 4, score: 10 },
-    4: { value: 3, score: 7 }
-  },
-  recommandation: {
-    0: { value: 5, score: 12 },
-    1: { value: 4, score: 10 },
-    2: { value: 3, score: 7 },
-    3: { value: 5, score: 12 },
-    4: { value: 4, score: 10 }
-  }
+// Fonction utilitaire pour générer un score aléatoire
+const getRandomScore = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const mockData = {
-  first_name: "Marie",
-  last_name: "Dupont",
-  email: "marie.dupont@coworking.fr",
-  coworking_name: "L'Espace Créatif",
-  created_at: new Date().toISOString(),
-  answers: mockAnswers,
-  sections,
-  global_score: 75,
-  global_level: "intermédiaire",
-  global_recommendation: "Votre espace de coworking montre un bon potentiel avec plusieurs points forts, mais certains aspects peuvent encore être optimisés pour maximiser votre succès.",
-  acquisition_score: 82,
-  acquisition_level: "avancé",
-  acquisition_recommendation: "Votre stratégie d'acquisition est solide. Pour progresser davantage, concentrez-vous sur l'optimisation de vos canaux les plus performants.",
-  activation_score: 72,
-  activation_level: "intermédiaire",
-  activation_recommendation: "Votre processus d'activation fonctionne bien mais peut être amélioré pour convertir plus efficacement vos prospects.",
-  retention_score: 80,
-  retention_level: "avancé",
-  retention_recommendation: "Excellente rétention ! Continuez à enrichir l'expérience de vos membres pour maintenir ce niveau.",
-  revenus_score: 70,
-  revenus_level: "intermédiaire",
-  revenus_recommendation: "Vos revenus sont satisfaisants mais il existe des opportunités d'optimisation, notamment dans la diversification de vos sources de revenus.",
-  recommandation_score: 78,
-  recommandation_level: "intermédiaire",
-  recommandation_recommendation: "Le bouche à oreille fonctionne bien. Envisagez un programme de parrainage pour amplifier ces recommandations."
+// Fonction pour générer des scores aléatoires pour une section
+const generateSectionScores = () => {
+  return {
+    0: { value: getRandomScore(3, 5), score: getRandomScore(7, 12) },
+    1: { value: getRandomScore(3, 5), score: getRandomScore(7, 12) },
+    2: { value: getRandomScore(3, 5), score: getRandomScore(7, 12) },
+    3: { value: getRandomScore(3, 5), score: getRandomScore(7, 12) },
+    4: { value: getRandomScore(3, 5), score: getRandomScore(7, 12) }
+  };
 };
 
 export const ResultsPreview = () => {
-  return <ResultsAnalysis answers={mockAnswers} formData={mockData} />;
+  const [mockData, setMockData] = useState<any>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const acquisitionScore = Math.floor(Math.random() * (95 - 65) + 65);
+      const activationScore = Math.floor(Math.random() * (95 - 65) + 65);
+      const retentionScore = Math.floor(Math.random() * (95 - 65) + 65);
+      const revenusScore = Math.floor(Math.random() * (95 - 65) + 65);
+      const recommandationScore = Math.floor(Math.random() * (95 - 65) + 65);
+      
+      const globalScore = Math.floor(
+        (acquisitionScore + activationScore + retentionScore + revenusScore + recommandationScore) / 5
+      );
+
+      const getLevel = (score: number) => {
+        if (score >= 80) return "avancé";
+        if (score >= 50) return "intermédiaire";
+        return "débutant";
+      };
+
+      const mockAnswers = {
+        informations: {
+          0: { value: 1, score: 0 },
+          1: { value: [1, 2], score: 0 },
+          2: { value: [2, 3], score: 0 },
+          3: { value: 2, score: 0 },
+          4: { value: 1, score: 0 },
+          5: { value: 2, score: 0 },
+          6: { value: 1, score: 0 },
+          7: { value: "Lyon", score: 0 },
+          8: { value: "8h-20h", score: 0 },
+          9: { value: getRandomScore(70, 95), score: 0 },
+          10: { value: [1, 2], score: 0 },
+          11: { value: [0, 2, 3], score: 0 }
+        },
+        acquisition: generateSectionScores(),
+        activation: generateSectionScores(),
+        retention: generateSectionScores(),
+        revenus: generateSectionScores(),
+        recommandation: generateSectionScores()
+      };
+
+      const newMockData = {
+        first_name: "Marie",
+        last_name: "Dupont",
+        email: "marie.dupont@coworking.fr",
+        coworking_name: "L'Espace Créatif",
+        created_at: new Date().toISOString(),
+        answers: mockAnswers,
+        sections,
+        global_score: globalScore,
+        global_level: getLevel(globalScore),
+        global_recommendation: "Score actualisé en temps réel. Les résultats varient pour démontrer différents scénarios.",
+        acquisition_score: acquisitionScore,
+        acquisition_level: getLevel(acquisitionScore),
+        acquisition_recommendation: `Votre score d'acquisition est de ${acquisitionScore}%. ${
+          acquisitionScore >= 80 
+            ? "Excellent niveau, continuez sur cette lancée !" 
+            : "Il y a encore de la marge de progression."
+        }`,
+        activation_score: activationScore,
+        activation_level: getLevel(activationScore),
+        activation_recommendation: `Votre score d'activation est de ${activationScore}%. ${
+          activationScore >= 80 
+            ? "Votre processus d'activation est très efficace." 
+            : "Quelques ajustements pourraient améliorer vos résultats."
+        }`,
+        retention_score: retentionScore,
+        retention_level: getLevel(retentionScore),
+        retention_recommendation: `Votre score de rétention est de ${retentionScore}%. ${
+          retentionScore >= 80 
+            ? "Vos membres sont très fidèles !" 
+            : "Il y a des opportunités d'amélioration."
+        }`,
+        revenus_score: revenusScore,
+        revenus_level: getLevel(revenusScore),
+        revenus_recommendation: `Votre score de revenus est de ${revenusScore}%. ${
+          revenusScore >= 80 
+            ? "Excellent modèle économique !" 
+            : "Pensez à diversifier vos sources de revenus."
+        }`,
+        recommandation_score: recommandationScore,
+        recommandation_level: getLevel(recommandationScore),
+        recommandation_recommendation: `Votre score de recommandation est de ${recommandationScore}%. ${
+          recommandationScore >= 80 
+            ? "Vos membres sont d'excellents ambassadeurs !" 
+            : "Encouragez davantage le bouche à oreille."
+        }`
+      };
+
+      setMockData(newMockData);
+    }, 3000); // Met à jour toutes les 3 secondes
+
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!mockData) {
+    return <div className="flex items-center justify-center min-h-screen">Chargement de la preview...</div>;
+  }
+
+  return <ResultsAnalysis answers={mockData.answers} formData={mockData} />;
 };
