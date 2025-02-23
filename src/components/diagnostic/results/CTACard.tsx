@@ -32,28 +32,8 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
           schema: 'public',
           table: 'diagnostics'
         },
-        async (payload) => {
+        (payload) => {
           console.log('Nouvelle ligne détectée dans Supabase:', payload);
-          
-          try {
-            // Envoyer les données vers Baserow
-            const { error: baserowError } = await supabase.functions.invoke('save-to-baserow', {
-              body: payload.new
-            });
-
-            if (baserowError) {
-              console.error('Erreur lors de la synchronisation vers Baserow:', baserowError);
-              toast({
-                title: "Erreur de synchronisation",
-                description: "Les données n'ont pas pu être synchronisées avec Baserow",
-                variant: "destructive",
-              });
-            } else {
-              console.log('Données synchronisées avec succès vers Baserow');
-            }
-          } catch (error) {
-            console.error('Erreur lors de la synchronisation:', error);
-          }
         }
       )
       .subscribe();
@@ -62,7 +42,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [toast]);
+  }, []);
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -117,6 +97,19 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         console.error('Erreur Supabase:', error);
         throw new Error(error.message);
       }
+
+      // Envoi direct vers Baserow
+      console.log('=== Envoi des données vers Baserow ===');
+      const { error: baserowError } = await supabase.functions.invoke('save-to-baserow', {
+        body: diagnosticData
+      });
+
+      if (baserowError) {
+        console.error('Erreur lors de l\'envoi vers Baserow:', baserowError);
+        throw new Error('Erreur lors de l\'envoi vers Baserow');
+      }
+
+      console.log('=== Données synchronisées avec succès vers Baserow ===');
 
       setOpen(false);
       toast({
@@ -188,3 +181,4 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     </motion.div>
   );
 };
+
