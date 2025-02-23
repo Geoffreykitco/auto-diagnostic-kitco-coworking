@@ -1,3 +1,4 @@
+
 import { FormEventHandler } from "react";
 interface DesktopFormProps {
   fullName: string;
@@ -55,11 +56,11 @@ export const DesktopForm = ({
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
           </div>
 
-          <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-4 text-base">
+          <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-3 text-base">
             {isSubmitting ? "Envoi en cours..." : "Finaliser"}
           </button>
 
-          <p className="text-xs text-center text-gray-500 mt-4">
+          <p className="text-xs text-center text-gray-500 mt-3">
             En soumettant ce formulaire, vous acceptez que nous utilisions vos données pour vous contacter au sujet de votre diagnostic.
           </p>
         </form>
