@@ -24,19 +24,19 @@ export const MainContent = ({ open, setOpen, formProps }: MainContentProps) => {
   const isMobile = useIsMobile();
 
   return (
-    <div className={`${isMobile ? 'w-full max-w-full overflow-x-hidden' : 'max-w-5xl'} mx-auto px-4 py-8`}>
+    <div className={`${isMobile ? 'w-full max-w-full overflow-x-hidden' : 'max-w-5xl'} mx-auto px-4 py-6`}>
       <div className="text-center space-y-2">
-        <h2 className="font-semibold text-gray-900 text-xl">
+        <h2 className="font-medium text-gray-900 text-base md:text-lg">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto md:text-base text-sm">
+        <p className="text-gray-600 max-w-2xl mx-auto text-sm">
           Vous avez maintenant une vision claire de la performance de votre espace de coworking.
         </p>
 
         <div>
           <button 
             onClick={() => setOpen(true)}
-            className="mt-2 bg-[#0B1A17] text-white px-6 py-2.5 rounded-lg text-sm md:text-base hover:bg-[#132721] hover:scale-[1.02] transform transition-colors duration-200"
+            className="mt-2 bg-[#0B1A17] text-white px-5 py-2 rounded-lg text-sm hover:bg-[#132721] hover:scale-[1.02] transform transition-colors duration-200"
           >
             Recevoir mon audit et mon plan d'action
           </button>
@@ -63,7 +63,7 @@ export const MainContent = ({ open, setOpen, formProps }: MainContentProps) => {
             </Dialog>
           )}
 
-          <p className="font-medium mt-1 text-gray-500 text-xs">
+          <p className="font-medium mt-1 text-gray-500 text-[0.7rem]">
             Nous garantissons la confidentialité de vos données.
           </p>
         </div>
