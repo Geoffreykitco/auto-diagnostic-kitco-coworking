@@ -1,4 +1,6 @@
 
+import { sections } from '@/data/sections';
+
 // Mapping des indices de questions vers les noms de champs pour chaque section
 const FIELD_MAPPINGS = {
   informations: {
@@ -58,13 +60,30 @@ export const formatAnswersForSubmission = (answers: Record<string, Record<number
   // Formatage des réponses par section
   Object.entries(answers).forEach(([sectionKey, sectionAnswers]) => {
     if (sectionKey in FIELD_MAPPINGS) {
+      const section = sections[sectionKey as keyof typeof sections];
+      
       Object.entries(sectionAnswers).forEach(([questionIndex, answer]) => {
         const fieldName = FIELD_MAPPINGS[sectionKey as keyof typeof FIELD_MAPPINGS][Number(questionIndex)];
         if (fieldName) {
-          const value = Array.isArray(answer.value) 
-            ? answer.value.join(', ') // Si c'est un tableau, on le joint avec des virgules
-            : answer.value?.toString() || ''; // Sinon on convertit en string
-          formattedAnswers[fieldName] = value;
+          let formattedValue: string;
+          
+          if (section.questions[Number(questionIndex)].type === 'text') {
+            // Pour les questions de type texte, on garde la valeur telle quelle
+            formattedValue = answer.value?.toString() || '';
+          } else if (Array.isArray(answer.value)) {
+            // Pour les questions à choix multiples
+            formattedValue = answer.value
+              .map(index => section.questions[Number(questionIndex)].options[index]?.label)
+              .filter(Boolean)
+              .join(', ');
+          } else if (typeof answer.value === 'number') {
+            // Pour les questions à choix unique
+            formattedValue = section.questions[Number(questionIndex)].options[answer.value]?.label || '';
+          } else {
+            formattedValue = '';
+          }
+          
+          formattedAnswers[fieldName] = formattedValue;
         }
       });
     }
