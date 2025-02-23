@@ -30,8 +30,16 @@ export const useDiagnosticSubmission = () => {
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
+      // Validation des données de base
+      if (!formData.email || !formData.fullName || !formData.coworkingName) {
+        throw new Error("Veuillez remplir tous les champs du formulaire");
+      }
+
       // Séparer le nom complet en prénom et nom
       const [firstName = '', lastName = ''] = formData.fullName.split(' ');
+
+      // Formater les réponses pour Baserow
+      const formattedAnswers = formatAnswersForSubmission(answers);
 
       const payload = {
         first_name: firstName,
@@ -55,7 +63,8 @@ export const useDiagnosticSubmission = () => {
         revenus_recommendation: getSectionMessage('revenus', calculateSectionLevel(sectionScores.revenus || 0)),
         recommandation_score: sectionScores.recommandation?.toString() || "0",
         recommandation_level: calculateSectionLevel(sectionScores.recommandation || 0),
-        recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0))
+        recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0)),
+        ...formattedAnswers // Ajout des réponses formatées
       };
 
       console.log('=== ENVOI DU PAYLOAD À LA FONCTION EDGE ===');
@@ -67,17 +76,14 @@ export const useDiagnosticSubmission = () => {
 
       console.log('Réponse de la fonction Edge:', { data, error });
 
-      if (error) {
-        throw new Error(error.message || 'Une erreur est survenue lors de l\'envoi');
-      }
-
-      if (!data?.success) {
-        throw new Error('Échec de l\'enregistrement des résultats');
+      if (error || !data?.success) {
+        throw new Error(error?.message || data?.error || 'Une erreur est survenue lors de l\'envoi');
       }
 
       toast({
-        title: "Envoi réussi !",
+        title: "Envoi réussi ! 🎉",
         description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`,
+        duration: 5000,
       });
 
       return true;
@@ -87,9 +93,10 @@ export const useDiagnosticSubmission = () => {
       console.error('Message d\'erreur:', error instanceof Error ? error.message : error);
       
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi du formulaire",
+        title: "Erreur lors de l'envoi",
+        description: error instanceof Error ? error.message : "Une erreur inattendue est survenue",
         variant: "destructive",
+        duration: 5000,
       });
       return false;
     } finally {
