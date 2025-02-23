@@ -32,6 +32,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
 
+      // Utilisation du formatter complet pour formater les réponses
       const formattedAnswers = formatAnswersForSubmission(answers);
 
       const diagnosticData = {
@@ -58,7 +59,8 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         revenus_recommendation: getSectionMessage('revenus', calculateSectionLevel(sectionScores.revenus || 0)),
         recommandation_score: sectionScores.recommandation || 0,
         recommandation_level: calculateSectionLevel(sectionScores.recommandation || 0),
-        recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0))
+        recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0)),
+        ...formattedAnswers // Ajout des réponses formatées
       };
 
       console.log('Envoi des données au serveur:', diagnosticData);
@@ -157,4 +159,3 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     </motion.div>
   );
 };
-
