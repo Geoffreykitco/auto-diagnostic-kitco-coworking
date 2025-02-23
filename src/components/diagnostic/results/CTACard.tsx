@@ -7,6 +7,7 @@ import { MainContent } from "./content/MainContent";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 
 interface CTACardProps {
   globalScore: number;
@@ -18,19 +19,6 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-
-  const formatAnswersForSubmission = (answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>) => {
-    const formattedAnswers: Record<string, Record<number, any>> = {};
-    
-    for (const section in answers) {
-      formattedAnswers[section] = {};
-      for (const questionIndex in answers[section]) {
-        formattedAnswers[section][questionIndex] = answers[section][questionIndex].value;
-      }
-    }
-    
-    return formattedAnswers;
-  };
 
   const handleSubmit = async (formData: {
     firstName: string;
@@ -52,7 +40,7 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
         last_name: formData.lastName,
         coworking_name: formData.coworkingName,
         email: formData.email,
-        answers: formattedAnswers,
+        answers: answers,
         global_score: globalScore,
         global_level: globalLevel,
         global_recommendation: globalRecommendation,
@@ -75,24 +63,31 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
 
       console.log('Envoi des données au serveur:', diagnosticData);
 
-      const { data, error } = await supabase.functions.invoke('save-diagnostic', {
-        body: diagnosticData
-      });
+      // Appel des deux fonctions en parallèle
+      const [saveResponse, baserowResponse] = await Promise.all([
+        supabase.functions.invoke('save-diagnostic', {
+          body: diagnosticData
+        }),
+        supabase.functions.invoke('save-to-baserow', {
+          body: diagnosticData
+        })
+      ]);
 
-      if (error) {
-        console.error('Erreur lors de l\'envoi:', error);
-        const errorMessage = error.message || 'Une erreur est survenue lors de l\'envoi';
-        toast({
-          title: "Erreur",
-          description: errorMessage,
-          variant: "destructive",
-        });
-        return;
+      // Vérification des erreurs
+      if (saveResponse.error) {
+        console.error('Erreur lors de la sauvegarde:', saveResponse.error);
+        throw new Error(saveResponse.error.message || 'Erreur lors de la sauvegarde');
       }
 
-      if (!data?.success) {
-        console.error('Erreur de réponse:', data);
-        throw new Error(data?.error || 'Échec de l\'enregistrement des résultats');
+      if (baserowResponse.error) {
+        console.error('Erreur lors de l\'envoi à Baserow:', baserowResponse.error);
+        // On continue même si Baserow échoue
+        console.warn('Continuer malgré l\'erreur Baserow');
+      }
+
+      if (!saveResponse.data?.success) {
+        console.error('Erreur de réponse:', saveResponse.data);
+        throw new Error(saveResponse.data?.error || 'Échec de l\'enregistrement des résultats');
       }
 
       setOpen(false);
@@ -162,3 +157,4 @@ export const CTACard = ({ globalScore, sectionScores, answers }: CTACardProps) =
     </motion.div>
   );
 };
+
