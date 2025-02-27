@@ -54,6 +54,16 @@ const FIELD_MAPPINGS = {
   }
 } as const;
 
+// Liste des champs qui doivent avoir le format sans espace après la virgule
+const MULTIPLE_CHOICE_FIELDS = [
+  'info_type_bureaux',
+  'info_type_abonnements',
+  'info_type_clientele',
+  'info_services',
+  'acq_canaux_utilises',
+  'rev_source_revenus'
+];
+
 export const formatAnswersForSubmission = (answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>) => {
   const formattedAnswers: Record<string, any> = {};
 
@@ -72,10 +82,16 @@ export const formatAnswersForSubmission = (answers: Record<string, Record<number
             formattedValue = answer.value?.toString() || '';
           } else if (Array.isArray(answer.value)) {
             // Pour les questions à choix multiples
-            formattedValue = answer.value
+            const labels = answer.value
               .map(index => section.questions[Number(questionIndex)].options[index]?.label)
-              .filter(Boolean)
-              .join(', ');
+              .filter(Boolean);
+            
+            // Appliquer le format sans espace après la virgule pour les champs spécifiques
+            if (MULTIPLE_CHOICE_FIELDS.includes(fieldName)) {
+              formattedValue = labels.join(',');
+            } else {
+              formattedValue = labels.join(', ');
+            }
           } else if (typeof answer.value === 'number') {
             // Pour les questions à choix unique
             formattedValue = section.questions[Number(questionIndex)].options[answer.value]?.label || '';
