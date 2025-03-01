@@ -54,7 +54,7 @@ const FIELD_MAPPINGS = {
   }
 } as const;
 
-// Liste des champs qui doivent avoir le format avec point-virgule
+// Liste des champs qui doivent avoir le format avec virgule sans espace
 const MULTIPLE_CHOICE_FIELDS = [
   'info_type_bureaux',
   'info_type_abonnements',
@@ -86,9 +86,9 @@ export const formatAnswersForSubmission = (answers: Record<string, Record<number
               .map(index => section.questions[Number(questionIndex)].options[index]?.label)
               .filter(Boolean);
             
-            // Appliquer le format avec point-virgule pour les champs spécifiques
+            // Appliquer le format avec virgule sans espace pour les champs spécifiques
             if (MULTIPLE_CHOICE_FIELDS.includes(fieldName)) {
-              formattedValue = labels.join(';');
+              formattedValue = labels.join(',');
             } else {
               formattedValue = labels.join(', ');
             }
