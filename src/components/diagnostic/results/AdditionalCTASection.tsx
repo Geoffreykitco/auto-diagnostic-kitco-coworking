@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -103,13 +102,10 @@ export const AdditionalCTASection = ({
       <div className="grid md:grid-cols-2 gap-0">
         {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
+          <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-base">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
           </h3>
           
-          <p className="mb-4 text-left text-black text-sm">
-            Si on analyse vos données en les comparant à une étude récente du Synaphe (Syndicat National des Professionnels de l'Hébergement d'Entreprises), 
-            on constate que les espaces similaires au vôtre atteignent en moyenne un taux de remplissage supérieur de 22%.
-          </p>
+          <p className="mb-4 text-left text-black text-sm">Si on analyse vos données en les comparant à une étude du Synaphe (Syndicat coworking) menée en 2024, on constate que les espaces similaires au vôtre atteignent en moyenne un taux de remplissage supérieur de 22%.</p>
           
           <p className="mb-4 text-left text-black text-sm">
             L'étude porte sur des espaces présentant les caractéristiques suivantes :
@@ -122,7 +118,7 @@ export const AdditionalCTASection = ({
             <li>Une localisation dans des villes comparables à {ville}</li>
           </ul>
           
-          <p className="text-gray-600 mb-6 text-sm text-left">
+          <p className="text-gray-600 mb-6 text-left text-xs">
             En tenant compte des recommandations personnalisées à votre contexte business, 
             vous pourrez voir votre indicateur de remplissage augmenter significativement.
           </p>
