@@ -30,7 +30,7 @@ export const MainContent = ({
   
   return (
     <div className="w-full mx-auto px-3 sm:px-4 py-3 sm:py-4 max-w-full sm:max-w-5xl overflow-x-hidden">
-      <div className="text-center space-y-1 sm:space-y-1.5">
+      <div className="text-center space-y-1 sm:space-y-1.5 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden p-4 sm:p-6">
         <h2 className="text-base sm:text-lg md:text-xl font-bold text-black py-0 text-center">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "1er service pensé pour booster les performances d'un espace de coworking"}
         </h2>
@@ -38,9 +38,9 @@ export const MainContent = ({
           Kitco par le fondateur de l'espace de coworking au19 qui dispose d'un taux de remplissage moyen de 83% grâce à cette méthode de travail.
         </p>
 
-        <div className="mt-2 sm:mt-3">
-          <a href="https://calendar.app.google/9xhMZ7tDMArPJzFt5" target="_blank" rel="noopener noreferrer">
-            <Button variant="audit" className="w-full sm:w-auto text-sm sm:text-base rounded-md my-2 px-3 sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px]">
+        <div className="flex justify-center mt-2 sm:mt-3">
+          <a href="https://calendar.app.google/9xhMZ7tDMArPJzFt5" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+            <Button variant="audit" className="w-full sm:w-auto text-sm sm:text-base rounded-md px-3 sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px]">
               Prendre RDV avec Geoffrey
             </Button>
           </a>
