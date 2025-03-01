@@ -32,7 +32,7 @@ export const MainContent = ({
     <div className="w-full mx-auto px-3 sm:px-4 py-3 sm:py-4 max-w-full sm:max-w-5xl overflow-x-hidden">
       <div className="text-center space-y-1 sm:space-y-1.5 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden p-4 sm:p-6">
         <h2 className="text-base sm:text-lg md:text-xl font-bold text-black py-0 text-center">
-          {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "1er service pensé pour booster les performances d'un espace de coworking"}
+          1er service pensé pour booster les performances d'un espace de coworking
         </h2>
         <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base font-medium text-gray-600">
           Kitco par le fondateur de l'espace de coworking au19 qui dispose d'un taux de remplissage moyen de 83% grâce à cette méthode de travail.
