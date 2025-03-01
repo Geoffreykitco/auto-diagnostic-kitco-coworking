@@ -135,6 +135,11 @@ export const ResultsAnalysis = ({
             answers={answers}
           />
 
+          {/* Nouveau titre H2 au-dessus des sections à deux colonnes */}
+          <h2 className="text-2xl font-bold text-center text-gray-800 mt-12 mb-6">
+            Analyse granulaire de vos performances actuelles par partie
+          </h2>
+
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
             {answers.activation && renderSectionCard('activation', answers.activation)}
