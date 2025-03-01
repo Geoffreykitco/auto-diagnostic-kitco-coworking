@@ -1,3 +1,4 @@
+
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { sections } from '@/data/sections';
 import { useToast } from '@/hooks/use-toast';
@@ -126,11 +127,14 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
   }, [currentSection, calculateProgress, updateSectionScores, toast]);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-      left: 0
-    });
+    // Augmentation du délai avant de scroller pour s'assurer que le DOM est bien mis à jour
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+        left: 0
+      });
+    }, 50); // Un petit délai pour s'assurer que le navigateur est prêt à traiter le scroll
   }, []);
 
   const handleNext = useCallback(() => {
@@ -155,13 +159,13 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
         clearTimeout(sectionChangeTimeoutRef.current);
       }
 
+      // Changement de section d'abord
       setCurrentSection(sectionOrder[currentIndex + 1]);
       
-      requestAnimationFrame(() => {
-        sectionChangeTimeoutRef.current = window.setTimeout(() => {
-          scrollToTop();
-        }, 150);
-      });
+      // Utilisation d'un délai plus long pour s'assurer que la transition de page est complète
+      sectionChangeTimeoutRef.current = window.setTimeout(() => {
+        scrollToTop();
+      }, 300); // Augmentation du délai pour donner plus de temps à la page pour se mettre à jour
     }
   }, [currentSection, answers, toast, scrollToTop]);
 
@@ -173,13 +177,13 @@ export const useDiagnosticState = ({ toast }: UseDiagnosticStateProps) => {
         clearTimeout(sectionChangeTimeoutRef.current);
       }
 
+      // Changement de section d'abord
       setCurrentSection(sectionOrder[currentIndex - 1]);
       
-      requestAnimationFrame(() => {
-        sectionChangeTimeoutRef.current = window.setTimeout(() => {
-          scrollToTop();
-        }, 150);
-      });
+      // Utilisation d'un délai plus long pour s'assurer que la transition de page est complète
+      sectionChangeTimeoutRef.current = window.setTimeout(() => {
+        scrollToTop();
+      }, 300); // Augmentation du délai pour donner plus de temps à la page pour se mettre à jour
     }
   }, [currentSection, scrollToTop]);
 
