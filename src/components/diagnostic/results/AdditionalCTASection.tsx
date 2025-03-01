@@ -56,7 +56,7 @@ export const AdditionalCTASection = ({ globalScore, answers }: AdditionalCTASect
           <img 
             src="/lovable-uploads/ba562fd9-da38-4ce5-8df0-507a7e54bcc8.png" 
             alt="Logo KITCO - Auto-diagnostic des coworkings" 
-            className="w-full h-full object-contain p-4"
+            className="w-full h-full object-contain"
           />
         </div>
       </div>
