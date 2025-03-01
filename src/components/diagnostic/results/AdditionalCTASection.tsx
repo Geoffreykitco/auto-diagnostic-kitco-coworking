@@ -52,11 +52,11 @@ export const AdditionalCTASection = ({ globalScore, answers }: AdditionalCTASect
         </div>
         
         {/* Colonne de droite (image) */}
-        <div className="bg-gray-100 flex items-center justify-center">
+        <div className="bg-[#0B1A17] flex items-center justify-center">
           <img 
-            src="/placeholder.svg" 
-            alt="Espace de coworking avec un taux de remplissage élevé" 
-            className="w-full h-full object-cover"
+            src="/lovable-uploads/de408d12-d8ae-4da7-ba81-00ff18253eac.png" 
+            alt="Logo KITCO - Des coworkings bien pensés" 
+            className="w-full h-full object-contain p-4"
           />
         </div>
       </div>
