@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -81,7 +80,7 @@ export const AdditionalCTASection = ({
       <div className="grid md:grid-cols-2 gap-0">
         {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="text-xl md:text-2xl font-bold mb-4 text-black text-left">Envie d'augmenter le taux de remplissage de votre coworking ?
+          <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Envie d'augmenter le taux de remplissage de votre coworking ?
         </h3>
           
           <p className="text-gray-700 mb-4 text-base text-left">
