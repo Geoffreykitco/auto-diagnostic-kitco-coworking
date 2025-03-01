@@ -81,7 +81,9 @@ export const AdditionalCTASection = ({
         {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
           <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Envie d'augmenter le taux de remplissage de votre coworking ?
-        </h3>
+
+
+Analyse comparative - Performance de votre espace de coworking</h3>
           
           <p className="mb-4 text-left text-base text-gray-600">
             Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
