@@ -30,9 +30,8 @@ export const AdditionalCTASection = ({
       <div className="grid md:grid-cols-2 gap-0">
         {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="text-xl md:text-2xl font-bold mb-4 text-center text-black">
-            Améliorez votre taux de remplissage
-          </h3>
+          <h3 className="text-xl md:text-2xl font-bold mb-4 text-center text-black">Envie d'augmenter le taux de remplissage de votre coworking ?
+        </h3>
           
           <p className="text-gray-700 mb-4 text-center">
             Aujourd'hui, le % de remplissage de votre espace de coworking est de {remplissagePercent}%. 
@@ -46,9 +45,7 @@ export const AdditionalCTASection = ({
           </p>
           
           <div>
-            <Button onClick={() => setOpen(true)} className="bg-[#0B1A17] text-white px-6 py-2 rounded-md hover:bg-[#132721] transition-colors">
-              Recevoir mon plan d'action personnalisé
-            </Button>
+            <Button onClick={() => setOpen(true)} className="bg-[#0B1A17] text-white px-6 py-2 rounded-md hover:bg-[#132721] transition-colors">Recevoir l'intégralité de mon audit en PDF</Button>
           </div>
         </div>
         
