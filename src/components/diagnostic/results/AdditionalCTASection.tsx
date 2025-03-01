@@ -204,13 +204,13 @@ export const AdditionalCTASection = ({
             <li>Une localisation dans des villes comparables à {ville}</li>
           </ul>
           
-          <div className="text-left">
+          <div className="text-left my-0">
             <Button onClick={() => setOpen(true)} variant="audit" className="md:text-base text-base rounded-md text-left py-0 my-0">
               Recevoir l'intégralité de mon audit en PDF
             </Button>
           </div>
           
-          <p className="text-gray-600 mt-6 text-left text-xs my-[8px]">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
+          <p className="text-gray-600 mt-6 text-left text-xs my-[5px]">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
           
           {open && <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
