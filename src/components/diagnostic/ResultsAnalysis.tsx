@@ -14,6 +14,7 @@ import { GlobalScoreCard } from "./results/GlobalScoreCard";
 import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
 import { Question } from "./question/types";
+import { AdditionalCTASection } from "./results/AdditionalCTASection";
 
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, { value: string | number | number[] | null; score: number }>>;
@@ -124,6 +125,13 @@ export const ResultsAnalysis = ({
             getLevelColor={getLevelColor}
             getProgressColor={getProgressColor}
             getGlobalMessage={getGlobalMessage}
+            answers={answers}
+          />
+
+          {/* Nouvelle section CTA juste après le score global */}
+          <AdditionalCTASection 
+            globalScore={globalScore} 
+            sectionScores={sectionScores} 
             answers={answers}
           />
 
