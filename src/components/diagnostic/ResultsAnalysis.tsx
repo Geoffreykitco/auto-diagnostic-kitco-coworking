@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -132,12 +131,8 @@ export const ResultsAnalysis = ({
 
           <AdditionalCTASection globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
 
-          <div className="w-full rounded-lg overflow-hidden bg-gray-100 shadow-md">
-            <img 
-              src="https://images.unsplash.com/photo-1517022812141-23620dba5c23" 
-              alt="Séparateur" 
-              className="w-full h-2 md:h-4 object-cover"
-            />
+          <div className="w-full rounded-lg overflow-hidden bg-black shadow-md h-2 md:h-4">
+            {/* Séparateur noir */}
           </div>
 
           <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-1 text-left">Analyse granulaire de vos performances actuelles par partie (Graphique Radar)</h2>
