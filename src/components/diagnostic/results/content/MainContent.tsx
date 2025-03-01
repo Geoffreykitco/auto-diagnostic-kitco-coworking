@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileForm } from "../form/MobileForm";
@@ -30,9 +29,7 @@ export const MainContent = ({
         <h2 className="text-xl font-bold text-black py-0 md:text-lg text-center">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "1er service pensé pour booster les performances d'un espace de coworking"}
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-sm">
-          Vous avez maintenant une vision claire de la performance de votre espace de coworking.
-        </p>
+        <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-sm">Kitco par le fondateur de l'esapce de coworking au19 qui dispose d'un taux de remplissage moyen de 83% grâce à cette méthode de travail.</p>
 
         <div>
           <Button onClick={() => setOpen(true)} variant="audit" className="mt-2 md:text-base text-lg rounded-md my-[10px] px-[20px] py-[20px]">Recevoir l'intégralité de mon audit en PDF</Button>
