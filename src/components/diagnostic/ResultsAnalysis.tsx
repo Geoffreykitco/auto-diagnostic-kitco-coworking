@@ -8,6 +8,7 @@ import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
 import { Question } from "./question/types";
 import { AdditionalCTASection } from "./results/AdditionalCTASection";
+
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, {
     value: string | number | number[] | null;
@@ -15,11 +16,13 @@ interface ResultsAnalysisProps {
   }>>;
   formData?: any;
 }
+
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
   const [globalScore, setGlobalScore] = useState<number>(0);
   const [sectionScores, setSectionScores] = useState<Record<string, number>>({});
+  
   const steps = [{
     id: 'informations',
     label: 'Informations'
@@ -43,10 +46,12 @@ export const ResultsAnalysis = ({
     label: 'Résultats'
   }];
   const currentStep = steps[steps.length - 1];
+
   useEffect(() => {
     const results = calculateResults();
     setSectionScores(results.sectionScores);
   }, [answers]);
+
   const calculateResults = () => {
     const sectionScores: Record<string, number> = {};
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
@@ -72,16 +77,19 @@ export const ResultsAnalysis = ({
       sectionScores
     };
   };
+
   const getLevelColor = (score: number): string => {
     if (score >= 80) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
     return "text-red-600";
   };
+
   const getProgressColor = (score: number): string => {
     if (score >= 80) return "bg-green-500";
     if (score >= 50) return "bg-yellow-500";
     return "bg-red-500";
   };
+
   const formatAnswersForCards = (section: string, sectionAnswers: Record<number, {
     value: string | number | number[] | null;
     score: number;
@@ -94,6 +102,7 @@ export const ResultsAnalysis = ({
       return acc;
     }, {} as Record<number, Answer>);
   };
+
   const renderSectionCard = (section: string, sectionAnswers: Record<number, {
     value: string | number | number[] | null;
     score: number;
@@ -105,50 +114,69 @@ export const ResultsAnalysis = ({
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
     return <SectionCard section={section} score={sectionScore.score} level={sectionScore.level} message={sectionScore.message} getLevelColor={getLevelColor} getProgressColor={getProgressColor} />;
   };
-  return <motion.div initial={{
-    opacity: 0
-  }} animate={{
-    opacity: 1
-  }} exit={{
-    opacity: 0
-  }} className="flex flex-col min-h-screen">
-      <div className="max-w-5xl mx-auto px-4 flex-grow">
-        <div className="mt-16 mb-8">
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }} 
+      exit={{ opacity: 0 }} 
+      className="flex flex-col min-h-screen w-full overflow-x-hidden"
+    >
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex-grow overflow-hidden">
+        <div className="mt-12 md:mt-16 mb-6 md:mb-8">
           <DiagnosticBreadcrumb steps={steps} currentStep={currentStep} />
         </div>
         
-        <div className="space-y-8 md:space-y-12">
-          <GlobalScoreCard score={globalScore} getLevelColor={getLevelColor} getProgressColor={getProgressColor} getGlobalMessage={getGlobalMessage} answers={answers} />
+        <div className="space-y-6 md:space-y-12">
+          <GlobalScoreCard 
+            score={globalScore} 
+            getLevelColor={getLevelColor} 
+            getProgressColor={getProgressColor} 
+            getGlobalMessage={getGlobalMessage} 
+            answers={answers} 
+          />
 
-          <AdditionalCTASection globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
+          <AdditionalCTASection 
+            globalScore={globalScore} 
+            sectionScores={sectionScores} 
+            answers={answers} 
+          />
 
           <div className="w-full bg-black shadow-md h-1 md:h-2 rounded-md">
             {/* Séparateur noir */}
           </div>
 
-          <h2 className="font-bold text-gray-800 mt-8 mb-1 text-left text-xl">Analyse granulaire de vos performances actuelles par partie (Cf Graphique Radar)</h2>
+          <h2 className="font-bold text-gray-800 mt-6 md:mt-8 mb-1 text-left text-lg md:text-xl">
+            Analyse granulaire de vos performances actuelles par partie (Cf Graphique Radar)
+          </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-0">
             {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
             {answers.activation && renderSectionCard('activation', answers.activation)}
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
             {answers.retention && renderSectionCard('retention', answers.retention)}
             {answers.revenus && renderSectionCard('revenus', answers.revenus)}
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
             {answers.recommandation && renderSectionCard('recommandation', answers.recommandation)}
             <div className="aspect-video rounded-lg overflow-hidden">
-              <iframe src="https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa?sid=a8bb8032-40ab-498f-9a88-c9393477eca5" frameBorder="0" allowFullScreen className="w-full h-full"></iframe>
+              <iframe 
+                src="https://www.loom.com/embed/0d1b47c4a5cf430da88b8932a83d88fa?sid=a8bb8032-40ab-498f-9a88-c9393477eca5" 
+                frameBorder="0" 
+                allowFullScreen 
+                className="w-full h-full"
+              ></iframe>
             </div>
           </div>
         </div>
       </div>
       
-      <div className="w-full mt-10">
+      <div className="w-full mt-8 md:mt-10">
         <CTACard globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
       </div>
-    </motion.div>;
+    </motion.div>
+  );
 };
