@@ -20,6 +20,28 @@ export const AdditionalCTASection = ({
   const remplissageValue = answers?.informations?.[9]?.value || 0;
   const remplissagePercent = typeof remplissageValue === 'number' ? remplissageValue : 0;
 
+  // Récupérer l'ancienneté
+  const ancienneteOption = answers?.informations?.[0]?.value;
+  let anciennete = "1 à 3 ans";
+  if (typeof ancienneteOption === 'number') {
+    switch (ancienneteOption) {
+      case 0:
+        anciennete = "moins de 6 mois";
+        break;
+      case 1:
+        anciennete = "6 mois à 1 an";
+        break;
+      case 2:
+        anciennete = "1 à 3 ans";
+        break;
+      case 3:
+        anciennete = "plus de 3 ans";
+        break;
+      default:
+        anciennete = "1 à 3 ans";
+    }
+  }
+
   // Récupérer la superficie
   const superficieOption = answers?.informations?.[4]?.value;
   let superficie = "300 à 600";
@@ -85,11 +107,20 @@ export const AdditionalCTASection = ({
           </h3>
           
           <p className="mb-4 text-left text-black text-sm">
-            Selon une étude récente menée par le Synaphe (Syndicat National des Professionnels de l'Hébergement d'Entreprises), 
-            les espaces similaires au vôtre — avec une superficie de {superficie} m², 
-            une capacité d'accueil de {capacite} coworkers et situés dans des villes comparables à {ville} — 
-            atteignent en moyenne un taux de remplissage supérieur de 22%.
+            Si on analyse vos données en les comparant à une étude récente du Synaphe (Syndicat National des Professionnels de l'Hébergement d'Entreprises), 
+            on constate que les espaces similaires au vôtre atteignent en moyenne un taux de remplissage supérieur de 22%.
           </p>
+          
+          <p className="mb-4 text-left text-black text-sm">
+            L'étude porte sur des espaces présentant les caractéristiques suivantes :
+          </p>
+          
+          <ul className="list-disc pl-5 mb-4 text-left text-black text-sm">
+            <li>Une ancienneté de {anciennete}</li>
+            <li>Une superficie de {superficie} m²</li>
+            <li>Une capacité d'accueil de {capacite} coworkers</li>
+            <li>Une localisation dans des villes comparables à {ville}</li>
+          </ul>
           
           <p className="text-gray-600 mb-6 text-sm text-left">
             En tenant compte des recommandations personnalisées à votre contexte business, 
