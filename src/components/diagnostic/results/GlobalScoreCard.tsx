@@ -87,7 +87,7 @@ export const GlobalScoreCard = ({
 
         {/* Graphique Radar - Colonne de droite */}
         <div className="flex flex-col">
-          <h3 className="text-lg font-semibold mb-2">Répartition des scores par partie</h3>
+          <h3 className="text-lg font-semibold mb-2">Répartition des scores par partie (Graphique radar)</h3>
           <div className="flex-1 min-h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
