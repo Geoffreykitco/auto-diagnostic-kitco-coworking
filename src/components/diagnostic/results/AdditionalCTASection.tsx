@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -15,9 +16,40 @@ export const AdditionalCTASection = ({
 }: AdditionalCTASectionProps) => {
   const [open, setOpen] = useState(false);
 
-  // Récupérer le taux de remplissage depuis les réponses
+  // Récupérer les données depuis les réponses
   const remplissageValue = answers?.informations?.[9]?.value || 0;
   const remplissagePercent = typeof remplissageValue === 'number' ? remplissageValue : 0;
+  
+  // Récupérer la superficie
+  const superficieOption = answers?.informations?.[4]?.value;
+  let superficie = "300 à 600";
+  if (typeof superficieOption === 'number') {
+    switch (superficieOption) {
+      case 0: superficie = "moins de 100"; break;
+      case 1: superficie = "100 à 300"; break;
+      case 2: superficie = "300 à 600"; break;
+      case 3: superficie = "plus de 600"; break;
+      default: superficie = "300 à 600";
+    }
+  }
+  
+  // Récupérer la capacité d'accueil
+  const capaciteOption = answers?.informations?.[6]?.value;
+  let capacite = "30 à 50";
+  if (typeof capaciteOption === 'number') {
+    switch (capaciteOption) {
+      case 0: capacite = "moins de 10"; break;
+      case 1: capacite = "10 à 30"; break;
+      case 2: capacite = "30 à 50"; break;
+      case 3: capacite = "50 à 100"; break;
+      case 4: capacite = "plus de 100"; break;
+      default: capacite = "30 à 50";
+    }
+  }
+  
+  // Récupérer la ville
+  const ville = answers?.informations?.[7]?.value || "votre ville";
+
   return <motion.div initial={{
     opacity: 0,
     y: 20
@@ -34,9 +66,13 @@ export const AdditionalCTASection = ({
         </h3>
           
           <p className="text-gray-700 mb-4 text-center">
-            Aujourd'hui, le % de remplissage de votre espace de coworking est de {remplissagePercent}%. 
-            En suivant scrupuleusement cette méthode, mon espace de coworking dispose d'un taux de 
-            remplissage moyen de 86%.
+            Votre espace de coworking affiche un taux de remplissage moyen de {remplissagePercent}%.
+          </p>
+          
+          <p className="text-gray-700 mb-4 text-center">
+            Selon une étude menée en 2023, les espaces similaires au vôtre — avec une superficie de {superficie} m², 
+            une capacité d'accueil de {capacite} coworkers et situés dans des villes comparables à {ville} — 
+            atteignent en moyenne un taux de remplissage supérieur de 25%.
           </p>
           
           <p className="text-gray-600 mb-6 text-center">
