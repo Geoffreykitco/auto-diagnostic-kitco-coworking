@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -84,7 +85,7 @@ export const AdditionalCTASection = ({
         </h3>
           
           <p className="text-gray-700 mb-4 text-base text-left">
-            Votre espace de coworking affiche un taux de remplissage moyen de {remplissagePercent}%.
+            Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
           </p>
           
           <p className="mb-4 text-left text-black text-sm">
