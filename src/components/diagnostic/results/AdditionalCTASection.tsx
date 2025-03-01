@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -192,8 +193,8 @@ export const AdditionalCTASection = ({
       className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden"
     >
       <div className="grid md:grid-cols-2 gap-0">
-        <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="mb-4 text-black text-left py-0 md:text-lg text-lg font-bold">
+        <div className="p-4 md:p-8 flex flex-col justify-center">
+          <h3 className="mb-4 text-black text-left py-0 md:text-lg text-lg font-bold break-words hyphens-auto">
             Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
           </h3>
           
@@ -205,24 +206,24 @@ export const AdditionalCTASection = ({
             L'étude porte sur des espaces présentant 4 caractéristiques suivantes :
           </p>
           
-          <ul className="list-disc pl-5 mb-4 text-left text-black text-sm">
+          <ul className="list-disc pl-5 mb-4 text-left text-black text-sm space-y-1">
             <li>Une ancienneté de {anciennete}</li>
             <li>Une superficie de {superficie} m²</li>
             <li>Une capacité d'accueil de {capacite} coworkers</li>
             <li className="break-words hyphens-auto">Une localisation dans des villes comparables à {ville}</li>
           </ul>
           
-          <div className="text-left my-0 flex justify-center md:justify-start">
+          <div className="text-left my-3 flex justify-center">
             <Button 
               onClick={() => setOpen(true)} 
               variant="audit" 
-              className="w-full md:w-auto text-base rounded-md px-[20px] py-[20px] my-0"
+              className="w-full text-sm md:text-base rounded-md px-4 py-3 md:px-[20px] md:py-[20px]"
             >
               Recevoir l'intégralité de mon audit en PDF
             </Button>
           </div>
           
-          <p className="text-gray-600 mt-6 text-left text-xs my-[5px]">
+          <p className="text-gray-600 mt-2 text-left text-xs my-[5px]">
             Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.
           </p>
           
