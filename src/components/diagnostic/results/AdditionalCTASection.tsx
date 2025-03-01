@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -215,29 +216,29 @@ export const AdditionalCTASection = ({
             <li>Une localisation dans des villes comparables à {ville}</li>
           </ul>
           
-          <p className="text-gray-600 mb-6 text-left text-xs">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
-          
-          <div>
+          <div className="text-left">
             <Button 
               onClick={() => setOpen(true)} 
               variant="audit" 
-              className="md:text-base text-base rounded-md text-center"
+              className="md:text-base text-base rounded-md text-left"
             >
               Recevoir l'intégralité de mon audit en PDF
             </Button>
-            
-            {open && <Dialog open={open} onOpenChange={setOpen}>
-              <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
-                <DialogHeader className="sr-only">
-                  <DialogTitle>Formulaire de contact</DialogTitle>
-                  <DialogDescription>
-                    Remplissez ce formulaire pour recevoir votre audit personnalisé
-                  </DialogDescription>
-                </DialogHeader>
-                {isMobile ? <MobileForm {...formProps} /> : <DesktopForm {...formProps} />}
-              </DialogContent>
-            </Dialog>}
           </div>
+          
+          <p className="text-gray-600 mt-6 text-left text-xs">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
+          
+          {open && <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
+              <DialogHeader className="sr-only">
+                <DialogTitle>Formulaire de contact</DialogTitle>
+                <DialogDescription>
+                  Remplissez ce formulaire pour recevoir votre audit personnalisé
+                </DialogDescription>
+              </DialogHeader>
+              {isMobile ? <MobileForm {...formProps} /> : <DesktopForm {...formProps} />}
+            </DialogContent>
+          </Dialog>}
         </div>
         
         <div className="bg-[#0B1A17] flex items-center justify-center">
