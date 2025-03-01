@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
+
 interface AdditionalCTASectionProps {
   globalScore: number;
   sectionScores: Record<string, number>;
@@ -18,6 +19,7 @@ interface AdditionalCTASectionProps {
     score: number;
   }>>;
 }
+
 export const AdditionalCTASection = ({
   globalScore,
   sectionScores,
@@ -25,9 +27,8 @@ export const AdditionalCTASection = ({
 }: AdditionalCTASectionProps) => {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  
   const remplissageValue = answers?.informations?.[9]?.value || 0;
   const remplissagePercent = typeof remplissageValue === 'number' ? remplissageValue : 0;
   const ancienneteOption = answers?.informations?.[0]?.value;
@@ -94,6 +95,7 @@ export const AdditionalCTASection = ({
     }
   }
   const ville = answers?.informations?.[7]?.value || "votre ville";
+
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -157,6 +159,7 @@ export const AdditionalCTASection = ({
       });
     }
   };
+
   const {
     fullName,
     setFullName,
@@ -169,6 +172,7 @@ export const AdditionalCTASection = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
+
   const formProps = {
     fullName,
     setFullName,
@@ -179,55 +183,76 @@ export const AdditionalCTASection = ({
     isSubmitting,
     handleFormSubmit
   };
-  return <motion.div initial={{
-    opacity: 0,
-    y: 20
-  }} animate={{
-    opacity: 1,
-    y: 0
-  }} transition={{
-    duration: 0.5
-  }} className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden">
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.5 }}
+      className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden"
+    >
       <div className="grid md:grid-cols-2 gap-0">
         <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="mb-4 text-black text-left py-0 md:text-lg text-lg font-bold">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
+          <h3 className="mb-4 text-black text-left py-0 md:text-lg text-lg font-bold">
+            Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
           </h3>
           
-          <p className="mb-4 text-left text-black text-sm">L'analyse comparative de vos données avec l'étude 2024 du Synaphe (Syndicat coworking) révèle que les espaces similaires au vôtre obtiennent un <span className="font-bold underline">taux de remplissage supérieur de 19% en moyenne</span>.</p>
+          <p className="mb-4 text-left text-black text-sm">
+            L'analyse comparative de vos données avec l'étude 2024 du Synaphe (Syndicat coworking) révèle que les espaces similaires au vôtre obtiennent un <span className="font-bold underline">taux de remplissage supérieur de 19% en moyenne</span>.
+          </p>
           
-          <p className="mb-4 text-left text-black text-sm">L'étude porte sur des espaces présentant 4 caractéristiques suivantes :</p>
+          <p className="mb-4 text-left text-black text-sm">
+            L'étude porte sur des espaces présentant 4 caractéristiques suivantes :
+          </p>
           
           <ul className="list-disc pl-5 mb-4 text-left text-black text-sm">
             <li>Une ancienneté de {anciennete}</li>
             <li>Une superficie de {superficie} m²</li>
             <li>Une capacité d'accueil de {capacite} coworkers</li>
-            <li>Une localisation dans des villes comparables à {ville}</li>
+            <li className="break-words hyphens-auto">Une localisation dans des villes comparables à {ville}</li>
           </ul>
           
-          <div className="text-left my-0">
-            <Button onClick={() => setOpen(true)} variant="audit" className="md:text-base text-base rounded-md text-left px-[20px] py-[20px] my-0">
+          <div className="text-left my-0 flex justify-center md:justify-start">
+            <Button 
+              onClick={() => setOpen(true)} 
+              variant="audit" 
+              className="w-full md:w-auto text-base rounded-md px-[20px] py-[20px] my-0"
+            >
               Recevoir l'intégralité de mon audit en PDF
             </Button>
           </div>
           
-          <p className="text-gray-600 mt-6 text-left text-xs my-[5px]">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
+          <p className="text-gray-600 mt-6 text-left text-xs my-[5px]">
+            Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.
+          </p>
           
-          {open && <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
-              <DialogHeader className="sr-only">
-                <DialogTitle>Formulaire de contact</DialogTitle>
-                <DialogDescription>
-                  Remplissez ce formulaire pour recevoir votre audit personnalisé
-                </DialogDescription>
-              </DialogHeader>
-              {isMobile ? <MobileForm {...formProps} /> : <DesktopForm {...formProps} />}
-            </DialogContent>
-          </Dialog>}
+          {open && (
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogContent 
+                className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} 
+                onPointerDownOutside={e => e.preventDefault()} 
+                onFocusOutside={e => e.preventDefault()}
+              >
+                <DialogHeader className="sr-only">
+                  <DialogTitle>Formulaire de contact</DialogTitle>
+                  <DialogDescription>
+                    Remplissez ce formulaire pour recevoir votre audit personnalisé
+                  </DialogDescription>
+                </DialogHeader>
+                {isMobile ? <MobileForm {...formProps} /> : <DesktopForm {...formProps} />}
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
         
         <div className="bg-[#0B1A17] flex items-center justify-center">
-          <img src="/lovable-uploads/ba562fd9-da38-4ce5-8df0-507a7e54bcc8.png" alt="Logo KITCO - Auto-diagnostic des coworkings" className="w-full h-full object-contain" />
+          <img 
+            src="/lovable-uploads/ba562fd9-da38-4ce5-8df0-507a7e54bcc8.png" 
+            alt="Logo KITCO - Auto-diagnostic des coworkings" 
+            className="w-full h-full object-contain"
+          />
         </div>
       </div>
-    </motion.div>;
+    </motion.div>
+  );
 };
