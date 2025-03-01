@@ -32,7 +32,7 @@ export const MainContent = ({
         <p className="text-gray-600 max-w-2xl mx-auto text-xs font-bold md:text-lg">Kitco par le fondateur de l'esapce de coworking au19 qui dispose d'un taux de remplissage moyen de 83% grâce à cette méthode de travail.</p>
 
         <div>
-          <Button onClick={() => setOpen(true)} variant="audit" className="mt-2 md:text-base text-lg rounded-md my-[10px] px-[20px] py-[20px]">Recevoir l'intégralité de mon audit en PDF</Button>
+          <Button onClick={() => setOpen(true)} variant="audit" className="mt-2 md:text-base text-lg rounded-md my-[10px] px-[20px] py-[20px]">Prendre RDV avec Geoffrey</Button>
 
           {open && <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
