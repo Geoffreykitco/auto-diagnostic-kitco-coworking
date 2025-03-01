@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -80,22 +81,19 @@ export const AdditionalCTASection = ({
       <div className="grid md:grid-cols-2 gap-0">
         {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de 90%.
-
-
-        </h3>
-          
-          
+          <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
+          </h3>
           
           <p className="mb-4 text-left text-black text-sm">
-            Selon une étude menée en 2023, les espaces similaires au vôtre — avec une superficie de {superficie} m², 
+            Selon une étude récente menée par le Synaphe (Syndicat National des Professionnels de l'Hébergement d'Entreprises), 
+            les espaces similaires au vôtre — avec une superficie de {superficie} m², 
             une capacité d'accueil de {capacite} coworkers et situés dans des villes comparables à {ville} — 
-            atteignent en moyenne un taux de remplissage supérieur de 25%.
+            atteignent en moyenne un taux de remplissage supérieur de 22%.
           </p>
           
           <p className="text-gray-600 mb-6 text-sm text-left">
-            Nos experts peuvent vous aider à mettre en place une stratégie efficace pour optimiser
-            l'occupation de votre espace et maximiser vos revenus.
+            En tenant compte des recommandations personnalisées à votre contexte business, 
+            vous pourrez voir votre indicateur de remplissage augmenter significativement.
           </p>
           
           <div>
