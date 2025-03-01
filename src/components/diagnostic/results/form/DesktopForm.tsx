@@ -39,24 +39,24 @@ export const DesktopForm = ({
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Prénom et nom
             </label>
-            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
+            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F5F56] focus:border-transparent" required />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Nom du coworking
             </label>
-            <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
+            <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F5F56] focus:border-transparent" required />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent" required />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F5F56] focus:border-transparent" required />
           </div>
 
-          <button type="submit" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3 rounded-lg font-medium hover:bg-[#132721] transition-colors disabled:opacity-50 mt-3 text-base">
+          <button type="submit" disabled={isSubmitting} className="w-full bg-[#9F5F56] text-black py-3 rounded-lg font-medium hover:bg-[#9F5F56]/90 transition-colors disabled:opacity-50 mt-3 text-base">
             {isSubmitting ? "Envoi en cours..." : "Finaliser"}
           </button>
 

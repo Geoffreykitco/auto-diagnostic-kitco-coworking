@@ -1,3 +1,4 @@
+
 import { FormEventHandler } from "react";
 interface MobileFormProps {
   fullName: string;
@@ -35,27 +36,27 @@ export const MobileForm = ({
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Prénom et nom
             </label>
-            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent transition-all text-base bg-white shadow-sm" required />
+            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Pour faire connaissance :)" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F5F56] focus:border-transparent transition-all text-base bg-white shadow-sm" required />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Nom du coworking
             </label>
-            <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent transition-all text-base bg-white shadow-sm" required />
+            <input type="text" value={coworkingName} onChange={e => setCoworkingName(e.target.value)} placeholder="Pour en savoir plus sur votre espace" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F5F56] focus:border-transparent transition-all text-base bg-white shadow-sm" required />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Email
             </label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B1A17] focus:border-transparent transition-all text-base bg-white shadow-sm" required />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Pour vous envoyer le rapport" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F5F56] focus:border-transparent transition-all text-base bg-white shadow-sm" required />
           </div>
         </form>
       </div>
 
       <div className="px-6 py-4 bg-transparent">
-        <button type="submit" form="mobile-form" disabled={isSubmitting} className="w-full bg-[#0B1A17] text-white py-3.5 rounded-xl font-medium hover:bg-[#132721] active:transform active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-base">
+        <button type="submit" form="mobile-form" disabled={isSubmitting} className="w-full bg-[#9F5F56] text-black py-3.5 rounded-xl font-medium hover:bg-[#9F5F56]/90 active:transform active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-base">
           {isSubmitting ? "Envoi en cours..." : "Finaliser"}
         </button>
 
