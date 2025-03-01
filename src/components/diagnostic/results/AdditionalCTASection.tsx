@@ -205,7 +205,7 @@ export const AdditionalCTASection = ({
           </ul>
           
           <div className="text-left my-0">
-            <Button onClick={() => setOpen(true)} variant="audit" className="md:text-base text-base rounded-md text-left py-0 my-0">
+            <Button onClick={() => setOpen(true)} variant="audit" className="md:text-base text-base rounded-md text-left px-[20px] py-[20px] my-0">
               Recevoir l'intégralité de mon audit en PDF
             </Button>
           </div>
