@@ -28,7 +28,8 @@ export const AdditionalCTASection = ({
   const ancienneteOption = answers?.informations?.[0]?.value;
   const superficieOption = answers?.informations?.[4]?.value;
   const capaciteOption = answers?.informations?.[6]?.value;
-  const ville = answers?.informations?.[7]?.value || "votre ville";
+  // Convert ville to string to match the expected type in CoworkingStats
+  const ville = String(answers?.informations?.[7]?.value || "votre ville");
 
   return (
     <motion.div 

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useToast } from "@/hooks/use-toast";
-import { useAuditForm } from "@/hooks/use-audit-form";
+import { useAuditForm, AuditFormData } from "@/hooks/use-audit-form";
 import { supabase } from "@/integrations/supabase/client";
 import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
@@ -33,12 +33,7 @@ export const FormSubmissionHandler: React.FC<FormSubmissionHandlerProps> = ({
 }) => {
   const { toast } = useToast();
 
-  const handleSubmit = async (formData: {
-    firstName: string;
-    lastName: string;
-    coworkingName: string;
-    email: string;
-  }) => {
+  const handleSubmit = async (formData: AuditFormData): Promise<void> => {
     try {
       console.log('=== Début de la soumission du formulaire ===');
       const globalLevel = calculateSectionLevel(globalScore);
@@ -73,9 +68,8 @@ export const FormSubmissionHandler: React.FC<FormSubmissionHandlerProps> = ({
       };
       console.log('=== Envoi des données à Supabase ===');
       console.log('Données à insérer:', diagnosticData);
-      const {
-        error
-      } = await supabase.from('leads_auto_diag_coworking').insert(diagnosticData);
+      const { error } = await supabase.from('leads_auto_diag_coworking').insert(diagnosticData);
+      
       if (error) {
         console.error('Erreur Supabase:', error);
         throw new Error(error.message);
@@ -86,7 +80,7 @@ export const FormSubmissionHandler: React.FC<FormSubmissionHandlerProps> = ({
         description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`
       });
       
-      return true;
+      // Don't return boolean anymore to match the Promise<void> type
     } catch (error) {
       console.error('=== Erreur lors de la soumission ===');
       console.error('Type:', error instanceof Error ? 'Error' : typeof error);
@@ -97,7 +91,7 @@ export const FormSubmissionHandler: React.FC<FormSubmissionHandlerProps> = ({
         variant: "destructive"
       });
       
-      return false;
+      // Don't return boolean anymore to match the Promise<void> type
     }
   };
 

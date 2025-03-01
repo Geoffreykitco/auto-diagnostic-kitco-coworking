@@ -1,7 +1,7 @@
 
 import { FormEventHandler, useState } from "react";
 
-interface AuditFormData {
+export interface AuditFormData {
   firstName: string;
   lastName: string;
   coworkingName: string;
