@@ -124,7 +124,7 @@ export const ResultsAnalysis = ({
           <AdditionalCTASection globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
 
           {/* Nouveau titre H2 au-dessus des sections à deux colonnes */}
-          <h2 className="text-2xl font-bold text-gray-800 mt-12 mb-6 text-left">
+          <h2 className="text-2xl font-bold text-gray-800 mt-12 mb-6 text-left my-[60px]">
             Analyse granulaire de vos performances actuelles par partie
           </h2>
 
