@@ -72,7 +72,7 @@ export const AdditionalCTASection = ({
           </FormSubmissionHandler>
         </div>
         
-        <div className="bg-[#0B1A17] flex items-center justify-center">
+        <div className="bg-[#0B1A17] md:bg-transparent flex items-center justify-center">
           <img 
             src="/lovable-uploads/ba562fd9-da38-4ce5-8df0-507a7e54bcc8.png" 
             alt="Logo KITCO - Auto-diagnostic des coworkings" 
