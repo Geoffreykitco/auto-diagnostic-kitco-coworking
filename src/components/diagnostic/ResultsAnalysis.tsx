@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -131,7 +132,8 @@ export const ResultsAnalysis = ({
 
           <AdditionalCTASection globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
 
-          <div className="w-full rounded-lg overflow-hidden bg-black shadow-md h-2 md:h-4">
+          {/* Séparateur avec angles arrondis uniformes */}
+          <div className="w-full bg-black shadow-md h-2 md:h-4 rounded-md">
             {/* Séparateur noir */}
           </div>
 
