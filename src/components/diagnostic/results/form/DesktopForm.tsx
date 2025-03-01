@@ -1,3 +1,4 @@
+
 import { FormEventHandler } from "react";
 interface DesktopFormProps {
   fullName: string;
@@ -26,7 +27,7 @@ export const DesktopForm = ({
       <div className="w-1/2 p-8">
         <div className="mb-6">
           <h3 className="font-bold text-[#0B1A17] mb-2 text-xl">
-            Augmentez le taux de remplissage de votre espace de coworking
+            1er service pensé pour booster les performances d'un espace de coworking
           </h3>
           <p className="text-gray-600 text-base">
             Ne laissez pas des opportunités de développement inexplorées. Passez à l'action dès maintenant.
