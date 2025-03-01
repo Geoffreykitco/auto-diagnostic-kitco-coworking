@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -11,7 +10,6 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
-
 interface AdditionalCTASectionProps {
   globalScore: number;
   sectionScores: Record<string, number>;
@@ -20,7 +18,6 @@ interface AdditionalCTASectionProps {
     score: number;
   }>>;
 }
-
 export const AdditionalCTASection = ({
   globalScore,
   sectionScores,
@@ -31,10 +28,8 @@ export const AdditionalCTASection = ({
   const {
     toast
   } = useToast();
-
   const remplissageValue = answers?.informations?.[9]?.value || 0;
   const remplissagePercent = typeof remplissageValue === 'number' ? remplissageValue : 0;
-
   const ancienneteOption = answers?.informations?.[0]?.value;
   let anciennete = "1 à 3 ans";
   if (typeof ancienneteOption === 'number') {
@@ -55,7 +50,6 @@ export const AdditionalCTASection = ({
         anciennete = "1 à 3 ans";
     }
   }
-
   const superficieOption = answers?.informations?.[4]?.value;
   let superficie = "300 à 600";
   if (typeof superficieOption === 'number') {
@@ -76,7 +70,6 @@ export const AdditionalCTASection = ({
         superficie = "300 à 600";
     }
   }
-
   const capaciteOption = answers?.informations?.[6]?.value;
   let capacite = "30 à 50";
   if (typeof capaciteOption === 'number') {
@@ -100,9 +93,7 @@ export const AdditionalCTASection = ({
         capacite = "30 à 50";
     }
   }
-
   const ville = answers?.informations?.[7]?.value || "votre ville";
-
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -166,7 +157,6 @@ export const AdditionalCTASection = ({
       });
     }
   };
-
   const {
     fullName,
     setFullName,
@@ -179,7 +169,6 @@ export const AdditionalCTASection = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-
   const formProps = {
     fullName,
     setFullName,
@@ -190,7 +179,6 @@ export const AdditionalCTASection = ({
     isSubmitting,
     handleFormSubmit
   };
-
   return <motion.div initial={{
     opacity: 0,
     y: 20
@@ -217,16 +205,12 @@ export const AdditionalCTASection = ({
           </ul>
           
           <div className="text-left">
-            <Button 
-              onClick={() => setOpen(true)} 
-              variant="audit" 
-              className="md:text-base text-base rounded-md text-left"
-            >
+            <Button onClick={() => setOpen(true)} variant="audit" className="md:text-base text-base rounded-md text-left py-0 my-0">
               Recevoir l'intégralité de mon audit en PDF
             </Button>
           </div>
           
-          <p className="text-gray-600 mt-6 text-left text-xs">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
+          <p className="text-gray-600 mt-6 text-left text-xs my-[8px]">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
           
           {open && <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
