@@ -8,7 +8,6 @@ import { SectionCard } from "./results/SectionCard";
 import { CTACard } from "./results/CTACard";
 import { Question } from "./question/types";
 import { AdditionalCTASection } from "./results/AdditionalCTASection";
-
 interface ResultsAnalysisProps {
   answers: Record<string, Record<number, {
     value: string | number | number[] | null;
@@ -16,7 +15,6 @@ interface ResultsAnalysisProps {
   }>>;
   formData?: any;
 }
-
 export const ResultsAnalysis = ({
   answers
 }: ResultsAnalysisProps) => {
@@ -44,14 +42,11 @@ export const ResultsAnalysis = ({
     id: 'resultats',
     label: 'Résultats'
   }];
-
   const currentStep = steps[steps.length - 1];
-
   useEffect(() => {
     const results = calculateResults();
     setSectionScores(results.sectionScores);
   }, [answers]);
-
   const calculateResults = () => {
     const sectionScores: Record<string, number> = {};
     Object.entries(answers).forEach(([section, sectionAnswers]) => {
@@ -77,19 +72,16 @@ export const ResultsAnalysis = ({
       sectionScores
     };
   };
-
   const getLevelColor = (score: number): string => {
     if (score >= 80) return "text-green-600";
     if (score >= 50) return "text-yellow-600";
     return "text-red-600";
   };
-
   const getProgressColor = (score: number): string => {
     if (score >= 80) return "bg-green-500";
     if (score >= 50) return "bg-yellow-500";
     return "bg-red-500";
   };
-
   const formatAnswersForCards = (section: string, sectionAnswers: Record<number, {
     value: string | number | number[] | null;
     score: number;
@@ -102,7 +94,6 @@ export const ResultsAnalysis = ({
       return acc;
     }, {} as Record<number, Answer>);
   };
-
   const renderSectionCard = (section: string, sectionAnswers: Record<number, {
     value: string | number | number[] | null;
     score: number;
@@ -114,7 +105,6 @@ export const ResultsAnalysis = ({
     const sectionScore = calculateSectionScore(formattedAnswers, maxScore, section);
     return <SectionCard section={section} score={sectionScore.score} level={sectionScore.level} message={sectionScore.message} getLevelColor={getLevelColor} getProgressColor={getProgressColor} />;
   };
-
   return <motion.div initial={{
     opacity: 0
   }} animate={{
@@ -136,7 +126,7 @@ export const ResultsAnalysis = ({
             {/* Séparateur noir */}
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-1 text-left">Analyse granulaire de vos performances actuelles par partie (Cf Graphique Radar)</h2>
+          <h2 className="font-bold text-gray-800 mt-8 mb-1 text-left text-xl">Analyse granulaire de vos performances actuelles par partie (Cf Graphique Radar)</h2>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-0">
             {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
