@@ -23,20 +23,20 @@ export const AdditionalCTASection = ({ globalScore, answers }: AdditionalCTASect
       transition={{ duration: 0.5 }}
       className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden"
     >
-      <div className="grid md:grid-cols-2 gap-0" style={{ maxHeight: "70%" }}>
+      <div className="grid md:grid-cols-2 gap-0">
         {/* Colonne de gauche (texte) */}
-        <div className="p-4 md:p-6 flex flex-col justify-center">
-          <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3">
+        <div className="p-6 md:p-8 flex flex-col justify-center">
+          <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
             Améliorez votre taux de remplissage
           </h3>
           
-          <p className="text-gray-700 mb-3 text-sm md:text-base">
+          <p className="text-gray-700 mb-4">
             Aujourd'hui, le % de remplissage de votre espace de coworking est de {remplissagePercent}%. 
             En suivant scrupuleusement cette méthode, mon espace de coworking dispose d'un taux de 
             remplissage moyen de 86%.
           </p>
           
-          <p className="text-gray-600 mb-4 text-sm md:text-base">
+          <p className="text-gray-600 mb-6">
             Nos experts peuvent vous aider à mettre en place une stratégie efficace pour optimiser
             l'occupation de votre espace et maximiser vos revenus.
           </p>
@@ -44,7 +44,7 @@ export const AdditionalCTASection = ({ globalScore, answers }: AdditionalCTASect
           <div>
             <Button 
               onClick={() => setOpen(true)} 
-              className="bg-[#0B1A17] text-white px-5 py-1.5 rounded-md hover:bg-[#132721] transition-colors text-sm"
+              className="bg-[#0B1A17] text-white px-6 py-2 rounded-md hover:bg-[#132721] transition-colors"
             >
               Recevoir mon plan d'action personnalisé
             </Button>
@@ -52,10 +52,10 @@ export const AdditionalCTASection = ({ globalScore, answers }: AdditionalCTASect
         </div>
         
         {/* Colonne de droite (image) */}
-        <div className="bg-[#0B1A17] flex items-center justify-center" style={{ height: "200px" }}>
+        <div className="bg-[#0B1A17] flex items-center justify-center">
           <img 
-            src="/lovable-uploads/de408d12-d8ae-4da7-ba81-00ff18253eac.png" 
-            alt="Logo KITCO - Des coworkings bien pensés" 
+            src="/lovable-uploads/ba562fd9-da38-4ce5-8df0-507a7e54bcc8.png" 
+            alt="Logo KITCO - Auto-diagnostic des coworkings" 
             className="w-full h-full object-contain p-4"
           />
         </div>
