@@ -80,10 +80,10 @@ export const AdditionalCTASection = ({
       <div className="grid md:grid-cols-2 gap-0">
         {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
-          <h3 className="text-xl md:text-2xl font-bold mb-4 text-center text-black">Envie d'augmenter le taux de remplissage de votre coworking ?
+          <h3 className="text-xl md:text-2xl font-bold mb-4 text-black text-left">Envie d'augmenter le taux de remplissage de votre coworking ?
         </h3>
           
-          <p className="text-gray-700 mb-4 text-center">
+          <p className="text-gray-700 mb-4 text-base text-left">
             Votre espace de coworking affiche un taux de remplissage moyen de {remplissagePercent}%.
           </p>
           
@@ -93,7 +93,7 @@ export const AdditionalCTASection = ({
             atteignent en moyenne un taux de remplissage supérieur de 25%.
           </p>
           
-          <p className="text-gray-600 mb-6 text-center text-sm">
+          <p className="text-gray-600 mb-6 text-sm text-left">
             Nos experts peuvent vous aider à mettre en place une stratégie efficace pour optimiser
             l'occupation de votre espace et maximiser vos revenus.
           </p>
