@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
+
 interface AdditionalCTASectionProps {
   globalScore: number;
   sectionScores: Record<string, number>;
@@ -18,6 +19,7 @@ interface AdditionalCTASectionProps {
     score: number;
   }>>;
 }
+
 export const AdditionalCTASection = ({
   globalScore,
   sectionScores,
@@ -29,11 +31,9 @@ export const AdditionalCTASection = ({
     toast
   } = useToast();
 
-  // Récupérer les données depuis les réponses
   const remplissageValue = answers?.informations?.[9]?.value || 0;
   const remplissagePercent = typeof remplissageValue === 'number' ? remplissageValue : 0;
 
-  // Récupérer l'ancienneté
   const ancienneteOption = answers?.informations?.[0]?.value;
   let anciennete = "1 à 3 ans";
   if (typeof ancienneteOption === 'number') {
@@ -55,7 +55,6 @@ export const AdditionalCTASection = ({
     }
   }
 
-  // Récupérer la superficie
   const superficieOption = answers?.informations?.[4]?.value;
   let superficie = "300 à 600";
   if (typeof superficieOption === 'number') {
@@ -77,7 +76,6 @@ export const AdditionalCTASection = ({
     }
   }
 
-  // Récupérer la capacité d'accueil
   const capaciteOption = answers?.informations?.[6]?.value;
   let capacite = "30 à 50";
   if (typeof capaciteOption === 'number') {
@@ -102,10 +100,8 @@ export const AdditionalCTASection = ({
     }
   }
 
-  // Récupérer la ville
   const ville = answers?.informations?.[7]?.value || "votre ville";
 
-  // Fonction pour soumettre les données du formulaire à Supabase
   const handleSubmit = async (formData: {
     firstName: string;
     lastName: string;
@@ -169,6 +165,7 @@ export const AdditionalCTASection = ({
       });
     }
   };
+
   const {
     fullName,
     setFullName,
@@ -181,6 +178,7 @@ export const AdditionalCTASection = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
+
   const formProps = {
     fullName,
     setFullName,
@@ -191,6 +189,7 @@ export const AdditionalCTASection = ({
     isSubmitting,
     handleFormSubmit
   };
+
   return <motion.div initial={{
     opacity: 0,
     y: 20
@@ -201,7 +200,6 @@ export const AdditionalCTASection = ({
     duration: 0.5
   }} className="bg-white rounded-lg border border-gray-200 shadow-lg overflow-hidden">
       <div className="grid md:grid-cols-2 gap-0">
-        {/* Colonne de gauche (texte) */}
         <div className="p-6 md:p-8 flex flex-col justify-center">
           <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
           </h3>
@@ -220,7 +218,13 @@ export const AdditionalCTASection = ({
           <p className="text-gray-600 mb-6 text-left text-xs">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
           
           <div>
-            <Button onClick={() => setOpen(true)} className="bg-[#9F5F56] text-white hover:bg-[#9F5F56]/90 transition-colors my-0 text-center rounded-md text-base py-[25px] px-[25px]">Recevoir l'intégralité de mon audit en PDF</Button>
+            <Button 
+              onClick={() => setOpen(true)} 
+              variant="audit" 
+              className="md:text-base text-base rounded-md text-center"
+            >
+              Recevoir l'intégralité de mon audit en PDF
+            </Button>
             
             {open && <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
@@ -236,7 +240,6 @@ export const AdditionalCTASection = ({
           </div>
         </div>
         
-        {/* Colonne de droite (image) */}
         <div className="bg-[#0B1A17] flex items-center justify-center">
           <img src="/lovable-uploads/ba562fd9-da38-4ce5-8df0-507a7e54bcc8.png" alt="Logo KITCO - Auto-diagnostic des coworkings" className="w-full h-full object-contain" />
         </div>

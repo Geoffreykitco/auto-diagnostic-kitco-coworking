@@ -1,8 +1,11 @@
+
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileForm } from "../form/MobileForm";
 import { DesktopForm } from "../form/DesktopForm";
 import { FormEventHandler } from "react";
+import { Button } from "@/components/ui/button";
+
 interface MainContentProps {
   open: boolean;
   setOpen: (value: boolean) => void;
@@ -33,9 +36,13 @@ export const MainContent = ({
         </p>
 
         <div>
-          <button onClick={() => setOpen(true)} className="mt-2 bg-[#9F5F56] text-white hover:bg-[#9F5F56]/90 hover:scale-[1.02] transform transition-colors duration-200 md:text-base text-lg rounded-md my-0 px-[20px] py-[10px]">
+          <Button 
+            onClick={() => setOpen(true)} 
+            variant="audit" 
+            className="mt-2 md:text-base text-lg rounded-md my-0"
+          >
             Recevoir mon audit et mon plan d'action
-          </button>
+          </Button>
 
           {open && <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
