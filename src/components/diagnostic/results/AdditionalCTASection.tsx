@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -124,7 +125,7 @@ export const AdditionalCTASection = ({
           </p>
           
           <div>
-            <Button onClick={() => setOpen(true)} className="bg-[#0B1A17] text-white px-6 py-2 rounded-md hover:bg-[#132721] transition-colors">Recevoir l'intégralité de mon audit en PDF</Button>
+            <Button onClick={() => setOpen(true)} className="bg-[#9F5F56] text-white px-6 py-2 rounded-md hover:bg-[#9F5F56]/90 transition-colors">Recevoir l'intégralité de mon audit en PDF</Button>
           </div>
         </div>
         
