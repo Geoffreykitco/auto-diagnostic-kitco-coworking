@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileForm } from "../form/MobileForm";
@@ -34,7 +33,7 @@ export const MainContent = ({
         </p>
 
         <div>
-          <button onClick={() => setOpen(true)} className="mt-2 bg-[#9F5F56] text-white px-4 py-1.5 rounded hover:bg-[#9F5F56]/90 hover:scale-[1.02] transform transition-colors duration-200 md:text-base text-sm">
+          <button onClick={() => setOpen(true)} className="mt-2 bg-[#9F5F56] text-white hover:bg-[#9F5F56]/90 hover:scale-[1.02] transform transition-colors duration-200 md:text-base text-lg rounded-md my-0 px-[20px] py-[10px]">
             Recevoir mon audit et mon plan d'action
           </button>
 
