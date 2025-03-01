@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -139,7 +140,7 @@ export const ResultsAnalysis = ({
             />
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-2.5 text-left">Analyse granulaire de vos performances actuelles par partie (Graphique Radar)</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-1 text-left">Analyse granulaire de vos performances actuelles par partie (Graphique Radar)</h2>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-0">
             {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
