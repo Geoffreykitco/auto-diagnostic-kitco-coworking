@@ -132,11 +132,11 @@ export const ResultsAnalysis = ({
 
           <AdditionalCTASection globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
 
-          <h2 className="text-2xl font-bold text-gray-800 mt-12 mb-2 text-left">
+          <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-2 text-left">
             Analyse granulaire de vos performances actuelles par partie
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-2.5">
             {answers.acquisition && renderSectionCard('acquisition', answers.acquisition)}
             {answers.activation && renderSectionCard('activation', answers.activation)}
           </div>
