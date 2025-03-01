@@ -34,7 +34,7 @@ export const MainContent = ({
         </p>
 
         <div>
-          <Button onClick={() => setOpen(true)} variant="audit" className="mt-2 md:text-base text-lg rounded-md my-0">Recevoir l'intégralité de mon audit en PDF</Button>
+          <Button onClick={() => setOpen(true)} variant="audit" className="mt-2 md:text-base text-lg rounded-md my-[10px] px-[20px] py-[20px]">Recevoir l'intégralité de mon audit en PDF</Button>
 
           {open && <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
@@ -48,9 +48,7 @@ export const MainContent = ({
               </DialogContent>
             </Dialog>}
 
-          <p className="font-medium mt-1 text-gray-500 text-[0.65rem]">
-            Nous garantissons la confidentialité de vos données.
-          </p>
+          
         </div>
       </div>
     </div>;
