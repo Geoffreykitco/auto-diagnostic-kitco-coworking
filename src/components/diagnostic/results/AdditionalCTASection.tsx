@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -11,7 +10,6 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
 import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
-
 interface AdditionalCTASectionProps {
   globalScore: number;
   sectionScores: Record<string, number>;
@@ -27,7 +25,9 @@ export const AdditionalCTASection = ({
 }: AdditionalCTASectionProps) => {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
 
   // Récupérer les données depuis les réponses
   const remplissageValue = answers?.informations?.[9]?.value || 0;
@@ -104,7 +104,7 @@ export const AdditionalCTASection = ({
 
   // Récupérer la ville
   const ville = answers?.informations?.[7]?.value || "votre ville";
-  
+
   // Fonction pour soumettre les données du formulaire à Supabase
   const handleSubmit = async (formData: {
     firstName: string;
@@ -114,13 +114,10 @@ export const AdditionalCTASection = ({
   }) => {
     try {
       console.log('=== Début de la soumission du formulaire ===');
-      
       const globalLevel = calculateSectionLevel(globalScore);
       const globalRecommendation = getGlobalMessage(globalScore);
       const formattedAnswers = formatAnswersForSubmission(answers);
-
       console.log('Réponses formatées:', formattedAnswers);
-
       const diagnosticData = {
         first_name: formData.firstName,
         last_name: formData.lastName,
@@ -147,38 +144,31 @@ export const AdditionalCTASection = ({
         recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0)),
         ...formattedAnswers
       };
-
       console.log('=== Envoi des données à Supabase ===');
       console.log('Données à insérer:', diagnosticData);
-
-      const { error } = await supabase
-        .from('leads_auto_diag_coworking')
-        .insert(diagnosticData);
-
+      const {
+        error
+      } = await supabase.from('leads_auto_diag_coworking').insert(diagnosticData);
       if (error) {
         console.error('Erreur Supabase:', error);
         throw new Error(error.message);
       }
-
       setOpen(false);
       toast({
         title: "Envoi réussi !",
-        description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`,
+        description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`
       });
-
     } catch (error) {
       console.error('=== Erreur lors de la soumission ===');
       console.error('Type:', error instanceof Error ? 'Error' : typeof error);
       console.error('Details:', error);
-      
       toast({
         title: "Erreur",
         description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
-
   const {
     fullName,
     setFullName,
@@ -191,7 +181,6 @@ export const AdditionalCTASection = ({
   } = useAuditForm({
     onSubmit: handleSubmit
   });
-
   const formProps = {
     fullName,
     setFullName,
@@ -202,7 +191,6 @@ export const AdditionalCTASection = ({
     isSubmitting,
     handleFormSubmit
   };
-
   return <motion.div initial={{
     opacity: 0,
     y: 20
@@ -232,7 +220,7 @@ export const AdditionalCTASection = ({
           <p className="text-gray-600 mb-6 text-left text-xs">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
           
           <div>
-            <Button onClick={() => setOpen(true)} className="bg-[#9F5F56] text-white hover:bg-[#9F5F56]/90 transition-colors my-0 py-[25px] px-[25px] text-center rounded-md text-base">Recevoir l'intégralité de mon audit en PDF</Button>
+            <Button onClick={() => setOpen(true)} className="bg-[#9F5F56] text-white hover:bg-[#9F5F56]/90 transition-colors my-0 text-center rounded-md text-base py-[25px] px-[25px]">Recevoir l'intégralité de mon audit en PDF</Button>
             
             {open && <Dialog open={open} onOpenChange={setOpen}>
               <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
