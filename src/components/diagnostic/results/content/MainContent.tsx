@@ -1,11 +1,9 @@
-
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileForm } from "../form/MobileForm";
 import { DesktopForm } from "../form/DesktopForm";
 import { FormEventHandler } from "react";
 import { Button } from "@/components/ui/button";
-
 interface MainContentProps {
   open: boolean;
   setOpen: (value: boolean) => void;
@@ -20,16 +18,13 @@ interface MainContentProps {
     handleFormSubmit: FormEventHandler<HTMLFormElement>;
   };
 }
-
 export const MainContent = ({
   open,
   setOpen,
   formProps
 }: MainContentProps) => {
   const isMobile = useIsMobile();
-  
-  return (
-    <div className="w-full mx-auto px-3 sm:px-4 py-3 sm:py-4 max-w-full sm:max-w-5xl overflow-x-hidden">
+  return <div className="w-full mx-auto px-3 sm:px-4 py-3 sm:py-4 max-w-full sm:max-w-5xl overflow-x-hidden">
       <div className="text-center space-y-1 sm:space-y-1.5 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden p-4 sm:p-6">
         <h2 className="text-base sm:text-lg md:text-xl font-bold text-black py-0 text-center">
           1er service pensé pour booster les performances d'un espace de coworking
@@ -40,18 +35,13 @@ export const MainContent = ({
 
         <div className="flex justify-center mt-2 sm:mt-3">
           <a href="https://calendar.app.google/9xhMZ7tDMArPJzFt5" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-            <Button variant="audit" className="w-full sm:w-auto text-sm sm:text-base rounded-md px-3 sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px]">
+            <Button variant="audit" className="w-full sm:w-auto text-sm sm:text-base rounded-md px-3 sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px] my-[10px]">
               Prendre RDV avec Geoffrey
             </Button>
           </a>
 
-          {open && (
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogContent 
-                className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} 
-                onPointerDownOutside={e => e.preventDefault()} 
-                onFocusOutside={e => e.preventDefault()}
-              >
+          {open && <Dialog open={open} onOpenChange={setOpen}>
+              <DialogContent className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} onPointerDownOutside={e => e.preventDefault()} onFocusOutside={e => e.preventDefault()}>
                 <DialogHeader className="sr-only">
                   <DialogTitle>Formulaire de contact</DialogTitle>
                   <DialogDescription>
@@ -60,10 +50,8 @@ export const MainContent = ({
                 </DialogHeader>
                 {isMobile ? <MobileForm {...formProps} /> : <DesktopForm {...formProps} />}
               </DialogContent>
-            </Dialog>
-          )}
+            </Dialog>}
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
