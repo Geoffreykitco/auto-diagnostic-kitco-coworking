@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { DiagnosticBreadcrumb } from "./DiagnosticBreadcrumb";
 import { motion } from "framer-motion";
@@ -121,6 +122,15 @@ export const ResultsAnalysis = ({
           <GlobalScoreCard score={globalScore} getLevelColor={getLevelColor} getProgressColor={getProgressColor} getGlobalMessage={getGlobalMessage} answers={answers} />
 
           <AdditionalCTASection globalScore={globalScore} sectionScores={sectionScores} answers={answers} />
+
+          {/* Section image sur toute la largeur */}
+          <div className="w-full rounded-lg overflow-hidden bg-gray-100 shadow-md">
+            <img 
+              src="https://images.unsplash.com/photo-1501854140801-50d01698950b" 
+              alt="Analyse des performances" 
+              className="w-full h-48 md:h-64 object-cover"
+            />
+          </div>
 
           <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-2.5 text-left">Analyse granulaire de vos performances actuelles par partie (Graphique Radar)</h2>
 
