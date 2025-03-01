@@ -193,7 +193,7 @@ export const AdditionalCTASection = ({
           <h3 className="text-xl font-bold mb-4 text-black text-left py-0 md:text-lg">Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
           </h3>
           
-          <p className="mb-4 text-left text-black text-sm">L'analyse comparative de vos données avec l'étude 2024 du Synaphe (Syndicat coworking) révèle que les espaces similaires au vôtre obtiennent un taux de remplissage supérieur de 19% en moyenne.</p>
+          <p className="mb-4 text-left text-black text-sm">L'analyse comparative de vos données avec l'étude 2024 du Synaphe (Syndicat coworking) révèle que les espaces similaires au vôtre obtiennent un <span className="font-bold underline">taux de remplissage supérieur de 19% en moyenne</span>.</p>
           
           <p className="mb-4 text-left text-black text-sm">L'étude porte sur des espaces présentant 4 caractéristiques suivantes :</p>
           
