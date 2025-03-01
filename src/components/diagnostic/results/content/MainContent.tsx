@@ -1,3 +1,4 @@
+
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileForm } from "../form/MobileForm";
@@ -25,7 +26,7 @@ export const MainContent = ({
   const isMobile = useIsMobile();
   return <div className={`${isMobile ? 'w-full max-w-full overflow-x-hidden' : 'max-w-5xl'} mx-auto px-4 py-4`}>
       <div className="text-center space-y-1.5">
-        <h2 className="text-gray-900 text-sm md:text-base font-medium">
+        <h2 className="text-xl font-bold text-black text-left py-0 md:text-lg">
           {isMobile ? "Augmentez le taux de remplissage de votre coworking" : "Envie d'augmenter le taux de remplissage de votre coworking ?"}
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-sm">
