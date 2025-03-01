@@ -116,7 +116,7 @@ export const AdditionalCTASection = ({
             <li>Une localisation dans des villes comparables à {ville}</li>
           </ul>
           
-          <p className="text-gray-600 mb-6 text-left text-xs">Les recommandations adaptées à votre contexte permettront d'augmenter significativement votre taux de remplissage.</p>
+          <p className="text-gray-600 mb-6 text-left text-xs">Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.</p>
           
           <div>
             <Button onClick={() => setOpen(true)} className="bg-[#9F5F56] text-white hover:bg-[#9F5F56]/90 transition-colors my-0 py-[25px] px-[25px] text-center rounded-md text-base">Recevoir l'intégralité de mon audit en PDF</Button>
