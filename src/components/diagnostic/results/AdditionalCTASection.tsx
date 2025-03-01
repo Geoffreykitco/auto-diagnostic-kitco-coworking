@@ -1,16 +1,10 @@
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useAuditForm } from "@/hooks/use-audit-form";
-import { MobileForm } from "./form/MobileForm";
-import { DesktopForm } from "./form/DesktopForm";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import { formatAnswersForSubmission } from "@/utils/formatDiagnosticAnswers";
-import { calculateSectionLevel, getGlobalMessage, getSectionMessage } from "@/utils/scoreCalculator";
+import { CoworkingStats } from "./CoworkingStats";
+import { CTAButton } from "./CTAButton";
+import { FormSubmissionHandler } from "./FormSubmissionHandler";
+import { AuditFormDialog } from "./AuditFormDialog";
 
 interface AdditionalCTASectionProps {
   globalScore: number;
@@ -27,163 +21,14 @@ export const AdditionalCTASection = ({
   answers
 }: AdditionalCTASectionProps) => {
   const [open, setOpen] = useState(false);
-  const isMobile = useIsMobile();
-  const { toast } = useToast();
   
+  // Extract values from the answers
   const remplissageValue = answers?.informations?.[9]?.value || 0;
   const remplissagePercent = typeof remplissageValue === 'number' ? remplissageValue : 0;
   const ancienneteOption = answers?.informations?.[0]?.value;
-  let anciennete = "1 à 3 ans";
-  if (typeof ancienneteOption === 'number') {
-    switch (ancienneteOption) {
-      case 0:
-        anciennete = "moins de 6 mois";
-        break;
-      case 1:
-        anciennete = "6 mois à 1 an";
-        break;
-      case 2:
-        anciennete = "1 à 3 ans";
-        break;
-      case 3:
-        anciennete = "plus de 3 ans";
-        break;
-      default:
-        anciennete = "1 à 3 ans";
-    }
-  }
   const superficieOption = answers?.informations?.[4]?.value;
-  let superficie = "300 à 600";
-  if (typeof superficieOption === 'number') {
-    switch (superficieOption) {
-      case 0:
-        superficie = "moins de 100";
-        break;
-      case 1:
-        superficie = "100 à 300";
-        break;
-      case 2:
-        superficie = "300 à 600";
-        break;
-      case 3:
-        superficie = "plus de 600";
-        break;
-      default:
-        superficie = "300 à 600";
-    }
-  }
   const capaciteOption = answers?.informations?.[6]?.value;
-  let capacite = "30 à 50";
-  if (typeof capaciteOption === 'number') {
-    switch (capaciteOption) {
-      case 0:
-        capacite = "moins de 10";
-        break;
-      case 1:
-        capacite = "10 à 30";
-        break;
-      case 2:
-        capacite = "30 à 50";
-        break;
-      case 3:
-        capacite = "50 à 100";
-        break;
-      case 4:
-        capacite = "plus de 100";
-        break;
-      default:
-        capacite = "30 à 50";
-    }
-  }
   const ville = answers?.informations?.[7]?.value || "votre ville";
-
-  const handleSubmit = async (formData: {
-    firstName: string;
-    lastName: string;
-    coworkingName: string;
-    email: string;
-  }) => {
-    try {
-      console.log('=== Début de la soumission du formulaire ===');
-      const globalLevel = calculateSectionLevel(globalScore);
-      const globalRecommendation = getGlobalMessage(globalScore);
-      const formattedAnswers = formatAnswersForSubmission(answers);
-      console.log('Réponses formatées:', formattedAnswers);
-      const diagnosticData = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        coworking_name: formData.coworkingName,
-        email: formData.email,
-        answers: answers,
-        global_score: globalScore,
-        global_level: globalLevel,
-        global_recommendation: globalRecommendation,
-        acquisition_score: sectionScores.acquisition || 0,
-        acquisition_level: calculateSectionLevel(sectionScores.acquisition || 0),
-        acquisition_recommendation: getSectionMessage('acquisition', calculateSectionLevel(sectionScores.acquisition || 0)),
-        activation_score: sectionScores.activation || 0,
-        activation_level: calculateSectionLevel(sectionScores.activation || 0),
-        activation_recommendation: getSectionMessage('activation', calculateSectionLevel(sectionScores.activation || 0)),
-        retention_score: sectionScores.retention || 0,
-        retention_level: calculateSectionLevel(sectionScores.retention || 0),
-        retention_recommendation: getSectionMessage('retention', calculateSectionLevel(sectionScores.retention || 0)),
-        revenus_score: sectionScores.revenus || 0,
-        revenus_level: calculateSectionLevel(sectionScores.revenus || 0),
-        revenus_recommendation: getSectionMessage('revenus', calculateSectionLevel(sectionScores.revenus || 0)),
-        recommandation_score: sectionScores.recommandation || 0,
-        recommandation_level: calculateSectionLevel(sectionScores.recommandation || 0),
-        recommandation_recommendation: getSectionMessage('recommandation', calculateSectionLevel(sectionScores.recommandation || 0)),
-        ...formattedAnswers
-      };
-      console.log('=== Envoi des données à Supabase ===');
-      console.log('Données à insérer:', diagnosticData);
-      const {
-        error
-      } = await supabase.from('leads_auto_diag_coworking').insert(diagnosticData);
-      if (error) {
-        console.error('Erreur Supabase:', error);
-        throw new Error(error.message);
-      }
-      setOpen(false);
-      toast({
-        title: "Envoi réussi !",
-        description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`
-      });
-    } catch (error) {
-      console.error('=== Erreur lors de la soumission ===');
-      console.error('Type:', error instanceof Error ? 'Error' : typeof error);
-      console.error('Details:', error);
-      toast({
-        title: "Erreur",
-        description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du formulaire",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const {
-    fullName,
-    setFullName,
-    coworkingName,
-    setCoworkingName,
-    email,
-    setEmail,
-    isSubmitting,
-    handleFormSubmit
-  } = useAuditForm({
-    onSubmit: handleSubmit
-  });
-
-  const formProps = {
-    fullName,
-    setFullName,
-    coworkingName,
-    setCoworkingName,
-    email,
-    setEmail,
-    isSubmitting,
-    handleFormSubmit
-  };
 
   return (
     <motion.div 
@@ -194,56 +39,36 @@ export const AdditionalCTASection = ({
     >
       <div className="grid md:grid-cols-2 gap-0">
         <div className="p-4 md:p-8 flex flex-col justify-center">
-          <h3 className="mb-4 text-black text-left py-0 md:text-lg text-lg font-bold break-words hyphens-auto">
-            Vous avez indiqué que votre espace de coworking dispose d'un taux de remplissage moyen de {remplissagePercent}%.
-          </h3>
+          <CoworkingStats 
+            remplissagePercent={remplissagePercent}
+            ancienneteOption={ancienneteOption}
+            superficieOption={superficieOption}
+            capaciteOption={capaciteOption}
+            ville={ville}
+          />
           
-          <p className="mb-4 text-left text-black text-sm">
-            L'analyse comparative de vos données avec l'étude 2024 du Synaphe (Syndicat coworking) révèle que les espaces similaires au vôtre obtiennent un <span className="font-bold underline">taux de remplissage supérieur de 19% en moyenne</span>.
-          </p>
-          
-          <p className="mb-4 text-left text-black text-sm">
-            L'étude porte sur des espaces présentant 4 caractéristiques suivantes :
-          </p>
-          
-          <ul className="list-disc pl-5 mb-4 text-left text-black text-sm space-y-1">
-            <li>Une ancienneté de {anciennete}</li>
-            <li>Une superficie de {superficie} m²</li>
-            <li>Une capacité d'accueil de {capacite} coworkers</li>
-            <li className="break-words hyphens-auto">Une localisation dans des villes comparables à {ville}</li>
-          </ul>
-          
-          <div className="text-left my-3 flex justify-center">
-            <Button 
-              onClick={() => setOpen(true)} 
-              variant="audit" 
-              className="w-full text-sm md:text-base rounded-md px-4 py-3 md:px-[20px] md:py-[20px]"
-            >
-              Recevoir l'intégralité de mon audit en PDF
-            </Button>
-          </div>
+          <CTAButton onClick={() => setOpen(true)} />
           
           <p className="text-gray-600 mt-2 text-left text-xs my-[5px]">
             Des recommandations adaptées à votre contexte permettraient d'augmenter significativement votre taux de remplissage.
           </p>
           
-          {open && (
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogContent 
-                className={`${isMobile ? 'w-full h-[100dvh] max-w-full m-0 rounded-none border-0' : 'max-w-4xl rounded-2xl'} p-0 bg-white overflow-hidden`} 
-                onPointerDownOutside={e => e.preventDefault()} 
-                onFocusOutside={e => e.preventDefault()}
-              >
-                <DialogHeader className="sr-only">
-                  <DialogTitle>Formulaire de contact</DialogTitle>
-                  <DialogDescription>
-                    Remplissez ce formulaire pour recevoir votre audit personnalisé
-                  </DialogDescription>
-                </DialogHeader>
-                {isMobile ? <MobileForm {...formProps} /> : <DesktopForm {...formProps} />}
-              </DialogContent>
-            </Dialog>
-          )}
+          <FormSubmissionHandler
+            globalScore={globalScore}
+            sectionScores={sectionScores}
+            answers={answers}
+          >
+            {(formProps) => (
+              <AuditFormDialog
+                open={open}
+                onOpenChange={(newOpen) => {
+                  if (!newOpen && formProps.isSubmitting) return;
+                  setOpen(newOpen);
+                }}
+                formProps={formProps}
+              />
+            )}
+          </FormSubmissionHandler>
         </div>
         
         <div className="bg-[#0B1A17] flex items-center justify-center">
