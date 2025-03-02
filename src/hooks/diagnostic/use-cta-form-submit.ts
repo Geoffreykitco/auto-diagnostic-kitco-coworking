@@ -24,7 +24,7 @@ export const useCtaFormSubmit = ({
     lastName: string;
     coworkingName: string;
     email: string;
-  }) => {
+  }): Promise<void> => {
     try {
       console.log('=== Début de la soumission du formulaire ===');
       
@@ -82,7 +82,7 @@ export const useCtaFormSubmit = ({
         description: `Votre audit personnalisé a été envoyé à l'adresse ${formData.email}`,
       });
 
-      return true;
+      // Remove the return true to match Promise<void> return type
     } catch (error) {
       console.error('=== Erreur lors de la soumission ===');
       console.error('Type:', error instanceof Error ? 'Error' : typeof error);
@@ -94,7 +94,7 @@ export const useCtaFormSubmit = ({
         variant: "destructive",
       });
 
-      return false;
+      // Remove the return false to match Promise<void> return type
     }
   };
 
