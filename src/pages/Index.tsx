@@ -28,7 +28,6 @@ const Index = () => {
     started,
     currentSection,
     answers,
-    sectionScores,
     handleStart,
     handleOptionSelect,
     handlePrevious,
