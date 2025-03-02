@@ -35,7 +35,7 @@ export const MainContent = ({
 
         <div className="flex justify-center mt-2 sm:mt-3">
           <a href="https://calendar.app.google/9xhMZ7tDMArPJzFt5" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-            <Button variant="audit" className="w-full sm:w-auto text-sm sm:text-base rounded-md px-3 sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px] my-[10px]">
+            <Button variant="audit" className="w-full sm:w-auto text-sm sm:text-base rounded-md sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px] my-[10px] px-[12px] mx-0">
               Prendre RDV avec Geoffrey
             </Button>
           </a>
