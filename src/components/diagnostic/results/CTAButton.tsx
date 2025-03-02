@@ -12,7 +12,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({ onClick }) => {
       <Button 
         onClick={onClick} 
         variant="audit" 
-        className="w-full text-sm md:text-base rounded-md px-4 py-3 md:px-[20px] md:py-[20px]"
+        className="max-w-xs md:max-w-md text-sm md:text-base rounded-md px-4 py-3 md:px-[20px] md:py-[20px]"
       >
         Recevoir l'intégralité de mon audit en PDF
       </Button>
