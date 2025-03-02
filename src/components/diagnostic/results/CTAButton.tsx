@@ -8,11 +8,11 @@ interface CTAButtonProps {
 
 export const CTAButton: React.FC<CTAButtonProps> = ({ onClick }) => {
   return (
-    <div className="flex justify-center my-3">
+    <div className="flex justify-center my-3 w-full">
       <Button 
         onClick={onClick} 
         variant="audit" 
-        className="w-full sm:w-auto text-sm sm:text-base rounded-md px-3 sm:px-[15px] md:px-[20px] py-3 sm:py-[15px] md:py-[20px]"
+        className="w-full mx-auto max-w-md text-center text-sm sm:text-base rounded-md py-3 sm:py-[15px] md:py-[20px]"
       >
         Recevoir l'intégralité de mon audit en PDF
       </Button>
